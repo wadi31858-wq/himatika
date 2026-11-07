@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('members', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('nim');
+            $table->string('position');
+            $table->string('division')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('period')->nullable();
+            $table->text('bio')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('members');
+    }
+};

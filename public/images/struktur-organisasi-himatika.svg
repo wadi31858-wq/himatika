@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" width="100%" height="100%">
+  <defs>
+    <style>
+      .title-main { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; font-size: 22px; fill: #114232; text-anchor: middle; letter-spacing: 1.5px; }
+      .title-sub { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 600; font-size: 13px; fill: #d6af3d; text-anchor: middle; letter-spacing: 2px; }
+      .card-bg { rx: 10px; ry: 10px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.06)); }
+      .role-kaprodi { fill: #fefce8; stroke: #d6af3d; stroke-width: 2; }
+      .role-bph { fill: #ffffff; stroke: #155C57; stroke-width: 2; }
+      .role-divisi { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .role-divisi-header { fill: #114232; rx: 8px 8px 0 0; }
+      .text-role { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; font-size: 11px; fill: #155C57; letter-spacing: 1px; text-anchor: middle; }
+      .text-name { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 700; font-size: 14px; fill: #114232; text-anchor: middle; }
+      .text-desc { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 500; font-size: 11px; fill: #64748b; text-anchor: middle; }
+      .line-connector { stroke: #155C57; stroke-width: 2; fill: none; }
+      .line-dashed { stroke: #d6af3d; stroke-width: 2; stroke-dasharray: 5,4; fill: none; }
+      .line-branch { stroke: #94a3b8; stroke-width: 1.8; fill: none; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.06" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="820" fill="#fdfbf7" rx="16" />
+  <rect x="15" y="15" width="1170" height="790" fill="#ffffff" rx="12" stroke="#e2e8f0" stroke-width="1.5" />
+
+  <!-- Header -->
+  <text x="600" y="55" class="title-main">STRUKTUR ORGANISASI HIMATIKA FMIPA UNUJA</text>
+  <text x="600" y="78" class="title-sub">PERIODE 2026 • SYNCHRONIZED GROWTH, REACHING NEW HEIGHTS</text>
+  <line x1="450" y1="92" x2="750" y2="92" stroke="#d6af3d" stroke-width="2" />
+
+  <!-- ==================== CONNECTING LINES ==================== -->
+  <!-- Kaprodi to Ketua Umum (Gold Dashed) -->
+  <path d="M 600 170 L 600 205" class="line-dashed" />
+
+  <!-- Ketua Umum to Wakil Ketua Umum -->
+  <path d="M 600 275 L 600 310" class="line-connector" />
+
+  <!-- Wakil Ketua Umum down to branches -->
+  <path d="M 600 380 L 600 415" class="line-connector" />
+  <path d="M 330 415 L 870 415" class="line-connector" />
+  <path d="M 330 415 L 330 445" class="line-connector" />
+  <path d="M 870 415 L 870 445" class="line-connector" />
+
+  <!-- Main trunk to Divisions -->
+  <path d="M 600 415 L 600 580" class="line-connector" />
+  <path d="M 70 580 L 1130 580" class="line-branch" />
+
+  <!-- Drops to each 9 divisions/biro -->
+  <path d="M 70 580 L 70 615" class="line-branch" />
+  <path d="M 202 580 L 202 615" class="line-branch" />
+  <path d="M 335 580 L 335 615" class="line-branch" />
+  <path d="M 468 580 L 468 615" class="line-branch" />
+  <path d="M 600 580 L 600 615" class="line-branch" />
+  <path d="M 732 580 L 732 615" class="line-branch" />
+  <path d="M 865 580 L 865 615" class="line-branch" />
+  <path d="M 998 580 L 998 615" class="line-branch" />
+  <path d="M 1130 580 L 1130 615" class="line-branch" />
+
+  <!-- ==================== LEVEL 1: KAPRODI ==================== -->
+  <g transform="translate(475, 110)">
+    <rect width="250" height="60" class="card-bg role-kaprodi" filter="url(#shadow)" />
+    <text x="125" y="24" class="text-role" fill="#854d0e">PEMBINA / KAPRODI</text>
+    <text x="125" y="44" class="text-name" fill="#114232">Ketua Program Studi</text>
+  </g>
+
+  <!-- ==================== LEVEL 2: KETUA UMUM ==================== -->
+  <g transform="translate(475, 205)">
+    <rect width="250" height="70" class="card-bg role-bph" filter="url(#shadow)" />
+    <text x="125" y="26" class="text-role">KETUA UMUM</text>
+    <text x="125" y="48" class="text-name">Ahmad Rizki</text>
+    <text x="125" y="62" class="text-desc">Mandataris Musma</text>
+  </g>
+
+  <!-- ==================== LEVEL 3: WAKIL KETUA UMUM ==================== -->
+  <g transform="translate(475, 310)">
+    <rect width="250" height="70" class="card-bg role-bph" filter="url(#shadow)" />
+    <text x="125" y="26" class="text-role">WAKIL KETUA UMUM</text>
+    <text x="125" y="48" class="text-name">Siti Nurhaliza</text>
+    <text x="125" y="62" class="text-desc">Internal &amp; Koordinasi</text>
+  </g>
+
+  <!-- ==================== LEVEL 4: SEKRETARIS & BENDAHARA ==================== -->
+  <!-- Sekretaris Umum -->
+  <g transform="translate(205, 445)">
+    <rect width="250" height="70" class="card-bg role-bph" filter="url(#shadow)" />
+    <text x="125" y="26" class="text-role">SEKRETARIS UMUM</text>
+    <text x="125" y="48" class="text-name">Budi Santoso</text>
+    <text x="125" y="62" class="text-desc">Administrasi &amp; Kesekretariatan</text>
+  </g>
+
+  <!-- Bendahara Umum -->
+  <g transform="translate(745, 445)">
+    <rect width="250" height="70" class="card-bg role-bph" filter="url(#shadow)" />
+    <text x="125" y="26" class="text-role">BENDAHARA UMUM</text>
+    <text x="125" y="48" class="text-name">Dewi Lestari</text>
+    <text x="125" y="62" class="text-desc">Kebendaharaan &amp; Finansial</text>
+  </g>
+
+  <!-- ==================== LEVEL 5: 9 BIRO & DIVISI ==================== -->
+  <!-- 1. Biro Administrasi Kesekretariatan -->
+  <g transform="translate(15, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#155C57" />
+    <rect y="16" width="112" height="8" fill="#155C57" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#ffffff" text-anchor="middle">BIRO ADM</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Kesekretariatan</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Kepala Biro</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">5 Anggota</text>
+  </g>
+
+  <!-- 2. Biro Konsolidasi Lembaga -->
+  <g transform="translate(146, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#155C57" />
+    <rect y="16" width="112" height="8" fill="#155C57" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#ffffff" text-anchor="middle">BIRO KONSOL</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Konsolidasi</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Kepala Biro</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">6 Anggota</text>
+  </g>
+
+  <!-- 3. Biro Keuangan -->
+  <g transform="translate(278, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#155C57" />
+    <rect y="16" width="112" height="8" fill="#155C57" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#ffffff" text-anchor="middle">BIRO KEU</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Administrasi Keu</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Kepala Biro</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">4 Anggota</text>
+  </g>
+
+  <!-- 4. Biro Ekonomi Kreatif -->
+  <g transform="translate(410, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#155C57" />
+    <rect y="16" width="112" height="8" fill="#155C57" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#ffffff" text-anchor="middle">BIRO EKRAF</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Ekonomi Kreatif</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Kepala Biro</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">6 Anggota</text>
+  </g>
+
+  <!-- 5. Divisi Pendidikan -->
+  <g transform="translate(542, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#114232" />
+    <rect y="16" width="112" height="8" fill="#114232" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#d6af3d" text-anchor="middle">DIVISI</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Pendidikan</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Rina Sari</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">Akademik</text>
+  </g>
+
+  <!-- 6. Divisi PSDM -->
+  <g transform="translate(674, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#114232" />
+    <rect y="16" width="112" height="8" fill="#114232" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#d6af3d" text-anchor="middle">DIVISI</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">PSDM</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Fajar Nugroho</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">Kaderisasi</text>
+  </g>
+
+  <!-- 7. Divisi Humas -->
+  <g transform="translate(806, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#114232" />
+    <rect y="16" width="112" height="8" fill="#114232" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#d6af3d" text-anchor="middle">DIVISI</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Humas</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Maya Putri</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">Relasi Publik</text>
+  </g>
+
+  <!-- 8. Divisi Kominfo -->
+  <g transform="translate(938, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#114232" />
+    <rect y="16" width="112" height="8" fill="#114232" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#d6af3d" text-anchor="middle">DIVISI</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Kominfo</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Andi Pratama</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">Media &amp; Publikasi</text>
+  </g>
+
+  <!-- 9. Divisi Minat & Bakat -->
+  <g transform="translate(1070, 615)">
+    <rect width="112" height="95" class="card-bg role-divisi" filter="url(#shadow)" />
+    <rect width="112" height="24" rx="8" ry="8" fill="#114232" />
+    <rect y="16" width="112" height="8" fill="#114232" />
+    <text x="56" y="16" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" fill="#d6af3d" text-anchor="middle">DIVISI</text>
+    <text x="56" y="42" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11" fill="#114232" text-anchor="middle">Minat Bakat</text>
+    <text x="56" y="62" font-family="'Segoe UI', sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Lestari Wulan</text>
+    <text x="56" y="80" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="10" fill="#155C57" text-anchor="middle">Kreativitas</text>
+  </g>
+
+  <!-- Watermark & Footer -->
+  <text x="600" y="755" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="11" fill="#94a3b8" text-anchor="middle">Himpunan Mahasiswa Matematika • Fakultas Matematika dan Ilmu Pengetahuan Alam • Universitas Nurul Jadid</text>
+</svg>
+

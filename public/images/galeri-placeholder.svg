@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect fill="#155C57" width="400" height="300"/>
+  <circle cx="350" cy="50" r="100" fill="#DDAA45" opacity="0.2"/>
+  <rect x="50" y="80" width="120" height="80" rx="8" fill="#FFFFFF" opacity="0.1"/>
+  <rect x="230" y="80" width="120" height="80" rx="8" fill="#FFFFFF" opacity="0.1"/>
+  <rect x="50" y="180" width="120" height="80" rx="8" fill="#FFFFFF" opacity="0.1"/>
+  <rect x="230" y="180" width="120" height="80" rx="8" fill="#FFFFFF" opacity="0.1"/>
+  <text x="200" y="155" font-family="Arial, sans-serif" font-size="20" fill="#FFFFFF" text-anchor="middle" font-weight="bold">GALERI</text>
+</svg>
