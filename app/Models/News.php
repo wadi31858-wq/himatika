@@ -10,17 +10,43 @@ class News extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'category', 'thumbnail', 'content', 'author', 'published_at'];
+    protected $fillable = [
+        'title',
+        'slug',
+        'excerpt',
+        'category',
+        'thumbnail',
+        'image_alt',
+        'content',
+        'author',
+        'status',
+        'views',
+        'published_at'
+    ];
 
     protected $casts = [
         'published_at' => 'datetime',
     ];
 
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'published');
+    }
+
     protected static function booted(): void
     {
         static::creating(function (News $news) {
             if (empty($news->slug)) {
-                $news->slug = Str::slug($news->title);
+                $baseSlug = Str::slug($news->title);
+                $slug = $baseSlug;
+                $count = 1;
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = $baseSlug . '-' . $count++;
+                }
+                $news->slug = $slug;
+            }
+            if (empty($news->status)) {
+                $news->status = 'published';
             }
         });
     }

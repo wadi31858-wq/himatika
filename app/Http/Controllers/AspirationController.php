@@ -16,16 +16,30 @@ class AspirationController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'nim' => 'nullable|string|max:20',
+            'nim' => 'nullable|string|max:30',
             'email' => 'nullable|email|max:255',
-            'category' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:100',
             'title' => 'required|string|max:255',
-            'message' => 'required|string',
+            'message' => 'required|string|max:3000',
         ]);
+
+        $ip = $request->ip();
+
+        // Anti-spam flood protection: limit to 1 per 30 seconds per IP
+        $recentSubmission = Aspiration::where('ip_address', $ip)
+            ->where('created_at', '>=', now()->subSeconds(30))
+            ->exists();
+
+        if ($recentSubmission) {
+            return back()->withInput()->with('error', 'Mohon tunggu sejenak sebelum mengirimkan aspirasi kembali.');
+        }
+
+        $validated['ip_address'] = $ip;
+        $validated['status'] = 'Baru';
 
         Aspiration::create($validated);
 
-        return redirect()->route('aspirasi.index')->with('success', 'Aspirasi berhasil dikirim! Terima kasih atas partisipasi Anda.');
+        return redirect()->route('aspirasi.index')->with('success', 'Aspirasi Anda berhasil dikirim dan akan segera ditinjau oleh pengurus HIMATIKA. Terima kasih!');
     }
 
     public function cek(Request $request)
@@ -33,7 +47,11 @@ class AspirationController extends Controller
         $aspirations = collect();
 
         if ($request->filled('nim')) {
-            $aspirations = Aspiration::where('nim', $request->nim)->latest()->get();
+            // Only select public-safe fields (exclude admin_notes and ip_address)
+            $aspirations = Aspiration::where('nim', $request->nim)
+                ->select(['id', 'name', 'nim', 'category', 'title', 'message', 'status', 'admin_reply', 'created_at'])
+                ->latest()
+                ->get();
         }
 
         return view('aspirasi.cek', compact('aspirations'));

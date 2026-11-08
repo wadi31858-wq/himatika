@@ -9,7 +9,18 @@ class Aspiration extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'nim', 'email', 'category', 'title', 'message', 'status', 'admin_reply'];
+    protected $fillable = [
+        'name',
+        'nim',
+        'email',
+        'category',
+        'title',
+        'message',
+        'status',
+        'admin_reply',
+        'admin_notes',
+        'ip_address'
+    ];
 
     protected $casts = [
         'status' => 'string',

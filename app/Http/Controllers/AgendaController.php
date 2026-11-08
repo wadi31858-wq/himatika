@@ -9,7 +9,7 @@ class AgendaController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Agenda::query();
+        $query = Agenda::published();
 
         if ($request->filled('search')) {
             $search = $request->search;

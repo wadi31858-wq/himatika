@@ -9,7 +9,21 @@ class OrganizationalStructure extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'position', 'division', 'parent_id', 'photo', 'description'];
+    protected $fillable = [
+        'name',
+        'position',
+        'division',
+        'period',
+        'order_num',
+        'is_active',
+        'parent_id',
+        'photo',
+        'description',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     public function parent()
     {
@@ -19,5 +33,13 @@ class OrganizationalStructure extends Model
     public function children()
     {
         return $this->hasMany(OrganizationalStructure::class, 'parent_id');
+    }
+
+    /**
+     * Associated members in this division
+     */
+    public function members()
+    {
+        return $this->hasMany(Member::class, 'division', 'division');
     }
 }

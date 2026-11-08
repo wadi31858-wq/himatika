@@ -9,5 +9,19 @@ class Member extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'nim', 'position', 'division', 'photo', 'period', 'bio'];
+    protected $fillable = [
+        'name',
+        'nim',
+        'position',
+        'division',
+        'photo',
+        'period',
+        'bio',
+        'is_active',
+        'order_num'
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

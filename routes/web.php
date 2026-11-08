@@ -47,8 +47,19 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/beranda', [\App\Http\Controllers\Admin\AdminHomeController::class, 'edit'])->name('beranda.edit');
+    Route::put('/beranda', [\App\Http\Controllers\Admin\AdminHomeController::class, 'update'])->name('beranda.update');
+
+    Route::get('/pengaturan', [\App\Http\Controllers\Admin\AdminSettingController::class, 'edit'])->name('pengaturan.edit');
+    Route::put('/pengaturan', [\App\Http\Controllers\Admin\AdminSettingController::class, 'update'])->name('pengaturan.update');
+
+    Route::patch('/users/{user}/toggle-status', [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
+    Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
+
+    Route::get('/logs', [\App\Http\Controllers\Admin\AdminLogController::class, 'index'])->name('logs.index');
 
     Route::get('/profil', [\App\Http\Controllers\Admin\AdminProfileController::class, 'edit'])->name('profil.edit');
     Route::put('/profil', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profil.update');

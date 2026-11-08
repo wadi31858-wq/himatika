@@ -6,7 +6,11 @@
 <section class="hero-modern-section" id="hero">
     {{-- Background Campus Photo with Elegant Overlay --}}
     <div class="hero-bg-photo-wrapper" aria-hidden="true">
-        <img src="{{ asset('images/hero-bg-unuja.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
+        @if(!empty($profile->hero_image))
+            <img src="{{ asset('storage/' . $profile->hero_image) }}" alt="{{ $profile->hero_image_alt ?? 'Kampus UNUJA' }}" class="hero-bg-photo">
+        @else
+            <img src="{{ asset('images/hero-bg-unuja.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
+        @endif
         <div class="hero-bg-photo-overlay"></div>
     </div>
 
@@ -18,34 +22,32 @@
                 <div class="hero-badge-container mb-3">
                     <div class="hero-navy-capsule">
                         <i class="fas fa-graduation-cap me-1"></i>
-                        <span>HIMATIKA FMIPA UNUJA</span>
+                        <span>{{ $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA' }}</span>
                     </div>
                     <div class="hero-tag-companion">
                         <span class="hero-tag-vbar"></span>
-                        <span>Synchronized Growth, Reaching New Heights</span>
+                        <span>{{ $profile->hero_tagline ?? 'Synchronized Growth, Reaching New Heights' }}</span>
                     </div>
                 </div>
 
                 {{-- Main Title --}}
                 <h1 class="hero-main-title">
-                    Rumah yang<br>
-                    inklusif, inovatif,<br>
-                    dan tumbuh bersama.
+                    {!! nl2br(e($profile->hero_title ?? "Rumah yang\ninklusif, inovatif,\ndan tumbuh bersama.")) !!}
                 </h1>
 
                 <p class="hero-new-desc">
-                    Ruang resmi mahasiswa Matematika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.
+                    {{ $profile->hero_desc ?? 'Ruang resmi mahasiswa Matematika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.' }}
                 </p>
 
                 {{-- Action Buttons --}}
                 <div class="hero-new-btn-group d-flex gap-3 flex-wrap">
-                    <a href="{{ route('kontak') }}" class="btn-hero-primary">
+                    <a href="{{ $profile->hero_btn_primary_url ?? route('kontak') }}" class="btn-hero-primary">
                         <i class="fas fa-home"></i>
-                        <span>Hubungi Kami</span>
+                        <span>{{ $profile->hero_btn_primary_text ?? 'Hubungi Kami' }}</span>
                     </a>
-                    <a href="{{ route('profil') }}" class="btn-hero-outline">
+                    <a href="{{ $profile->hero_btn_secondary_url ?? route('profil') }}" class="btn-hero-outline">
                         <i class="fas fa-user"></i>
-                        <span>Pelajari Profil</span>
+                        <span>{{ $profile->hero_btn_secondary_text ?? 'Pelajari Profil' }}</span>
                     </a>
                 </div>
             </div>
@@ -71,7 +73,7 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="stat-info">
-                    <span class="stat-val">68</span>
+                    <span class="stat-val">{{ $totalMembers ?? 68 }}</span>
                     <span class="stat-text">Pengurus 2026</span>
                 </div>
             </div>
@@ -83,7 +85,7 @@
                     <i class="fas fa-handshake"></i>
                 </div>
                 <div class="stat-info">
-                    <span class="stat-val">6</span>
+                    <span class="stat-val">{{ $totalBidang ?? 6 }}</span>
                     <span class="stat-text">Bidang</span>
                 </div>
             </div>
@@ -95,7 +97,7 @@
                     <i class="fas fa-star"></i>
                 </div>
                 <div class="stat-info">
-                    <span class="stat-val">4</span>
+                    <span class="stat-val">{{ $totalBiro ?? 4 }}</span>
                     <span class="stat-text">Biro</span>
                 </div>
             </div>

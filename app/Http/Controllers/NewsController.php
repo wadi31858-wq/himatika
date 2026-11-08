@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $query = News::query();
+        $query = News::published();
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -25,7 +25,7 @@ class NewsController extends Controller
         }
 
         $news = $query->latest('published_at')->paginate(9)->withQueryString();
-        $categories = News::select('category')->distinct()->pluck('category');
+        $categories = News::published()->whereNotNull('category')->where('category', '!=', '')->select('category')->distinct()->pluck('category');
 
         if ($request->ajax()) {
             return response()->view('berita.index', compact('news', 'categories'));
@@ -36,8 +36,11 @@ class NewsController extends Controller
 
     public function show($slug)
     {
-        $news = News::where('slug', $slug)->firstOrFail();
-        $relatedNews = News::where('id', '!=', $news->id)
+        $news = News::published()->where('slug', $slug)->firstOrFail();
+        $news->increment('views');
+
+        $relatedNews = News::published()
+            ->where('id', '!=', $news->id)
             ->where('category', $news->category)
             ->take(3)->get();
 

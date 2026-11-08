@@ -4,18 +4,47 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Download;
+use App\Models\ActivityLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class AdminDownloadController extends Controller
 {
     public function index(Request $request)
     {
         $query = Download::query();
+
         if ($request->filled('search')) {
-            $query->where('title', 'like', "%{$request->search}%");
+            $s = $request->search;
+            $query->where(function ($q) use ($s) {
+                $q->where('title', 'like', "%{$s}%")
+                  ->orWhere('author_name', 'like', "%{$s}%")
+                  ->orWhere('category', 'like', "%{$s}%")
+                  ->orWhere('description', 'like', "%{$s}%");
+            });
         }
+
+        if ($request->filled('type')) {
+            if ($request->type === 'website') {
+                $query->whereNotNull('website_url');
+            } elseif ($request->type === 'file') {
+                $query->whereNotNull('file');
+            }
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
         $downloads = $query->latest()->paginate(10)->withQueryString();
-        return view('admin.download.index', compact('downloads'));
+
+        $counts = [
+            'total' => Download::count(),
+            'websites' => Download::whereNotNull('website_url')->count(),
+            'files' => Download::whereNotNull('file')->count(),
+        ];
+
+        return view('admin.download.index', compact('downloads', 'counts'));
     }
 
     public function create()
@@ -27,24 +56,46 @@ class AdminDownloadController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'file' => 'required|file|max:10240',
+            'category' => 'nullable|string|max:100',
+            'author_name' => 'nullable|string|max:150',
+            'website_url' => 'nullable|url|max:255',
+            'description' => 'nullable|string|max:1000',
+            'status' => 'required|in:published,draft',
+            'file' => 'nullable|file|max:20480', // 20 MB max
         ]);
 
-        $file = $request->file('file');
-        if (!$file->isValid()) {
-            return redirect()->back()->withErrors(['file' => 'Upload gagal: ' . $file->getErrorMessage()]);
+        if (empty($validated['website_url']) && !$request->hasFile('file')) {
+            return back()->withInput()->withErrors(['file' => 'Wajib mengunggah berkas ATAU memasukkan tautan website.']);
         }
-        $filename = $file->hashName();
-        $destinationPath = storage_path('app/public/downloads');
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0755, true);
-        }
-        $file->move($destinationPath, $filename);
-        $validated['file'] = 'downloads/' . $filename;
 
-        Download::create($validated);
-        return redirect()->route('admin.download.index')->with('success', 'Download berhasil ditambahkan.');
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $sizeInBytes = $file->getSize();
+            $formattedSize = $this->formatFileSize($sizeInBytes);
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            $filename = 'doc_' . time() . '_' . $file->hashName();
+            $destination = storage_path('app/public/downloads');
+            if (!File::isDirectory($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+            $file->move($destination, $filename);
+
+            $validated['file'] = 'downloads/' . $filename;
+            $validated['file_size'] = $formattedSize;
+            $validated['file_type'] = $ext;
+        }
+
+        $download = Download::create($validated);
+
+        $typeLabel = $download->website_url ? 'Website Mahasiswa' : 'Dokumen';
+        ActivityLog::record(
+            'create',
+            "Menambahkan {$typeLabel}: \"{$download->title}\" [{$download->status}]",
+            $download
+        );
+
+        return redirect()->route('admin.download.index')->with('success', "{$typeLabel} berhasil ditambahkan.");
     }
 
     public function edit(Download $download)
@@ -56,31 +107,76 @@ class AdminDownloadController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'file' => 'nullable|file|max:10240',
+            'category' => 'nullable|string|max:100',
+            'author_name' => 'nullable|string|max:150',
+            'website_url' => 'nullable|url|max:255',
+            'description' => 'nullable|string|max:1000',
+            'status' => 'required|in:published,draft',
+            'file' => 'nullable|file|max:20480',
         ]);
+
+        if (empty($validated['website_url']) && empty($download->file) && !$request->hasFile('file')) {
+            return back()->withInput()->withErrors(['file' => 'Wajib mengunggah berkas ATAU memasukkan tautan website.']);
+        }
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            if (!$file->isValid()) {
-                return redirect()->back()->withErrors(['file' => 'Upload gagal: ' . $file->getErrorMessage()]);
+            $sizeInBytes = $file->getSize();
+            $formattedSize = $this->formatFileSize($sizeInBytes);
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            $filename = 'doc_' . time() . '_' . $file->hashName();
+            $destination = storage_path('app/public/downloads');
+            if (!File::isDirectory($destination)) {
+                File::makeDirectory($destination, 0755, true);
             }
-            $filename = $file->hashName();
-            $destinationPath = storage_path('app/public/downloads');
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
+            if ($download->file && file_exists(storage_path('app/public/' . $download->file))) {
+                @unlink(storage_path('app/public/' . $download->file));
             }
-            $file->move($destinationPath, $filename);
+            $file->move($destination, $filename);
+
             $validated['file'] = 'downloads/' . $filename;
+            $validated['file_size'] = $formattedSize;
+            $validated['file_type'] = $ext;
         }
 
         $download->update($validated);
-        return redirect()->route('admin.download.index')->with('success', 'Download berhasil diperbarui.');
+
+        ActivityLog::record(
+            'update',
+            "Memperbarui berkas/website: \"{$download->title}\"",
+            $download
+        );
+
+        return redirect()->route('admin.download.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function destroy(Download $download)
     {
+        $title = $download->title;
+
+        if ($download->file && file_exists(storage_path('app/public/' . $download->file))) {
+            @unlink(storage_path('app/public/' . $download->file));
+        }
+
         $download->delete();
-        return redirect()->route('admin.download.index')->with('success', 'Download berhasil dihapus.');
+
+        ActivityLog::record(
+            'delete',
+            "Menghapus berkas/website: \"{$title}\"",
+            null
+        );
+
+        return redirect()->route('admin.download.index')->with('success', 'Data berhasil dihapus.');
+    }
+
+    private function formatFileSize($bytes)
+    {
+        if ($bytes >= 1048576) {
+            return round($bytes / 1048576, 2) . ' MB';
+        } elseif ($bytes >= 1024) {
+            return round($bytes / 1024, 2) . ' KB';
+        }
+        return $bytes . ' B';
     }
 }
