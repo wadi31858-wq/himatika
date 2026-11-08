@@ -15,7 +15,7 @@
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
         width: 500px; height: 500px;
-        background: radial-gradient(circle, rgba(221,170,69,.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
         border-radius: 50%;
     }
     .reg-hero-label {
@@ -54,8 +54,8 @@
     }
     .reg-hero-step-num {
         min-width: 36px; height: 36px;
-        background: rgba(221,170,69,.15);
-        border: 1px solid rgba(221,170,69,.25);
+        background: rgba(59, 130, 246, 0.15);
+        border: 1px solid rgba(59, 130, 246, 0.25);
         color: var(--gold);
         border-radius: 10px;
         display: flex;
@@ -92,7 +92,7 @@
     .reg-form-card .form-control:focus,
     .reg-form-card .form-select:focus {
         border-color: var(--primary-green);
-        box-shadow: 0 0 0 0.2rem rgba(21,92,87,.15);
+        box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.15);
     }
     .reg-link-card {
         background: var(--off-white);

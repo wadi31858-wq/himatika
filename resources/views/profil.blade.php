@@ -15,13 +15,13 @@
     /* TOP BANNER HORIZONTAL */
     .tentang-banner {
         position: relative;
-        background: linear-gradient(105deg, #0d3832 0%, #114232 45%, #155C57 100%);
+        background: linear-gradient(105deg, #0D47A1 0%, #1565C0 50%, #1976D2 100%);
         min-height: 220px;
         display: flex;
         align-items: center;
         overflow: hidden;
         margin-bottom: 50px;
-        box-shadow: 0 4px 20px rgba(17, 66, 50, 0.12);
+        box-shadow: 0 4px 20px rgba(13, 71, 161, 0.15);
     }
     .tentang-banner-img-wrap {
         position: absolute;
@@ -43,7 +43,7 @@
     .tentang-banner-overlay {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to right, #0d3832 0%, rgba(13,56,50,0.85) 35%, transparent 70%);
+        background: linear-gradient(to right, #0D47A1 0%, rgba(13, 71, 161, 0.88) 35%, transparent 70%);
         pointer-events: none;
     }
     .tentang-banner-content {
@@ -69,7 +69,7 @@
 
     /* HORIZONTAL BAR HEADERS */
     .section-bar-header {
-        background-color: var(--dark-green, #114232);
+        background-color: #0D47A1;
         color: #ffffff;
         font-weight: 700;
         font-size: 1.05rem;
@@ -78,7 +78,7 @@
         border-radius: 6px;
         margin-bottom: 22px;
         letter-spacing: 0.5px;
-        box-shadow: 0 2px 6px rgba(17, 66, 50, 0.15);
+        box-shadow: 0 2px 6px rgba(13, 71, 161, 0.15);
     }
 
     .section-center-bar {
@@ -86,7 +86,7 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        background-color: var(--dark-green, #114232);
+        background-color: #0D47A1;
         color: #ffffff;
         font-weight: 700;
         font-size: 1.05rem;
@@ -94,12 +94,12 @@
         border-radius: 6px;
         margin-bottom: 28px;
         letter-spacing: 0.5px;
-        box-shadow: 0 2px 6px rgba(17, 66, 50, 0.15);
+        box-shadow: 0 2px 6px rgba(13, 71, 161, 0.15);
     }
 
     /* ITEM WITH VERTICAL LINE */
     .item-with-line {
-        border-left: 2.5px solid var(--primary-green, #155C57);
+        border-left: 2.5px solid #1565C0;
         padding-left: 14px;
         margin-bottom: 15px;
         font-size: 0.95rem;
@@ -141,7 +141,7 @@
     }
     .org-image-wrapper:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(17, 66, 50, 0.1);
+        box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
     }
     .org-image-wrapper:hover .org-zoom-hint {
         opacity: 1;
@@ -157,7 +157,7 @@
         position: absolute;
         bottom: 24px;
         right: 24px;
-        background: rgba(17, 66, 50, 0.9);
+        background: rgba(13, 71, 161, 0.9);
         color: #ffffff;
         padding: 8px 16px;
         border-radius: 20px;
@@ -177,7 +177,7 @@
     .structure-modal-overlay {
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(10, 38, 29, 0.88);
+        background: rgba(15, 23, 42, 0.88);
         backdrop-filter: blur(8px);
         z-index: 9999;
         display: none;
@@ -212,7 +212,7 @@
         position: absolute;
         top: 12px;
         right: 12px;
-        background: var(--dark-green, #11423C);
+        background: #0D47A1;
         color: #ffffff;
         border: none;
         width: 36px;
@@ -229,7 +229,7 @@
         z-index: 10;
     }
     .structure-modal-close:hover {
-        background: var(--primary-green, #155C57);
+        background: #1565C0;
         transform: scale(1.1);
     }
 

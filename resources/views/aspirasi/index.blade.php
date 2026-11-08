@@ -74,7 +74,7 @@
     .asp-form-card .form-control:focus,
     .asp-form-card .form-select:focus {
         border-color: var(--primary-green);
-        box-shadow: 0 0 0 0.2rem rgba(21,92,87,.15);
+        box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.15);
     }
     .asp-link-card {
         background: var(--off-white);

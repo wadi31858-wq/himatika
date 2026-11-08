@@ -108,9 +108,9 @@
     {{-- Bottom Right Decorative Wave --}}
     <div class="akses-bottom-wave" aria-hidden="true">
         <svg viewBox="0 0 460 220" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M460 0 C 370 30, 260 100, 290 160 C 315 200, 380 215, 460 220 Z" fill="#00bcd4" opacity="0.4"/>
-            <path d="M460 30 C 380 65, 290 130, 320 180 C 345 210, 395 218, 460 220 Z" fill="#009688"/>
-            <path d="M460 70 C 400 105, 335 160, 355 195 C 375 215, 410 220, 460 220 Z" fill="#0a2240"/>
+            <path d="M460 0 C 370 30, 260 100, 290 160 C 315 200, 380 215, 460 220 Z" fill="#3B82F6" opacity="0.4"/>
+            <path d="M460 30 C 380 65, 290 130, 320 180 C 345 210, 395 218, 460 220 Z" fill="#1565C0"/>
+            <path d="M460 70 C 400 105, 335 160, 355 195 C 375 215, 410 220, 460 220 Z" fill="#0D47A1"/>
         </svg>
     </div>
 

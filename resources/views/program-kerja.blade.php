@@ -14,7 +14,7 @@
         position: absolute;
         top: -80px; left: -80px;
         width: 300px; height: 300px;
-        background: radial-gradient(circle, rgba(21,92,87,.06) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(21, 101, 192, 0.06) 0%, transparent 70%);
         border-radius: 50%;
     }
     .prog-hero::after {
@@ -22,7 +22,7 @@
         position: absolute;
         bottom: -60px; right: -60px;
         width: 250px; height: 250px;
-        background: radial-gradient(circle, rgba(221,170,69,.05) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .prog-hero-label {

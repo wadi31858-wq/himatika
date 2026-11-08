@@ -14,7 +14,7 @@
         position: absolute;
         bottom: -120px; right: -80px;
         width: 400px; height: 400px;
-        background: radial-gradient(circle, rgba(221,170,69,.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
         border-radius: 50%;
     }
     .kontak-hero-label {
@@ -80,7 +80,7 @@
     .kontak-info-item:last-child { border-bottom: none; }
     .kontak-info-icon {
         min-width: 44px; height: 44px;
-        background: rgba(21,92,87,.08);
+        background: rgba(21, 101, 192, 0.08);
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -104,7 +104,7 @@
     }
     .kontak-form-card .form-control:focus {
         border-color: var(--primary-green);
-        box-shadow: 0 0 0 0.2rem rgba(21,92,87,.15);
+        box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.15);
     }
     @media (max-width: 991px) {
         .kontak-hero h1 { font-size: 2rem; }

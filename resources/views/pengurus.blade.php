@@ -15,7 +15,7 @@
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
         width: 600px; height: 600px;
-        background: radial-gradient(circle, rgba(221,170,69,.06) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .pengurus-hero-label {
@@ -78,7 +78,7 @@
     }
     .pengurus-search-card .form-control:focus {
         border-color: var(--primary-green);
-        box-shadow: 0 0 0 0.2rem rgba(21,92,87,.15);
+        box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.15);
     }
     .pengurus-grid {
         display: grid;

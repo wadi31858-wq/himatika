@@ -14,7 +14,7 @@
         position: absolute;
         top: -120px; right: -80px;
         width: 350px; height: 350px;
-        background: radial-gradient(circle, rgba(221,170,69,.12) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
         border-radius: 50%;
     }
     .vm-hero::after {
@@ -27,7 +27,7 @@
     }
     .vm-hero-label {
         display: inline-block;
-        background: rgba(221,170,69,.15);
+        background: rgba(59, 130, 246, 0.15);
         color: var(--gold);
         font-size: 0.7rem;
         font-weight: 700;
@@ -55,8 +55,8 @@
         top: 50%;
         transform: translateY(-50%);
         width: 140px; height: 140px;
-        background: rgba(221,170,69,.1);
-        border: 2px solid rgba(221,170,69,.2);
+        background: rgba(59, 130, 246, 0.1);
+        border: 2px solid rgba(59, 130, 246, 0.2);
         border-radius: 24px;
         display: flex;
         align-items: center;

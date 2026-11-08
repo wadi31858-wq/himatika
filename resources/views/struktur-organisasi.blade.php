@@ -4,7 +4,7 @@
 
 <style>
     .breadcrumb-section {
-        background: #ebf0ea; /* soft green/gray matching screenshot */
+        background: #EFF6FF;
         padding: 96px 0 10px;
     }
     .breadcrumb-section .breadcrumb {
@@ -23,11 +23,11 @@
         color: var(--gold);
     }
     .breadcrumb-section .breadcrumb-item.active {
-        color: rgba(11,81,75,.7);
+        color: rgba(21, 101, 192, 0.7);
         font-size: 0.85rem;
     }
     .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before {
-        color: rgba(11,81,75,.45);
+        color: rgba(21, 101, 192, 0.45);
     }
 
     .back-link {
@@ -53,7 +53,7 @@
     }
 
     .hero-section {
-        background: #ebf0ea;
+        background: #EFF6FF;
         padding: 20px 0 30px;
         position: relative;
         overflow: hidden;
@@ -64,7 +64,7 @@
         position: absolute;
         top: -80px; right: -80px;
         width: 280px; height: 280px;
-        background: radial-gradient(circle, rgba(21,92,87,.07) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(21, 101, 192, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .hero-section::after {
@@ -72,7 +72,7 @@
         position: absolute;
         bottom: -60px; left: -60px;
         width: 220px; height: 220px;
-        background: radial-gradient(circle, rgba(221,170,69,.06) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .hero-label {
@@ -95,14 +95,14 @@
     }
     .hero-desc {
         font-size: 0.95rem;
-        color: rgba(16,63,60,.6);
+        color: rgba(15, 23, 42, 0.6);
         max-width: 560px;
         line-height: 1.5;
         margin-bottom: 0;
     }
 
     .org-section {
-        background: #ebf0ea;
+        background: #EFF6FF;
         padding: 0 0 60px;
         position: relative;
     }
@@ -122,7 +122,7 @@
     }
     .tree-connector.dashed {
         background-color: transparent;
-        border-left: 2px dashed var(--gold);
+        border-left: 2px dashed #3B82F6;
     }
     .tree-connector.h-20 { height: 20px; }
     .tree-connector.h-24 { height: 24px; }
@@ -154,7 +154,7 @@
         font-weight: 700;
         letter-spacing: 2.5px;
         text-transform: uppercase;
-        color: rgba(16,63,60,.45);
+        color: rgba(15, 23, 42, 0.45);
         margin-bottom: 8px;
     }
     .level-label.gold { color: var(--gold); }
@@ -166,7 +166,7 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         color: var(--deep-teal);
-        background: rgba(11,81,75,.07);
+        background: rgba(21, 101, 192, 0.07);
         display: inline-block;
         padding: 5px 16px;
         border-radius: 50px;
@@ -175,7 +175,7 @@
 
     /* Cards */
     .org-card {
-        background: #fdfbf7;
+        background: #FFFFFF;
         border: 1px solid rgba(0,0,0,.04);
         border-radius: 12px;
         padding: 20px 22px;
@@ -189,7 +189,7 @@
         transform: translateY(-2px);
     }
     .org-card.gold-border {
-        border: 1.5px solid rgba(221,170,69,.3);
+        border: 1.5px solid rgba(59, 130, 246, 0.3);
     }
     .org-card.gold-border::before {
         content: '';
@@ -199,14 +199,14 @@
         background: var(--gold);
     }
     .org-card.teal-border {
-        border: 1.5px solid rgba(11,81,75,.2);
+        border: 1.5px solid rgba(21, 101, 192, 0.2);
     }
     .org-card.teal-border::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 3px;
-        background: linear-gradient(90deg, var(--primary-green), var(--deep-teal));
+        background: linear-gradient(90deg, #1565C0, #0D47A1);
     }
 
     .card-body-inner {
@@ -227,10 +227,10 @@
         flex-shrink: 0;
     }
     .photo-placeholder.gold {
-        background: linear-gradient(135deg, var(--gold), #f0c860);
+        background: linear-gradient(135deg, #3B82F6, #60A5FA);
     }
     .photo-placeholder.teal {
-        background: linear-gradient(135deg, var(--primary-green), var(--deep-teal));
+        background: linear-gradient(135deg, #1565C0, #0D47A1);
     }
 
     .card-title-text {
@@ -241,7 +241,7 @@
     }
     .card-desc {
         font-size: 0.82rem;
-        color: rgba(16,63,60,.55);
+        color: rgba(15, 23, 42, 0.55);
         line-height: 1.6;
         margin-bottom: 0;
     }
@@ -256,7 +256,7 @@
     }
     .card-footer-left {
         font-size: 0.8rem;
-        color: rgba(16,63,60,.5);
+        color: rgba(15, 23, 42, 0.5);
         font-weight: 500;
     }
     .card-footer-link {
@@ -276,7 +276,7 @@
         color: var(--gold);
     }
     .card-footer-link.gold-link:hover {
-        color: #c09530;
+        color: #1565C0;
     }
 
     .org-card-center {
@@ -310,7 +310,7 @@
     }
     .biro-card-desc {
         font-size: 0.78rem;
-        color: rgba(16,63,60,.5);
+        color: rgba(15, 23, 42, 0.5);
         line-height: 1.55;
         margin-bottom: 10px;
     }
@@ -354,7 +354,7 @@ function updateModalView() {
     const member = currentModalMembers[currentSlideIndex];
     document.getElementById('modalName').textContent = member.name;
     document.getElementById('modalDivision').textContent = member.position; // Kepala Biro, etc.
-    document.getElementById('modalPhoto').src = member.photo ? "{{ asset('storage') }}/" + member.photo : 'https://ui-avatars.com/api/?name='+encodeURIComponent(member.name)+'&background=155C57&color=fff&size=120';
+    document.getElementById('modalPhoto').src = member.photo ? "{{ asset('storage') }}/" + member.photo : 'https://ui-avatars.com/api/?name='+encodeURIComponent(member.name)+'&background=1565C0&color=fff&size=120';
     
     document.getElementById('slideCounter').textContent = (currentSlideIndex + 1) + ' / ' + currentModalMembers.length;
     
@@ -364,7 +364,7 @@ function updateModalView() {
     for(let i=0; i<currentModalMembers.length; i++) {
         let dot = document.createElement('span');
         if(i === currentSlideIndex) {
-            dot.style.cssText = "width: 24px; height: 4px; background: #d6af3d; border-radius: 2px;";
+            dot.style.cssText = "width: 24px; height: 4px; background: #3B82F6; border-radius: 2px;";
         } else {
             dot.style.cssText = "width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%; align-self: center; cursor: pointer;";
             dot.onclick = () => { currentSlideIndex = i; updateModalView(); };
@@ -595,7 +595,7 @@ function closeDetailModal() {
                             <p class="biro-card-desc">{{ $biroAdm->description ?? 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.' }}</p>
                             <div class="biro-card-footer">
                                 <span class="card-footer-left">5 anggota</span>
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroAdm->division ?? 'Biro Administrasi Kesekretariatan' }}', 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.', '{{ $biroAdm->photo ? asset('storage/'.$biroAdm->photo) : 'https://ui-avatars.com/api/?name=Biro+Administrasi+Kesekretariatan&background=155C57&color=fff&size=200' }}', 5)">Lihat &rarr;</a>
+                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroAdm->division ?? 'Biro Administrasi Kesekretariatan' }}', 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.', '{{ $biroAdm->photo ? asset('storage/'.$biroAdm->photo) : 'https://ui-avatars.com/api/?name=Biro+Administrasi+Kesekretariatan&background=1565C0&color=fff&size=200' }}', 5)">Lihat &rarr;</a>
                             </div>
                         </div>
                         <div class="biro-card">
@@ -604,7 +604,7 @@ function closeDetailModal() {
                             <p class="biro-card-desc">{{ $biroKons->description ?? 'Memantau keaktifan dan konsolidasi kepengurusan.' }}</p>
                             <div class="biro-card-footer">
                                 <span class="card-footer-left">6 anggota</span>
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKons->division ?? 'Biro Konsolidasi Lembaga' }}', 'Memantau keaktifan pengurus, menumbuhkan rasa memiliki, dan menjaga kekompakan internal HIMATIKA.', '{{ $biroKons->photo ? asset('storage/'.$biroKons->photo) : 'https://ui-avatars.com/api/?name=Biro+Konsolidasi+Lembaga&background=155C57&color=fff&size=200' }}', 6)">Lihat &rarr;</a>
+                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKons->division ?? 'Biro Konsolidasi Lembaga' }}', 'Memantau keaktifan pengurus, menumbuhkan rasa memiliki, dan menjaga kekompakan internal HIMATIKA.', '{{ $biroKons->photo ? asset('storage/'.$biroKons->photo) : 'https://ui-avatars.com/api/?name=Biro+Konsolidasi+Lembaga&background=1565C0&color=fff&size=200' }}', 6)">Lihat &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -650,7 +650,7 @@ function closeDetailModal() {
                             <p class="biro-card-desc">{{ $biroKeu->description ?? 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.' }}</p>
                             <div class="biro-card-footer">
                                 <span class="card-footer-left">4 anggota</span>
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKeu->division ?? 'Biro Administrasi Keuangan' }}', 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.', '{{ $biroKeu->photo ? asset('storage/'.$biroKeu->photo) : 'https://ui-avatars.com/api/?name=Biro+Administrasi+Keuangan&background=155C57&color=fff&size=200' }}', 7)">Lihat &rarr;</a>
+                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKeu->division ?? 'Biro Administrasi Keuangan' }}', 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.', '{{ $biroKeu->photo ? asset('storage/'.$biroKeu->photo) : 'https://ui-avatars.com/api/?name=Biro+Administrasi+Keuangan&background=1565C0&color=fff&size=200' }}', 7)">Lihat &rarr;</a>
                             </div>
                         </div>
                         <div class="biro-card">
@@ -660,7 +660,7 @@ function closeDetailModal() {
                             <div class="biro-card-footer">
                                 <span class="card-footer-left">6 anggota</span>
 
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroEko->division ?? 'Biro Ekonomi Kreatif' }}', 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.', '{{ $biroEko->photo ? asset('storage/'.$biroEko->photo) : 'https://ui-avatars.com/api/?name=Biro+Ekonomi+Kreatif&background=155C57&color=fff&size=200' }}', 8)">Lihat &rarr;</a>
+                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroEko->division ?? 'Biro Ekonomi Kreatif' }}', 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.', '{{ $biroEko->photo ? asset('storage/'.$biroEko->photo) : 'https://ui-avatars.com/api/?name=Biro+Ekonomi+Kreatif&background=1565C0&color=fff&size=200' }}', 8)">Lihat &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -688,8 +688,8 @@ function closeDetailModal() {
                 </div>
                 
                 <div style="text-align: center;">
-                    <h3 id="modalName" style="color: #114232; font-size: 20px; font-weight: 600; margin-bottom: 4px;"></h3>
-                    <div id="modalDivision" style="color: #155C57; font-size: 12px; font-weight: 700; text-transform: uppercase;"></div>
+                    <h3 id="modalName" style="color: #0D47A1; font-size: 20px; font-weight: 600; margin-bottom: 4px;"></h3>
+                    <div id="modalDivision" style="color: #1565C0; font-size: 12px; font-weight: 700; text-transform: uppercase;"></div>
                 </div>
 
                                 <!-- Slider Controls (Tampilan Statis) -->
@@ -699,12 +699,12 @@ function closeDetailModal() {
                             <i class="fas fa-arrow-left" style="font-size: 12px;"></i>
                         </button>
                         <span id="slideCounter" style="color: #666; font-size: 13px; font-weight: 600;">1 / 6</span>
-                        <button onclick="slideNext()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #8fa89b; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <button onclick="slideNext()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #64748B; display: flex; align-items: center; justify-content: center; cursor: pointer;">
                             <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
                         </button>
                     </div>
                     <div id="slideDots" style="display: flex; gap: 6px;">
-                        <span style="width: 24px; height: 4px; background: #d6af3d; border-radius: 2px;"></span>
+                        <span style="width: 24px; height: 4px; background: #3B82F6; border-radius: 2px;"></span>
                         <span style="width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%; align-self: center;"></span>
                     </div>
                 </div>
@@ -721,16 +721,16 @@ function closeDetailModal() {
 /* CSS Modal (Disembunyikan agar tidak panjang, asumsikan sudah ada style nya di atas) */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
 .modal-overlay.show { display: flex; opacity: 1; }
-.modal-content { background: #fdfbf7; width: 90%; max-width: 500px; border-radius: 16px; padding: 32px; position: relative; transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+.modal-content { background: #FFFFFF; width: 90%; max-width: 500px; border-radius: 16px; padding: 32px; position: relative; transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
 .modal-overlay.show .modal-content { transform: translateY(0); }
 .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: 1px solid rgba(0,0,0,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #666; transition: all 0.2s; }
 .modal-close:hover { background: rgba(0,0,0,0.05); }
-.modal-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #155C57; margin-bottom: 12px; }
-.modal-title { font-size: 28px; font-weight: 600; color: #114232; margin-bottom: 12px; line-height: 1.2; }
+.modal-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #1565C0; margin-bottom: 12px; }
+.modal-title { font-size: 28px; font-weight: 600; color: #0D47A1; margin-bottom: 12px; line-height: 1.2; }
 .modal-desc { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(0,0,0,0.05); }
 .modal-body-content { margin-bottom: 32px; }
-.btn-primary-custom { background-color: #114232; color: #fff; border: none; font-weight: 600; transition: all 0.3s; border-radius: 8px; text-decoration: none; }
-.btn-primary-custom:hover { background-color: #155C57; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(17,66,50,0.2); }
+.btn-primary-custom { background-color: #0D47A1; color: #fff; border: none; font-weight: 600; transition: all 0.3s; border-radius: 8px; text-decoration: none; }
+.btn-primary-custom:hover { background-color: #1565C0; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2); }
 </style>
 
 

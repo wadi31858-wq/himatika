@@ -80,10 +80,10 @@
 
 @push('styles')
 <style>
-.galeri-back-link{color:rgba(221,170,69,0.8);font-weight:500;font-size:0.9rem;transition:color 0.3s}
+.galeri-back-link{color:rgba(59, 130, 246, 0.8);font-weight:500;font-size:0.9rem;transition:color 0.3s}
 .galeri-back-link:hover{color:var(--gold)}
 .galeri-hero{padding:80px 0 60px}
-.galeri-hero-label{color:var(--primary-green);font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(21,92,87,0.25);border-radius:6px;display:inline-block;padding:0.35rem 1rem;margin-bottom:1rem}
+.galeri-hero-label{color:var(--primary-green);font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(21, 101, 192, 0.25);border-radius:6px;display:inline-block;padding:0.35rem 1rem;margin-bottom:1rem}
 .galeri-hero-heading{font-size:2.6rem;font-weight:700;color:var(--dark-text);margin-bottom:1rem}
 .galeri-hero-desc{color:#666;font-size:1rem;max-width:560px;margin:0 auto;line-height:1.7}
 .galeri-grid-section{padding:60px 0 80px}
@@ -92,19 +92,19 @@
 .galeri-card-img{position:relative;aspect-ratio:16/10;overflow:hidden;cursor:pointer}
 .galeri-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
 .galeri-card:hover .galeri-card-img img{transform:scale(1.05)}
-.galeri-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#155C57 0%,#0B514B 50%,#083F3B 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);gap:0.5rem}
+.galeri-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#1565C0 0%,#0D47A1 50%,#0F172A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);gap:0.5rem}
 .galeri-placeholder i{font-size:2.5rem;opacity:0.5}
 .galeri-placeholder span{font-size:0.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:0.6}
-.galeri-card-overlay{position:absolute;inset:0;background:rgba(8,63,59,0.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease}
+.galeri-card-overlay{position:absolute;inset:0;background:rgba(13, 71, 161, 0.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease}
 .galeri-card-overlay i{color:#fff;font-size:1.5rem;opacity:0.8}
 .galeri-card:hover .galeri-card-overlay{opacity:1}
 .galeri-card-body{padding:1.5rem}
 .galeri-card-title{font-weight:700;font-size:1.15rem;color:var(--dark-text);margin-bottom:0.5rem;line-height:1.3}
-.galeri-card-badge{display:inline-block;font-size:0.72rem;font-weight:600;color:var(--primary-green);background:rgba(21,92,87,0.08);padding:0.25rem 0.7rem;border-radius:6px;margin-bottom:0.75rem}
+.galeri-card-badge{display:inline-block;font-size:0.72rem;font-weight:600;color:var(--primary-green);background:rgba(21, 101, 192, 0.08);padding:0.25rem 0.7rem;border-radius:6px;margin-bottom:0.75rem}
 .galeri-card-desc{font-size:0.85rem;color:#888;line-height:1.6;margin-bottom:1rem}
 .galeri-card-link{font-size:0.88rem;font-weight:600;color:var(--deep-teal);text-decoration:none;transition:all 0.3s ease;display:inline-flex;align-items:center}
 .galeri-card-link:hover{color:var(--gold)}
-.galeri-empty-icon{width:80px;height:80px;border-radius:50%;background:rgba(21,92,87,0.08);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.galeri-empty-icon{width:80px;height:80px;border-radius:50%;background:rgba(21, 101, 192, 0.08);display:inline-flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
 .galeri-empty-icon i{font-size:2rem;color:var(--primary-green);opacity:0.5}
 .galeri-empty-title{font-weight:600;color:var(--dark-text);margin-bottom:0.5rem}
 .galeri-empty-desc{color:#999;font-size:0.9rem}

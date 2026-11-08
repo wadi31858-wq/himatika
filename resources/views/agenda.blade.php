@@ -13,7 +13,7 @@
         font-weight: 600;
         letter-spacing: 2px;
         text-transform: uppercase;
-        border: 1px solid rgba(21, 92, 87, 0.3);
+        border: 1px solid rgba(21, 101, 192, 0.3);
         border-radius: 6px;
         display: inline-block;
         padding: 0.35rem 1rem;
@@ -55,7 +55,7 @@
     }
     .agenda-search-card .form-control:focus {
         border-color: var(--primary-green);
-        box-shadow: 0 0 0 0.2rem rgba(21, 92, 87, 0.15);
+        box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.15);
     }
     .btn-agenda-search {
         background: var(--primary-green);
@@ -72,7 +72,7 @@
         background: var(--deep-teal);
         color: var(--white);
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(21, 92, 87, 0.25);
+        box-shadow: 0 4px 12px rgba(21, 101, 192, 0.25);
     }
     .agenda-card {
         background: var(--white);
@@ -132,7 +132,7 @@
         margin-bottom: 0.75rem;
     }
     .badge-date {
-        background: rgba(221, 170, 69, 0.12);
+        background: rgba(59, 130, 246, 0.12);
         color: var(--dark-green);
         font-size: 0.72rem;
         font-weight: 600;
@@ -145,7 +145,7 @@
     .badge-location {
         background: transparent;
         color: var(--primary-green);
-        border: 1px solid rgba(21, 92, 87, 0.3);
+        border: 1px solid rgba(21, 101, 192, 0.3);
         font-size: 0.72rem;
         font-weight: 600;
         padding: 0.3rem 0.75rem;
@@ -275,7 +275,7 @@
             </a>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0" style="background: none; padding: 0; margin: 0;">
-                    <li class="breadcrumb-item" style="font-size: 0.82rem;"><a href="{{ route('home') }}" style="color: rgba(221,170,69,0.8); text-decoration: none; font-weight: 500;">Beranda</a></li>
+                    <li class="breadcrumb-item" style="font-size: 0.82rem;"><a href="{{ route('home') }}" style="color: rgba(59, 130, 246, 0.8); text-decoration: none; font-weight: 500;">Beranda</a></li>
                     <li class="breadcrumb-item active" style="color: var(--white); font-size: 0.82rem; font-weight: 600;" aria-current="page">Agenda</li>
                 </ol>
             </nav>

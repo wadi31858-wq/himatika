@@ -229,7 +229,7 @@
     .berita-filter-input:focus,
     .berita-filter-select:focus {
         border-color: var(--primary-green);
-        box-shadow: 0 0 0 3px rgba(21,92,87,0.1);
+        box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
         outline: none;
     }
     .berita-filter-btn {
@@ -303,7 +303,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, var(--primary-green) 0%, #1a7a73 50%, var(--gold) 100%);
+        background: linear-gradient(135deg, #0D47A1 0%, #1565C0 50%, #3B82F6 100%);
         color: rgba(255,255,255,0.85);
         font-size: 0.85rem;
         font-weight: 600;

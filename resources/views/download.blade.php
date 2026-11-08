@@ -4,7 +4,7 @@
 @push('styles')
 <style>
     body {
-        background-color: #ebf0ea !important; /* matching structure page */
+        background-color: #EFF6FF !important;
     }
     
     .breadcrumb-section {
@@ -14,13 +14,13 @@
     .breadcrumb-section .breadcrumb { margin-bottom: 0; padding: 0; }
     .breadcrumb-section .breadcrumb-item a { color: var(--dark-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
     .breadcrumb-section .breadcrumb-item a:hover { color: var(--gold); }
-    .breadcrumb-section .breadcrumb-item.active { color: rgba(11,81,75,.7); font-size: 0.85rem; }
-    .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before { color: rgba(11,81,75,.45); }
+    .breadcrumb-section .breadcrumb-item.active { color: rgba(21, 101, 192, 0.7); font-size: 0.85rem; }
+    .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before { color: rgba(21, 101, 192, 0.45); }
     .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--dark-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
     .back-link:hover { color: var(--gold); }
 
     .doc-hero-card {
-        background: linear-gradient(135deg, #f3f6f1, #e9ece4);
+        background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
         border: 1px solid rgba(0,0,0,0.05);
         border-radius: 16px;
         padding: 40px;
@@ -38,7 +38,7 @@
         transform: translateY(-50%);
         font-size: 150px;
         font-weight: 800;
-        color: rgba(15,81,87,0.03);
+        color: rgba(21, 101, 192, 0.03);
         pointer-events: none;
         letter-spacing: -5px;
     }
@@ -51,7 +51,7 @@
         font-size: 140px;
         font-weight: 700;
         font-family: monospace;
-        color: rgba(15,81,87,0.03);
+        color: rgba(21, 101, 192, 0.03);
         pointer-events: none;
     }
 
@@ -64,7 +64,7 @@
         z-index: 2;
     }
     .doc-hero-desc {
-        color: rgba(11,81,75,0.7);
+        color: rgba(21, 101, 192, 0.7);
         font-size: 0.95rem;
         max-width: 520px;
         line-height: 1.6;
@@ -97,7 +97,7 @@
         font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 1px;
-        color: rgba(11,81,75,0.6);
+        color: rgba(21, 101, 192, 0.6);
         text-transform: uppercase;
     }
 
@@ -106,7 +106,7 @@
         font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 1.5px;
-        color: rgba(11,81,75,0.8);
+        color: rgba(21, 101, 192, 0.8);
         text-transform: uppercase;
         margin-bottom: 10px;
     }
@@ -118,7 +118,7 @@
     }
     .doc-pagination-info {
         font-size: 0.8rem;
-        color: rgba(11,81,75,0.6);
+        color: rgba(21, 101, 192, 0.6);
         text-align: right;
     }
 
@@ -258,7 +258,7 @@
     }
     .doc-desc {
         font-size: 0.8rem;
-        color: rgba(11,81,75,0.6);
+        color: rgba(21, 101, 192, 0.6);
         line-height: 1.5;
         margin-bottom: 20px;
         flex: 1;
@@ -384,7 +384,7 @@
                             <span class="browser-url-bar"><i class="fas fa-lock me-1" style="font-size: 7px;"></i> https://...</span>
                         </div>
                         <div class="doc-cover-body">
-                            <div class="text-center" style="color: rgba(17,66,50,0.3);">
+                            <div class="text-center" style="color: rgba(13, 71, 161, 0.3);">
                                 <i class="fas fa-laptop-code" style="font-size: 2.5rem; margin-bottom: 6px;"></i>
                                 <div style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px;">WEBSITE PREVIEW</div>
                             </div>
@@ -418,9 +418,9 @@
             </a>
             @empty
             <div class="col-12 text-center py-5" style="grid-column: 1 / -1;">
-                <i class="fas fa-globe mb-3" style="font-size: 3rem; color: rgba(11,81,75,0.2);"></i>
+                <i class="fas fa-globe mb-3" style="font-size: 3rem; color: rgba(21, 101, 192, 0.2);"></i>
                 <h5 style="color: var(--dark-green); font-weight: 600; margin-bottom: 6px;">Belum Ada Website Tersimpan</h5>
-                <p style="color: rgba(11,81,75,0.5); font-weight: 500;">Belum ada website karya mahasiswa yang tersedia saat ini.</p>
+                <p style="color: rgba(21, 101, 192, 0.5); font-weight: 500;">Belum ada website karya mahasiswa yang tersedia saat ini.</p>
             </div>
             @endforelse
         </div>
