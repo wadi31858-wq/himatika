@@ -65,40 +65,107 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
 
-        {{-- ==================== BAGIAN 2: STATISTIK ==================== --}}
-        <div class="hero-new-stats">
-            <div class="hero-stat-item">
-                <div class="stat-icon-wrap stat-icon-navy">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-val">{{ $totalMembers ?? 68 }}</span>
-                    <span class="stat-text">Pengurus 2026</span>
+{{-- ==================== BAGIAN 2: TENTANG HIMATIKA ==================== --}}
+<section class="section-tentang-himatika" id="tentang">
+    <div class="container">
+        {{-- Section Header --}}
+        <div class="tentang-header-area">
+            <div class="tentang-top-label">
+                <span class="tentang-label-bar"></span>
+                <span>Tentang Organisasi</span>
+            </div>
+            <h2 class="tentang-main-title">
+                Tentang <span style="color: #1565C0;">HIMATIKA</span>
+            </h2>
+            <p class="tentang-main-desc">
+                Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.
+            </p>
+        </div>
+
+        {{-- 2 Balanced Cards (Desktop Side-by-Side, Mobile Stacked) --}}
+        <div class="row g-4 align-items-stretch">
+            {{-- Card Kiri: Sambutan Kaprodi --}}
+            <div class="col-lg-6">
+                <div class="tentang-card">
+                    <div>
+                        <div class="tentang-card-badge">
+                            <i class="fas fa-university me-1"></i> Program Studi Matematika FMIPA
+                        </div>
+                        <h3 class="tentang-card-title">
+                            <i class="fas fa-quote-left"></i> Sambutan Kaprodi
+                        </h3>
+
+                        @if($kaprodi)
+                            <div class="kaprodi-profile-box">
+                                <div class="kaprodi-photo-wrap">
+                                    @if($kaprodi->photo)
+                                        <img src="{{ asset('storage/' . $kaprodi->photo) }}" alt="{{ $kaprodi->name }}">
+                                    @else
+                                        <i class="fas fa-user-tie fs-3 text-primary"></i>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h4 class="kaprodi-name">{{ $kaprodi->name }}</h4>
+                                    <p class="kaprodi-role">{{ $kaprodi->position }}</p>
+                                </div>
+                            </div>
+                            <div class="kaprodi-quote-box">
+                                “{{ Str::limit(strip_tags($kaprodi->bio), 220) }}”
+                            </div>
+                        @else
+                            {{-- Clean, Formal Empty State (No Fabricated Data) --}}
+                            <div class="kaprodi-empty-state">
+                                <div class="kaprodi-empty-avatar">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <h4 class="kaprodi-empty-title">Ketua Program Studi Matematika</h4>
+                                <p class="kaprodi-empty-text">
+                                    Naskah dan dokumentasi sambutan resmi Ketua Program Studi Matematika FMIPA UNUJA sedang dalam proses penyusunan dan kurasi oleh pengurus himpunan.
+                                </p>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div>
+                        <a href="{{ route('profil') }}" class="btn-tentang-outline w-100">
+                            <span>Pelajari Profil Lengkap</span>
+                            <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <div class="stat-sep" aria-hidden="true"></div>
+            {{-- Card Kanan: Struktur Organisasi --}}
+            <div class="col-lg-6">
+                <div class="tentang-card">
+                    <div>
+                        <div class="tentang-card-badge">
+                            <i class="fas fa-sitemap me-1"></i> Kepengurusan Periode 2026
+                        </div>
+                        <h3 class="tentang-card-title">
+                            <i class="fas fa-project-diagram"></i> Struktur Organisasi
+                        </h3>
 
-            <div class="hero-stat-item">
-                <div class="stat-icon-wrap stat-icon-navy">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-val">{{ $totalBidang ?? 6 }}</span>
-                    <span class="stat-text">Bidang</span>
-                </div>
-            </div>
+                        {{-- Diagram Preview Vector / Graphic --}}
+                        <div class="struktur-preview-box">
+                            <img src="{{ asset('images/struktur-organisasi-himatika.svg') }}" alt="Bagan Struktur Organisasi HIMATIKA UNUJA 2026" class="struktur-preview-img">
+                        </div>
 
-            <div class="stat-sep" aria-hidden="true"></div>
+                        <p class="struktur-desc-text">
+                            Bagan kepengurusan HIMATIKA FMIPA UNUJA yang menaungi Badan Pengurus Harian (BPH) serta divisi keilmuan, minat bakat, humas, dan pengembangan mahasiswa.
+                        </p>
+                    </div>
 
-            <div class="hero-stat-item">
-                <div class="stat-icon-wrap stat-icon-navy">
-                    <i class="fas fa-star"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-val">{{ $totalBiro ?? 4 }}</span>
-                    <span class="stat-text">Biro</span>
+                    <div>
+                        <a href="{{ route('struktur-organisasi') }}" class="btn-tentang-primary w-100">
+                            <i class="fas fa-sitemap me-1"></i>
+                            <span>Lihat Struktur</span>
+                            <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -166,7 +233,7 @@
                             <p class="news-featured-excerpt">{{ Str::limit(strip_tags($featuredNews->content), 130) }}</p>
                             <div class="news-featured-meta">
                                 <span class="featured-meta-views">
-                                    <i class="far fa-eye"></i> 58 dilihat
+                                    <i class="far fa-eye"></i> {{ number_format($featuredNews->views ?? 58) }} dilihat
                                 </span>
                                 <span class="featured-readmore">
                                     Baca Selengkapnya <i class="fas fa-arrow-right"></i>
@@ -195,7 +262,7 @@
                                     </span>
                                     <span class="news-meta-views">
                                         <i class="far fa-eye"></i>
-                                        {{ $loop->first ? '9' : '112' }}
+                                        {{ number_format($sNews->views ?? ($loop->first ? 9 : 112)) }}
                                     </span>
                                 </div>
                             </div>
@@ -236,59 +303,85 @@
     </div>
 </section>
 
-{{-- ==================== SECTION 6: MATEMATIKA PEDULI ==================== --}}
-<section class="section-peduli" id="peduli">
+{{-- ==================== BAGIAN 4: HIMATIKA BERDAMPAK ==================== --}}
+<section class="section-peduli" id="berdampak">
     <div class="peduli-bg-glow peduli-glow-1" aria-hidden="true"></div>
     <div class="peduli-bg-glow peduli-glow-2" aria-hidden="true"></div>
 
-    <div class="container position-relative" style="z-index:1;">
+    <div class="container position-relative" style="z-index: 1;">
         {{-- Section Header --}}
         <div class="peduli-section-header">
             <span class="peduli-label">
-                <span class="peduli-label-icon"><i class="fas fa-hand-holding-heart"></i></span>
-                MATEMATIKA PEDULI
+                <span class="peduli-label-icon"><i class="fas fa-award"></i></span>
+                KARYA & KONTRIBUSI
             </span>
         </div>
 
         <div class="peduli-main-grid">
-            {{-- Kolom Kiri: Teks --}}
+            {{-- Kolom Kiri: Teks Pengantar --}}
             <div class="peduli-text-col">
-                <h2 class="peduli-heading">Gerakan gotong royong<br>untuk mahasiswa<br>aktif Matematika yang<br>membutuhkan bantuan.</h2>
-                <p class="peduli-desc">Program solidaritas mahasiswa Matematika FMIPA UNUJA yang hadir untuk mendukung teman-teman yang membutuhkan dukungan finansial maupun moral selama menjalani perkuliahan.</p>
-                <a href="{{ route('profil') }}" class="peduli-cta">
-                    <span>Kenali gerakan kami</span>
+                <h2 class="peduli-heading">HIMATIKA Berdampak</h2>
+                <p class="peduli-desc">
+                    Mengenal karya, kegiatan, dan kontribusi HIMATIKA yang memberikan manfaat bagi mahasiswa dan lingkungan sekitar.
+                </p>
+                <a href="{{ route('prestasi') }}" class="peduli-cta">
+                    <span>Jelajahi karya & prestasi</span>
                     <span class="peduli-cta-arrow"><i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
 
-            {{-- Kolom Tengah: Image Collage --}}
+            {{-- Kolom Tengah: Card Hasil Nyata & Kontribusi --}}
             <div class="peduli-collage-col">
-                <div class="peduli-image-collage">
-                    <div class="peduli-image-placeholder peduli-img-1">
-                        <i class="fas fa-users"></i>
-                        <span>Dokumentasi</span>
-                    </div>
-                    <div class="peduli-image-placeholder peduli-img-2">
-                        <i class="fas fa-hands-helping"></i>
-                        <span>Dokumentasi</span>
-                    </div>
-                    <div class="peduli-image-placeholder peduli-img-3">
-                        <i class="fas fa-heart"></i>
-                        <span>Dokumentasi</span>
-                    </div>
+                <div class="d-flex flex-column h-100 justify-content-center">
+                    @forelse($achievements->take(2) as $ach)
+                        <div class="berdampak-item-card">
+                            <div class="berdampak-item-header">
+                                <span class="berdampak-tag"><i class="fas fa-trophy text-warning me-1"></i> {{ $ach->rank ?? 'Prestasi' }}</span>
+                                <small class="text-white-50">{{ $ach->year }}</small>
+                            </div>
+                            <h4 class="berdampak-item-title">{{ $ach->title }}</h4>
+                            <p class="berdampak-item-desc">Tingkat {{ $ach->level ?? 'Nasional' }} &bull; Kontribusi keilmuan mahasiswa Matematika UNUJA.</p>
+                        </div>
+                    @empty
+                        <div class="berdampak-item-card">
+                            <div class="berdampak-item-header">
+                                <span class="berdampak-tag"><i class="fas fa-laptop-code text-info me-1"></i> Karya Digital</span>
+                            </div>
+                            <h4 class="berdampak-item-title">Galeri Website Mahasiswa</h4>
+                            <p class="berdampak-item-desc">Wadah dokumentasi dan portofolio karya digital mahasiswa Matematika UNUJA.</p>
+                        </div>
+                    @endforelse
+
+                    @if($activities->isNotEmpty())
+                        @php $firstAct = $activities->first(); @endphp
+                        <div class="berdampak-item-card">
+                            <div class="berdampak-item-header">
+                                <span class="berdampak-tag"><i class="fas fa-calendar-check text-success me-1"></i> Program Terlaksana</span>
+                                <small class="text-white-50">{{ $firstAct->date ? \Carbon\Carbon::parse($firstAct->date)->format('Y') : '2026' }}</small>
+                            </div>
+                            <h4 class="berdampak-item-title">{{ $firstAct->title }}</h4>
+                            <p class="berdampak-item-desc">{{ Str::limit(strip_tags($firstAct->description), 90) ?: 'Program pengembangan kompetensi akademik dan soft-skill mahasiswa.' }}</p>
+                        </div>
+                    @endif
                 </div>
             </div>
 
-            {{-- Kolom Kanan: Stat Card --}}
+            {{-- Kolom Kanan: Stat Card (Data Nyata) --}}
             <div class="peduli-stat-col">
                 <div class="peduli-stat-card">
-                    <span class="peduli-stat-label">DAMPAK KOLEKTIF</span>
+                    <span class="peduli-stat-label">DAMPAK & PRESTASI</span>
                     <div class="peduli-stat-number-wrap">
-                        <span class="peduli-stat-number">6</span>
+                        <span class="peduli-stat-number">{{ $totalAchievements ?? 3 }}</span>
                     </div>
-                    <span class="peduli-stat-text">penerima manfaat terdata</span>
-                    <a href="{{ route('profil') }}" class="peduli-stat-btn">
-                        <span>Lihat Program</span>
+                    <span class="peduli-stat-text">prestasi resmi terdata</span>
+
+                    <div class="mt-3 pt-3 border-top border-white border-opacity-10 w-100">
+                        <div class="small text-white-50 mb-1">Kegiatan Terlaksana</div>
+                        <div class="fw-bold fs-5 text-white">{{ $totalActivities ?? 5 }}+</div>
+                    </div>
+
+                    <a href="{{ route('prestasi') }}" class="peduli-stat-btn mt-3">
+                        <span>Lihat Prestasi</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -297,128 +390,74 @@
     </div>
 </section>
 
-
-{{-- ==================== SECTION 8: DOKUMENTASI ==================== --}}
-<section class="dark-green section-dark py-5" id="dokumentasi" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+{{-- ==================== BAGIAN 5: DOKUMENTASI MOMEN ==================== --}}
+<section class="section-dokumentasi-momen" id="dokumentasi">
     <div class="container">
-        <div class="row align-items-center justify-content-between mb-5">
-            <div class="col-lg-6">
-                <span class="section-label">DOKUMENTASI</span>
-                <h2 class="section-title text-white mt-3">Momen yang tumbuh bersama HIMATIKA.</h2>
+        {{-- Section Header --}}
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
+            <div>
+                <div class="tentang-top-label">
+                    <span class="tentang-label-bar"></span>
+                    <span>Dokumentasi Kegiatan</span>
+                </div>
+                <h2 class="tentang-main-title">
+                    Dokumentasi <span style="color: #1565C0;">Momen</span>
+                </h2>
+                <p class="tentang-main-desc">
+                    Jejak kebersamaan dan berbagai kegiatan HIMATIKA dalam setiap momen.
+                </p>
             </div>
-            <div class="col-lg-auto mt-4 mt-lg-0">
-                <a href="{{ route('galeri') }}" class="doc-album-link">Buka Semua Album →</a>
+            <div>
+                <a href="{{ route('galeri') }}" class="btn-semua-artikel">
+                    <span>Lihat Semua Dokumentasi</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
+
+        {{-- 2-Column Photo Grid (Desktop 2 Kolom, Mobile 1 Kolom) --}}
         <div class="row g-4">
-            <div class="col-lg-6">
-                <div class="doc-album-card">
-                    <div class="doc-album-image">
-                        <span class="doc-album-label">ALBUM 01</span>
-                        <div class="doc-album-placeholder"></div>
+            @if($galleries->isNotEmpty())
+                @foreach($galleries->take(4) as $gal)
+                    <div class="col-lg-6 col-12">
+                        <a href="{{ route('galeri') }}" class="doc-momen-card">
+                            <img src="{{ asset('storage/' . $gal->image) }}" alt="{{ $gal->title }}" class="doc-momen-img">
+                            <div class="doc-momen-overlay">
+                                @if($gal->category)
+                                    <span class="doc-momen-badge">{{ $gal->category }}</span>
+                                @endif
+                                <h3 class="doc-momen-title">{{ $gal->title }}</h3>
+                                @if($gal->description)
+                                    <p class="doc-momen-caption">{{ Str::limit($gal->description, 95) }}</p>
+                                @endif
+                            </div>
+                        </a>
                     </div>
-                    <div class="doc-album-overlay">
-                        <span class="doc-album-title">Pelantikan HIMATIKA 2026</span>
-                        <span class="doc-album-desc">Dokumentasi pelantikan HIMATIKA 2026</span>
-                    </div>
+                @endforeach
+            @else
+                {{-- Representative Activities Showcase --}}
+                <div class="col-lg-6 col-12">
+                    <a href="{{ route('galeri') }}" class="doc-momen-card">
+                        <img src="{{ asset('images/news/news-1.jpg') }}" alt="Pelantikan & Rapat Kerja HIMATIKA" class="doc-momen-img">
+                        <div class="doc-momen-overlay">
+                            <span class="doc-momen-badge">Kegiatan Organisasi</span>
+                            <h3 class="doc-momen-title">Pelantikan & Rapat Kerja Kepengurusan 2026</h3>
+                            <p class="doc-momen-caption">Momen pelantikan pengurus HIMATIKA FMIPA UNUJA dan perumusan program kerja tahunan.</p>
+                        </div>
+                    </a>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="doc-album-card">
-                    <div class="doc-album-image">
-                        <span class="doc-album-label">ALBUM 02</span>
-                        <div class="doc-album-placeholder"></div>
-                    </div>
-                    <div class="doc-album-overlay">
-                        <span class="doc-album-title">Arsip Kegiatan HIMATIKA</span>
-                        <span class="doc-album-desc">Dokumentasi kegiatan HIMATIKA yang telah dipublikasikan.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="bg-math-deco math-deco-6" aria-hidden="true">
-            <span>∑ π ∞ f(x) Δ √</span>
-        </div>
-    </div>
-</section>
 
-{{-- ==================== SECTION 9: CERITA & PERJALANAN ==================== --}}
-<section class="section-cream py-5" id="cerita">
-    <div class="container">
-        <span class="section-label">RUANG & CERITA HIMATIKA</span>
-        <h2 class="section-title mt-3 mb-5">Kenali cerita dan<br>perjalanan HIMATIKA.</h2>
-        <div class="row g-4">
-            <div class="col-lg-6">
-                <div class="video-card">
-                    <span class="video-label">VIDEO PROFIL</span>
-                    <h3 class="video-title">HIMATIKA lebih dekat.</h3>
-                    <div class="video-thumbnail">
-                        <div class="video-play-btn">
-                            <i class="fas fa-play"></i>
+                <div class="col-lg-6 col-12">
+                    <a href="{{ route('galeri') }}" class="doc-momen-card">
+                        <img src="{{ asset('images/news/news-2.jpg') }}" alt="Seminar & Workshop Matematika" class="doc-momen-img">
+                        <div class="doc-momen-overlay">
+                            <span class="doc-momen-badge">Akademik & Keilmuan</span>
+                            <h3 class="doc-momen-title">Seminar & Workshop Keilmuan Mahasiswa</h3>
+                            <p class="doc-momen-caption">Penguatan wawasan matematika komputasi dan analisis data terapan bagi seluruh mahasiswa.</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="angka-card">
-                    <span class="angka-label">HIMATIKA DALAM ANGKA</span>
-                    <div class="angka-sejak">
-                        <span class="angka-sejak-text">SEJAK</span>
-                        <span class="angka-date">02.06.1997</span>
-                    </div>
-                    <p class="angka-desc">Lahir sebagai rumah bersama mahasiswa Matematika UNUJA.</p>
-                    <div class="angka-stats">
-                        <div class="angka-stat-item">
-                            <span class="angka-stat-num">68</span>
-                            <span class="angka-stat-label">Pengurus 2026</span>
-                        </div>
-                        <div class="angka-stat-item">
-                            <span class="angka-stat-num">6</span>
-                            <span class="angka-stat-label">Bidang</span>
-                        </div>
-                        <div class="angka-stat-item">
-                            <span class="angka-stat-num">4</span>
-                            <span class="angka-stat-label">Biro</span>
-                        </div>
-                    </div>
-                    <p class="angka-tagline">{{ $profile->motto ?? 'Synchronized Growth, Reaching New Heights' }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="bg-math-deco math-deco-7" aria-hidden="true">
-            <span>∑ π ∞ f(x) Δ √</span>
-        </div>
-    </div>
-</section>
-
-{{-- ==================== BAGIAN 10 & 11: KOLABORASI & ASPIRASI ==================== --}}
-<section class="section-off-white py-5" id="kolaborasi">
-    <div class="container">
-        {{-- KOLABORASI --}}
-        <span class="section-label">KOLABORASI</span>
-        <h2 class="section-title mt-2 mb-3" style="font-size: 1.6rem;">Partner yang mendukung<br>perjalanan kami.</h2>
-        <div class="kolaborasi-container mb-5">
-            <div class="kolaborasi-logo-placeholder" style="border: none; background: transparent;">
-                @if($globalProfile && $globalProfile->logo)
-                    <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo" style="max-height: 80px; object-fit: contain;">
-                @else
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>HIMATIKA</span>
-                @endif
-            </div>
-        </div>
-
-        {{-- ASPIRASI --}}
-        <div class="cta-card d-flex flex-column flex-lg-row align-items-lg-center justify-content-between" id="aspirasi">
-            <div class="cta-text">
-                <span class="section-label text-gold">RUANG UNTUK DIDENGAR</span>
-                <h2 class="cta-heading mt-2">Punya gagasan,<br>kebutuhan, atau aspirasi?</h2>
-                <p class="cta-desc mb-0">Sampaikan melalui kanal resmi agar dapat ditindaklanjuti oleh tim yang tepat.</p>
-            </div>
-            <div class="cta-actions d-flex gap-3 flex-wrap mt-4 mt-lg-0">
-                <a href="{{ route('aspirasi.index') }}" class="cta-btn-gold">Kirim Aspirasi</a>
-                <a href="{{ route('kontak') }}" class="cta-btn-outline">Hubungi Kami</a>
-            </div>
+            @endif
         </div>
     </div>
 </section>

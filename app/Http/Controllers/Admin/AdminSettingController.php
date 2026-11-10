@@ -80,3 +80,4 @@ class AdminSettingController extends Controller
         return redirect()->route('admin.pengaturan.edit')->with('success', 'Pengaturan website berhasil diperbarui.');
     }
 }
+

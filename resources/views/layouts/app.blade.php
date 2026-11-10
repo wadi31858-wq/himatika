@@ -39,22 +39,16 @@
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="fas fa-home me-1"></i> Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}"><i class="fas fa-circle-info me-1"></i> Tentang</a>
+                        <a class="nav-link {{ request()->routeIs('profil*') ? 'active' : '' }}" href="{{ route('profil') }}"><i class="fas fa-circle-info me-1"></i> Tentang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('struktur-organisasi') ? 'active' : '' }}" href="{{ route('struktur-organisasi') }}"><i class="fas fa-sitemap me-1"></i> Struktur</a>
+                        <a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita') }}"><i class="fas fa-newspaper me-1"></i> Informasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('agenda') ? 'active' : '' }}" href="{{ route('agenda') }}"><i class="fas fa-calendar-alt me-1"></i> Agenda</a>
+                        <a class="nav-link {{ request()->routeIs('galeri*') ? 'active' : '' }}" href="{{ route('galeri') }}"><i class="fas fa-images me-1"></i> Galeri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita') }}"><i class="fas fa-newspaper me-1"></i> Berita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}" href="{{ route('galeri') }}"><i class="fas fa-images me-1"></i> Galeri</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('download') ? 'active' : '' }}" href="{{ route('download') }}"><i class="fas fa-file-alt me-1"></i> Dokumen</a>
+                        <a class="nav-link {{ request()->routeIs('download*') ? 'active' : '' }}" href="{{ route('download') }}"><i class="fas fa-file-alt me-1"></i> Dokumen</a>
                     </li>
                     <li class="nav-item ms-lg-3">
                         <a class="nav-link btn-nav-aspirasi {{ request()->routeIs('aspirasi*') ? 'active' : '' }}" href="{{ route('aspirasi.index') }}">
@@ -104,7 +98,7 @@
                         <li><a href="{{ route('profil') }}#sejarah">Sejarah</a></li>
                         <li><a href="{{ route('struktur-organisasi') }}">Struktur</a></li>
                         <li><a href="{{ route('agenda') }}">Agenda</a></li>
-                        <li><a href="{{ route('berita') }}">Berita</a></li>
+                        <li><a href="{{ route('berita') }}">Informasi</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">

@@ -30,7 +30,16 @@ class HomeController extends Controller
 
         $profile = Profile::first();
 
-        // Calculate dynamic stats
+        // Check if Kaprodi data exists in members
+        $kaprodi = Member::where('position', 'like', '%kaprodi%')
+            ->orWhere('position', 'like', '%ketua prodi%')
+            ->orWhere('position', 'like', '%ketua program studi%')
+            ->first();
+
+        // Organizational structures for preview
+        $structures = OrganizationalStructure::where('is_active', true)->orderBy('order_num')->get();
+
+        // Dynamic stats
         $statsPengurus = ($profile && $profile->stats_mode === 'manual' && $profile->hero_stats_pengurus)
             ? $profile->hero_stats_pengurus
             : (Member::where('is_active', true)->count() ?: 68);
@@ -44,7 +53,10 @@ class HomeController extends Controller
             : (OrganizationalStructure::whereNull('parent_id')->count() ?: 4);
 
         $data = [
-            'activities'       => Activity::latest('date')->take(3)->get(),
+            'kaprodi'          => $kaprodi,
+            'structures'       => $structures,
+            'activities'       => Activity::latest('date')->take(4)->get(),
+            'programs'         => Program::latest()->take(3)->get(),
             'news'             => News::published()->latest('published_at')->take(6)->get(),
             'agendas'          => $agendas,
             'achievements'     => Achievement::latest('year')->take(4)->get(),

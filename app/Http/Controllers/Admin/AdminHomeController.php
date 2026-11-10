@@ -102,3 +102,4 @@ class AdminHomeController extends Controller
         return redirect()->route('admin.beranda.edit')->with('success', 'Pengaturan Beranda berhasil disimpan.');
     }
 }
+

@@ -155,3 +155,4 @@ class AdminUserController extends Controller
         return redirect()->route('admin.users.index')->with('success', "Akun admin {$name} berhasil dihapus.");
     }
 }
+
