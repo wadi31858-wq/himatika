@@ -3,23 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\Member;
+use App\Models\VisionMission;
 
 class ProfileController extends Controller
 {
     public function index()
     {
         $profile = Profile::firstOrCreate([], [
-            'title' => 'Rumah bersama<br>mahasiswa Matematika<br>UNUJA sejak 1997.',
+            'title' => 'Profil HIMATIKA UNUJA',
             'content' => 'HIMATIKA FMIPA UNUJA adalah rumah bersama mahasiswa Matematika untuk belajar, berorganisasi, berkarya, dan bertumbuh melalui semangat kekeluargaan.',
             'motto' => 'Synchronized Growth, Reaching New Heights',
         ]);
 
-        $vm = \App\Models\VisionMission::firstOrCreate([], [
+        $vm = VisionMission::firstOrCreate([], [
             'vision' => '"Mewujudkan HIMATIKA 2026 sebagai rumah inklusif dan inovatif..."',
             'mission' => json_encode(['Membangun iklim internal yang suportif...'])
         ]);
         $mission = is_string($vm->mission) ? json_decode($vm->mission, true) : [];
 
-        return view('profil', compact('profile', 'vm', 'mission'));
+        $kaprodi = Member::where('position', 'like', '%kaprodi%')
+            ->orWhere('position', 'like', '%ketua program studi%')
+            ->orWhere('position', 'like', '%pembina%')
+            ->first();
+
+        return view('profil', compact('profile', 'vm', 'mission', 'kaprodi'));
     }
 }

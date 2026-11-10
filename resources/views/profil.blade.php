@@ -67,7 +67,177 @@
         margin-bottom: 0;
     }
 
-    /* HORIZONTAL BAR HEADERS */
+    /* SECTION SPACING & CONTAINER */
+    .content-container {
+        max-width: 1040px;
+        margin: 0 auto;
+    }
+    .section-gap {
+        margin-bottom: 45px;
+    }
+
+    /* TENTANG CONTENT CARDS (SEJARAH & SAMBUTAN) */
+    .tentang-card {
+        background: #ffffff;
+        border: 1px solid #BFDBFE;
+        border-radius: 16px;
+        padding: 28px 32px;
+        box-shadow: 0 4px 18px rgba(13, 71, 161, 0.05);
+        height: 100%;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tentang-card:hover {
+        box-shadow: 0 8px 26px rgba(13, 71, 161, 0.08);
+    }
+
+    .tentang-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #EFF6FF;
+    }
+
+    .card-header-icon-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #EFF6FF;
+        border: 1px solid #BFDBFE;
+        color: #1565C0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        flex-shrink: 0;
+    }
+
+    .card-header-divider {
+        color: #94A3B8;
+        font-size: 1.35rem;
+        font-weight: 300;
+        line-height: 1;
+    }
+
+    .card-header-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #0F172A;
+        margin: 0;
+        letter-spacing: -0.2px;
+    }
+
+    /* SEJARAH CONTENT */
+    .sejarah-text {
+        font-size: 0.98rem;
+        line-height: 1.75;
+        color: #334155;
+    }
+    .sejarah-text p {
+        margin-bottom: 12px;
+    }
+    .sejarah-text p:last-child {
+        margin-bottom: 0;
+    }
+    .sejarah-timeline {
+        font-size: 0.94rem;
+        line-height: 1.7;
+        color: #475569;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px dashed #BFDBFE;
+    }
+
+    /* SAMBUTAN KAPRODI - PHOTO CARD */
+    .kaprodi-photo-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+    }
+    .kaprodi-photo-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 220px;
+        aspect-ratio: 4/5;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #EFF6FF;
+        border: 1px solid #BFDBFE;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 14px rgba(13, 71, 161, 0.08);
+        margin-bottom: 16px;
+    }
+    .kaprodi-photo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+    }
+    .kaprodi-photo-placeholder {
+        background: linear-gradient(145deg, #EFF6FF 0%, #DBEAFE 100%);
+        border: 2px dashed #93C5FD;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .kaprodi-avatar-icon {
+        font-size: 3.5rem;
+        color: #1565C0;
+        opacity: 0.85;
+    }
+    .kaprodi-photo-badge {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0D47A1;
+        color: #ffffff;
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 4px 18px;
+        border-radius: 20px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(13, 71, 161, 0.35);
+        white-space: nowrap;
+    }
+
+    /* SAMBUTAN SPEECH BODY */
+    .speech-salutation {
+        font-weight: 600;
+        color: #0F172A;
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    .speech-text {
+        font-size: 0.96rem;
+        line-height: 1.75;
+        color: #334155;
+    }
+    .speech-placeholder-box {
+        padding: 4px 0;
+    }
+    .speech-status-pill {
+        display: inline-flex;
+        align-items: center;
+        background: #EFF6FF;
+        border: 1px dashed #93C5FD;
+        color: #1565C0;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-top: 14px;
+    }
+
+    /* HORIZONTAL BAR HEADERS (VISI & MISI) */
     .section-bar-header {
         background-color: #0D47A1;
         color: #ffffff;
@@ -118,22 +288,13 @@
         margin-bottom: 0;
     }
 
-    /* SECTION SPACING */
-    .content-container {
-        max-width: 1040px;
-        margin: 0 auto;
-    }
-    .section-gap {
-        margin-bottom: 50px;
-    }
-
     /* STRUKTUR ORGANISASI IMAGE & ZOOM */
     .org-image-wrapper {
         background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
+        border: 1px solid #BFDBFE;
+        border-radius: 14px;
         padding: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        box-shadow: 0 4px 20px rgba(13, 71, 161, 0.05);
         cursor: pointer;
         position: relative;
         overflow: hidden;
@@ -141,7 +302,7 @@
     }
     .org-image-wrapper:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+        box-shadow: 0 10px 30px rgba(13, 71, 161, 0.12);
     }
     .org-image-wrapper:hover .org-zoom-hint {
         opacity: 1;
@@ -157,7 +318,7 @@
         position: absolute;
         bottom: 24px;
         right: 24px;
-        background: rgba(13, 71, 161, 0.9);
+        background: rgba(13, 71, 161, 0.92);
         color: #ffffff;
         padding: 8px 16px;
         border-radius: 20px;
@@ -253,7 +414,22 @@
             opacity: 0.45;
         }
         .section-gap {
-            margin-bottom: 35px;
+            margin-bottom: 32px;
+        }
+        .tentang-card {
+            padding: 20px 18px;
+            border-radius: 14px;
+        }
+        .card-header-title {
+            font-size: 1.1rem;
+        }
+        .card-header-icon-box {
+            width: 34px;
+            height: 34px;
+            font-size: 1rem;
+        }
+        .kaprodi-photo-wrap {
+            max-width: 180px;
         }
         .section-bar-header, .section-center-bar {
             font-size: 0.95rem;
@@ -294,7 +470,98 @@
     <div class="container">
         <div class="content-container">
 
-            {{-- 2. VISI DAN MISI (DUA KOLOM BERDAMPINGAN) --}}
+            {{-- 2. CARD BESAR SEJARAH SINGKAT HIMATIKA --}}
+            <div class="section-gap">
+                <div class="tentang-card">
+                    <div class="tentang-card-header">
+                        <div class="card-header-icon-box">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <span class="card-header-divider">|</span>
+                        <h2 class="card-header-title">Sejarah Singkat HIMATIKA</h2>
+                    </div>
+
+                    <div class="sejarah-content">
+                        @if(!empty($profile->content) && trim(strip_tags($profile->content)) !== '')
+                            <div class="sejarah-text mb-2">
+                                {!! $profile->content !!}
+                            </div>
+                        @endif
+
+                        @if(!empty($profile->history) && trim(strip_tags($profile->history)) !== '')
+                            <div class="sejarah-timeline">
+                                {!! $profile->history !!}
+                            </div>
+                        @elseif(empty($profile->content) || trim(strip_tags($profile->content)) === '')
+                            <p class="text-muted fst-italic mb-0">Konten sejarah singkat akan dilengkapi.</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            {{-- 3. SAMBUTAN KAPRODI (CARD FOTO DI KIRI & CARD SAMBUTAN DI KANAN) --}}
+            <div class="row g-4 section-gap">
+                {{-- Card Kiri: Foto Kaprodi --}}
+                <div class="col-lg-4 col-md-5 col-12">
+                    <div class="tentang-card kaprodi-photo-card">
+                        @if($kaprodi && $kaprodi->photo)
+                            <div class="kaprodi-photo-wrap">
+                                <img src="{{ asset('storage/' . $kaprodi->photo) }}" alt="{{ $kaprodi->name }}" class="kaprodi-photo-img">
+                                <span class="kaprodi-photo-badge">Kaprodi</span>
+                            </div>
+                            <h5 class="fw-bold mb-1" style="color: #0D47A1; font-size: 1.05rem;">{{ $kaprodi->name }}</h5>
+                            <p class="text-muted small mb-0">{{ $kaprodi->position ?? 'Ketua Program Studi Matematika' }}</p>
+                        @else
+                            <div class="kaprodi-photo-wrap kaprodi-photo-placeholder">
+                                <div class="kaprodi-avatar-icon">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <span class="kaprodi-photo-badge">Kaprodi</span>
+                            </div>
+                            <h5 class="fw-bold mb-1" style="color: #0D47A1; font-size: 1.05rem;">Ketua Program Studi</h5>
+                            <p class="text-muted small mb-1">Matematika FMIPA UNUJA</p>
+                            <span class="badge bg-light text-secondary border px-2 py-1 mt-1" style="font-size: 0.75rem;">
+                                Foto resmi akan dilengkapi
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Card Kanan: Judul Sambutan Kaprodi & Isi Sambutan --}}
+                <div class="col-lg-8 col-md-7 col-12">
+                    <div class="tentang-card">
+                        <div class="tentang-card-header">
+                            <div class="card-header-icon-box">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="card-header-divider">|</span>
+                            <h2 class="card-header-title">Sambutan Kaprodi</h2>
+                        </div>
+
+                        <div class="speech-placeholder-box">
+                            @if($kaprodi && !empty($kaprodi->bio))
+                                <div class="speech-text">
+                                    {!! nl2br(e($kaprodi->bio)) !!}
+                                </div>
+                            @else
+                                <p class="speech-salutation">Assalamu’alaikum Warahmatullahi Wabarakatuh,</p>
+                                <p class="speech-text mb-2">
+                                    Selamat datang di laman resmi <strong>HIMATIKA FMIPA Universitas Nurul Jadid (UNUJA)</strong>.
+                                </p>
+                                <p class="speech-text text-secondary mb-0">
+                                    Teks sambutan resmi dari Ketua Program Studi Matematika Fakultas Matematika dan Ilmu Pengetahuan Alam UNUJA belum tersedia atau sedang dalam proses penyusunan. Konten sambutan akan segera diperbarui melalui sistem administrasi.
+                                </p>
+                                <div class="speech-status-pill">
+                                    <i class="fas fa-clock text-primary me-2"></i>
+                                    <span>Teks sambutan resmi akan dilengkapi</span>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- 4. VISI DAN MISI (DUA KOLOM BERDAMPINGAN) --}}
             <div class="row g-4 section-gap">
                 {{-- Kolom Visi --}}
                 <div class="col-md-6 col-12">
@@ -326,26 +593,7 @@
                 </div>
             </div>
 
-            {{-- 3. TUJUAN (LEBAR PENUH DI BAWAH VISI DAN MISI) --}}
-            <div class="section-gap">
-                <div class="section-bar-header">Tujuan</div>
-                <div class="px-2">
-                    <div class="item-with-line">
-                        Membentuk insan akademis yang bertakwa kepada Tuhan Yang Maha Esa, berintegritas, mandiri, kritis, dan berwawasan kebangsaan.
-                    </div>
-                    <div class="item-with-line">
-                        Mewadahi komunikasi, aspirasi, serta mempererat rasa kekeluargaan dan solidaritas antar mahasiswa Program Studi Matematika UNUJA.
-                    </div>
-                    <div class="item-with-line">
-                        Mengembangkan potensi, kreativitas, kepemimpinan, dan keilmuan mahasiswa di bidang matematika murni, terapan, maupun teknologi.
-                    </div>
-                    <div class="item-with-line">
-                        Mendorong terwujudnya kegiatan akademis, riset keilmuan, dan pengabdian kepada masyarakat yang memberi manfaat nyata bagi lingkungan kampus dan masyarakat luas.
-                    </div>
-                </div>
-            </div>
-
-            {{-- 4. STRUKTUR ORGANISASI --}}
+            {{-- 5. STRUKTUR ORGANISASI (SECTION KONTEN TERAKHIR SEBELUM FOOTER) --}}
             <div>
                 <div class="text-center">
                     <div class="section-center-bar">
@@ -366,7 +614,7 @@
     </div>
 </div>
 
-{{-- 5. MODAL ZOOM LIGHTBOX --}}
+{{-- MODAL ZOOM LIGHTBOX --}}
 <div id="structureModal" class="structure-modal-overlay" onclick="closeStructureModal(event)">
     <div class="structure-modal-container">
         <button type="button" class="structure-modal-close" onclick="closeStructureModal()" aria-label="Tutup">&times;</button>
