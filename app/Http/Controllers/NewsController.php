@@ -58,11 +58,31 @@ class NewsController extends Controller
         $news = News::published()->where('slug', $slug)->firstOrFail();
         $news->increment('views');
 
+        // Berita Terbaru: maksimal 3 berita terbaru yang dipublikasikan (kecuali artikel aktif)
+        $recentNews = News::published()
+            ->where('id', '!=', $news->id)
+            ->latest('published_at')
+            ->take(3)
+            ->get();
+
+        // Berita Terkait: artikel terkait berdasarkan kategori
         $relatedNews = News::published()
             ->where('id', '!=', $news->id)
             ->where('category', $news->category)
-            ->take(3)->get();
+            ->latest('published_at')
+            ->take(3)
+            ->get();
 
-        return view('berita.show', compact('news', 'relatedNews'));
+        if ($relatedNews->count() < 3) {
+            $excludeIds = $relatedNews->pluck('id')->push($news->id)->toArray();
+            $moreRelated = News::published()
+                ->whereNotIn('id', $excludeIds)
+                ->latest('published_at')
+                ->take(3 - $relatedNews->count())
+                ->get();
+            $relatedNews = $relatedNews->concat($moreRelated);
+        }
+
+        return view('berita.show', compact('news', 'relatedNews', 'recentNews'));
     }
 }
