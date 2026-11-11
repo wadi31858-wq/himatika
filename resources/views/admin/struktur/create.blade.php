@@ -27,16 +27,24 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Nama Jabatan <span class="text-danger">*</span></label>
-                        <input type="text" name="position" class="form-control" value="{{ old('position') }}" required placeholder="Contoh: Ketua Umum, Kepala Divisi Kominfo">
+                        <input type="text" name="position" class="form-control" value="{{ old('position') }}" required placeholder="Contoh: Ketua Umum Putra, Sekretaris Putri, Kepala Divisi Kominfo">
                     </div>
                 </div>
 
                 <div class="row g-3 mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold text-dark">Kelompok Kepengurusan <span class="text-danger">*</span></label>
+                        <select name="kelompok" class="form-select" required>
+                            <option value="putra" {{ old('kelompok') === 'putra' ? 'selected' : '' }}>Putra</option>
+                            <option value="putri" {{ old('kelompok') === 'putri' ? 'selected' : '' }}>Putri</option>
+                            <option value="semua" {{ old('kelompok', 'semua') === 'semua' ? 'selected' : '' }}>Semua / Umum (Pembina/Biro Bersama)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Bidang / Divisi</label>
                         <input type="text" name="division" class="form-control" value="{{ old('division') }}" placeholder="Contoh: BPH, Kominfo, Keilmuan, PSDM">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Atasan Langsung (Induk Hirarki)</label>
                         <select name="parent_id" class="form-select">
                             <option value="">-- Pimpinan Puncak / Tanpa Atasan --</option>

@@ -14,6 +14,7 @@ class Member extends Model
         'nim',
         'position',
         'division',
+        'kelompok',
         'photo',
         'period',
         'bio',

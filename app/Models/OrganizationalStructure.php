@@ -13,6 +13,7 @@ class OrganizationalStructure extends Model
         'name',
         'position',
         'division',
+        'kelompok',
         'period',
         'order_num',
         'is_active',

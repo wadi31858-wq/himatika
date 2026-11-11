@@ -21,13 +21,20 @@
                 @csrf
 
                 <div class="row g-3 mb-3">
-                    <div class="col-md-7">
+                    <div class="col-md-5">
                         <label class="form-label fw-semibold text-dark">Nama Lengkap <span class="text-danger">*</span></label>
                         <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Contoh: Muhammad Ilham">
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <label class="form-label fw-semibold text-dark">NIM <span class="text-danger">*</span></label>
                         <input type="text" name="nim" class="form-control font-monospace" value="{{ old('nim') }}" required placeholder="230101001">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold text-dark">Kelompok <span class="text-danger">*</span></label>
+                        <select name="kelompok" class="form-select" required>
+                            <option value="putra" {{ old('kelompok') === 'putra' ? 'selected' : '' }}>Putra</option>
+                            <option value="putri" {{ old('kelompok') === 'putri' ? 'selected' : '' }}>Putri</option>
+                        </select>
                     </div>
                 </div>
 

@@ -12,117 +12,197 @@ class OrganizationController extends Controller
         $structures = OrganizationalStructure::with('children')->whereNull('parent_id')->get();
         $members = OrganizationalStructure::all();
 
-        // 6 Jabatan Inti Putra & Putri + Kaprodi
-        $kaprodi = OrganizationalStructure::find(12) ?? OrganizationalStructure::where('position', 'like', '%Kaprodi%')->first();
-        $ketuaPutra = OrganizationalStructure::find(1) ?? OrganizationalStructure::where('position', 'like', '%Ketua Umum Putra%')->first();
-        $ketuaPutri = OrganizationalStructure::find(2) ?? OrganizationalStructure::where('position', 'like', '%Ketua Umum Putri%')->first();
-        $sekretarisPutra = OrganizationalStructure::find(3) ?? OrganizationalStructure::where('position', 'like', '%Sekretaris Putra%')->first();
-        $sekretarisPutri = OrganizationalStructure::find(10) ?? OrganizationalStructure::where('position', 'like', '%Sekretaris Putri%')->first();
-        $bendaharaPutra = OrganizationalStructure::find(11) ?? OrganizationalStructure::where('position', 'like', '%Bendahara Putra%')->first();
-        $bendaharaPutri = OrganizationalStructure::find(4) ?? OrganizationalStructure::where('position', 'like', '%Bendahara Putri%')->first();
+        // Kaprodi / Pembina (Umum untuk Putra & Putri)
+        $kaprodi = OrganizationalStructure::where('position', 'like', '%Kaprodi%')
+            ->orWhere('position', 'like', '%Program Studi%')
+            ->first() ?? OrganizationalStructure::find(12);
 
-        // 5 Divisi HIMATIKA dalam urutan resmi yang ditentukan:
-        // 1. Divisi Keilmuan
-        // 2. Divisi Kaderisasi
-        // 3. Divisi Publik Relasi
-        // 4. Divisi Litbang
-        // 5. Divisi Kominfo
-        $divisiIds = [5, 6, 7, 9, 8];
-        $divisiList = collect($divisiIds)->map(function ($id) {
-            return OrganizationalStructure::find($id);
-        })->filter();
+        // Inti Kepengurusan PUTRA
+        $ketuaPutra = OrganizationalStructure::where('kelompok', 'putra')
+            ->where('position', 'like', '%Ketua%')
+            ->first() ?? OrganizationalStructure::find(1);
 
-        // Pre-build data pop-up modal divisi untuk JS
-        $divisiData = [
+        $wakilPutra = OrganizationalStructure::where('kelompok', 'putra')
+            ->where('position', 'like', '%Wakil%')
+            ->first();
+
+        $sekretarisPutra = OrganizationalStructure::where('kelompok', 'putra')
+            ->where('position', 'like', '%Sekretaris%')
+            ->first() ?? OrganizationalStructure::find(3);
+
+        $bendaharaPutra = OrganizationalStructure::where('kelompok', 'putra')
+            ->where('position', 'like', '%Bendahara%')
+            ->first() ?? OrganizationalStructure::find(11);
+
+        // Inti Kepengurusan PUTRI
+        $ketuaPutri = OrganizationalStructure::where('kelompok', 'putri')
+            ->where('position', 'like', '%Ketua%')
+            ->first() ?? OrganizationalStructure::find(2);
+
+        $wakilPutri = OrganizationalStructure::where('kelompok', 'putri')
+            ->where('position', 'like', '%Wakil%')
+            ->first();
+
+        $sekretarisPutri = OrganizationalStructure::where('kelompok', 'putri')
+            ->where('position', 'like', '%Sekretaris%')
+            ->first() ?? OrganizationalStructure::find(10);
+
+        $bendaharaPutri = OrganizationalStructure::where('kelompok', 'putri')
+            ->where('position', 'like', '%Bendahara%')
+            ->first() ?? OrganizationalStructure::find(4);
+
+        // Konfigurasi 5 Divisi HIMATIKA
+        $divisiDefs = [
             'keilmuan' => [
                 'id' => 5,
-                'name' => 'Divisi Keilmuan',
                 'key' => 'keilmuan',
+                'name' => '1. Divisi Keilmuan',
+                'clean_name' => 'Divisi Keilmuan',
+                'icon' => 'fas fa-graduation-cap',
                 'description' => 'Mengembangkan kapasitas akademik mahasiswa melalui kajian sains matematika murni dan terapan, tutorial sebaya, workshop matematika, serta pembinaan kompetisi olimpiade sains.',
-                'detail_url' => route('struktur-organisasi.show', 5),
-                'members' => Member::where('division', 'like', '%Keilmuan%')->get()->map(function($m) {
-                    return [
-                        'name' => $m->name,
-                        'position' => $m->position,
-                        'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
-                        'bio' => $m->bio ?? 'Pengurus Divisi Keilmuan HIMATIKA UNUJA.'
-                    ];
-                })
+                'search' => 'Keilmuan',
             ],
             'kaderisasi' => [
                 'id' => 6,
-                'name' => 'Divisi Kaderisasi',
                 'key' => 'kaderisasi',
+                'name' => '2. Divisi Kaderisasi',
+                'clean_name' => 'Divisi Kaderisasi',
+                'icon' => 'fas fa-users-cog',
                 'description' => 'Mengawal pembinaan karakter kepemimpinan, proses kaderisasi dan orientasi mahasiswa baru, upgrading kapasitas pengurus, serta penanaman integritas dan loyalitas organisasi.',
-                'detail_url' => route('struktur-organisasi.show', 6),
-                'members' => Member::where('division', 'like', '%Kaderisasi%')->get()->map(function($m) {
-                    return [
-                        'name' => $m->name,
-                        'position' => $m->position,
-                        'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
-                        'bio' => $m->bio ?? 'Pengurus Divisi Kaderisasi HIMATIKA UNUJA.'
-                    ];
-                })
+                'search' => 'Kaderisasi',
             ],
             'publik_relasi' => [
                 'id' => 7,
-                'name' => 'Divisi Publik Relasi',
                 'key' => 'publik_relasi',
+                'name' => '3. Divisi Publik Relasi',
+                'clean_name' => 'Divisi Publik Relasi',
+                'icon' => 'fas fa-handshake',
                 'description' => 'Membangun jejaring kolaborasi dan kemitraan eksternal kampus, menjalin hubungan erat dengan alumni, menyelenggarakan program bakti sosial, serta menjaga reputasi publik himpunan.',
-                'detail_url' => route('struktur-organisasi.show', 7),
-                'members' => Member::where('division', 'like', '%Publik Relasi%')->get()->map(function($m) {
-                    return [
-                        'name' => $m->name,
-                        'position' => $m->position,
-                        'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
-                        'bio' => $m->bio ?? 'Pengurus Divisi Publik Relasi HIMATIKA UNUJA.'
-                    ];
-                })
+                'search' => 'Publik Relasi',
             ],
             'litbang' => [
                 'id' => 9,
-                'name' => 'Divisi Litbang',
                 'key' => 'litbang',
+                'name' => '4. Divisi Litbang',
+                'clean_name' => 'Divisi Litbang',
+                'icon' => 'fas fa-flask',
                 'description' => 'Melaksanakan riset organisasi, survei aspirasi mahasiswa, pemantauan dan evaluasi mutu program kerja berkala, serta merumuskan inovasi strategis pengembangan HIMATIKA.',
-                'detail_url' => route('struktur-organisasi.show', 9),
-                'members' => Member::where('division', 'like', '%Litbang%')->get()->map(function($m) {
-                    return [
-                        'name' => $m->name,
-                        'position' => $m->position,
-                        'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
-                        'bio' => $m->bio ?? 'Pengurus Divisi Litbang HIMATIKA UNUJA.'
-                    ];
-                })
+                'search' => 'Litbang',
             ],
             'kominfo' => [
                 'id' => 8,
-                'name' => 'Divisi Kominfo',
                 'key' => 'kominfo',
+                'name' => '5. Divisi Kominfo',
+                'clean_name' => 'Divisi Kominfo',
+                'icon' => 'fas fa-bullhorn',
                 'description' => 'Mengelola ekosistem media komunikasi digital, produksi konten multimedia kreatif, pengelolaan website resmi dan media sosial, serta pusat informasi terkini HIMATIKA UNUJA.',
-                'detail_url' => route('struktur-organisasi.show', 8),
-                'members' => Member::where('division', 'like', '%Kominfo%')->get()->map(function($m) {
+                'search' => 'Kominfo',
+            ],
+        ];
+
+        // Membangun data per-divisi untuk Putra dan Putri
+        $divisiPutra = [];
+        $divisiPutri = [];
+        $divisiModalData = [
+            'putra' => [],
+            'putri' => []
+        ];
+
+        foreach ($divisiDefs as $key => $def) {
+            // Member PUTRA
+            $membersPutra = Member::where('division', 'like', "%{$def['search']}%")
+                ->where('kelompok', 'putra')
+                ->where('is_active', true)
+                ->orderBy('order_num')
+                ->get();
+
+            $leaderPutra = $membersPutra->firstWhere(function ($m) {
+                return str_contains(strtolower($m->position), 'kepala');
+            }) ?? $membersPutra->first();
+
+            $divisiPutra[$key] = array_merge($def, [
+                'detail_url' => route('struktur-organisasi.show', $def['id']),
+                'members' => $membersPutra,
+                'member_count' => $membersPutra->count(),
+                'leader_name' => $leaderPutra?->name ?? 'Pengurus Putra',
+                'leader_position' => $leaderPutra?->position ?? 'Koordinator Divisi',
+                'leader_photo' => $leaderPutra?->photo ? asset('storage/' . $leaderPutra->photo) : null,
+            ]);
+
+            $divisiModalData['putra'][$key] = [
+                'id' => $def['id'],
+                'name' => $def['clean_name'] . ' (Putra)',
+                'key' => $key,
+                'description' => $def['description'],
+                'detail_url' => route('struktur-organisasi.show', $def['id']),
+                'members' => $membersPutra->map(function ($m) use ($def) {
                     return [
                         'name' => $m->name,
                         'position' => $m->position,
                         'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
-                        'bio' => $m->bio ?? 'Pengurus Divisi Kominfo HIMATIKA UNUJA.'
+                        'bio' => $m->bio ?? "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putra."
                     ];
-                })
-            ],
-        ];
+                })->values()
+            ];
+
+            // Member PUTRI
+            $membersPutri = Member::where('division', 'like', "%{$def['search']}%")
+                ->where('kelompok', 'putri')
+                ->where('is_active', true)
+                ->orderBy('order_num')
+                ->get();
+
+            $leaderPutri = $membersPutri->firstWhere(function ($m) {
+                return str_contains(strtolower($m->position), 'kepala');
+            }) ?? $membersPutri->first();
+
+            $divisiPutri[$key] = array_merge($def, [
+                'detail_url' => route('struktur-organisasi.show', $def['id']),
+                'members' => $membersPutri,
+                'member_count' => $membersPutri->count(),
+                'leader_name' => $leaderPutri?->name ?? 'Pengurus Putri',
+                'leader_position' => $leaderPutri?->position ?? 'Koordinator Divisi',
+                'leader_photo' => $leaderPutri?->photo ? asset('storage/' . $leaderPutri->photo) : null,
+            ]);
+
+            $divisiModalData['putri'][$key] = [
+                'id' => $def['id'],
+                'name' => $def['clean_name'] . ' (Putri)',
+                'key' => $key,
+                'description' => $def['description'],
+                'detail_url' => route('struktur-organisasi.show', $def['id']),
+                'members' => $membersPutri->map(function ($m) use ($def) {
+                    return [
+                        'name' => $m->name,
+                        'position' => $m->position,
+                        'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
+                        'bio' => $m->bio ?? "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putri."
+                    ];
+                })->values()
+            ];
+        }
+
+        // Backward compatibility
+        $divisiList = collect([5, 6, 7, 9, 8])->map(function ($id) {
+            return OrganizationalStructure::find($id);
+        })->filter();
 
         return view('struktur-organisasi', compact(
             'structures',
             'members',
             'kaprodi',
             'ketuaPutra',
-            'ketuaPutri',
+            'wakilPutra',
             'sekretarisPutra',
-            'sekretarisPutri',
             'bendaharaPutra',
+            'ketuaPutri',
+            'wakilPutri',
+            'sekretarisPutri',
             'bendaharaPutri',
-            'divisiList',
-            'divisiData'
+            'divisiPutra',
+            'divisiPutri',
+            'divisiModalData',
+            'divisiList'
         ));
     }
 
@@ -145,9 +225,14 @@ class OrganizationController extends Controller
 
         // Anggota dalam jabatan / divisi ini
         $searchKey = $jabatan->division ?: $jabatan->position;
-        $anggota = Member::where('division', 'like', '%' . $searchKey . '%')
-            ->orWhere('position', 'like', '%' . $jabatan->position . '%')
-            ->get();
+        $anggotaQuery = Member::where(function($q) use ($searchKey, $jabatan) {
+            $q->where('division', 'like', '%' . $searchKey . '%')
+              ->orWhere('position', 'like', '%' . $jabatan->position . '%');
+        });
+        if ($jabatan->kelompok && in_array($jabatan->kelompok, ['putra', 'putri'])) {
+            $anggotaQuery->where('kelompok', $jabatan->kelompok);
+        }
+        $anggota = $anggotaQuery->get();
 
         if ($anggota->isEmpty() && $jabatan->name) {
             $anggota = collect([(object)[

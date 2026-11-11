@@ -24,6 +24,10 @@ class AdminOrganizationController extends Controller
             });
         }
 
+        if ($request->filled('kelompok')) {
+            $query->where('kelompok', $request->kelompok);
+        }
+
         $structures = $query->orderBy('order_num')->latest()->paginate(15)->withQueryString();
         return view('admin.struktur.index', compact('structures'));
     }
@@ -40,6 +44,7 @@ class AdminOrganizationController extends Controller
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
             'division' => 'nullable|string|max:255',
+            'kelompok' => 'required|string|in:putra,putri,semua',
             'period' => 'nullable|string|max:50',
             'parent_id' => 'nullable|exists:organizational_structures,id',
             'order_num' => 'nullable|integer|min:0',
@@ -82,6 +87,7 @@ class AdminOrganizationController extends Controller
             'name' => 'required|string|max:255',
             'position' => 'required|string|max:255',
             'division' => 'nullable|string|max:255',
+            'kelompok' => 'required|string|in:putra,putri,semua',
             'period' => 'nullable|string|max:50',
             'parent_id' => 'nullable|exists:organizational_structures,id',
             'order_num' => 'nullable|integer|min:0',

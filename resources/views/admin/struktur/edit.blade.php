@@ -33,11 +33,19 @@
                 </div>
 
                 <div class="row g-3 mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold text-dark">Kelompok Kepengurusan <span class="text-danger">*</span></label>
+                        <select name="kelompok" class="form-select" required>
+                            <option value="putra" {{ old('kelompok', $struktur->kelompok) === 'putra' ? 'selected' : '' }}>Putra</option>
+                            <option value="putri" {{ old('kelompok', $struktur->kelompok) === 'putri' ? 'selected' : '' }}>Putri</option>
+                            <option value="semua" {{ old('kelompok', $struktur->kelompok) === 'semua' ? 'selected' : '' }}>Semua / Umum (Pembina/Biro Bersama)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Bidang / Divisi</label>
                         <input type="text" name="division" class="form-control" value="{{ old('division', $struktur->division) }}">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Atasan Langsung (Induk Hirarki)</label>
                         <select name="parent_id" class="form-select">
                             <option value="">-- Pimpinan Puncak / Tanpa Atasan --</option>

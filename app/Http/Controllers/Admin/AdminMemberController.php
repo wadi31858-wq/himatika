@@ -29,6 +29,10 @@ class AdminMemberController extends Controller
             $query->where('division', $request->division);
         }
 
+        if ($request->filled('kelompok')) {
+            $query->where('kelompok', $request->kelompok);
+        }
+
         if ($request->filled('status')) {
             $query->where('is_active', $request->status === 'active');
         }
@@ -53,6 +57,7 @@ class AdminMemberController extends Controller
             'nim' => 'required|string|max:30|unique:members,nim',
             'position' => 'required|string|max:255',
             'division' => 'nullable|string|max:255',
+            'kelompok' => 'required|string|in:putra,putri',
             'period' => 'nullable|string|max:50',
             'order_num' => 'nullable|integer|min:0',
             'is_active' => 'required|boolean',
@@ -99,6 +104,7 @@ class AdminMemberController extends Controller
             'nim' => 'required|string|max:30|unique:members,nim,' . $penguru->id,
             'position' => 'required|string|max:255',
             'division' => 'nullable|string|max:255',
+            'kelompok' => 'required|string|in:putra,putri',
             'period' => 'nullable|string|max:50',
             'order_num' => 'nullable|integer|min:0',
             'is_active' => 'required|boolean',

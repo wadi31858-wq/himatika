@@ -20,16 +20,24 @@
 
     <!-- Filter & Search Toolbar -->
     <form method="GET" action="{{ route('admin.struktur-organisasi.index') }}" class="row g-2 mb-4">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="input-group">
                 <span class="input-group-text bg-light border-end-0"><i class="fas fa-search text-muted"></i></span>
                 <input type="text" name="search" class="form-control border-start-0" placeholder="Cari nama, jabatan, atau divisi..." value="{{ request('search') }}">
             </div>
         </div>
+        <div class="col-md-3">
+            <select name="kelompok" class="form-select" onchange="this.form.submit()">
+                <option value="">Semua Kelompok</option>
+                <option value="putra" {{ request('kelompok') === 'putra' ? 'selected' : '' }}>Putra</option>
+                <option value="putri" {{ request('kelompok') === 'putri' ? 'selected' : '' }}>Putri</option>
+                <option value="semua" {{ request('kelompok') === 'semua' ? 'selected' : '' }}>Semua / Umum</option>
+            </select>
+        </div>
         <div class="col-md-2">
             <button type="submit" class="btn btn-him-outline w-100">Filter</button>
         </div>
-        @if(request('search'))
+        @if(request()->hasAny(['search', 'kelompok']))
             <div class="col-md-2">
                 <a href="{{ route('admin.struktur-organisasi.index') }}" class="btn btn-light w-100">Reset</a>
             </div>
@@ -43,6 +51,7 @@
                 <tr>
                     <th style="width: 50px;">No</th>
                     <th>Nama Pejabat / Jabatan</th>
+                    <th>Kelompok</th>
                     <th>Bidang / Divisi</th>
                     <th>Atasan Langsung</th>
                     <th>Periode</th>
@@ -70,7 +79,16 @@
                         </div>
                     </td>
                     <td>
-                        <span class="badge bg-primary-subtle text-primary">{{ $s->division ?: '-' }}</span>
+                        @if($s->kelompok === 'putra')
+                            <span class="badge bg-primary-subtle text-primary"><i class="fas fa-mars me-1"></i> Putra</span>
+                        @elseif($s->kelompok === 'putri')
+                            <span class="badge bg-danger-subtle text-danger"><i class="fas fa-venus me-1"></i> Putri</span>
+                        @else
+                            <span class="badge bg-secondary-subtle text-secondary"><i class="fas fa-users me-1"></i> Semua</span>
+                        @endif
+                    </td>
+                    <td>
+                        <span class="badge bg-light text-dark border">{{ $s->division ?: '-' }}</span>
                     </td>
                     <td>
                         <span class="text-dark small">{{ $s->parent->name ?? '-' }}</span>

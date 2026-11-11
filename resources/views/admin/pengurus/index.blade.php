@@ -20,11 +20,18 @@
 
     <!-- Filter & Search Toolbar -->
     <form method="GET" action="{{ route('admin.pengurus.index') }}" class="row g-2 mb-4">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="input-group">
                 <span class="input-group-text bg-light border-end-0"><i class="fas fa-search text-muted"></i></span>
                 <input type="text" name="search" class="form-control border-start-0" placeholder="Cari nama, NIM, jabatan, atau divisi..." value="{{ request('search') }}">
             </div>
+        </div>
+        <div class="col-md-2">
+            <select name="kelompok" class="form-select" onchange="this.form.submit()">
+                <option value="">Semua Kelompok</option>
+                <option value="putra" {{ request('kelompok') === 'putra' ? 'selected' : '' }}>Putra</option>
+                <option value="putri" {{ request('kelompok') === 'putri' ? 'selected' : '' }}>Putri</option>
+            </select>
         </div>
         <div class="col-md-3">
             <select name="division" class="form-select" onchange="this.form.submit()">
@@ -41,10 +48,10 @@
                 <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Nonaktif</option>
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
             <button type="submit" class="btn btn-him-outline w-100">Filter</button>
         </div>
-        @if(request()->hasAny(['search', 'division', 'status']))
+        @if(request()->hasAny(['search', 'kelompok', 'division', 'status']))
             <div class="col-12 mt-1">
                 <a href="{{ route('admin.pengurus.index') }}" class="btn btn-sm btn-light">Reset Filter</a>
             </div>
@@ -58,6 +65,7 @@
                 <tr>
                     <th style="width: 50px;">No</th>
                     <th>Nama & NIM</th>
+                    <th>Kelompok</th>
                     <th>Jabatan & Divisi</th>
                     <th>Periode</th>
                     <th>Status</th>
@@ -82,6 +90,13 @@
                                 <small class="text-muted font-monospace">{{ $m->nim ?: '-' }}</small>
                             </div>
                         </div>
+                    </td>
+                    <td>
+                        @if($m->kelompok === 'putra')
+                            <span class="badge bg-primary-subtle text-primary"><i class="fas fa-mars me-1"></i> Putra</span>
+                        @else
+                            <span class="badge bg-danger-subtle text-danger"><i class="fas fa-venus me-1"></i> Putri</span>
+                        @endif
                     </td>
                     <td>
                         <div class="fw-semibold text-primary">{{ $m->position }}</div>
