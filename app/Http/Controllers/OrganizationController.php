@@ -24,7 +24,7 @@ class OrganizationController extends Controller
 
         $wakilPutra = OrganizationalStructure::where('kelompok', 'putra')
             ->where('position', 'like', '%Wakil%')
-            ->first();
+            ->first() ?? OrganizationalStructure::find(13);
 
         $sekretarisPutra = OrganizationalStructure::where('kelompok', 'putra')
             ->where('position', 'like', '%Sekretaris%')
@@ -41,7 +41,7 @@ class OrganizationController extends Controller
 
         $wakilPutri = OrganizationalStructure::where('kelompok', 'putri')
             ->where('position', 'like', '%Wakil%')
-            ->first();
+            ->first() ?? OrganizationalStructure::find(14);
 
         $sekretarisPutri = OrganizationalStructure::where('kelompok', 'putri')
             ->where('position', 'like', '%Sekretaris%')
@@ -331,6 +331,48 @@ class OrganizationController extends Controller
                     'Pengambilan keputusan internal organisasi keputrian.',
                     'Representasi resmi kemahasiswaan Matematika putri.',
                     'Pengawasan berkala efektivitas divisi keputrian.'
+                ]
+            ];
+        }
+
+        if (str_contains($pos, 'wakil') && str_contains($pos, 'putra')) {
+            return [
+                'tugas_utama' => [
+                    'Mendampingi dan membantu Ketua Umum Putra dalam memimpin roda organisasi kepengurusan putra.',
+                    'Mengoordinasikan dan memonitor jalannya program kerja seluruh divisi kepengurusan putra.',
+                    'Mewakili Ketua Umum Putra dalam pertemuan internal maupun eksternal kampus jika berhalangan.',
+                    'Menjaga soliditas, kedisiplinan, dan komunikasi aktif antar-pengurus HIMATIKA Putra.'
+                ],
+                'program' => [
+                    'Supervisi & Monitoring Kinerja Divisi Putra',
+                    'Forum Koordinasi Terpadu BPH Putra',
+                    'Penyelarasan Target Program Kerja Tahunan'
+                ],
+                'tugas_teknis' => [
+                    'Penyusunan agenda koordinasi lintas bidang pengurus putra.',
+                    'Pendampingan teknis pelaksanaan kegiatan tiap divisi.',
+                    'Pelaporan progres program berkala kepada Ketua Umum Putra.'
+                ]
+            ];
+        }
+
+        if (str_contains($pos, 'wakil') && str_contains($pos, 'putri')) {
+            return [
+                'tugas_utama' => [
+                    'Mendampingi dan membantu Ketua Umum Putri dalam memimpin roda kepengurusan putri.',
+                    'Mengoordinasikan serta memonitor pelaksanaan agenda dan kegiatan seluruh divisi keputrian.',
+                    'Mewakili Ketua Umum Putri dalam forum koordinasi dan kegiatan jika berhalangan.',
+                    'Membangun keharmonisan, kekompakan, dan keaktifan seluruh pengurus putri.'
+                ],
+                'program' => [
+                    'Supervisi Kegiatan & Pembinaan Internal Pengurus Putri',
+                    'Rapat Koordinasi BPH Terpadu Keputrian',
+                    'Evaluasi Efektivitas Kinerja Bidang Keputrian'
+                ],
+                'tugas_teknis' => [
+                    'Koordinasi teknis pelaksanaan program kerja keputrian.',
+                    'Pemantauan kehadiran dan partisipasi anggota putri.',
+                    'Penyusunan laporan evaluasi berkala kepada Ketua Umum Putri.'
                 ]
             ];
         }

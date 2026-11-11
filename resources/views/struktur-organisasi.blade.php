@@ -860,33 +860,31 @@
                     </div>
                 </div>
 
-                {{-- WAKIL KETUA UMUM PUTRA (Jika Ditentukan di Database) --}}
-                @if($wakilPutra)
-                    <div class="tree-connector h-20"></div>
-                    <div class="level-label">WAKIL KETUA UMUM PUTRA</div>
-                    <div class="chart-card-center mb-0">
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if($wakilPutra->photo)
-                                    <img src="{{ asset('storage/' . $wakilPutra->photo) }}" alt="{{ $wakilPutra->name }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-user-tie"></i></div>
-                                @endif
-                                <div class="flex-grow-1">
-                                    <span class="chart-badge">Badan Pengurus Harian</span>
-                                    <h4 class="chart-title">{{ $wakilPutra->position }}</h4>
-                                    <div class="chart-officer">{{ $wakilPutra->name }}</div>
-                                </div>
-                            </div>
-                            <p class="chart-desc">{{ $wakilPutra->description }}</p>
-                            <div class="chart-card-footer">
-                                <a href="{{ route('struktur-organisasi.show', $wakilPutra->id) }}" class="link-detail">
-                                    Lihat Detail &rarr;
-                                </a>
+                {{-- WAKIL KETUA UMUM PUTRA --}}
+                <div class="tree-connector h-20"></div>
+                <div class="level-label">WAKIL KETUA UMUM PUTRA</div>
+                <div class="chart-card-center mb-0">
+                    <div class="chart-card">
+                        <div class="d-flex align-items-start gap-3 mb-2">
+                            @if($wakilPutra?->photo)
+                                <img src="{{ asset('storage/' . $wakilPutra->photo) }}" alt="{{ $wakilPutra->name }}" class="chart-officer-photo">
+                            @else
+                                <div class="chart-officer-placeholder"><i class="fas fa-user-tie"></i></div>
+                            @endif
+                            <div class="flex-grow-1">
+                                <span class="chart-badge">Badan Pengurus Harian</span>
+                                <h4 class="chart-title">{{ $wakilPutra?->position ?? 'Wakil Ketua Umum Putra' }}</h4>
+                                <div class="chart-officer">{{ $wakilPutra?->name ?? 'M. Ilham Wahyudi' }}</div>
                             </div>
                         </div>
+                        <p class="chart-desc">{{ $wakilPutra?->description ?? 'Membantu Ketua Umum Putra dalam mengoordinasikan program kerja, memimpin koordinasi internal divisi kepengurusan, serta mewakili Ketua Umum jika berhalangan.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $wakilPutra?->id ?? 13) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
+                        </div>
                     </div>
-                @endif
+                </div>
 
                 {{-- Branch Split Bar to Sekretaris & Bendahara Putra --}}
                 <div class="tree-connector h-20 d-none d-md-block"></div>
@@ -1053,33 +1051,31 @@
                     </div>
                 </div>
 
-                {{-- WAKIL KETUA UMUM PUTRI (Jika Ditentukan di Database) --}}
-                @if($wakilPutri)
-                    <div class="tree-connector h-20"></div>
-                    <div class="level-label">WAKIL KETUA UMUM PUTRI</div>
-                    <div class="chart-card-center mb-0">
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if($wakilPutri->photo)
-                                    <img src="{{ asset('storage/' . $wakilPutri->photo) }}" alt="{{ $wakilPutri->name }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-user-circle"></i></div>
-                                @endif
-                                <div class="flex-grow-1">
-                                    <span class="chart-badge">Badan Pengurus Harian</span>
-                                    <h4 class="chart-title">{{ $wakilPutri->position }}</h4>
-                                    <div class="chart-officer">{{ $wakilPutri->name }}</div>
-                                </div>
-                            </div>
-                            <p class="chart-desc">{{ $wakilPutri->description }}</p>
-                            <div class="chart-card-footer">
-                                <a href="{{ route('struktur-organisasi.show', $wakilPutri->id) }}" class="link-detail">
-                                    Lihat Detail &rarr;
-                                </a>
+                {{-- WAKIL KETUA UMUM PUTRI --}}
+                <div class="tree-connector h-20"></div>
+                <div class="level-label">WAKIL KETUA UMUM PUTRI</div>
+                <div class="chart-card-center mb-0">
+                    <div class="chart-card">
+                        <div class="d-flex align-items-start gap-3 mb-2">
+                            @if($wakilPutri?->photo)
+                                <img src="{{ asset('storage/' . $wakilPutri->photo) }}" alt="{{ $wakilPutri->name }}" class="chart-officer-photo">
+                            @else
+                                <div class="chart-officer-placeholder"><i class="fas fa-user-circle"></i></div>
+                            @endif
+                            <div class="flex-grow-1">
+                                <span class="chart-badge">Badan Pengurus Harian</span>
+                                <h4 class="chart-title">{{ $wakilPutri?->position ?? 'Wakil Ketua Umum Putri' }}</h4>
+                                <div class="chart-officer">{{ $wakilPutri?->name ?? 'Siti Nurhaliza' }}</div>
                             </div>
                         </div>
+                        <p class="chart-desc">{{ $wakilPutri?->description ?? 'Membantu Ketua Umum Putri dalam memimpin roda kepengurusan putri, mengoordinasikan seluruh bidang kerja keputrian, serta mewakili Ketua Umum jika berhalangan.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $wakilPutri?->id ?? 14) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
+                        </div>
                     </div>
-                @endif
+                </div>
 
                 {{-- Branch Split Bar to Sekretaris & Bendahara Putri --}}
                 <div class="tree-connector h-20 d-none d-md-block"></div>

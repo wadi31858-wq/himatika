@@ -269,7 +269,7 @@ class AdminOrganizationController extends Controller
 
         $wakilPutra = OrganizationalStructure::where('kelompok', 'putra')
             ->where('position', 'like', '%Wakil%')
-            ->first();
+            ->first() ?? OrganizationalStructure::find(13);
 
         $sekretarisPutra = OrganizationalStructure::where('kelompok', 'putra')
             ->where('position', 'like', '%Sekretaris%')
@@ -286,7 +286,7 @@ class AdminOrganizationController extends Controller
 
         $wakilPutri = OrganizationalStructure::where('kelompok', 'putri')
             ->where('position', 'like', '%Wakil%')
-            ->first();
+            ->first() ?? OrganizationalStructure::find(14);
 
         $sekretarisPutri = OrganizationalStructure::where('kelompok', 'putri')
             ->where('position', 'like', '%Sekretaris%')
