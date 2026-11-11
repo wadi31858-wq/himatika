@@ -29,31 +29,18 @@
     </div>
 </section>
 
-{{-- ==================== 3. BILAH CARI DAN DROPDOWN KATEGORI ==================== --}}
+{{-- ==================== 3. BILAH CARI ==================== --}}
 <section class="berita-filter-section mb-4">
     <div class="container">
         <form id="beritaFilterForm" class="filter-card p-3 p-md-4 rounded-4 bg-white border shadow-sm" method="GET" action="{{ route('berita') }}">
-            <div class="row g-3">
-                <div class="col-md-7 col-12">
-                    <label class="filter-label fw-semibold text-secondary small mb-1">
-                        <i class="fas fa-search me-1 text-primary"></i> Cari Informasi
-                    </label>
-                    <div class="position-relative">
-                        <input type="text" name="search" id="searchInput" class="form-control filter-input" placeholder="Ketik kata kunci judul, topik, atau kegiatan..." value="{{ request('search') }}" autocomplete="off">
-                    </div>
-                </div>
-                <div class="col-md-5 col-12">
-                    <label class="filter-label fw-semibold text-secondary small mb-1">
-                        <i class="fas fa-tags me-1 text-primary"></i> Kategori
-                    </label>
-                    <select name="category" id="categorySelect" class="form-select filter-select">
-                        <option value="">Semua kategori</option>
-                        <option value="Kegiatan" {{ request('category') == 'Kegiatan' ? 'selected' : '' }}>Kegiatan</option>
-                        <option value="Pengumuman" {{ request('category') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
-                        <option value="Prestasi" {{ request('category') == 'Prestasi' ? 'selected' : '' }}>Prestasi</option>
-                        <option value="Berita" {{ request('category') == 'Berita' ? 'selected' : '' }}>Berita</option>
-                        <option value="Agenda" {{ request('category') == 'Agenda' ? 'selected' : '' }}>Agenda</option>
-                    </select>
+            <input type="hidden" name="category" id="filterCategoryInput" value="{{ request('category') }}">
+            <div class="w-100">
+                <label class="filter-label fw-semibold mb-2 d-flex align-items-center gap-2" for="searchInput" style="color: #28151D; font-size: 0.9rem;">
+                    <i class="fas fa-search" style="color: #711C35;"></i>
+                    <span style="font-weight: 700;">Cari</span>
+                </label>
+                <div class="position-relative w-100">
+                    <input type="text" name="search" id="searchInput" class="form-control filter-input w-100" placeholder="Cari judul atau topik" value="{{ request('search') }}" autocomplete="off">
                 </div>
             </div>
         </form>
@@ -420,7 +407,7 @@
         line-height: 1.6;
     }
 
-    /* ===== FILTER BAR ===== */
+    /* ===== FILTER BAR (CARI SELEBAR CONTAINER) ===== */
     .berita-filter-section {
         margin-top: -25px;
         position: relative;
@@ -430,19 +417,25 @@
         border: 1px solid #E9CDD5 !important;
         border-radius: 16px;
         box-shadow: 0 4px 20px rgba(26, 10, 15, 0.08) !important;
+        background: #FFFFFF;
     }
-    .filter-input, .filter-select {
-        border: 1px solid #E9CDD5;
-        border-radius: 10px;
-        padding: 0.65rem 1rem;
-        font-size: 0.9rem;
-        color: #0F172A;
-        transition: border-color 0.2s, box-shadow 0.2s;
+    .filter-input {
+        border: 1.5px solid #E9CDD5;
+        border-radius: 12px;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+        color: #28151D;
+        background-color: #FFFFFF;
+        transition: all 0.2s ease;
+        width: 100%;
     }
-    .filter-input:focus, .filter-select:focus {
+    .filter-input:focus {
         border-color: #711C35;
         box-shadow: 0 0 0 3px rgba(163, 59, 89, 0.2);
         outline: none;
+    }
+    .filter-input::placeholder {
+        color: rgba(40, 21, 29, 0.45);
     }
 
     /* ===== KELOMPOK UTAMA (CARD BESAR & 2 CARD KECIL) ===== */
@@ -785,7 +778,7 @@
     $(document).ready(function() {
         var filterTimer;
 
-        // Auto filter on typing (debounced)
+        // Auto filter saat mengetik di input Cari (debounced)
         $('#searchInput').on('input', function() {
             clearTimeout(filterTimer);
             filterTimer = setTimeout(function() {
@@ -793,20 +786,37 @@
             }, 350);
         });
 
-        // Auto filter on category dropdown change
-        $('#categorySelect').on('change', function() {
-            $('#beritaFilterForm').trigger('submit');
-        });
-
         // Form submit AJAX handler
         $('#beritaFilterForm').on('submit', function(e) {
             e.preventDefault();
             var $form = $(this);
-            var url = $form.attr('action') + '?' + $form.serialize();
+            
+            // Susun query string: pertahankan kata kunci cari dan kategori aktif
+            var params = [];
+            var searchVal = ($('#searchInput').val() || '').trim();
+            var catVal = ($('#filterCategoryInput').val() || '').trim();
+
+            if (searchVal) {
+                params.push('search=' + encodeURIComponent(searchVal));
+            }
+            if (catVal) {
+                params.push('category=' + encodeURIComponent(catVal));
+            }
+
+            var queryString = params.length ? '?' + params.join('&') : '';
+            var url = $form.attr('action') + queryString;
             var $container = $('#informasiContentArea');
 
             if (window.history.pushState) {
                 window.history.pushState(null, '', url);
+            }
+
+            // Sinkronkan sorotan kategori aktif pada dropdown Informasi di navbar
+            $('.informasi-dropdown-item').removeClass('active');
+            if (catVal) {
+                $('.informasi-dropdown-item[data-category="' + catVal + '"]').addClass('active');
+            } else {
+                $('.informasi-dropdown-item[data-category=""]').addClass('active');
             }
 
             $.ajax({
@@ -857,6 +867,43 @@
                     $container.css('opacity', '1');
                 }
             });
+        });
+
+        // Dukung tombol Back / Forward browser
+        window.addEventListener('popstate', function() {
+            var searchParams = new URLSearchParams(window.location.search);
+            var searchVal = searchParams.get('search') || '';
+            var catVal = searchParams.get('category') || '';
+
+            $('#searchInput').val(searchVal);
+            $('#filterCategoryInput').val(catVal);
+
+            $('.informasi-dropdown-item').removeClass('active');
+            if (catVal) {
+                $('.informasi-dropdown-item[data-category="' + catVal + '"]').addClass('active');
+            } else {
+                $('.informasi-dropdown-item[data-category=""]').addClass('active');
+            }
+
+            var $container = $('#informasiContentArea');
+            if ($container.length) {
+                $.ajax({
+                    url: window.location.href,
+                    type: 'GET',
+                    beforeSend: function() {
+                        $container.css('opacity', '0.45');
+                    },
+                    success: function(response) {
+                        var $newContent = $(response).find('#informasiContentArea');
+                        if ($newContent.length) {
+                            $container.html($newContent.html());
+                        }
+                    },
+                    complete: function() {
+                        $container.css('opacity', '1');
+                    }
+                });
+            }
         });
     });
 </script>

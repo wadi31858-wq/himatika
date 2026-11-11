@@ -12,11 +12,13 @@
     <link href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}" rel="stylesheet">
     @stack('styles')
     <style>
-        /* ==================== TENTANG DROPDOWN ==================== */
-        .tentang-dropdown-wrapper {
+        /* ==================== DROPDOWNS (TENTANG & INFORMASI) ==================== */
+        .tentang-dropdown-wrapper,
+        .informasi-dropdown-wrapper {
             position: relative;
         }
-        .tentang-dropdown-toggle-btn {
+        .tentang-dropdown-toggle-btn,
+        .informasi-dropdown-toggle-btn {
             background: transparent;
             border: none;
             cursor: pointer;
@@ -33,31 +35,39 @@
             outline: none;
         }
         .tentang-dropdown-toggle-btn:hover,
-        .tentang-dropdown-toggle-btn:focus-visible {
+        .tentang-dropdown-toggle-btn:focus-visible,
+        .informasi-dropdown-toggle-btn:hover,
+        .informasi-dropdown-toggle-btn:focus-visible {
             color: #711C35 !important;
             background: rgba(113, 28, 53, 0.06);
         }
         .tentang-dropdown-wrapper.active .tentang-dropdown-toggle-btn,
-        .tentang-dropdown-toggle-btn.active {
+        .tentang-dropdown-toggle-btn.active,
+        .informasi-dropdown-wrapper.active .informasi-dropdown-toggle-btn,
+        .informasi-dropdown-toggle-btn.active {
             color: #ffffff !important;
             background: #711C35 !important;
             font-weight: 600;
             padding: 0.45rem 1.4rem !important;
             box-shadow: 0 4px 12px rgba(113, 28, 53, 0.25);
         }
-        .tentang-dropdown-wrapper.show .tentang-dropdown-toggle-btn:not(.active) {
+        .tentang-dropdown-wrapper.show .tentang-dropdown-toggle-btn:not(.active),
+        .informasi-dropdown-wrapper.show .informasi-dropdown-toggle-btn:not(.active) {
             color: #711C35 !important;
             background: rgba(113, 28, 53, 0.08);
         }
-        .tentang-chevron {
+        .tentang-chevron,
+        .informasi-chevron {
             font-size: 0.72rem;
             transition: transform 0.25s ease;
             margin-left: 2px;
         }
-        .tentang-dropdown-wrapper.show .tentang-chevron {
+        .tentang-dropdown-wrapper.show .tentang-chevron,
+        .informasi-dropdown-wrapper.show .informasi-chevron {
             transform: rotate(180deg);
         }
-        .tentang-dropdown-menu {
+        .tentang-dropdown-menu,
+        .informasi-dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
@@ -74,10 +84,12 @@
             gap: 4px;
             z-index: 1050;
         }
-        .tentang-dropdown-wrapper.show .tentang-dropdown-menu {
+        .tentang-dropdown-wrapper.show .tentang-dropdown-menu,
+        .informasi-dropdown-wrapper.show .informasi-dropdown-menu {
             display: flex;
         }
-        .tentang-dropdown-item {
+        .tentang-dropdown-item,
+        .informasi-dropdown-item {
             display: block;
             padding: 8px 14px;
             color: #FFFFFF;
@@ -86,31 +98,38 @@
             text-decoration: none;
             border-radius: 8px;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
         .tentang-dropdown-item:hover,
-        .tentang-dropdown-item:focus {
+        .tentang-dropdown-item:focus,
+        .informasi-dropdown-item:hover,
+        .informasi-dropdown-item:focus {
             background: rgba(255, 255, 255, 0.12);
             color: #F4D6DE;
             padding-left: 18px;
             outline: none;
         }
-        .tentang-dropdown-item.active {
+        .tentang-dropdown-item.active,
+        .informasi-dropdown-item.active {
             background: #711C35;
             color: #FFFFFF;
             font-weight: 600;
             border-left: 3px solid #A33B59;
         }
         @media (max-width: 991.98px) {
-            .tentang-dropdown-wrapper {
+            .tentang-dropdown-wrapper,
+            .informasi-dropdown-wrapper {
                 width: 100%;
             }
-            .tentang-dropdown-toggle-btn {
+            .tentang-dropdown-toggle-btn,
+            .informasi-dropdown-toggle-btn {
                 width: 100%;
                 justify-content: space-between;
                 padding: 0.75rem 1rem !important;
                 border-radius: 8px;
             }
-            .tentang-dropdown-menu {
+            .tentang-dropdown-menu,
+            .informasi-dropdown-menu {
                 position: static;
                 width: 100%;
                 background: #1A0A0F;
@@ -120,7 +139,8 @@
                 margin-bottom: 8px;
                 padding: 6px;
             }
-            .tentang-dropdown-wrapper.show .tentang-dropdown-menu {
+            .tentang-dropdown-wrapper.show .tentang-dropdown-menu,
+            .informasi-dropdown-wrapper.show .informasi-dropdown-menu {
                 display: flex;
             }
         }
@@ -181,8 +201,44 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita') }}"><i class="fas fa-newspaper me-1"></i> Informasi</a>
+                    <li class="nav-item dropdown informasi-dropdown-wrapper {{ request()->routeIs('berita*') ? 'active' : '' }}">
+                        <button type="button" class="nav-link informasi-dropdown-toggle-btn {{ request()->routeIs('berita*') ? 'active' : '' }}" id="informasiDropdownBtn" aria-expanded="false" aria-haspopup="true">
+                            <i class="fas fa-newspaper me-1"></i>
+                            <span>Informasi</span>
+                            <i class="fas fa-chevron-down ms-1 informasi-chevron"></i>
+                        </button>
+                        <ul class="informasi-dropdown-menu" id="informasiDropdownMenu" aria-labelledby="informasiDropdownBtn">
+                            <li>
+                                <a class="informasi-dropdown-item {{ request()->routeIs('berita*') && !request()->filled('category') ? 'active' : '' }}" href="{{ route('berita') }}" data-category="">
+                                    Semua kategori
+                                </a>
+                            </li>
+                            <li>
+                                <a class="informasi-dropdown-item {{ request()->routeIs('berita*') && request('category') === 'Kegiatan' ? 'active' : '' }}" href="{{ route('berita', ['category' => 'Kegiatan']) }}" data-category="Kegiatan">
+                                    Kegiatan
+                                </a>
+                            </li>
+                            <li>
+                                <a class="informasi-dropdown-item {{ request()->routeIs('berita*') && request('category') === 'Pengumuman' ? 'active' : '' }}" href="{{ route('berita', ['category' => 'Pengumuman']) }}" data-category="Pengumuman">
+                                    Pengumuman
+                                </a>
+                            </li>
+                            <li>
+                                <a class="informasi-dropdown-item {{ request()->routeIs('berita*') && request('category') === 'Prestasi' ? 'active' : '' }}" href="{{ route('berita', ['category' => 'Prestasi']) }}" data-category="Prestasi">
+                                    Prestasi
+                                </a>
+                            </li>
+                            <li>
+                                <a class="informasi-dropdown-item {{ request()->routeIs('berita*') && request('category') === 'Berita' ? 'active' : '' }}" href="{{ route('berita', ['category' => 'Berita']) }}" data-category="Berita">
+                                    Berita
+                                </a>
+                            </li>
+                            <li>
+                                <a class="informasi-dropdown-item {{ request()->routeIs('berita*') && request('category') === 'Agenda' ? 'active' : '' }}" href="{{ route('berita', ['category' => 'Agenda']) }}" data-category="Agenda">
+                                    Agenda
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('galeri*') ? 'active' : '' }}" href="{{ route('galeri') }}"><i class="fas fa-images me-1"></i> Galeri</a>
@@ -290,49 +346,121 @@
             offset: 100,
         });
 
-        // Tentang Dropdown Interaction
+        // Dropdown Interactions (Tentang & Informasi)
         (function() {
-            var wrapper = document.querySelector('.tentang-dropdown-wrapper');
-            var btn = document.getElementById('tentangDropdownBtn');
-            var menu = document.getElementById('tentangDropdownMenu');
-            var strukturLink = document.getElementById('navLinkStruktur');
+            var tentangWrapper = document.querySelector('.tentang-dropdown-wrapper');
+            var tentangBtn = document.getElementById('tentangDropdownBtn');
+            var tentangMenu = document.getElementById('tentangDropdownMenu');
             
-            if (btn && wrapper) {
-                // Toggle dropdown saat tulisan Tentang atau panah diklik
-                btn.addEventListener('click', function(e) {
+            var infoWrapper = document.querySelector('.informasi-dropdown-wrapper');
+            var infoBtn = document.getElementById('informasiDropdownBtn');
+            var infoMenu = document.getElementById('informasiDropdownMenu');
+            
+            // Toggle Tentang
+            if (tentangBtn && tentangWrapper) {
+                tentangBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    var isOpen = wrapper.classList.toggle('show');
-                    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    if (infoWrapper) {
+                        infoWrapper.classList.remove('show');
+                        if (infoBtn) infoBtn.setAttribute('aria-expanded', 'false');
+                    }
+                    var isOpen = tentangWrapper.classList.toggle('show');
+                    tentangBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                 });
                 
-                // Tutup dropdown saat salah satu pilihan diklik
-                if (menu) {
-                    menu.querySelectorAll('.tentang-dropdown-item').forEach(function(item) {
+                if (tentangMenu) {
+                    tentangMenu.querySelectorAll('.tentang-dropdown-item').forEach(function(item) {
                         item.addEventListener('click', function() {
-                            wrapper.classList.remove('show');
-                            btn.setAttribute('aria-expanded', 'false');
+                            tentangWrapper.classList.remove('show');
+                            tentangBtn.setAttribute('aria-expanded', 'false');
                         });
                     });
                 }
-                
-                // Tutup saat mengeklik di luar menu
-                document.addEventListener('click', function(e) {
-                    if (!wrapper.contains(e.target)) {
-                        wrapper.classList.remove('show');
-                        btn.setAttribute('aria-expanded', 'false');
-                    }
-                });
-                
-                // Tutup saat menekan tombol Esc
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && wrapper.classList.contains('show')) {
-                        wrapper.classList.remove('show');
-                        btn.setAttribute('aria-expanded', 'false');
-                        btn.focus();
-                    }
-                });
             }
+            
+            // Toggle Informasi
+            if (infoBtn && infoWrapper) {
+                infoBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (tentangWrapper) {
+                        tentangWrapper.classList.remove('show');
+                        if (tentangBtn) tentangBtn.setAttribute('aria-expanded', 'false');
+                    }
+                    var isOpen = infoWrapper.classList.toggle('show');
+                    infoBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+                
+                if (infoMenu) {
+                    infoMenu.querySelectorAll('.informasi-dropdown-item').forEach(function(item) {
+                        item.addEventListener('click', function(e) {
+                            var filterForm = document.getElementById('beritaFilterForm');
+                            var categoryInput = document.getElementById('filterCategoryInput');
+                            
+                            // Jika berada di halaman Pusat Informasi (ada filterForm)
+                            if (filterForm && categoryInput) {
+                                e.preventDefault();
+                                var catVal = this.getAttribute('data-category') || '';
+                                categoryInput.value = catVal;
+                                
+                                // Update active state pada menu item
+                                infoMenu.querySelectorAll('.informasi-dropdown-item').forEach(function(el) {
+                                    el.classList.remove('active');
+                                });
+                                this.classList.add('active');
+                                
+                                // Tutup dropdown
+                                infoWrapper.classList.remove('show');
+                                infoBtn.setAttribute('aria-expanded', 'false');
+                                
+                                // Trigger AJAX form submit
+                                if (window.jQuery) {
+                                    window.jQuery('#beritaFilterForm').trigger('submit');
+                                } else {
+                                    filterForm.dispatchEvent(new Event('submit', { cancelable: true }));
+                                }
+                            } else {
+                                // Jika di halaman lain, navigasi normal melalui link href
+                                infoWrapper.classList.remove('show');
+                                infoBtn.setAttribute('aria-expanded', 'false');
+                            }
+                        });
+                    });
+                }
+            }
+            
+            // Tutup saat mengeklik di luar menu
+            document.addEventListener('click', function(e) {
+                if (tentangWrapper && !tentangWrapper.contains(e.target)) {
+                    tentangWrapper.classList.remove('show');
+                    if (tentangBtn) tentangBtn.setAttribute('aria-expanded', 'false');
+                }
+                if (infoWrapper && !infoWrapper.contains(e.target)) {
+                    infoWrapper.classList.remove('show');
+                    if (infoBtn) infoBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Tutup saat menekan tombol Esc
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (tentangWrapper && tentangWrapper.classList.contains('show')) {
+                        tentangWrapper.classList.remove('show');
+                        if (tentangBtn) {
+                            tentangBtn.setAttribute('aria-expanded', 'false');
+                            tentangBtn.focus();
+                        }
+                    }
+                    if (infoWrapper && infoWrapper.classList.contains('show')) {
+                        infoWrapper.classList.remove('show');
+                        if (infoBtn) {
+                            infoBtn.setAttribute('aria-expanded', 'false');
+                            infoBtn.focus();
+                        }
+                    }
+                }
+            });
         })();
     </script>
     @stack('scripts')
