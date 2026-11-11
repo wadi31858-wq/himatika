@@ -253,32 +253,10 @@
                             Visi &amp; <span class="sambutan-title-accent">Misi HIMATIKA</span>
                         </h3>
 
-                        {{-- Tata Letak 2 Kolom Horizontal (MISI di Kiri, Garis Vertikal Emas di Tengah, VISI di Kanan) --}}
+                        {{-- Tata Letak 2 Kolom Horizontal (VISI di Kiri, Garis Vertikal Emas di Tengah, MISI di Kanan) --}}
                         <div class="vm-two-col-wrap mb-4">
-                            {{-- BAGIAN KIRI — MISI --}}
+                            {{-- BAGIAN KIRI — VISI --}}
                             <div class="vm-col-left">
-                                <div class="d-flex align-items-center gap-2 mb-3">
-                                    <span class="badge" style="background: var(--burgundy-main); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; padding: 4px 10px; border-radius: 4px;">MISI</span>
-                                    <span class="fw-bold text-dark" style="font-size: 0.95rem; letter-spacing: 0.2px;">Misi Organisasi</span>
-                                </div>
-                                <div class="d-flex flex-column gap-2 vm-misi-list">
-                                    @foreach($missions ?? [] as $idx => $m)
-                                        <div class="d-flex align-items-start gap-2">
-                                            <span class="vm-num-bullet">{{ $idx + 1 }}</span>
-                                            <span class="vm-misi-item-text">{{ $m }}</span>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-
-                            {{-- BAGIAN TENGAH — GARIS PEMISAH VERTIKAL (EMAS) --}}
-                            <div class="vm-divider-center" aria-hidden="true"></div>
-
-                            {{-- GARIS PEMISAH HORIZONTAL (KHUSUS ANDROID / LAYAR KECIL) --}}
-                            <div class="vm-divider-horizontal-mobile" aria-hidden="true"></div>
-
-                            {{-- BAGIAN KANAN — VISI --}}
-                            <div class="vm-col-right">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="badge" style="background: #C59B27; color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; padding: 4px 10px; border-radius: 4px;">VISI</span>
@@ -296,6 +274,28 @@
                                     <div class="mt-3 pt-2" style="border-top: 1px solid rgba(233, 205, 213, 0.6);">
                                         <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-bullseye me-1 text-primary"></i> Arah &amp; Cita-cita Strategis</small>
                                     </div>
+                                </div>
+                            </div>
+
+                            {{-- BAGIAN TENGAH — GARIS PEMISAH VERTIKAL (EMAS) --}}
+                            <div class="vm-divider-center" aria-hidden="true"></div>
+
+                            {{-- GARIS PEMISAH HORIZONTAL (KHUSUS ANDROID / LAYAR KECIL) --}}
+                            <div class="vm-divider-horizontal-mobile" aria-hidden="true"></div>
+
+                            {{-- BAGIAN KANAN — MISI --}}
+                            <div class="vm-col-right">
+                                <div class="d-flex align-items-center gap-2 mb-3">
+                                    <span class="badge" style="background: var(--burgundy-main); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; padding: 4px 10px; border-radius: 4px;">MISI</span>
+                                    <span class="fw-bold text-dark" style="font-size: 0.95rem; letter-spacing: 0.2px;">Misi Organisasi</span>
+                                </div>
+                                <div class="d-flex flex-column gap-2 vm-misi-list">
+                                    @foreach($missions ?? [] as $idx => $m)
+                                        <div class="d-flex align-items-start gap-2">
+                                            <span class="vm-num-bullet">{{ $idx + 1 }}</span>
+                                            <span class="vm-misi-item-text">{{ $m }}</span>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
