@@ -39,8 +39,8 @@
                     <h3 class="sejarah-section-heading mb-3">{{ $siteSettings['history_title'] ?? 'Sejarah HIMATIKA UNUJA' }}</h3>
                     
                     @if($profile && !empty($profile->history))
-                        <div class="sejarah-p">
-                            {!! nl2br(e($profile->history)) !!}
+                        <div class="sejarah-rich-content">
+                            {!! $profile->history !!}
                         </div>
                     @else
                         <p class="sejarah-p">
@@ -145,11 +145,24 @@
         font-size: 1.4rem;
         letter-spacing: -0.3px;
     }
-    .sejarah-p {
+    .sejarah-p,
+    .sejarah-rich-content,
+    .sejarah-rich-content p {
         font-size: 0.96rem;
         line-height: 1.8;
         color: #334155;
         text-align: justify;
+        margin-bottom: 1.25rem;
+    }
+    .sejarah-rich-content p:last-child {
+        margin-bottom: 0;
+    }
+    .sejarah-rich-content ul,
+    .sejarah-rich-content ol {
+        color: #334155;
+        font-size: 0.96rem;
+        line-height: 1.8;
+        padding-left: 1.5rem;
         margin-bottom: 1.25rem;
     }
 

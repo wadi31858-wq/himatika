@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\VisionMission;
+use App\Models\SiteSetting;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 
@@ -41,6 +42,9 @@ class AdminVisionMissionController extends Controller
             'vision' => $validated['vision'],
             'mission' => json_encode($cleaned),
         ]);
+
+        // Sinkronkan ke kartu Visi Beranda agar admin cukup input sekali
+        SiteSetting::set('home_visi_summary', $validated['vision'], 'home_tentang');
 
         ActivityLog::record(
             'update',

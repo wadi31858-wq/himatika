@@ -15,6 +15,7 @@ use App\Models\Gallery;
 use App\Models\Profile;
 use App\Models\OrganizationalStructure;
 use App\Models\VisionMission;
+use App\Models\SiteSetting;
 
 class HomeController extends Controller
 {
@@ -215,8 +216,52 @@ class HomeController extends Controller
         $combinedNews = $combinedNews
             ->unique('unique_key')
             ->sortByDesc('sort_timestamp')
-            ->values()
-            ->take(6);
+            ->values();
+
+        // Jika admin memilih berita unggulan di pengaturan Beranda, prioritaskan tampil di kartu utama
+        $featuredNewsId = SiteSetting::where('key', 'home_featured_news_id')->value('value');
+        if ($featuredNewsId) {
+            $featIndex = $combinedNews->search(fn($item) => $item->type === 'news' && $item->id == $featuredNewsId);
+            if ($featIndex !== false) {
+                $featItem = $combinedNews->pull($featIndex);
+                $combinedNews->prepend($featItem);
+            } else {
+                $specificNews = News::published()->find($featuredNewsId);
+                if ($specificNews) {
+                    $pubDate = $specificNews->published_at ? Carbon::parse($specificNews->published_at) : ($specificNews->created_at ? Carbon::parse($specificNews->created_at) : now());
+                    $combinedNews->prepend((object)[
+                        'id'            => $specificNews->id,
+                        'type'          => 'news',
+                        'unique_key'    => 'news_' . $specificNews->id,
+                        'category'      => $specificNews->category ?: 'Berita',
+                        'title'         => $specificNews->title,
+                        'slug'          => $specificNews->slug,
+                        'url'           => route('berita.show', $specificNews->slug ?: $specificNews->id),
+                        'thumbnail'     => $specificNews->thumbnail,
+                        'image'         => $specificNews->thumbnail,
+                        'published_at'  => $pubDate,
+                        'date'          => $pubDate,
+                        'sort_timestamp'=> $pubDate->timestamp,
+                        'excerpt'       => $specificNews->excerpt ?: Str::limit(strip_tags($specificNews->content), 130),
+                        'content'       => $specificNews->content,
+                        'views'         => $specificNews->views ?? 0,
+                        'is_agenda'     => false,
+                    ]);
+                }
+            }
+        }
+        $combinedNews = $combinedNews->values()->take(6);
+
+        // Galeri Jejak Langkah: ambil semua galeri terbit, jika ada sorotan album letakkan di urutan pertama
+        $galleries = Gallery::published()->orderBy('order_num')->latest()->get();
+        $featuredGalleryId = SiteSetting::where('key', 'home_featured_gallery_id')->value('value');
+        if ($featuredGalleryId) {
+            $featGalIndex = $galleries->search(fn($g) => $g->id == $featuredGalleryId);
+            if ($featGalIndex !== false) {
+                $featGal = $galleries->pull($featGalIndex);
+                $galleries->prepend($featGal);
+            }
+        }
 
         // Visi dan Misi untuk kartu Tentang di Beranda
         $vm = VisionMission::first();
@@ -246,7 +291,7 @@ class HomeController extends Controller
             'combinedNews'     => $combinedNews,
             'agendas'          => $agendas,
             'achievements'     => Achievement::latest('year')->take(4)->get(),
-            'galleries'        => Gallery::published()->orderBy('order_num')->latest()->get(),
+            'galleries'        => $galleries,
             'totalMembers'     => $statsPengurus,
             'totalBidang'      => $statsBidang,
             'totalBiro'        => $statsBiro,

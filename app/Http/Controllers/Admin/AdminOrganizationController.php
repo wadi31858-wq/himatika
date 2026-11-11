@@ -29,12 +29,27 @@ class AdminOrganizationController extends Controller
         }
 
         $structures = $query->orderBy('order_num')->latest()->paginate(15)->withQueryString();
-        return view('admin.struktur.index', compact('structures'));
+
+        // Hierarchical tree data for visual org chart
+        $treeStructures = OrganizationalStructure::with(['children' => function($q) {
+                $q->orderBy('order_num')->orderBy('id');
+            }])
+            ->orderBy('order_num')
+            ->orderBy('id')
+            ->get();
+
+        $groupedByParent = $treeStructures->groupBy('parent_id');
+        $allIds = $treeStructures->pluck('id')->toArray();
+        $roots = $treeStructures->filter(function($item) use ($allIds) {
+            return is_null($item->parent_id) || !in_array($item->parent_id, $allIds);
+        });
+
+        return view('admin.struktur.index', compact('structures', 'treeStructures', 'groupedByParent', 'roots'));
     }
 
     public function create()
     {
-        $parents = OrganizationalStructure::whereNull('parent_id')->get();
+        $parents = OrganizationalStructure::orderBy('order_num')->orderBy('name')->get();
         return view('admin.struktur.create', compact('parents'));
     }
 
@@ -101,7 +116,13 @@ class AdminOrganizationController extends Controller
 
     public function edit(OrganizationalStructure $struktur)
     {
-        $parents = OrganizationalStructure::whereNull('parent_id')->where('id', '!=', $struktur->id)->get();
+        $descendantIds = $this->getDescendantIds($struktur->id);
+        $excludedIds = array_merge([$struktur->id], $descendantIds);
+        $parents = OrganizationalStructure::whereNotIn('id', $excludedIds)
+            ->orderBy('order_num')
+            ->orderBy('name')
+            ->get();
+
         return view('admin.struktur.edit', compact('struktur', 'parents'));
     }
 
@@ -122,9 +143,14 @@ class AdminOrganizationController extends Controller
             'group_photo_putri' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
-        // Prevent setting parent to itself
-        if (!empty($validated['parent_id']) && $validated['parent_id'] == $struktur->id) {
-            return back()->withInput()->withErrors(['parent_id' => 'Struktur tidak dapat menjadi induk bagi dirinya sendiri.']);
+        // Prevent setting parent to itself or its descendants (prevents circular hierarchy)
+        if (!empty($validated['parent_id'])) {
+            $excludedIds = array_merge([$struktur->id], $this->getDescendantIds($struktur->id));
+            if (in_array((int)$validated['parent_id'], $excludedIds)) {
+                return back()->withInput()->withErrors([
+                    'parent_id' => 'Struktur tidak dapat memilih dirinya sendiri atau posisi bawahannya sebagai atasan (mencegah perulangan/loop hirarki).'
+                ]);
+            }
         }
 
         if ($request->hasFile('photo')) {
@@ -219,5 +245,19 @@ class AdminOrganizationController extends Controller
         );
 
         return redirect()->route('admin.struktur-organisasi.index')->with('success', 'Struktur organisasi berhasil dihapus.');
+    }
+
+    /**
+     * Recursively collect all descendant IDs for a given structure to prevent circular hierarchy loops.
+     */
+    private function getDescendantIds($structureId): array
+    {
+        $descendants = [];
+        $childrenIds = OrganizationalStructure::where('parent_id', $structureId)->pluck('id')->toArray();
+        foreach ($childrenIds as $childId) {
+            $descendants[] = (int) $childId;
+            $descendants = array_merge($descendants, $this->getDescendantIds($childId));
+        }
+        return $descendants;
     }
 }

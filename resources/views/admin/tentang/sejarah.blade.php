@@ -34,8 +34,57 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Isi Lengkap Sejarah <span class="text-danger">*</span></label>
-                    <textarea name="history_content" class="form-control visual-editor" rows="12" required>{{ old('history_content', $profile->history ?? "HIMATIKA merupakan lembaga kemahasiswaan yang tumbuh dan berkembang dari semangat mahasiswa dalam membangun persatuan yang berorientasikan nilai-nilai keislaman.\n\nDalam perkembangannya, HIMATIKA terus berikhtiar meningkatkan mutu keilmuan, kepemimpinan, dan jejaring pengabdian.") }}</textarea>
-                    <div class="form-text">Gunakan Enter untuk membuat paragraf baru. Format teks didukung secara otomatis tanpa perlu mengetik kode HTML.</div>
+                    
+                    {{-- Visual Editor Container (Tanpa Input Kode HTML) --}}
+                    <div class="visual-editor-container">
+                        {{-- Editor Toolbar --}}
+                        <div class="visual-editor-toolbar d-flex flex-wrap align-items-center gap-1 p-2 bg-light border border-bottom-0 rounded-top">
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="bold" title="Tebal (Ctrl+B)">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="italic" title="Miring (Ctrl+I)">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="underline" title="Garis Bawah (Ctrl+U)">
+                                <i class="fas fa-underline"></i>
+                            </button>
+                            <div class="vr mx-1"></div>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="formatBlock" data-value="p" title="Paragraf Normal">
+                                <i class="fas fa-paragraph"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="formatBlock" data-value="h4" title="Sub-Judul (H4)">
+                                <i class="fas fa-heading"></i>
+                            </button>
+                            <div class="vr mx-1"></div>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="insertUnorderedList" title="Daftar Poin (Bullet List)">
+                                <i class="fas fa-list-ul"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="insertOrderedList" title="Daftar Nomor (Numbered List)">
+                                <i class="fas fa-list-ol"></i>
+                            </button>
+                            <div class="vr mx-1"></div>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="undo" title="Urungkan (Undo)">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="redo" title="Ulangi (Redo)">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary toolbar-btn" data-command="removeFormat" title="Hapus Format">
+                                <i class="fas fa-eraser"></i>
+                            </button>
+                        </div>
+
+                        {{-- Editable Area --}}
+                        <div id="sejarahVisualEditor" class="visual-editor-surface p-3 bg-white border rounded-bottom" contenteditable="true" spellcheck="false" style="min-height: 280px; max-height: 520px; overflow-y: auto; outline: none; line-height: 1.75; font-size: 0.95rem;">
+                            {!! old('history_content', $profile->history ?? '<p>HIMATIKA merupakan lembaga kemahasiswaan yang tumbuh dan berkembang dari semangat mahasiswa dalam membangun persatuan yang berorientasikan nilai-nilai keislaman.</p><p>Dalam perkembangannya, HIMATIKA terus berikhtiar meningkatkan mutu keilmuan, kepemimpinan, dan jejaring pengabdian.</p>') !!}
+                        </div>
+
+                        {{-- Hidden field to submit to server --}}
+                        <textarea name="history_content" id="history_content_hidden" class="d-none" required></textarea>
+                    </div>
+                    <div class="form-text mt-1 text-muted small">
+                        <i class="fas fa-info-circle me-1 text-primary"></i> Editor visual aktif: Ketik atau tempel teks langsung. Gunakan tombol toolbar untuk memformat tebal, miring, paragraf, atau daftar tanpa perlu menulis kode HTML.
+                    </div>
                 </div>
 
                 <div class="row g-3">
@@ -81,5 +130,94 @@
         </div>
     </div>
 </form>
+
+@push('styles')
+<style>
+    .visual-editor-container {
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .visual-editor-toolbar {
+        border-color: #E2E8F0 !important;
+        background: #F8FAFC !important;
+    }
+    .toolbar-btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.82rem;
+        color: #475569;
+        border-color: #CBD5E1;
+        background: #ffffff;
+        border-radius: 6px;
+    }
+    .toolbar-btn:hover {
+        background: #711C35;
+        color: #ffffff;
+        border-color: #711C35;
+    }
+    .visual-editor-surface {
+        border-color: #E2E8F0 !important;
+        color: #1E293B;
+    }
+    .visual-editor-surface:focus {
+        border-color: #711C35 !important;
+        box-shadow: 0 0 0 3px rgba(113, 28, 53, 0.12);
+    }
+    .visual-editor-surface p {
+        margin-bottom: 0.85rem;
+    }
+    .visual-editor-surface ul,
+    .visual-editor-surface ol {
+        padding-left: 1.5rem;
+        margin-bottom: 0.85rem;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const editor = document.getElementById('sejarahVisualEditor');
+    const hiddenInput = document.getElementById('history_content_hidden');
+    if (!editor || !hiddenInput) return;
+
+    const form = editor.closest('form');
+
+    // Toolbar actions
+    document.querySelectorAll('.toolbar-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const cmd = this.getAttribute('data-command');
+            const val = this.getAttribute('data-value') || null;
+            document.execCommand(cmd, false, val);
+            editor.focus();
+        });
+    });
+
+    // Populate hidden field initially
+    hiddenInput.value = editor.innerHTML.trim();
+
+    // Sync on input and on submit
+    editor.addEventListener('input', function() {
+        hiddenInput.value = editor.innerHTML.trim();
+    });
+
+    form.addEventListener('submit', function() {
+        hiddenInput.value = editor.innerHTML.trim();
+    });
+
+    // Clean text paste handler
+    editor.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+        document.execCommand('insertText', false, text);
+    });
+});
+</script>
+@endpush
 @endsection
 

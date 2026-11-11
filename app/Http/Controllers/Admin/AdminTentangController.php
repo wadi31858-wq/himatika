@@ -47,7 +47,11 @@ class AdminTentangController extends Controller
         SiteSetting::set('history_doc_url', $validated['history_doc_url'] ?? '/galeri', 'tentang');
         SiteSetting::set('history_doc_text', $validated['history_doc_text'] ?? 'Dokumentasi Sejarah', 'tentang');
 
-        $profile->update(['history' => $validated['history_content']]);
+        // Bersihkan dan sanitasi HTML konten sejarah agar aman dan terformat
+        $rawContent = $validated['history_content'];
+        $cleanContent = strip_tags($rawContent, '<p><br><strong><b><em><i><u><ul><ol><li><hr><span><blockquote>');
+
+        $profile->update(['history' => $cleanContent]);
 
         ActivityLog::record('update', 'Memperbarui Halaman Sejarah HIMATIKA', $profile);
 
@@ -99,6 +103,10 @@ class AdminTentangController extends Controller
         SiteSetting::set('sambutan_title', $validated['sambutan_title'], 'tentang');
         SiteSetting::set('sambutan_quote', $validated['sambutan_quote'] ?? '', 'tentang');
         SiteSetting::set('sambutan_content', $validated['sambutan_content'], 'tentang');
+        // Sinkronkan ke ringkasan Beranda agar admin cukup input sekali
+        if (!empty($validated['sambutan_quote'])) {
+            SiteSetting::set('home_sambutan_summary', $validated['sambutan_quote'], 'home_tentang');
+        }
 
         // Also update or create Member entry if exists
         $kaprodi = Member::where('position', 'like', '%kaprodi%')

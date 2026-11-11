@@ -120,6 +120,15 @@ class AdminHomeController extends Controller
             SiteSetting::set($k, $v, 'home_tentang');
         }
 
+        // Sinkronisasi dua arah ke model asli jika diubah dari form Beranda
+        if (!empty($validated['home_visi_summary'])) {
+            $vm = \App\Models\VisionMission::firstOrCreate([]);
+            $vm->update(['vision' => $validated['home_visi_summary']]);
+        }
+        if (!empty($validated['home_sambutan_summary'])) {
+            SiteSetting::set('sambutan_quote', $validated['home_sambutan_summary'], 'tentang');
+        }
+
         ActivityLog::record('update', 'Memperbarui Bagian Tentang HIMATIKA di Beranda', null);
 
         return back()->with('success', 'Pengaturan Bagian Tentang HIMATIKA di Beranda berhasil disimpan.');
