@@ -79,6 +79,25 @@
                     <div class="form-text">Maksimal 3 MB (JPG, PNG, WebP).</div>
                 </div>
 
+                {{-- Khusus Divisi / Bidang: Foto Bersama Anggota --}}
+                <div class="p-3 mb-3 rounded-3 border" style="background: #faf8f9;">
+                    <div class="fw-bold text-dark mb-2">
+                        <i class="fas fa-users-rectangle text-primary me-1"></i> Foto Bersama Divisi / Kelompok (Untuk Kartu Divisi)
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-dark">Foto Bersama Divisi (Putra / Utama)</label>
+                            <input type="file" name="group_photo" class="form-control form-control-sm" accept="image/png,image/jpeg,image/webp">
+                            <div class="form-text small">Tampil pada sisi kiri kartu divisi horizontal. Maks 5 MB.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-dark">Foto Bersama Divisi (Kelompok Putri - Opsional)</label>
+                            <input type="file" name="group_photo_putri" class="form-control form-control-sm" accept="image/png,image/jpeg,image/webp">
+                            <div class="form-text small">Tampil khusus tab Putri jika berbeda. Jika kosong, memakai foto utama.</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="mb-4">
                     <label class="form-label fw-semibold text-dark">Keterangan / Tugas Pokok</label>
                     <textarea name="description" class="form-control" rows="3" placeholder="Tupoksi singkat jabatan ini...">{{ old('description') }}</textarea>

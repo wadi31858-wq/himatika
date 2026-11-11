@@ -51,6 +51,8 @@ class AdminOrganizationController extends Controller
             'is_active' => 'required|boolean',
             'description' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072',
+            'group_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'group_photo_putri' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
         if ($request->hasFile('photo')) {
@@ -62,6 +64,28 @@ class AdminOrganizationController extends Controller
             }
             $file->move($destination, $filename);
             $validated['photo'] = 'structures/' . $filename;
+        }
+
+        if ($request->hasFile('group_photo')) {
+            $file = $request->file('group_photo');
+            $filename = 'group_' . time() . '_' . $file->hashName();
+            $destination = storage_path('app/public/structures/groups');
+            if (!File::isDirectory($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+            $file->move($destination, $filename);
+            $validated['group_photo'] = 'structures/groups/' . $filename;
+        }
+
+        if ($request->hasFile('group_photo_putri')) {
+            $file = $request->file('group_photo_putri');
+            $filename = 'group_putri_' . time() . '_' . $file->hashName();
+            $destination = storage_path('app/public/structures/groups');
+            if (!File::isDirectory($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+            $file->move($destination, $filename);
+            $validated['group_photo_putri'] = 'structures/groups/' . $filename;
         }
 
         $structure = OrganizationalStructure::create($validated);
@@ -94,6 +118,8 @@ class AdminOrganizationController extends Controller
             'is_active' => 'required|boolean',
             'description' => 'nullable|string',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:3072',
+            'group_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'group_photo_putri' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
         // Prevent setting parent to itself
@@ -113,6 +139,34 @@ class AdminOrganizationController extends Controller
             }
             $file->move($destination, $filename);
             $validated['photo'] = 'structures/' . $filename;
+        }
+
+        if ($request->hasFile('group_photo')) {
+            $file = $request->file('group_photo');
+            $filename = 'group_' . time() . '_' . $file->hashName();
+            $destination = storage_path('app/public/structures/groups');
+            if (!File::isDirectory($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+            if ($struktur->group_photo && file_exists(storage_path('app/public/' . $struktur->group_photo))) {
+                @unlink(storage_path('app/public/' . $struktur->group_photo));
+            }
+            $file->move($destination, $filename);
+            $validated['group_photo'] = 'structures/groups/' . $filename;
+        }
+
+        if ($request->hasFile('group_photo_putri')) {
+            $file = $request->file('group_photo_putri');
+            $filename = 'group_putri_' . time() . '_' . $file->hashName();
+            $destination = storage_path('app/public/structures/groups');
+            if (!File::isDirectory($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+            if ($struktur->group_photo_putri && file_exists(storage_path('app/public/' . $struktur->group_photo_putri))) {
+                @unlink(storage_path('app/public/' . $struktur->group_photo_putri));
+            }
+            $file->move($destination, $filename);
+            $validated['group_photo_putri'] = 'structures/groups/' . $filename;
         }
 
         $struktur->update($validated);
@@ -148,6 +202,12 @@ class AdminOrganizationController extends Controller
         $title = $struktur->name;
         if ($struktur->photo && file_exists(storage_path('app/public/' . $struktur->photo))) {
             @unlink(storage_path('app/public/' . $struktur->photo));
+        }
+        if ($struktur->group_photo && file_exists(storage_path('app/public/' . $struktur->group_photo))) {
+            @unlink(storage_path('app/public/' . $struktur->group_photo));
+        }
+        if ($struktur->group_photo_putri && file_exists(storage_path('app/public/' . $struktur->group_photo_putri))) {
+            @unlink(storage_path('app/public/' . $struktur->group_photo_putri));
         }
 
         $struktur->delete();

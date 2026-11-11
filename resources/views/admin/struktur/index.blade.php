@@ -74,7 +74,12 @@
                             </div>
                             <div>
                                 <div class="fw-bold text-dark">{{ $s->name }}</div>
-                                <small class="text-primary fw-semibold">{{ $s->position }}</small>
+                                <div class="d-flex align-items-center gap-1 flex-wrap">
+                                    <small class="text-primary fw-semibold">{{ $s->position }}</small>
+                                    @if($s->group_photo)
+                                        <span class="badge bg-success-subtle text-success py-0 px-1" style="font-size: 0.68rem;" title="Foto bersama divisi tersedia"><i class="fas fa-users-rectangle"></i> Foto Bersama</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </td>

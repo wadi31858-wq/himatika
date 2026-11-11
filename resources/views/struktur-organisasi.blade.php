@@ -391,59 +391,135 @@
 
     .divisi-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
         margin-top: 28px;
     }
 
     @media (max-width: 991.98px) {
         .divisi-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    @media (max-width: 640px) {
-        .divisi-grid {
             grid-template-columns: 1fr;
+            gap: 18px;
         }
     }
 
     .divisi-card {
         background: var(--pure-white);
         border: 1px solid var(--border-rose);
-        border-radius: 14px;
-        padding: 24px 22px;
-        box-shadow: 0 3px 14px rgba(113, 28, 53, 0.04);
-        transition: all 0.25s ease;
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(113, 28, 53, 0.05);
+        transition: all 0.28s ease;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        flex-direction: row;
+        align-items: stretch;
         position: relative;
         overflow: hidden;
+        cursor: pointer;
+        min-height: 195px;
     }
     .divisi-card:hover {
         border-color: var(--burgundy-main);
-        box-shadow: 0 8px 24px rgba(113, 28, 53, 0.1);
+        box-shadow: 0 10px 28px rgba(113, 28, 53, 0.12);
         transform: translateY(-3px);
     }
-    .divisi-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 4px;
-        background: var(--burgundy-main);
+    .divisi-card:focus-visible {
+        outline: 2px solid var(--burgundy-focus);
+        outline-offset: 2px;
     }
 
-    .divisi-icon-wrap {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
-        background: var(--rose-soft);
+    /* Sisi Kiri: Foto Bersama Anggota */
+    .divisi-photo-box {
+        width: 190px;
+        min-width: 190px;
+        position: relative;
+        overflow: hidden;
+        background: var(--rose-pale);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid rgba(233, 205, 213, 0.6);
+    }
+    .divisi-group-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    .divisi-card:hover .divisi-group-photo {
+        transform: scale(1.05);
+    }
+
+    /* Placeholder Foto Bersama Rapi */
+    .divisi-photo-placeholder {
+        width: 100%;
+        height: 100%;
+        min-height: 195px;
+        background: linear-gradient(135deg, #FFF7F9 0%, #F4D6DE 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px;
+        text-align: center;
+    }
+    .divisi-placeholder-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--pure-white);
         color: var(--burgundy-main);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.25rem;
-        margin-bottom: 14px;
+        font-size: 1.3rem;
+        box-shadow: 0 4px 10px rgba(113, 28, 53, 0.1);
+        transition: transform 0.25s ease;
+    }
+    .divisi-card:hover .divisi-placeholder-icon {
+        transform: scale(1.1);
+    }
+    .divisi-placeholder-tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--burgundy-main);
+        background: rgba(255, 255, 255, 0.85);
+        padding: 3px 10px;
+        border-radius: 50px;
+        border: 1px solid var(--border-rose);
+    }
+
+    /* Sisi Kanan: Konten Informasi */
+    .divisi-info-box {
+        padding: 20px 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    .divisi-top-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+    .divisi-badge-tag {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--burgundy-main);
+        background: var(--rose-soft);
+        padding: 3px 10px;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
 
     .divisi-card-title {
@@ -451,42 +527,88 @@
         font-weight: 700;
         color: var(--text-dark);
         margin-bottom: 8px;
+        line-height: 1.35;
     }
 
     .divisi-card-desc {
         font-size: 0.85rem;
-        color: rgba(40, 21, 29, 0.7);
+        color: rgba(40, 21, 29, 0.72);
         line-height: 1.55;
         margin-bottom: 16px;
-        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    .btn-divisi {
+    /* Bagian Bawah: Jumlah Anggota & Ikon Panah */
+    .divisi-card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 12px;
+        border-top: 1px solid rgba(233, 205, 213, 0.6);
+        margin-top: auto;
+    }
+
+    .divisi-members-count {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        background: var(--rose-pale);
+        padding: 5px 12px;
+        border-radius: 50px;
+        border: 1px solid var(--border-rose);
         display: inline-flex;
         align-items: center;
-        justify-content: center;
         gap: 6px;
+    }
+    .divisi-members-count i {
+        color: var(--burgundy-main);
+    }
+
+    .divisi-arrow-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
         background: var(--burgundy-main);
-        color: #ffffff !important;
-        font-size: 0.83rem;
-        font-weight: 600;
-        padding: 8px 16px;
-        border-radius: 8px;
-        text-decoration: none;
-        border: 1px solid var(--burgundy-main);
-        transition: all 0.2s ease;
-        cursor: pointer;
-        width: 100%;
+        color: #ffffff;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        transition: all 0.25s ease;
+        box-shadow: 0 3px 8px rgba(113, 28, 53, 0.2);
+        flex-shrink: 0;
     }
-    .btn-divisi:hover {
+    .divisi-card:hover .divisi-arrow-btn {
         background: var(--burgundy-hover);
-        border-color: var(--burgundy-hover);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(113, 28, 53, 0.2);
+        transform: translateX(3px);
     }
-    .btn-divisi:focus-visible {
-        outline: 2px solid var(--burgundy-focus);
-        outline-offset: 2px;
+
+    /* Responsive Android / Mobile */
+    @media (max-width: 575.98px) {
+        .divisi-card {
+            flex-direction: column;
+            min-height: auto;
+        }
+        .divisi-photo-box {
+            width: 100%;
+            min-width: 100%;
+            height: 160px;
+            border-right: none;
+            border-bottom: 1px solid rgba(233, 205, 213, 0.6);
+        }
+        .divisi-photo-placeholder {
+            min-height: 160px;
+        }
+        .divisi-info-box {
+            padding: 16px 18px;
+        }
+        .divisi-card-desc {
+            -webkit-line-clamp: 3;
+        }
     }
 
     /* ========================================================
@@ -835,39 +957,39 @@
 
                     <div class="divisi-grid">
                         @foreach($divisiPutra as $divKey => $div)
-                            <div class="divisi-card">
-                                <div>
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <div class="divisi-icon-wrap mb-0">
-                                            <i class="{{ $div['icon'] }}"></i>
+                            <div class="divisi-card" onclick="openDivisiModal('{{ $divKey }}', this, 'putra')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDivisiModal('{{ $divKey }}', this, 'putra');}">
+                                <div class="divisi-photo-box">
+                                    @if(!empty($div['group_photo']))
+                                        <img src="{{ $div['group_photo'] }}" alt="{{ $div['clean_name'] }}" class="divisi-group-photo" loading="lazy">
+                                    @else
+                                        <div class="divisi-photo-placeholder">
+                                            <div class="divisi-placeholder-icon">
+                                                <i class="{{ $div['icon'] }}"></i>
+                                            </div>
+                                            <span class="divisi-placeholder-tag">Foto Bersama</span>
                                         </div>
-                                        <span class="badge" style="background: var(--rose-soft); color: var(--burgundy-main); font-weight: 700; font-size: 0.74rem; padding: 5px 10px; border-radius: 50px;">
-                                            <i class="fas fa-users me-1"></i> {{ $div['member_count'] }} Anggota
-                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="divisi-info-box">
+                                    <div>
+                                        <div class="divisi-top-meta">
+                                            <span class="divisi-badge-tag"><i class="{{ $div['icon'] }}"></i> DIVISI</span>
+                                        </div>
+                                        <h3 class="divisi-card-title">{{ $div['name'] }}</h3>
+                                        <p class="divisi-card-desc">{{ $div['description'] }}</p>
                                     </div>
 
-                                    <h3 class="divisi-card-title mt-2">{{ $div['name'] }}</h3>
-                                    <p class="divisi-card-desc">{{ $div['description'] }}</p>
-
-                                    {{-- Pengurus / Kepala Divisi Putra --}}
-                                    <div class="d-flex align-items-center gap-2 pt-2 mb-3 border-top" style="border-color: rgba(233,205,213,0.5) !important;">
-                                        @if($div['leader_photo'])
-                                            <img src="{{ $div['leader_photo'] }}" alt="{{ $div['leader_name'] }}" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--burgundy-main); flex-shrink: 0;">
-                                        @else
-                                            <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--rose-soft); color: var(--burgundy-main); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">
-                                                <i class="fas fa-user-tie"></i>
-                                            </div>
-                                        @endif
-                                        <div class="overflow-hidden">
-                                            <div class="fw-bold text-dark text-truncate" style="font-size: 0.82rem;">{{ $div['leader_name'] }}</div>
-                                            <div class="text-muted" style="font-size: 0.72rem;">{{ $div['leader_position'] }}</div>
+                                    <div class="divisi-card-bottom">
+                                        <div class="divisi-members-count">
+                                            <i class="fas fa-users"></i>
+                                            <span><strong>{{ $div['member_count'] }}</strong> Anggota</span>
+                                        </div>
+                                        <div class="divisi-arrow-btn" title="Buka Detail {{ $div['clean_name'] }}">
+                                            <i class="fas fa-arrow-right"></i>
                                         </div>
                                     </div>
                                 </div>
-
-                                <button type="button" class="btn-divisi" onclick="openDivisiModal('{{ $divKey }}', this, 'putra')">
-                                    Lihat Divisi &rarr;
-                                </button>
                             </div>
                         @endforeach
                     </div>
@@ -1028,39 +1150,39 @@
 
                     <div class="divisi-grid">
                         @foreach($divisiPutri as $divKey => $div)
-                            <div class="divisi-card">
-                                <div>
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <div class="divisi-icon-wrap mb-0">
-                                            <i class="{{ $div['icon'] }}"></i>
+                            <div class="divisi-card" onclick="openDivisiModal('{{ $divKey }}', this, 'putri')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDivisiModal('{{ $divKey }}', this, 'putri');}">
+                                <div class="divisi-photo-box">
+                                    @if(!empty($div['group_photo']))
+                                        <img src="{{ $div['group_photo'] }}" alt="{{ $div['clean_name'] }}" class="divisi-group-photo" loading="lazy">
+                                    @else
+                                        <div class="divisi-photo-placeholder">
+                                            <div class="divisi-placeholder-icon">
+                                                <i class="{{ $div['icon'] }}"></i>
+                                            </div>
+                                            <span class="divisi-placeholder-tag">Foto Bersama</span>
                                         </div>
-                                        <span class="badge" style="background: var(--rose-soft); color: var(--burgundy-main); font-weight: 700; font-size: 0.74rem; padding: 5px 10px; border-radius: 50px;">
-                                            <i class="fas fa-users me-1"></i> {{ $div['member_count'] }} Anggota
-                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="divisi-info-box">
+                                    <div>
+                                        <div class="divisi-top-meta">
+                                            <span class="divisi-badge-tag"><i class="{{ $div['icon'] }}"></i> DIVISI</span>
+                                        </div>
+                                        <h3 class="divisi-card-title">{{ $div['name'] }}</h3>
+                                        <p class="divisi-card-desc">{{ $div['description'] }}</p>
                                     </div>
 
-                                    <h3 class="divisi-card-title mt-2">{{ $div['name'] }}</h3>
-                                    <p class="divisi-card-desc">{{ $div['description'] }}</p>
-
-                                    {{-- Pengurus / Kepala Divisi Putri --}}
-                                    <div class="d-flex align-items-center gap-2 pt-2 mb-3 border-top" style="border-color: rgba(233,205,213,0.5) !important;">
-                                        @if($div['leader_photo'])
-                                            <img src="{{ $div['leader_photo'] }}" alt="{{ $div['leader_name'] }}" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--burgundy-main); flex-shrink: 0;">
-                                        @else
-                                            <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--rose-soft); color: var(--burgundy-main); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">
-                                                <i class="fas fa-user-circle"></i>
-                                            </div>
-                                        @endif
-                                        <div class="overflow-hidden">
-                                            <div class="fw-bold text-dark text-truncate" style="font-size: 0.82rem;">{{ $div['leader_name'] }}</div>
-                                            <div class="text-muted" style="font-size: 0.72rem;">{{ $div['leader_position'] }}</div>
+                                    <div class="divisi-card-bottom">
+                                        <div class="divisi-members-count">
+                                            <i class="fas fa-users"></i>
+                                            <span><strong>{{ $div['member_count'] }}</strong> Anggota</span>
+                                        </div>
+                                        <div class="divisi-arrow-btn" title="Buka Detail {{ $div['clean_name'] }}">
+                                            <i class="fas fa-arrow-right"></i>
                                         </div>
                                     </div>
                                 </div>
-
-                                <button type="button" class="btn-divisi" onclick="openDivisiModal('{{ $divKey }}', this, 'putri')">
-                                    Lihat Divisi &rarr;
-                                </button>
                             </div>
                         @endforeach
                     </div>
@@ -1083,7 +1205,10 @@
         {{-- Modal Header --}}
         <span class="chart-badge">DIVISI HIMATIKA</span>
         <h2 id="modalDivisiTitle" style="color: var(--text-dark); font-size: 1.55rem; font-weight: 700; margin: 4px 0 10px;">Divisi HIMATIKA</h2>
-        <p id="modalDivisiDesc" style="color: rgba(40,21,29,0.75); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px;"></p>
+        <p id="modalDivisiDesc" style="color: rgba(40,21,29,0.75); font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px;"></p>
+
+        {{-- Leader & Summary Badges --}}
+        <div id="modalDivisiBadges" class="d-flex flex-wrap gap-2 mb-3"></div>
 
         {{-- Member Profile Card (Supports slider with photos) --}}
         <div class="modal-member-card">
@@ -1139,6 +1264,18 @@
         document.getElementById('modalDivisiTitle').textContent = data.name;
         document.getElementById('modalDivisiDesc').textContent = data.description;
         document.getElementById('modalDetailDivisiLink').href = data.detail_url;
+
+        const badgesWrap = document.getElementById('modalDivisiBadges');
+        if (badgesWrap) {
+            badgesWrap.innerHTML = `
+                <span class="badge" style="background: var(--rose-soft); color: var(--burgundy-main); font-weight: 700; font-size: 0.78rem; padding: 6px 12px; border-radius: 50px; border: 1px solid var(--border-rose);">
+                    <i class="fas fa-crown text-warning me-1"></i> ${data.leader_position || 'Kepala Divisi'}: <strong>${data.leader_name}</strong>
+                </span>
+                <span class="badge" style="background: var(--rose-pale); color: var(--text-dark); font-weight: 600; font-size: 0.78rem; padding: 6px 12px; border-radius: 50px; border: 1px solid var(--border-rose);">
+                    <i class="fas fa-users text-primary me-1"></i> Total <strong>${data.members.length}</strong> Pengurus
+                </span>
+            `;
+        }
 
         renderModalMember();
 

@@ -109,6 +109,16 @@ class OrganizationController extends Controller
         ];
 
         foreach ($divisiDefs as $key => $def) {
+            $struct = OrganizationalStructure::find($def['id']);
+            $divisionName = $struct?->position ?: $def['name'];
+            $divisionDesc = $struct?->description ?: $def['description'];
+
+            // Group photo per division (Putra & Putri)
+            $groupPhotoPutra = $struct?->group_photo ? asset('storage/' . $struct->group_photo) : null;
+            $groupPhotoPutri = $struct?->group_photo_putri
+                ? asset('storage/' . $struct->group_photo_putri)
+                : ($struct?->group_photo ? asset('storage/' . $struct->group_photo) : null);
+
             // Member PUTRA
             $membersPutra = Member::where('division', 'like', "%{$def['search']}%")
                 ->where('kelompok', 'putra')
@@ -117,32 +127,48 @@ class OrganizationController extends Controller
                 ->get();
 
             $leaderPutra = $membersPutra->firstWhere(function ($m) {
-                return str_contains(strtolower($m->position), 'kepala');
+                return str_contains(strtolower($m->position), 'kepala') || str_contains(strtolower($m->position), 'co ');
             }) ?? $membersPutra->first();
 
             $divisiPutra[$key] = array_merge($def, [
+                'name' => $divisionName,
+                'description' => $divisionDesc,
                 'detail_url' => route('struktur-organisasi.show', $def['id']),
+                'group_photo' => $groupPhotoPutra,
                 'members' => $membersPutra,
                 'member_count' => $membersPutra->count(),
-                'leader_name' => $leaderPutra?->name ?? 'Pengurus Putra',
+                'leader_name' => $leaderPutra?->name ?? ($struct?->name ?? 'Pengurus Putra'),
                 'leader_position' => $leaderPutra?->position ?? 'Koordinator Divisi',
                 'leader_photo' => $leaderPutra?->photo ? asset('storage/' . $leaderPutra->photo) : null,
             ]);
+
+            $modalMembersPutra = $membersPutra->map(function ($m) use ($def) {
+                return [
+                    'name' => $m->name,
+                    'position' => $m->position,
+                    'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
+                    'bio' => $m->bio ?? "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putra."
+                ];
+            })->values();
+
+            if ($modalMembersPutra->isEmpty() && $struct && ($struct->kelompok === 'putra' || $struct->kelompok === 'semua') && $struct->name) {
+                $modalMembersPutra->push([
+                    'name' => $struct->name,
+                    'position' => $struct->position,
+                    'photo' => $struct->photo ? asset('storage/' . $struct->photo) : null,
+                    'bio' => $struct->description ?: "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putra."
+                ]);
+            }
 
             $divisiModalData['putra'][$key] = [
                 'id' => $def['id'],
                 'name' => $def['clean_name'] . ' (Putra)',
                 'key' => $key,
-                'description' => $def['description'],
+                'description' => $divisionDesc,
                 'detail_url' => route('struktur-organisasi.show', $def['id']),
-                'members' => $membersPutra->map(function ($m) use ($def) {
-                    return [
-                        'name' => $m->name,
-                        'position' => $m->position,
-                        'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
-                        'bio' => $m->bio ?? "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putra."
-                    ];
-                })->values()
+                'leader_name' => $leaderPutra?->name ?? ($struct?->name ?? 'Pengurus Putra'),
+                'leader_position' => $leaderPutra?->position ?? 'Koordinator Divisi',
+                'members' => $modalMembersPutra
             ];
 
             // Member PUTRI
@@ -153,32 +179,48 @@ class OrganizationController extends Controller
                 ->get();
 
             $leaderPutri = $membersPutri->firstWhere(function ($m) {
-                return str_contains(strtolower($m->position), 'kepala');
+                return str_contains(strtolower($m->position), 'kepala') || str_contains(strtolower($m->position), 'co ');
             }) ?? $membersPutri->first();
 
             $divisiPutri[$key] = array_merge($def, [
+                'name' => $divisionName,
+                'description' => $divisionDesc,
                 'detail_url' => route('struktur-organisasi.show', $def['id']),
+                'group_photo' => $groupPhotoPutri,
                 'members' => $membersPutri,
                 'member_count' => $membersPutri->count(),
-                'leader_name' => $leaderPutri?->name ?? 'Pengurus Putri',
+                'leader_name' => $leaderPutri?->name ?? ($struct?->name ?? 'Pengurus Putri'),
                 'leader_position' => $leaderPutri?->position ?? 'Koordinator Divisi',
                 'leader_photo' => $leaderPutri?->photo ? asset('storage/' . $leaderPutri->photo) : null,
             ]);
+
+            $modalMembersPutri = $membersPutri->map(function ($m) use ($def) {
+                return [
+                    'name' => $m->name,
+                    'position' => $m->position,
+                    'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
+                    'bio' => $m->bio ?? "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putri."
+                ];
+            })->values();
+
+            if ($modalMembersPutri->isEmpty() && $struct && ($struct->kelompok === 'putri' || $struct->kelompok === 'semua') && $struct->name) {
+                $modalMembersPutri->push([
+                    'name' => $struct->name,
+                    'position' => $struct->position,
+                    'photo' => $struct->photo ? asset('storage/' . $struct->photo) : null,
+                    'bio' => $struct->description ?: "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putri."
+                ]);
+            }
 
             $divisiModalData['putri'][$key] = [
                 'id' => $def['id'],
                 'name' => $def['clean_name'] . ' (Putri)',
                 'key' => $key,
-                'description' => $def['description'],
+                'description' => $divisionDesc,
                 'detail_url' => route('struktur-organisasi.show', $def['id']),
-                'members' => $membersPutri->map(function ($m) use ($def) {
-                    return [
-                        'name' => $m->name,
-                        'position' => $m->position,
-                        'photo' => $m->photo ? asset('storage/' . $m->photo) : null,
-                        'bio' => $m->bio ?? "Pengurus {$def['clean_name']} HIMATIKA UNUJA Putri."
-                    ];
-                })->values()
+                'leader_name' => $leaderPutri?->name ?? ($struct?->name ?? 'Pengurus Putri'),
+                'leader_position' => $leaderPutri?->position ?? 'Koordinator Divisi',
+                'members' => $modalMembersPutri
             ];
         }
 

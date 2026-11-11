@@ -19,6 +19,8 @@ class OrganizationalStructure extends Model
         'is_active',
         'parent_id',
         'photo',
+        'group_photo',
+        'group_photo_putri',
         'description',
     ];
 
