@@ -580,80 +580,577 @@
             <div>
                 <div class="tentang-top-label">
                     <span class="tentang-label-bar"></span>
-                    <span>{{ $siteSettings['home_galeri_badge'] ?? 'Dokumentasi Kegiatan' }}</span>
+                    <span>{{ $siteSettings['home_galeri_badge'] ?? 'DOKUMENTASI MOMEN' }}</span>
                 </div>
                 <h2 class="tentang-main-title">
-                    {{ $siteSettings['home_galeri_title'] ?? 'Dokumentasi Momen' }}
+                    {{ $siteSettings['home_galeri_title'] ?? 'Jejak Langkah & Kebersamaan' }}
                 </h2>
                 <p class="tentang-main-desc">
-                    {{ $siteSettings['home_galeri_desc'] ?? 'Jejak kebersamaan dan berbagai kegiatan HIMATIKA dalam setiap momen.' }}
+                    {{ $siteSettings['home_galeri_desc'] ?? 'Setiap momen kebersamaan dan perjuangan terabadikan dalam galeri resmi kegiatan HIMATIKA.' }}
                 </p>
             </div>
             <div>
                 <a href="{{ !empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri') }}" class="btn-semua-artikel">
-                    <span>{{ $siteSettings['home_galeri_btn_text'] ?? 'Lihat Semua Dokumentasi' }}</span>
+                    <span>{{ $siteSettings['home_galeri_btn_text'] ?? 'Buka Galeri Foto' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
 
-        {{-- 2-Column Photo Grid (Desktop 2 Kolom, Mobile 1 Kolom) --}}
-        <div class="row g-4">
-            @if($galleries->isNotEmpty())
-                @foreach($galleries->take(4) as $gal)
-                    @php
-                        $galImg = null;
-                        if (!empty($gal->image)) {
-                            if (file_exists(public_path('storage/' . $gal->image))) {
-                                $galImg = asset('storage/' . $gal->image);
-                            } elseif (file_exists(public_path('images/' . $gal->image))) {
-                                $galImg = asset('images/' . $gal->image);
-                            } elseif (file_exists(public_path($gal->image))) {
-                                $galImg = asset($gal->image);
-                            }
-                        }
-                        if (!$galImg) {
-                            $galImg = asset('images/news/news-' . (($loop->index % 4) + 1) . '.jpg');
-                        }
-                    @endphp
-                    <div class="col-lg-6 col-12">
-                        <a href="{{ route('galeri') }}" class="doc-momen-card">
-                            <img src="{{ $galImg }}" alt="{{ $gal->alt_text ?: $gal->title }}" class="doc-momen-img">
-                            <div class="doc-momen-overlay">
-                                <span class="doc-momen-badge">{{ $gal->activity ? $gal->activity->title : 'Dokumentasi HIMATIKA' }}</span>
-                                <h3 class="doc-momen-title">{{ $gal->title }}</h3>
-                                @if($gal->description)
-                                    <p class="doc-momen-caption">{{ Str::limit($gal->description, 95) }}</p>
-                                @endif
+        {{-- Slider Wrapper --}}
+        <div class="doc-slider-wrapper" id="docSliderWrapper">
+            <div class="doc-slider-container" id="docSliderContainer">
+                <div class="doc-slider-track" id="docSliderTrack">
+                    @if($galleries->isNotEmpty())
+                        @foreach($galleries as $gal)
+                            @php
+                                $galImg = null;
+                                if (!empty($gal->image)) {
+                                    if (file_exists(public_path('storage/' . $gal->image))) {
+                                        $galImg = asset('storage/' . $gal->image);
+                                    } elseif (file_exists(public_path('images/' . $gal->image))) {
+                                        $galImg = asset('images/' . $gal->image);
+                                    } elseif (file_exists(public_path($gal->image))) {
+                                        $galImg = asset($gal->image);
+                                    }
+                                }
+                                if (!$galImg) {
+                                    $galImg = asset('images/news/news-' . (($loop->index % 4) + 1) . '.jpg');
+                                }
+                                $cardUrl = !empty($gal->id) ? route('galeri.show', $gal->id) : (!empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri'));
+                            @endphp
+                            <div class="doc-slider-item">
+                                <a href="{{ $cardUrl }}" class="doc-momen-card" draggable="false">
+                                    <img src="{{ $galImg }}" alt="{{ $gal->alt_text ?: $gal->title }}" class="doc-momen-img" draggable="false" loading="lazy">
+                                    <div class="doc-momen-overlay">
+                                        <span class="doc-momen-badge">{{ $gal->activity ? $gal->activity->title : 'Dokumentasi HIMATIKA' }}</span>
+                                        <h3 class="doc-momen-title">{{ $gal->title }}</h3>
+                                        @if($gal->description)
+                                            <p class="doc-momen-caption">{{ Str::limit($gal->description, 95) }}</p>
+                                        @endif
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                @endforeach
-            @else
-                <div class="col-lg-6 col-12">
-                    <a href="{{ route('galeri') }}" class="doc-momen-card">
-                        <img src="{{ asset('images/news/news-1.jpg') }}" alt="Pelantikan & Rapat Kerja HIMATIKA" class="doc-momen-img">
-                        <div class="doc-momen-overlay">
-                            <span class="doc-momen-badge">Kegiatan Organisasi</span>
-                            <h3 class="doc-momen-title">Pelantikan & Rapat Kerja Kepengurusan 2026</h3>
-                            <p class="doc-momen-caption">Momen pelantikan pengurus HIMATIKA FMIPA UNUJA dan perumusan program kerja tahunan.</p>
+                        @endforeach
+                    @else
+                        @php
+                            $defaultGalleryUrl = !empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri');
+                        @endphp
+                        <div class="doc-slider-item">
+                            <a href="{{ $defaultGalleryUrl }}" class="doc-momen-card" draggable="false">
+                                <img src="{{ asset('images/news/news-1.jpg') }}" alt="Pelantikan & Rapat Kerja HIMATIKA" class="doc-momen-img" draggable="false">
+                                <div class="doc-momen-overlay">
+                                    <span class="doc-momen-badge">Kegiatan Organisasi</span>
+                                    <h3 class="doc-momen-title">Pelantikan & Rapat Kerja Kepengurusan 2026</h3>
+                                    <p class="doc-momen-caption">Momen pelantikan pengurus HIMATIKA FMIPA UNUJA dan perumusan program kerja tahunan.</p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
 
-                <div class="col-lg-6 col-12">
-                    <a href="{{ route('galeri') }}" class="doc-momen-card">
-                        <img src="{{ asset('images/news/news-2.jpg') }}" alt="Seminar & Workshop Matematika" class="doc-momen-img">
-                        <div class="doc-momen-overlay">
-                            <span class="doc-momen-badge">Akademik & Keilmuan</span>
-                            <h3 class="doc-momen-title">Seminar & Workshop Keilmuan Mahasiswa</h3>
-                            <p class="doc-momen-caption">Penguatan wawasan matematika komputasi dan analisis data terapan bagi seluruh mahasiswa.</p>
+                        <div class="doc-slider-item">
+                            <a href="{{ $defaultGalleryUrl }}" class="doc-momen-card" draggable="false">
+                                <img src="{{ asset('images/news/news-2.jpg') }}" alt="Seminar & Workshop Matematika" class="doc-momen-img" draggable="false">
+                                <div class="doc-momen-overlay">
+                                    <span class="doc-momen-badge">Akademik & Keilmuan</span>
+                                    <h3 class="doc-momen-title">Seminar & Workshop Keilmuan Mahasiswa</h3>
+                                    <p class="doc-momen-caption">Penguatan wawasan matematika komputasi dan analisis data terapan bagi seluruh mahasiswa.</p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    @endif
                 </div>
-            @endif
+            </div>
+
+            {{-- Slider Controls (Panah & Indikator Titik) --}}
+            <div class="doc-slider-controls" id="docSliderControls" style="display: none;">
+                <button type="button" class="doc-slider-arrow doc-slider-prev" id="docSliderPrev" aria-label="Lihat dokumentasi sebelumnya">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="doc-slider-dots" id="docSliderDots" role="tablist" aria-label="Pilih dokumentasi">
+                    {{-- Dinamis dibuat oleh JavaScript --}}
+                </div>
+                <button type="button" class="doc-slider-arrow doc-slider-next" id="docSliderNext" aria-label="Lihat dokumentasi berikutnya">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
     </div>
 </section>
+
+@push('styles')
+<style>
+    /* ==================== ANIMASI SLIDER DOKUMENTASI MOMEN ==================== */
+    .doc-slider-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    .doc-slider-container {
+        overflow: hidden;
+        width: 100%;
+        /* Beri ruang agar bayangan dan efek hover card tidak terpotong */
+        padding: 8px 4px 18px;
+        margin: -8px -4px -18px;
+    }
+
+    .doc-slider-track {
+        display: flex;
+        gap: 24px;
+        transition: transform 400ms cubic-bezier(0.25, 1, 0.5, 1);
+        will-change: transform;
+        touch-action: pan-y;
+    }
+
+    .doc-slider-item {
+        flex: 0 0 calc((100% - 24px) / 2);
+        max-width: calc((100% - 24px) / 2);
+        width: calc((100% - 24px) / 2);
+        box-sizing: border-box;
+        user-select: none;
+    }
+
+    .doc-slider-item .doc-momen-card {
+        width: 100%;
+        height: 320px;
+        margin: 0;
+    }
+
+    @media (max-width: 767.98px) {
+        .doc-slider-item {
+            flex: 0 0 100%;
+            max-width: 100%;
+            width: 100%;
+        }
+        .doc-slider-item .doc-momen-card {
+            height: 280px;
+        }
+    }
+
+    .doc-slider-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 28px;
+    }
+
+    .doc-slider-arrow {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 1px solid rgba(113, 28, 53, 0.25);
+        color: #711C35;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.85rem;
+        box-shadow: 0 2px 8px rgba(113, 28, 53, 0.08);
+        transition: all 0.25s ease;
+        padding: 0;
+        outline: none;
+    }
+
+    .doc-slider-arrow:hover {
+        background: #711C35;
+        color: #ffffff;
+        border-color: #711C35;
+        transform: scale(1.08);
+        box-shadow: 0 4px 14px rgba(113, 28, 53, 0.25);
+    }
+
+    .doc-slider-arrow:focus-visible {
+        outline: 2px solid #711C35;
+        outline-offset: 2px;
+    }
+
+    .doc-slider-dots {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .doc-slider-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #D1D5DB;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: none;
+    }
+
+    .doc-slider-dot:hover {
+        background: #A07A86;
+    }
+
+    .doc-slider-dot.active {
+        width: 24px;
+        height: 8px;
+        border-radius: 4px;
+        background: #711C35;
+        box-shadow: 0 2px 6px rgba(113, 28, 53, 0.35);
+    }
+
+    .doc-slider-dot:focus-visible {
+        outline: 2px solid #711C35;
+        outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .doc-slider-track {
+            transition: none !important;
+        }
+        .doc-slider-arrow,
+        .doc-slider-dot,
+        .doc-momen-card,
+        .doc-momen-img {
+            transition: none !important;
+        }
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.getElementById('docSliderWrapper');
+    if (!wrapper) return;
+
+    const container = document.getElementById('docSliderContainer');
+    const track = document.getElementById('docSliderTrack');
+    const controls = document.getElementById('docSliderControls');
+    const prevBtn = document.getElementById('docSliderPrev');
+    const nextBtn = document.getElementById('docSliderNext');
+    const dotsContainer = document.getElementById('docSliderDots');
+    const items = track.querySelectorAll('.doc-slider-item');
+    const totalItems = items.length;
+
+    if (totalItems === 0) return;
+
+    let currentIndex = 0;
+    let cardsPerView = 2;
+    let maxIndex = 0;
+    let autoplayTimer = null;
+    let isIntersecting = false;
+    let isHovered = false;
+    let isFocused = false;
+    let isPointerActive = false;
+    let suppressClick = false;
+
+    // Cek reduced motion
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function getGap() {
+        return 24; // konsisten dengan bootstrap g-4
+    }
+
+    function calculateMetrics() {
+        const isDesktop = window.innerWidth >= 768;
+        cardsPerView = isDesktop ? 2 : 1;
+        maxIndex = Math.max(0, totalItems - cardsPerView);
+        if (currentIndex > maxIndex) {
+            currentIndex = maxIndex;
+        }
+    }
+
+    function buildDots() {
+        dotsContainer.innerHTML = '';
+        if (maxIndex <= 0) return;
+
+        const count = maxIndex + 1;
+        for (let i = 0; i < count; i++) {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'doc-slider-dot' + (i === currentIndex ? ' active' : '');
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-label', 'Pindah ke slide ' + (i + 1));
+            dot.setAttribute('aria-selected', i === currentIndex ? 'true' : 'false');
+            dot.addEventListener('click', function(e) {
+                e.preventDefault();
+                goToSlide(i);
+                restartAutoplay();
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    function updateDots() {
+        const dots = dotsContainer.querySelectorAll('.doc-slider-dot');
+        dots.forEach((dot, idx) => {
+            if (idx === currentIndex) {
+                dot.classList.add('active');
+                dot.setAttribute('aria-selected', 'true');
+            } else {
+                dot.classList.remove('active');
+                dot.setAttribute('aria-selected', 'false');
+            }
+        });
+    }
+
+    function updateTrackPosition(withTransition = true) {
+        if (!items[0]) return;
+        const itemWidth = items[0].getBoundingClientRect().width;
+        const gap = getGap();
+        const shift = currentIndex * (itemWidth + gap);
+
+        if (prefersReducedMotion || !withTransition) {
+            track.style.transition = 'none';
+        } else {
+            track.style.transition = 'transform 400ms cubic-bezier(0.25, 1, 0.5, 1)';
+        }
+
+        track.style.transform = `translate3d(-${shift}px, 0, 0)`;
+    }
+
+    function updateView() {
+        calculateMetrics();
+
+        if (maxIndex <= 0) {
+            controls.style.display = 'none';
+            stopAutoplay();
+            track.style.transform = 'translate3d(0, 0, 0)';
+            return;
+        }
+
+        controls.style.display = 'flex';
+        buildDots();
+        updateTrackPosition(false);
+    }
+
+    function goToSlide(index, withTransition = true) {
+        if (index < 0) {
+            currentIndex = maxIndex;
+        } else if (index > maxIndex) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+        updateTrackPosition(withTransition);
+        updateDots();
+    }
+
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
+
+    // Tombol Panah Kiri dan Kanan
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            prevSlide();
+            restartAutoplay();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            nextSlide();
+            restartAutoplay();
+        });
+    }
+
+    // Autoplay logic
+    function shouldAutoplayRun() {
+        if (prefersReducedMotion) return false;
+        if (maxIndex <= 0) return false;
+        if (!isIntersecting) return false;
+        if (isHovered) return false;
+        if (isFocused) return false;
+        if (isPointerActive) return false;
+        return true;
+    }
+
+    function tickAutoplay() {
+        if (shouldAutoplayRun()) {
+            nextSlide();
+        }
+    }
+
+    function startAutoplay() {
+        if (autoplayTimer) return;
+        if (prefersReducedMotion || maxIndex <= 0) return;
+        autoplayTimer = setInterval(tickAutoplay, 5000);
+    }
+
+    function stopAutoplay() {
+        if (autoplayTimer) {
+            clearInterval(autoplayTimer);
+            autoplayTimer = null;
+        }
+    }
+
+    function restartAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+    }
+
+    // IntersectionObserver: jalankan autoplay hanya ketika terlihat di layar
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                isIntersecting = entry.isIntersecting;
+                if (isIntersecting) {
+                    startAutoplay();
+                } else {
+                    stopAutoplay();
+                }
+            });
+        }, { threshold: 0.2 });
+        observer.observe(wrapper);
+    } else {
+        isIntersecting = true;
+        startAutoplay();
+    }
+
+    // Jeda saat hover
+    wrapper.addEventListener('mouseenter', () => {
+        isHovered = true;
+        stopAutoplay();
+    });
+    wrapper.addEventListener('mouseleave', () => {
+        isHovered = false;
+        startAutoplay();
+    });
+
+    // Jeda saat fokus keyboard
+    wrapper.addEventListener('focusin', () => {
+        isFocused = true;
+        stopAutoplay();
+    });
+    wrapper.addEventListener('focusout', () => {
+        isFocused = false;
+        startAutoplay();
+    });
+
+    // Navigasi keyboard tombol panah
+    wrapper.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevSlide();
+            restartAutoplay();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextSlide();
+            restartAutoplay();
+        }
+    });
+
+    // Swipe & Drag Touch / Pointer Events
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let hasDragged = false;
+    let initialShift = 0;
+
+    function onPointerDown(e) {
+        if (maxIndex <= 0) return;
+        isPointerActive = true;
+        stopAutoplay();
+        startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        startY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        currentX = startX;
+        hasDragged = false;
+
+        const itemWidth = items[0].getBoundingClientRect().width;
+        const gap = getGap();
+        initialShift = currentIndex * (itemWidth + gap);
+    }
+
+    function onPointerMove(e) {
+        if (!isPointerActive) return;
+        const pageX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+        const pageY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+        const diffX = pageX - startX;
+        const diffY = pageY - startY;
+
+        if (!hasDragged) {
+            if (Math.abs(diffX) > 8 && Math.abs(diffX) > Math.abs(diffY)) {
+                hasDragged = true;
+                suppressClick = true;
+            } else if (Math.abs(diffY) > 8) {
+                // Dominan scroll vertikal, batalkan drag slider agar halaman bisa di-scroll
+                isPointerActive = false;
+                startAutoplay();
+                return;
+            }
+        }
+
+        if (hasDragged) {
+            currentX = pageX;
+            track.style.transition = 'none';
+
+            let appliedDiff = diffX;
+            if ((currentIndex === 0 && diffX > 0) || (currentIndex === maxIndex && diffX < 0)) {
+                appliedDiff = diffX * 0.35; // resistensi batas
+            }
+            track.style.transform = `translate3d(-${initialShift - appliedDiff}px, 0, 0)`;
+        }
+    }
+
+    function onPointerUp() {
+        if (!isPointerActive) return;
+        isPointerActive = false;
+
+        if (hasDragged) {
+            const diffX = currentX - startX;
+            const threshold = 45;
+
+            if (diffX < -threshold) {
+                nextSlide();
+            } else if (diffX > threshold) {
+                prevSlide();
+            } else {
+                goToSlide(currentIndex);
+            }
+
+            setTimeout(() => {
+                suppressClick = false;
+                hasDragged = false;
+            }, 120);
+        }
+
+        startAutoplay();
+    }
+
+    container.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+
+    // Mencegah navigasi tidak sengaja saat drag selesai
+    const cards = track.querySelectorAll('.doc-momen-card');
+    cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (suppressClick) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    });
+
+    // Inisialisasi tampilan
+    updateView();
+
+    let resizeTimeout = null;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            updateView();
+            goToSlide(currentIndex, false);
+        }, 100);
+    });
+});
+</script>
+@endpush
 
 @endsection

@@ -246,7 +246,7 @@ class HomeController extends Controller
             'combinedNews'     => $combinedNews,
             'agendas'          => $agendas,
             'achievements'     => Achievement::latest('year')->take(4)->get(),
-            'galleries'        => Gallery::published()->orderBy('order_num')->latest()->take(6)->get(),
+            'galleries'        => Gallery::published()->orderBy('order_num')->latest()->get(),
             'totalMembers'     => $statsPengurus,
             'totalBidang'      => $statsBidang,
             'totalBiro'        => $statsBiro,
