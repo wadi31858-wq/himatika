@@ -751,43 +751,50 @@
     }
 
     .modal-pubrel-putra .modal-photo-circle,
-    .modal-pubrel-putra .modal-photo-placeholder {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center 20%;
-        border: 4px solid var(--burgundy-main);
-        margin: 0 auto 14px;
-        box-shadow: 0 6px 20px rgba(113, 28, 53, 0.16);
-        aspect-ratio: 1 / 1;
+    .modal-pubrel-putra .modal-photo-placeholder,
+    .modal-photo-circle-lg {
+        width: 180px !important;
+        height: 180px !important;
+        max-width: 180px !important;
+        max-height: 180px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        object-position: center 20% !important;
+        border: 4.5px solid var(--burgundy-main) !important;
+        margin: 0 auto 16px !important;
+        box-shadow: 0 8px 26px rgba(113, 28, 53, 0.18) !important;
+        aspect-ratio: 1 / 1 !important;
+        display: block !important;
     }
 
     .modal-pubrel-putra #modalMemberName {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
         font-weight: 700;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
         color: var(--text-dark);
     }
 
     .modal-pubrel-putra #modalMemberPosition {
         margin-bottom: 0;
-        font-size: 0.78rem;
+        font-size: 0.8rem;
     }
 
     .modal-pubrel-putra #sliderControlsWrap {
-        margin-top: 16px;
+        margin-top: 18px;
         padding-top: 14px;
     }
 
     @media (max-width: 575.98px) {
         .modal-pubrel-putra .modal-photo-circle,
-        .modal-pubrel-putra .modal-photo-placeholder {
-            width: 125px;
-            height: 125px;
+        .modal-pubrel-putra .modal-photo-placeholder,
+        .modal-photo-circle-lg {
+            width: 150px !important;
+            height: 150px !important;
+            max-width: 150px !important;
+            max-height: 150px !important;
         }
         .modal-pubrel-putra .modal-member-card {
-            padding: 20px 16px 16px;
+            padding: 22px 16px 18px;
         }
     }
 
@@ -1333,8 +1340,6 @@
             `;
         }
 
-        renderModalMember();
-
         const modal = document.getElementById('divisiModal');
         const isPubrelPutra = (key === 'publik_relasi' || (data && data.id === 7)) && currentKelompok === 'putra';
         if (isPubrelPutra) {
@@ -1342,6 +1347,8 @@
         } else {
             modal.classList.remove('modal-pubrel-putra');
         }
+
+        renderModalMember();
 
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
@@ -1380,10 +1387,14 @@
         posEl.textContent = member.position;
         bioEl.textContent = member.bio || 'Pengurus aktif HIMATIKA UNUJA.';
 
+        const isPubrelPutra = (currentDivisiKey === 'publik_relasi' || (data && data.id === 7)) && currentKelompok === 'putra';
+        const photoClass = isPubrelPutra ? 'modal-photo-circle modal-photo-circle-lg' : 'modal-photo-circle';
+        const placeholderClass = isPubrelPutra ? 'modal-photo-placeholder modal-photo-circle-lg' : 'modal-photo-placeholder';
+
         if (member.photo) {
-            photoContainer.innerHTML = `<img src="${member.photo}" alt="${member.name}" class="modal-photo-circle">`;
+            photoContainer.innerHTML = `<img src="${member.photo}" alt="${member.name}" class="${photoClass}">`;
         } else {
-            photoContainer.innerHTML = '<div class="modal-photo-placeholder"><i class="fas fa-user"></i></div>';
+            photoContainer.innerHTML = `<div class="${placeholderClass}"><i class="fas fa-user"></i></div>`;
         }
 
         if (members.length > 1) {
