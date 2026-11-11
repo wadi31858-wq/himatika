@@ -183,13 +183,26 @@
             transform: scale(1.15);
         }
 
+        .footer-social-wa {
+            border-radius: 50% !important;
+            background: rgba(37, 211, 102, 0.18) !important;
+            color: #25D366 !important;
+            border: 1px solid rgba(37, 211, 102, 0.35);
+        }
+        .footer-social-wa:hover {
+            background: #25D366 !important;
+            color: #ffffff !important;
+            border-color: #25D366 !important;
+            transform: translateY(-2px);
+        }
+
         .floating-whatsapp-btn {
             position: fixed;
             bottom: 24px;
             right: 24px;
             width: 52px;
             height: 52px;
-            border-radius: 50%;
+            border-radius: 50% !important;
             background-color: #25D366;
             color: #ffffff !important;
             display: flex;
@@ -414,19 +427,32 @@
                         </div>
                     </div>
                     <p class="footer-desc">{{ $globalProfile->footer_text ?? 'Website resmi HIMATIKA FMIPA UNUJA periode 2026.' }}</p>
-                    <div class="d-flex gap-3 mt-3">
-                        @if($globalProfile && $globalProfile->instagram)
-                            <a href="{{ $globalProfile->instagram }}" target="_blank" class="footer-social"><i class="fab fa-instagram"></i></a>
+                    @php
+                        $footerIg = !empty($globalProfile->instagram) ? $globalProfile->instagram : 'https://instagram.com/himatika_unuja';
+                        $footerTiktok = !empty($globalProfile->tiktok) ? $globalProfile->tiktok : 'https://tiktok.com/@himatika_unuja';
+                        $footerFb = !empty($globalProfile->facebook) ? $globalProfile->facebook : 'https://facebook.com/himatika.unuja';
+                        $footerYt = !empty($globalProfile->youtube) ? $globalProfile->youtube : 'https://youtube.com/@himatika_unuja';
+                    @endphp
+                    <div class="d-flex gap-3 mt-3 align-items-center">
+                        @if($footerIg)
+                            <a href="{{ $footerIg }}" target="_blank" class="footer-social" title="Instagram" aria-label="Instagram HIMATIKA"><i class="fab fa-instagram"></i></a>
                         @endif
-                        @if($globalProfile && $globalProfile->tiktok)
-                            <a href="{{ $globalProfile->tiktok }}" target="_blank" class="footer-social"><i class="fab fa-tiktok"></i></a>
+                        @if($footerTiktok)
+                            <a href="{{ $footerTiktok }}" target="_blank" class="footer-social" title="TikTok" aria-label="TikTok HIMATIKA"><i class="fab fa-tiktok"></i></a>
                         @endif
-                        @if($globalProfile && $globalProfile->facebook)
-                            <a href="{{ $globalProfile->facebook }}" target="_blank" class="footer-social"><i class="fab fa-facebook"></i></a>
+                        @if($footerFb)
+                            <a href="{{ $footerFb }}" target="_blank" class="footer-social" title="Facebook" aria-label="Facebook HIMATIKA"><i class="fab fa-facebook"></i></a>
                         @endif
-                        @if($globalProfile && $globalProfile->youtube)
-                            <a href="{{ $globalProfile->youtube }}" target="_blank" class="footer-social"><i class="fab fa-youtube"></i></a>
+                        @if($footerYt)
+                            <a href="{{ $footerYt }}" target="_blank" class="footer-social" title="YouTube" aria-label="YouTube HIMATIKA"><i class="fab fa-youtube"></i></a>
                         @endif
+                        <a href="{{ $waUrl }}"
+                           @if($waIsActive) target="_blank" rel="noopener noreferrer" @else onclick="alert('Nomor WhatsApp resmi HIMATIKA belum dikonfigurasi. Silakan atur pada menu Admin > Tampilan > Footer & Kontak.')" @endif
+                           class="footer-social footer-social-wa"
+                           title="WhatsApp"
+                           aria-label="WhatsApp HIMATIKA">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-2">
@@ -463,7 +489,7 @@
                         </a>
                     </p>
                     @php
-                        $mapsEmbed = $siteSettings['footer_maps_embed'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890!2d113.1234567890!3d-7.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDExM8KwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1234567890';
+                        $mapsEmbed = !empty($siteSettings['footer_maps_embed']) ? $siteSettings['footer_maps_embed'] : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890!2d113.1234567890!3d-7.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDExM8KwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1234567890';
                     @endphp
                     @if($mapsEmbed)
                     <div class="footer-map-placeholder mt-3">

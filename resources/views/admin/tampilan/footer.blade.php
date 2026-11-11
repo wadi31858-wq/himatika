@@ -78,28 +78,28 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark"><i class="fab fa-instagram text-danger me-1"></i> Tautan Instagram</label>
-                    <input type="url" name="instagram" class="form-control" value="{{ old('instagram', $profile->instagram) }}" placeholder="https://instagram.com/himatika_unuja">
+                    <input type="url" name="instagram" class="form-control" value="{{ old('instagram', $profile->instagram ?: 'https://instagram.com/himatika_unuja') }}" placeholder="https://instagram.com/himatika_unuja">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark"><i class="fab fa-youtube text-danger me-1"></i> Tautan YouTube</label>
-                    <input type="url" name="youtube" class="form-control" value="{{ old('youtube', $profile->youtube) }}" placeholder="https://youtube.com/@himatika_unuja">
+                    <input type="url" name="youtube" class="form-control" value="{{ old('youtube', $profile->youtube ?: 'https://youtube.com/@himatika_unuja') }}" placeholder="https://youtube.com/@himatika_unuja">
                 </div>
 
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark"><i class="fab fa-tiktok text-dark me-1"></i> Tautan TikTok</label>
-                        <input type="url" name="tiktok" class="form-control" value="{{ old('tiktok', $profile->tiktok) }}" placeholder="https://tiktok.com/@himatika_unuja">
+                        <input type="url" name="tiktok" class="form-control" value="{{ old('tiktok', $profile->tiktok ?: 'https://tiktok.com/@himatika_unuja') }}" placeholder="https://tiktok.com/@himatika_unuja">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark"><i class="fab fa-facebook text-primary me-1"></i> Tautan Facebook</label>
-                        <input type="url" name="facebook" class="form-control" value="{{ old('facebook', $profile->facebook) }}" placeholder="https://facebook.com/himatika.unuja">
+                        <input type="url" name="facebook" class="form-control" value="{{ old('facebook', $profile->facebook ?: 'https://facebook.com/himatika.unuja') }}" placeholder="https://facebook.com/himatika.unuja">
                     </div>
                 </div>
 
                 <div class="mb-0">
                     <label class="form-label fw-semibold text-dark"><i class="fas fa-map-marked-alt text-info me-1"></i> Google Maps Embed (URL Iframe)</label>
-                    <input type="text" name="maps_embed" class="form-control" value="{{ old('maps_embed', $siteSettings['footer_maps_embed'] ?? '') }}" placeholder="https://www.google.com/maps/embed?pb=...">
+                    <input type="text" name="maps_embed" class="form-control" value="{{ old('maps_embed', !empty($siteSettings['footer_maps_embed']) ? $siteSettings['footer_maps_embed'] : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890!2d113.1234567890!3d-7.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDExM8KwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1234567890') }}" placeholder="https://www.google.com/maps/embed?pb=...">
                     <div class="form-text">Salin tautan `src` dari sematan peta Google Maps untuk menampilkan peta mini pada footer.</div>
                 </div>
             </div>

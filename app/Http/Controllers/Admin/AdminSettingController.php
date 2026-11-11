@@ -295,19 +295,20 @@ class AdminSettingController extends Controller
 
         $profile = Profile::firstOrCreate([]);
         $profile->update([
-            'footer_text' => $validated['footer_text'] ?? '',
-            'email' => $validated['email'] ?? '',
-            'phone' => $validated['phone'] ?? '',
-            'address' => $validated['address'] ?? '',
-            'instagram' => $validated['instagram'] ?? '',
-            'youtube' => $validated['youtube'] ?? '',
-            'tiktok' => $validated['tiktok'] ?? '',
-            'facebook' => $validated['facebook'] ?? '',
+            'footer_text' => $validated['footer_text'] ?? $profile->footer_text ?? '',
+            'email' => $validated['email'] ?? $profile->email ?? '',
+            'phone' => $validated['phone'] ?? $profile->phone ?? '',
+            'address' => $validated['address'] ?? $profile->address ?? '',
+            'instagram' => !empty($validated['instagram']) ? $validated['instagram'] : ($profile->instagram ?: 'https://instagram.com/himatika_unuja'),
+            'youtube' => !empty($validated['youtube']) ? $validated['youtube'] : ($profile->youtube ?: 'https://youtube.com/@himatika_unuja'),
+            'tiktok' => !empty($validated['tiktok']) ? $validated['tiktok'] : ($profile->tiktok ?: 'https://tiktok.com/@himatika_unuja'),
+            'facebook' => !empty($validated['facebook']) ? $validated['facebook'] : ($profile->facebook ?: 'https://facebook.com/himatika.unuja'),
         ]);
 
         SiteSetting::set('footer_copyright', $validated['copyright_text'] ?? '© 2026 HIMATIKA UNUJA 2026.', 'footer');
         SiteSetting::set('footer_managed_by', $validated['managed_by'] ?? 'Dikelola oleh Tim Website HIMATIKA', 'footer');
-        SiteSetting::set('footer_maps_embed', $validated['maps_embed'] ?? '', 'footer');
+        $mapsEmbedValue = !empty($validated['maps_embed']) ? $validated['maps_embed'] : (SiteSetting::where('key', 'footer_maps_embed')->value('value') ?: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890!2d113.1234567890!3d-7.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDExM8KwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1234567890');
+        SiteSetting::set('footer_maps_embed', $mapsEmbedValue, 'footer');
         SiteSetting::set('whatsapp_number', $validated['whatsapp_number'] ?? '', 'footer');
 
         ActivityLog::record('update', 'Memperbarui teks footer, kontak, WhatsApp resmi, sosial media, dan peta', null);
