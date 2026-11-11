@@ -731,6 +731,66 @@
         outline: 2px solid var(--burgundy-focus);
     }
 
+    /* ========================================================
+       CUSTOM TAMPILAN POP-UP DIVISI PUBLIK RELASI (PUTRA)
+       ======================================================== */
+    .modal-pubrel-putra #modalDivisiTitle,
+    .modal-pubrel-putra #modalDivisiDesc,
+    .modal-pubrel-putra #modalMemberBio {
+        display: none !important;
+    }
+
+    .modal-pubrel-putra #modalDivisiBadges {
+        margin-top: 10px;
+        margin-bottom: 14px;
+    }
+
+    .modal-pubrel-putra .modal-member-card {
+        margin-top: 0;
+        padding: 24px 20px 20px;
+    }
+
+    .modal-pubrel-putra .modal-photo-circle,
+    .modal-pubrel-putra .modal-photo-placeholder {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center 20%;
+        border: 3.5px solid var(--burgundy-main);
+        margin: 0 auto 12px;
+        box-shadow: 0 4px 14px rgba(113, 28, 53, 0.12);
+        aspect-ratio: 1 / 1;
+    }
+
+    .modal-pubrel-putra #modalMemberName {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        color: var(--text-dark);
+    }
+
+    .modal-pubrel-putra #modalMemberPosition {
+        margin-bottom: 0;
+        font-size: 0.78rem;
+    }
+
+    .modal-pubrel-putra #sliderControlsWrap {
+        margin-top: 16px;
+        padding-top: 14px;
+    }
+
+    @media (max-width: 575.98px) {
+        .modal-pubrel-putra .modal-photo-circle,
+        .modal-pubrel-putra .modal-photo-placeholder {
+            width: 105px;
+            height: 105px;
+        }
+        .modal-pubrel-putra .modal-member-card {
+            padding: 20px 16px 16px;
+        }
+    }
+
     /* Mobile Responsive Tweaks */
     @media (max-width: 767.98px) {
         .branch-split-bar { display: none; }
@@ -1276,6 +1336,13 @@
         renderModalMember();
 
         const modal = document.getElementById('divisiModal');
+        const isPubrelPutra = (key === 'publik_relasi' || (data && data.id === 7)) && currentKelompok === 'putra';
+        if (isPubrelPutra) {
+            modal.classList.add('modal-pubrel-putra');
+        } else {
+            modal.classList.remove('modal-pubrel-putra');
+        }
+
         modal.classList.add('show');
         document.body.style.overflow = 'hidden';
 
@@ -1388,6 +1455,7 @@
     function closeDivisiModal() {
         const modal = document.getElementById('divisiModal');
         modal.classList.remove('show');
+        modal.classList.remove('modal-pubrel-putra');
         document.body.style.overflow = '';
 
         if (lastActiveTrigger && typeof lastActiveTrigger.focus === 'function') {
