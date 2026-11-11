@@ -6,10 +6,12 @@
 <section class="hero-modern-section" id="hero">
     {{-- Background Campus Photo with Translucent White Overlay --}}
     <div class="hero-bg-photo-wrapper" aria-hidden="true">
-        @if(!empty($profile->hero_image))
+        @if(!empty($profile->hero_image) && file_exists(public_path('storage/' . $profile->hero_image)))
             <img src="{{ asset('storage/' . $profile->hero_image) }}" alt="{{ $profile->hero_image_alt ?? 'Kampus UNUJA' }}" class="hero-bg-photo">
-        @else
+        @elseif(file_exists(public_path('images/hero-bg-unuja.jpg')))
             <img src="{{ asset('images/hero-bg-unuja.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
+        @else
+            <img src="{{ asset('images/unuja-campus-banner.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
         @endif
         <div class="hero-bg-photo-overlay"></div>
     </div>
@@ -46,19 +48,23 @@
                     {{ $profile->hero_desc ?? 'Ruang resmi mahasiswa Informatika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.' }}
                 </p>
 
-                {{-- Action Buttons: Stacked vertically with consistent width, navy background, white text, and right arrow --}}
+                {{-- Action Buttons: Stacked vertically with consistent width, burgundy background, white text, and right arrow --}}
                 <div class="hero-vertical-buttons">
-                    <a href="{{ $profile->hero_btn_primary_url ?? route('kontak') }}" class="btn-hero-navy btn-hero-primary">
-                        <span>{{ $profile->hero_btn_primary_text ?? 'Hubungi Kami' }}</span>
-                        <i class="fas fa-caret-right"></i>
-                    </a>
-                    <a href="{{ $profile->hero_btn_secondary_url ?? route('profil') }}" class="btn-hero-navy btn-hero-outline">
-                        <span>{{ $profile->hero_btn_secondary_text ?? 'Pelajari Profil' }}</span>
-                        <i class="fas fa-caret-right"></i>
-                    </a>
+                    @if(($profile->hero_btn_primary_active ?? 1) == 1)
+                        <a href="{{ !empty($profile->hero_btn_primary_url) ? url($profile->hero_btn_primary_url) : route('kontak') }}" class="btn-hero-navy btn-hero-primary">
+                            <span>{{ $profile->hero_btn_primary_text ?? 'Hubungi Kami' }}</span>
+                            <i class="fas fa-caret-right"></i>
+                        </a>
+                    @endif
+                    @if(($profile->hero_btn_secondary_active ?? 1) == 1)
+                        <a href="{{ !empty($profile->hero_btn_secondary_url) ? url($profile->hero_btn_secondary_url) : route('profil') }}" class="btn-hero-navy btn-hero-outline">
+                            <span>{{ $profile->hero_btn_secondary_text ?? 'Pelajari Profil' }}</span>
+                            <i class="fas fa-caret-right"></i>
+                        </a>
+                    @endif
                 </div>
 
-                {{-- 5 Foto Terbaru di Pinggir Kiri: Berita Terbaru, Prestasi, Agenda, Kegiatan --}}
+                {{-- 5 Foto Terbaru di Pinggir Kiri: Berita Terbaru, Prestasi, Agenda, Kegiatan, Dokumentasi --}}
                 @if(!empty($heroRecentPhotos) && count($heroRecentPhotos) > 0)
                     <div class="hero-recent-preview-group mt-4 pt-1">
                         <div class="hero-recent-avatars-row">
@@ -88,9 +94,14 @@
                 <div class="hero-frame-wrapper">
                     <div class="hero-visual-frame">
                         @php
-                            $mainPhoto = ($globalProfile && $globalProfile->image)
-                                ? asset('storage/' . $globalProfile->image)
-                                : asset('storage/profile/MmO6PGEjnheZras5q3R0WVRZ8WpodO9mDExn1wgH.jpg');
+                            $mainPhoto = null;
+                            if ($globalProfile && $globalProfile->image && file_exists(public_path('storage/' . $globalProfile->image))) {
+                                $mainPhoto = asset('storage/' . $globalProfile->image);
+                            } elseif (file_exists(public_path('images/unuja-campus-banner.jpg'))) {
+                                $mainPhoto = asset('images/unuja-campus-banner.jpg');
+                            } else {
+                                $mainPhoto = asset('images/hero-bg-unuja.jpg');
+                            }
 
                             $getNewsPhoto = function($item, $default) {
                                 if (!$item) return asset($default);
@@ -98,6 +109,7 @@
                                 if (!$thumb) return asset($default);
                                 if (file_exists(public_path('storage/' . $thumb))) return asset('storage/' . $thumb);
                                 if (file_exists(public_path('images/' . $thumb))) return asset('images/' . $thumb);
+                                if (file_exists(public_path($thumb))) return asset($thumb);
                                 return asset('storage/' . $thumb);
                             };
 
@@ -126,8 +138,10 @@
                         {{-- Center Emblem Badge --}}
                         <div class="hero-collage-emblem">
                             <div class="hero-collage-emblem-logo">
-                                @if($globalProfile && $globalProfile->logo)
+                                @if($globalProfile && $globalProfile->logo && file_exists(public_path('storage/' . $globalProfile->logo)))
                                     <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo HIMATIKA">
+                                @elseif(!empty($siteSettings['main_logo']) && file_exists(public_path('storage/' . $siteSettings['main_logo'])))
+                                    <img src="{{ asset('storage/' . $siteSettings['main_logo']) }}" alt="Logo HIMATIKA">
                                 @else
                                     <i class="fas fa-infinity" style="color: #711C35; font-size: 1.4rem;"></i>
                                 @endif
@@ -173,46 +187,49 @@
                 <div class="tentang-card">
                     <div>
                         <div class="tentang-card-badge">
-                            <i class="fas fa-university me-1"></i> Program Studi Matematika FMIPA
+                            <i class="fas fa-university me-1"></i> {{ $siteSettings['sambutan_badge'] ?? 'Program Studi Matematika FMIPA' }}
                         </div>
                         <h3 class="tentang-card-title">
                             <i class="fas fa-quote-left"></i> Sambutan Kaprodi
                         </h3>
 
-                        @if($kaprodi)
-                            <div class="kaprodi-profile-box">
-                                <div class="kaprodi-photo-wrap">
-                                    @if($kaprodi->photo)
-                                        <img src="{{ asset('storage/' . $kaprodi->photo) }}" alt="{{ $kaprodi->name }}">
-                                    @else
-                                        <i class="fas fa-user-tie fs-3 text-primary"></i>
-                                    @endif
-                                </div>
-                                <div>
-                                    <h4 class="kaprodi-name">{{ $kaprodi->name }}</h4>
-                                    <p class="kaprodi-role">{{ $kaprodi->position }}</p>
-                                </div>
+                        @php
+                            $kaprodiName = !empty($siteSettings['sambutan_name']) ? $siteSettings['sambutan_name'] : ($kaprodi->name ?? 'MUDDAKKIR, S.Pd., MM.');
+                            $kaprodiRole = !empty($siteSettings['sambutan_title']) ? $siteSettings['sambutan_title'] : ($kaprodi->position ?? 'Ketua Program Studi Matematika FMIPA UNUJA');
+                            $kaprodiQuote = !empty($siteSettings['sambutan_quote']) ? $siteSettings['sambutan_quote'] : ($siteSettings['home_sambutan_summary'] ?? ($kaprodi->bio ?? 'Mewujudkan generasi mahasiswa Matematika yang berkarakter islami, unggul dalam keilmuan, mandiri, dan berdaya saing global.'));
+                            
+                            $kaprodiPhoto = null;
+                            if (!empty($siteSettings['sambutan_photo']) && file_exists(public_path('storage/' . $siteSettings['sambutan_photo']))) {
+                                $kaprodiPhoto = asset('storage/' . $siteSettings['sambutan_photo']);
+                            } elseif ($kaprodi && $kaprodi->photo && file_exists(public_path('storage/' . $kaprodi->photo))) {
+                                $kaprodiPhoto = asset('storage/' . $kaprodi->photo);
+                            }
+                        @endphp
+
+                        <div class="kaprodi-profile-box">
+                            <div class="kaprodi-photo-wrap">
+                                @if($kaprodiPhoto)
+                                    <img src="{{ $kaprodiPhoto }}" alt="{{ $kaprodiName }}">
+                                @else
+                                    <i class="fas fa-user-tie fs-3" style="color: #711C35;"></i>
+                                @endif
                             </div>
+                            <div>
+                                <h4 class="kaprodi-name">{{ $kaprodiName }}</h4>
+                                <p class="kaprodi-role">{{ $kaprodiRole }}</p>
+                            </div>
+                        </div>
+
+                        @if($kaprodiQuote)
                             <div class="kaprodi-quote-box">
-                                “{{ Str::limit(strip_tags($kaprodi->bio), 220) }}”
-                            </div>
-                        @else
-                            {{-- Clean, Formal Empty State (No Fabricated Data) --}}
-                            <div class="kaprodi-empty-state">
-                                <div class="kaprodi-empty-avatar">
-                                    <i class="fas fa-user-tie"></i>
-                                </div>
-                                <h4 class="kaprodi-empty-title">Ketua Program Studi Matematika</h4>
-                                <p class="kaprodi-empty-text">
-                                    Naskah dan dokumentasi sambutan resmi Ketua Program Studi Matematika FMIPA UNUJA sedang dalam proses penyusunan dan kurasi oleh pengurus himpunan.
-                                </p>
+                                “{{ Str::limit(strip_tags($kaprodiQuote), 220) }}”
                             </div>
                         @endif
                     </div>
 
                     <div>
-                        <a href="{{ $siteSettings['home_sambutan_btn_url'] ?? route('profil') }}" class="btn-tentang-outline w-100">
-                            <span>{{ $siteSettings['home_sambutan_btn_text'] ?? 'Pelajari Profil Lengkap' }}</span>
+                        <a href="{{ !empty($siteSettings['home_sambutan_btn_url']) ? url($siteSettings['home_sambutan_btn_url']) : route('sambutan') }}" class="btn-tentang-outline w-100">
+                            <span>{{ $siteSettings['home_sambutan_btn_text'] ?? 'Baca Sambutan Selengkapnya' }}</span>
                             <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>
@@ -224,10 +241,10 @@
                 <div class="tentang-card">
                     <div>
                         <div class="tentang-card-badge">
-                            <i class="fas fa-sitemap me-1"></i> Kepengurusan Periode 2026
+                            <i class="fas fa-sitemap me-1"></i> {{ $siteSettings['home_struktur_badge'] ?? 'Kepengurusan Periode 2026' }}
                         </div>
                         <h3 class="tentang-card-title">
-                            <i class="fas fa-project-diagram"></i> Struktur Organisasi
+                            <i class="fas fa-project-diagram"></i> {{ $siteSettings['home_struktur_title'] ?? 'Struktur Organisasi' }}
                         </h3>
 
                         {{-- Diagram Preview Vector / Graphic --}}
@@ -236,14 +253,14 @@
                         </div>
 
                         <p class="struktur-desc-text">
-                            {{ $siteSettings['home_struktur_desc'] ?? 'Bagan kepengurusan HIMATIKA FMIPA UNUJA yang menaungi Badan Pengurus Harian (BPH) serta divisi keilmuan, minat bakat, humas, dan pengembangan mahasiswa.' }}
+                            {{ $siteSettings['home_struktur_summary'] ?? ($siteSettings['home_struktur_desc'] ?? 'Bagan kepengurusan HIMATIKA FMIPA UNUJA yang menaungi Badan Pengurus Harian (BPH) serta divisi keilmuan, minat bakat, humas, dan pengembangan mahasiswa.') }}
                         </p>
                     </div>
 
                     <div>
-                        <a href="{{ $siteSettings['home_struktur_btn_url'] ?? route('struktur-organisasi') }}" class="btn-tentang-primary w-100">
+                        <a href="{{ !empty($siteSettings['home_struktur_btn_url']) ? url($siteSettings['home_struktur_btn_url']) : route('struktur-organisasi') }}" class="btn-tentang-primary w-100">
                             <i class="fas fa-sitemap me-1"></i>
-                            <span>{{ $siteSettings['home_struktur_btn_text'] ?? 'Lihat Struktur' }}</span>
+                            <span>{{ $siteSettings['home_struktur_btn_text'] ?? 'Lihat Struktur Lengkap' }}</span>
                             <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>
@@ -266,9 +283,14 @@
                 <h2 class="berita-main-title">
                     {{ $siteSettings['home_berita_title'] ?? 'Berita & Informasi Terkini' }}
                 </h2>
+                @if(!empty($siteSettings['home_berita_desc']))
+                    <p class="text-muted mb-0 mt-1 small" style="max-width: 600px;">
+                        {{ $siteSettings['home_berita_desc'] }}
+                    </p>
+                @endif
             </div>
             <div>
-                <a href="{{ route('berita') }}" class="btn-semua-artikel">
+                <a href="{{ !empty($siteSettings['home_berita_btn_url']) ? url($siteSettings['home_berita_btn_url']) : route('berita') }}" class="btn-semua-artikel">
                     <span>{{ $siteSettings['home_berita_btn_text'] ?? 'Lihat Semua Artikel' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
@@ -319,7 +341,7 @@
                                 </span>
                                 <span class="badge-featured-date">
                                     <i class="far fa-calendar-alt"></i>
-                                    {{ $featuredNews->published_at ? $featuredNews->published_at->format('d M Y') : '' }}
+                                    {{ $featuredNews->published_at ? \Carbon\Carbon::parse($featuredNews->published_at)->format('d M Y') : '' }}
                                 </span>
                             </div>
                             <h3 class="news-featured-title">{{ $featuredNews->title }}</h3>
@@ -340,13 +362,18 @@
                             </div>
                         </div>
                     </a>
+                @else
+                    <div class="p-5 bg-white rounded-4 border text-center text-muted">
+                        <i class="far fa-newspaper fa-3x mb-3 text-secondary"></i>
+                        <p class="mb-0">Belum ada artikel atau berita yang dipublikasikan.</p>
+                    </div>
                 @endif
             </div>
 
             {{-- 2 Stacked Cards --}}
             <div class="col-lg-5">
                 <div class="d-flex flex-column gap-3 h-100 justify-content-between">
-                    @foreach($sideNews as $idx => $sNews)
+                    @forelse($sideNews as $idx => $sNews)
                         <a href="{{ $sNews->url }}" class="news-horizontal-card">
                             <div class="news-horizontal-thumb">
                                 <img src="{{ $getNewsThumb($sNews, $loop->iteration + 1) }}" alt="{{ $sNews->title }}">
@@ -357,7 +384,7 @@
                                 <div class="news-horizontal-meta">
                                     <span class="news-meta-date">
                                         <i class="far fa-calendar"></i>
-                                        {{ $sNews->published_at ? $sNews->published_at->format('d M Y') : '' }}
+                                        {{ $sNews->published_at ? \Carbon\Carbon::parse($sNews->published_at)->format('d M Y') : '' }}
                                     </span>
                                     @if(isset($sNews->views) && $sNews->views !== null)
                                         <span class="news-meta-views">
@@ -368,7 +395,11 @@
                                 </div>
                             </div>
                         </a>
-                    @endforeach
+                    @empty
+                        <div class="p-4 bg-white rounded-3 border text-center text-muted">
+                            <p class="small mb-0">Informasi tambahan sedang dipersiapkan.</p>
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -390,7 +421,7 @@
                             <div class="news-vertical-footer">
                                 <span class="news-vertical-date">
                                     <i class="far fa-calendar"></i>
-                                    {{ $bNews->published_at ? $bNews->published_at->format('d M Y') : '' }}
+                                    {{ $bNews->published_at ? \Carbon\Carbon::parse($bNews->published_at)->format('d M Y') : '' }}
                                 </span>
                                 <span class="news-vertical-read">
                                     Baca <i class="fas fa-arrow-right"></i>
@@ -414,7 +445,7 @@
         <div class="peduli-section-header">
             <span class="peduli-label">
                 <span class="peduli-label-icon"><i class="fas fa-award"></i></span>
-                KARYA & KONTRIBUSI
+                {{ $siteSettings['home_peduli_badge'] ?? 'KARYA & KONTRIBUSI' }}
             </span>
         </div>
 
@@ -425,7 +456,7 @@
                 <p class="peduli-desc">
                     {{ $siteSettings['home_peduli_desc'] ?? 'Mengenal karya, kegiatan, dan kontribusi HIMATIKA yang memberikan manfaat bagi mahasiswa dan lingkungan sekitar.' }}
                 </p>
-                <a href="{{ $siteSettings['home_peduli_btn_url'] ?? route('prestasi') }}" class="peduli-cta">
+                <a href="{{ !empty($siteSettings['home_peduli_btn_url']) ? url($siteSettings['home_peduli_btn_url']) : route('prestasi') }}" class="peduli-cta">
                     <span>{{ $siteSettings['home_peduli_btn_text'] ?? 'Jelajahi karya & prestasi' }}</span>
                     <span class="peduli-cta-arrow"><i class="fas fa-arrow-right"></i></span>
                 </a>
@@ -472,17 +503,23 @@
                 <div class="peduli-stat-card">
                     <span class="peduli-stat-label">DAMPAK & PRESTASI</span>
                     <div class="peduli-stat-number-wrap">
-                        <span class="peduli-stat-number">{{ $totalAchievements ?? 3 }}</span>
+                        <span class="peduli-stat-number">{{ !empty($siteSettings['home_peduli_stat1_num']) ? $siteSettings['home_peduli_stat1_num'] : (($totalAchievements ?? 3) . '+') }}</span>
                     </div>
-                    <span class="peduli-stat-text">prestasi resmi terdata</span>
+                    <span class="peduli-stat-text">{{ !empty($siteSettings['home_peduli_stat1_label']) ? $siteSettings['home_peduli_stat1_label'] : 'prestasi resmi terdata' }}</span>
 
                     <div class="mt-3 pt-3 border-top border-white border-opacity-10 w-100">
-                        <div class="small text-white-50 mb-1">Kegiatan Terlaksana</div>
-                        <div class="fw-bold fs-5 text-white">{{ $totalActivities ?? 5 }}+</div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="small text-white-50">{{ !empty($siteSettings['home_peduli_stat2_label']) ? $siteSettings['home_peduli_stat2_label'] : 'Kegiatan Terlaksana' }}</div>
+                            <div class="fw-bold fs-6 text-white">{{ !empty($siteSettings['home_peduli_stat2_num']) ? $siteSettings['home_peduli_stat2_num'] : (($totalActivities ?? 5) . '+') }}</div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="small text-white-50">{{ !empty($siteSettings['home_peduli_stat3_label']) ? $siteSettings['home_peduli_stat3_label'] : 'Dedikasi Mahasiswa' }}</div>
+                            <div class="fw-bold fs-6 text-white">{{ !empty($siteSettings['home_peduli_stat3_num']) ? $siteSettings['home_peduli_stat3_num'] : '100%' }}</div>
+                        </div>
                     </div>
 
-                    <a href="{{ route('prestasi') }}" class="peduli-stat-btn mt-3">
-                        <span>Lihat Prestasi</span>
+                    <a href="{{ !empty($siteSettings['home_peduli_btn_url']) ? url($siteSettings['home_peduli_btn_url']) : route('prestasi') }}" class="peduli-stat-btn mt-3">
+                        <span>{{ $siteSettings['home_peduli_btn_text'] ?? 'Lihat Prestasi' }}</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -509,7 +546,7 @@
                 </p>
             </div>
             <div>
-                <a href="{{ $siteSettings['home_galeri_btn_url'] ?? route('galeri') }}" class="btn-semua-artikel">
+                <a href="{{ !empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri') }}" class="btn-semua-artikel">
                     <span>{{ $siteSettings['home_galeri_btn_text'] ?? 'Lihat Semua Dokumentasi' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
@@ -520,13 +557,26 @@
         <div class="row g-4">
             @if($galleries->isNotEmpty())
                 @foreach($galleries->take(4) as $gal)
+                    @php
+                        $galImg = null;
+                        if (!empty($gal->image)) {
+                            if (file_exists(public_path('storage/' . $gal->image))) {
+                                $galImg = asset('storage/' . $gal->image);
+                            } elseif (file_exists(public_path('images/' . $gal->image))) {
+                                $galImg = asset('images/' . $gal->image);
+                            } elseif (file_exists(public_path($gal->image))) {
+                                $galImg = asset($gal->image);
+                            }
+                        }
+                        if (!$galImg) {
+                            $galImg = asset('images/news/news-' . (($loop->index % 4) + 1) . '.jpg');
+                        }
+                    @endphp
                     <div class="col-lg-6 col-12">
                         <a href="{{ route('galeri') }}" class="doc-momen-card">
-                            <img src="{{ asset('storage/' . $gal->image) }}" alt="{{ $gal->title }}" class="doc-momen-img">
+                            <img src="{{ $galImg }}" alt="{{ $gal->alt_text ?: $gal->title }}" class="doc-momen-img">
                             <div class="doc-momen-overlay">
-                                @if($gal->category)
-                                    <span class="doc-momen-badge">{{ $gal->category }}</span>
-                                @endif
+                                <span class="doc-momen-badge">{{ $gal->activity ? $gal->activity->title : 'Dokumentasi HIMATIKA' }}</span>
                                 <h3 class="doc-momen-title">{{ $gal->title }}</h3>
                                 @if($gal->description)
                                     <p class="doc-momen-caption">{{ Str::limit($gal->description, 95) }}</p>
@@ -536,7 +586,6 @@
                     </div>
                 @endforeach
             @else
-                {{-- Representative Activities Showcase --}}
                 <div class="col-lg-6 col-12">
                     <a href="{{ route('galeri') }}" class="doc-momen-card">
                         <img src="{{ asset('images/news/news-1.jpg') }}" alt="Pelantikan & Rapat Kerja HIMATIKA" class="doc-momen-img">
