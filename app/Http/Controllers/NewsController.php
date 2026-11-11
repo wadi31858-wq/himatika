@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Agenda;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -21,17 +22,35 @@ class NewsController extends Controller
         }
 
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            if ($request->category === 'Agenda') {
+                $query->whereRaw('1 = 0');
+            } else {
+                $query->where('category', $request->category);
+            }
         }
 
         $news = $query->latest('published_at')->paginate(9)->withQueryString();
-        $categories = News::published()->whereNotNull('category')->where('category', '!=', '')->select('category')->distinct()->pluck('category');
+        $categories = ['Kegiatan', 'Pengumuman', 'Prestasi', 'Berita', 'Agenda'];
 
-        if ($request->ajax()) {
-            return response()->view('berita.index', compact('news', 'categories'));
+        // Query Agenda
+        $agendaQuery = Agenda::published();
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $agendaQuery->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('location', 'like', "%{$search}%");
+            });
         }
 
-        return view('berita.index', compact('news', 'categories'));
+        $showAgenda = empty($request->category) || $request->category === 'Agenda';
+        $agendas = $showAgenda ? $agendaQuery->orderBy('date', 'asc')->get() : collect();
+
+        if ($request->ajax()) {
+            return view('berita.index', compact('news', 'categories', 'agendas', 'showAgenda'));
+        }
+
+        return view('berita.index', compact('news', 'categories', 'agendas', 'showAgenda'));
     }
 
     public function show($slug)
