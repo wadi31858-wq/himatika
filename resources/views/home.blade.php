@@ -268,7 +268,7 @@
                 </h2>
             </div>
             <div>
-                <a href="{{ $siteSettings['home_berita_btn_url'] ?? route('berita') }}" class="btn-semua-artikel">
+                <a href="{{ route('berita') }}" class="btn-semua-artikel">
                     <span>{{ $siteSettings['home_berita_btn_text'] ?? 'Lihat Semua Artikel' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
@@ -281,8 +281,20 @@
             $bottomNews = $news->slice(3, 3);
 
             $getNewsThumb = function($item, $defaultIndex) {
-                if ($item && $item->thumbnail && file_exists(public_path('storage/' . $item->thumbnail))) {
-                    return asset('storage/' . $item->thumbnail);
+                if ($item) {
+                    $thumb = $item->thumbnail ?? $item->image;
+                    if ($thumb) {
+                        if (file_exists(public_path('storage/' . $thumb))) {
+                            return asset('storage/' . $thumb);
+                        }
+                        if (file_exists(public_path('images/' . $thumb))) {
+                            return asset('images/' . $thumb);
+                        }
+                        if (file_exists(public_path($thumb))) {
+                            return asset($thumb);
+                        }
+                        return asset('storage/' . $thumb);
+                    }
                 }
                 if (file_exists(public_path('images/news/news-' . $defaultIndex . '.jpg'))) {
                     return asset('images/news/news-' . $defaultIndex . '.jpg');
@@ -296,7 +308,7 @@
             {{-- Big Featured Card --}}
             <div class="col-lg-7">
                 @if($featuredNews)
-                    <a href="{{ route('berita.show', $featuredNews->slug) }}" class="news-featured-card">
+                    <a href="{{ $featuredNews->url }}" class="news-featured-card">
                         <img src="{{ $getNewsThumb($featuredNews, 1) }}" alt="{{ $featuredNews->title }}" class="news-featured-bg">
                         <div class="news-featured-overlay"></div>
                         <div class="news-featured-content">
@@ -307,15 +319,21 @@
                                 </span>
                                 <span class="badge-featured-date">
                                     <i class="far fa-calendar-alt"></i>
-                                    {{ $featuredNews->published_at ? $featuredNews->published_at->format('d M Y') : '04 Nov 2026' }}
+                                    {{ $featuredNews->published_at ? $featuredNews->published_at->format('d M Y') : '' }}
                                 </span>
                             </div>
                             <h3 class="news-featured-title">{{ $featuredNews->title }}</h3>
-                            <p class="news-featured-excerpt">{{ Str::limit(strip_tags($featuredNews->content), 130) }}</p>
+                            <p class="news-featured-excerpt">{{ Str::limit(strip_tags($featuredNews->excerpt ?: $featuredNews->content), 130) }}</p>
                             <div class="news-featured-meta">
-                                <span class="featured-meta-views">
-                                    <i class="far fa-eye"></i> {{ number_format($featuredNews->views ?? 58) }} dilihat
-                                </span>
+                                @if(isset($featuredNews->views) && $featuredNews->views !== null)
+                                    <span class="featured-meta-views">
+                                        <i class="far fa-eye"></i> {{ number_format($featuredNews->views) }} dilihat
+                                    </span>
+                                @else
+                                    <span class="featured-meta-views">
+                                        <i class="far fa-bookmark"></i> {{ $featuredNews->category }}
+                                    </span>
+                                @endif
                                 <span class="featured-readmore">
                                     Baca Selengkapnya <i class="fas fa-arrow-right"></i>
                                 </span>
@@ -329,7 +347,7 @@
             <div class="col-lg-5">
                 <div class="d-flex flex-column gap-3 h-100 justify-content-between">
                     @foreach($sideNews as $idx => $sNews)
-                        <a href="{{ route('berita.show', $sNews->slug) }}" class="news-horizontal-card">
+                        <a href="{{ $sNews->url }}" class="news-horizontal-card">
                             <div class="news-horizontal-thumb">
                                 <img src="{{ $getNewsThumb($sNews, $loop->iteration + 1) }}" alt="{{ $sNews->title }}">
                             </div>
@@ -341,10 +359,12 @@
                                         <i class="far fa-calendar"></i>
                                         {{ $sNews->published_at ? $sNews->published_at->format('d M Y') : '' }}
                                     </span>
-                                    <span class="news-meta-views">
-                                        <i class="far fa-eye"></i>
-                                        {{ number_format($sNews->views ?? ($loop->first ? 9 : 112)) }}
-                                    </span>
+                                    @if(isset($sNews->views) && $sNews->views !== null)
+                                        <span class="news-meta-views">
+                                            <i class="far fa-eye"></i>
+                                            {{ number_format($sNews->views) }}
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                         </a>
@@ -358,14 +378,14 @@
             <div class="row g-4">
                 @foreach($bottomNews as $bIdx => $bNews)
                     <div class="col-lg-4 col-md-6">
-                        <a href="{{ route('berita.show', $bNews->slug) }}" class="news-vertical-card">
+                        <a href="{{ $bNews->url }}" class="news-vertical-card">
                             <div class="news-vertical-img-wrap">
                                 <img src="{{ $getNewsThumb($bNews, $loop->iteration + 3) }}" alt="{{ $bNews->title }}">
                                 <span class="badge-floating-cat">{{ $bNews->category ?? 'Berita' }}</span>
                             </div>
                             <div class="news-vertical-body">
                                 <h4 class="news-vertical-title">{{ $bNews->title }}</h4>
-                                <p class="news-vertical-desc">{{ Str::limit(strip_tags($bNews->content), 95) }}</p>
+                                <p class="news-vertical-desc">{{ Str::limit(strip_tags($bNews->excerpt ?: $bNews->content), 95) }}</p>
                             </div>
                             <div class="news-vertical-footer">
                                 <span class="news-vertical-date">
