@@ -253,30 +253,50 @@
                             Visi &amp; <span class="sambutan-title-accent">Misi HIMATIKA</span>
                         </h3>
 
-                        {{-- Box Visi Utama --}}
-                        <div class="p-3 rounded-3 mb-3" style="background: var(--rose-pale); border-left: 4px solid var(--burgundy-main); border: 1px solid var(--border-rose); border-left-width: 4px;">
-                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                <span class="badge" style="background: var(--burgundy-main); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px;">VISI</span>
-                                <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-compass me-1"></i> Pedoman Strategis</small>
+                        {{-- Tata Letak 2 Kolom Horizontal (MISI di Kiri, Garis Vertikal Emas di Tengah, VISI di Kanan) --}}
+                        <div class="vm-two-col-wrap mb-4">
+                            {{-- BAGIAN KIRI — MISI --}}
+                            <div class="vm-col-left">
+                                <div class="d-flex align-items-center gap-2 mb-3">
+                                    <span class="badge" style="background: var(--burgundy-main); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; padding: 4px 10px; border-radius: 4px;">MISI</span>
+                                    <span class="fw-bold text-dark" style="font-size: 0.95rem; letter-spacing: 0.2px;">Misi Organisasi</span>
+                                </div>
+                                <div class="d-flex flex-column gap-2 vm-misi-list">
+                                    @foreach($missions ?? [] as $idx => $m)
+                                        <div class="d-flex align-items-start gap-2">
+                                            <span class="vm-num-bullet">{{ $idx + 1 }}</span>
+                                            <span class="vm-misi-item-text">{{ $m }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                            <p class="mb-0" style="font-family: 'Georgia', serif; font-style: italic; font-size: 0.9rem; color: #374151; line-height: 1.6;">
-                                “{{ $vm?->vision ?? ($siteSettings['home_visi_summary'] ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.') }}”
-                            </p>
-                        </div>
 
-                        {{-- Preview Misi Utama --}}
-                        <div class="mb-4">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <span class="badge" style="background: var(--rose-soft); color: var(--burgundy-main); font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px;">MISI</span>
-                                <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-bullseye me-1"></i> Aksi &amp; Komitmen</small>
-                            </div>
-                            <div class="d-flex flex-column gap-2">
-                                @foreach(array_slice($missions ?? [], 0, 3) as $idx => $m)
-                                    <div class="d-flex align-items-start gap-2">
-                                        <span style="width: 20px; height: 20px; border-radius: 50%; background: var(--burgundy-main); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;">{{ $idx + 1 }}</span>
-                                        <span style="font-size: 0.82rem; color: #4B5563; line-height: 1.5;">{{ $m }}</span>
+                            {{-- BAGIAN TENGAH — GARIS PEMISAH VERTIKAL (EMAS) --}}
+                            <div class="vm-divider-center" aria-hidden="true"></div>
+
+                            {{-- GARIS PEMISAH HORIZONTAL (KHUSUS ANDROID / LAYAR KECIL) --}}
+                            <div class="vm-divider-horizontal-mobile" aria-hidden="true"></div>
+
+                            {{-- BAGIAN KANAN — VISI --}}
+                            <div class="vm-col-right">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="badge" style="background: #C59B27; color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; padding: 4px 10px; border-radius: 4px;">VISI</span>
+                                        <span class="fw-bold text-dark" style="font-size: 0.95rem; letter-spacing: 0.2px;">Visi Utama</span>
                                     </div>
-                                @endforeach
+                                    <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-compass me-1 text-warning"></i> Pedoman</small>
+                                </div>
+                                <div class="vm-visi-content-box">
+                                    <div class="vm-visi-quote-icon mb-2">
+                                        <i class="fas fa-quote-left"></i>
+                                    </div>
+                                    <p class="mb-0 vm-visi-quote-text">
+                                        “{{ $vm?->vision ?? ($siteSettings['home_visi_summary'] ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.') }}”
+                                    </p>
+                                    <div class="mt-3 pt-2" style="border-top: 1px solid rgba(233, 205, 213, 0.6);">
+                                        <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-bullseye me-1 text-primary"></i> Arah &amp; Cita-cita Strategis</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
