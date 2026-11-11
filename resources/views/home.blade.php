@@ -57,7 +57,7 @@
                         </a>
                     @endif
                     @if(($profile->hero_btn_secondary_active ?? 1) == 1)
-                        <a href="{{ !empty($profile->hero_btn_secondary_url) ? url($profile->hero_btn_secondary_url) : route('profil') }}" class="btn-hero-navy btn-hero-outline">
+                        <a href="{{ ($profile->hero_btn_secondary_url && $profile->hero_btn_secondary_url !== '/profil') ? url($profile->hero_btn_secondary_url) : '#tentang' }}" class="btn-hero-navy btn-hero-outline">
                             <span>{{ $profile->hero_btn_secondary_text ?? 'Pelajari Profil' }}</span>
                             <i class="fas fa-caret-right"></i>
                         </a>
@@ -168,9 +168,15 @@
     <div class="container">
         {{-- Section Header --}}
         <div class="tentang-header-area">
-            <div class="tentang-top-label">
-                <span class="tentang-label-bar"></span>
-                <span>{{ $siteSettings['home_tentang_badge'] ?? 'Tentang Organisasi' }}</span>
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-2">
+                <div class="tentang-top-label mb-0">
+                    <span class="tentang-label-bar"></span>
+                    <span>{{ $siteSettings['home_tentang_badge'] ?? 'Tentang Organisasi' }}</span>
+                </div>
+                <a href="{{ route('profil') }}" class="btn-tentang-outline py-1 px-3" style="border-radius: 9999px; font-size: 0.8rem; text-decoration: none;">
+                    <span>Halaman Profil Lengkap</span>
+                    <i class="fas fa-arrow-right ms-1"></i>
+                </a>
             </div>
             <h2 class="tentang-main-title">
                 {{ $siteSettings['home_tentang_title'] ?? 'Tentang HIMATIKA' }}

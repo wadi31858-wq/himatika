@@ -202,13 +202,18 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="fas fa-home me-1"></i> Beranda</a>
                     </li>
-                    <li class="nav-item dropdown tentang-dropdown-wrapper {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*', 'struktur-organisasi*') ? 'active' : '' }}">
-                        <button type="button" class="nav-link tentang-dropdown-toggle-btn {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*', 'struktur-organisasi*') ? 'active' : '' }}" id="tentangDropdownBtn" aria-expanded="false" aria-haspopup="true">
+                    <li class="nav-item dropdown tentang-dropdown-wrapper {{ request()->routeIs('profil*', 'tentang*', 'sejarah*', 'sambutan*', 'visi-misi*', 'struktur-organisasi*') ? 'active' : '' }}">
+                        <button type="button" class="nav-link tentang-dropdown-toggle-btn {{ request()->routeIs('profil*', 'tentang*', 'sejarah*', 'sambutan*', 'visi-misi*', 'struktur-organisasi*') ? 'active' : '' }}" id="tentangDropdownBtn" aria-expanded="false" aria-haspopup="true">
                             <i class="fas fa-circle-info me-1"></i>
                             <span>Tentang</span>
                             <i class="fas fa-chevron-down ms-1 tentang-chevron"></i>
                         </button>
                         <ul class="tentang-dropdown-menu" id="tentangDropdownMenu" aria-labelledby="tentangDropdownBtn">
+                            <li>
+                                <a class="tentang-dropdown-item {{ request()->routeIs('profil*') || request()->routeIs('tentang*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#tentang' : route('profil') }}">
+                                    Profil HIMATIKA
+                                </a>
+                            </li>
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('sejarah*') ? 'active' : '' }}" href="{{ route('sejarah') }}">
                                     Sejarah

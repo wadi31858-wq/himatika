@@ -2063,7 +2063,7 @@ body {
     border-color: rgba(113, 28, 53, 0.1);
 }
 
-.tentang-card-badge {
+.tentang-timeline-badge {
     flex-shrink: 0;
     width: 42px;
     height: 42px;
@@ -2078,7 +2078,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.tentang-card:hover .tentang-card-badge {
+.tentang-card:hover .tentang-timeline-badge {
     transform: scale(1.1) rotate(-5deg);
 }
 
@@ -5443,6 +5443,7 @@ body {
     padding: 70px 0 80px;
     border-bottom: 1px solid #E9CDD5;
     position: relative;
+    scroll-margin-top: 85px;
 }
 
 .tentang-header-area {
@@ -5508,16 +5509,21 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    white-space: nowrap;
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     color: #711C35;
     background: #FFF7F9;
     border: 1px solid #E9CDD5;
     padding: 0.35rem 0.85rem;
     border-radius: 30px;
     margin-bottom: 0.85rem;
+    box-shadow: none;
 }
 
 .tentang-card-title {
