@@ -58,8 +58,21 @@
                         <input type="email" name="email" class="form-control" value="{{ old('email', $profile->email) }}" placeholder="himatika@unuja.ac.id">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-semibold text-dark"><i class="fas fa-phone text-success me-1"></i> Telepon / WhatsApp</label>
+                        <label class="form-label fw-semibold text-dark"><i class="fas fa-phone text-secondary me-1"></i> Telepon Kantor / Sekretariat</label>
                         <input type="text" name="phone" class="form-control" value="{{ old('phone', $profile->phone) }}" placeholder="+62 812-3456-7890">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-dark">
+                        <i class="fab fa-whatsapp text-success me-1"></i> Nomor WhatsApp Resmi Organisasi
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light text-success fw-bold"><i class="fab fa-whatsapp fs-5"></i></span>
+                        <input type="text" name="whatsapp_number" class="form-control" value="{{ old('whatsapp_number', $siteSettings['whatsapp_number'] ?? '[NOMOR_WHATSAPP_HIMATIKA]') }}" placeholder="[NOMOR_WHATSAPP_HIMATIKA]">
+                    </div>
+                    <div class="form-text">
+                        Nomor ini menjadi satu sumber untuk tautan <strong>Hubungi via WhatsApp</strong> di footer dan <strong>tombol WhatsApp bulat mengambang</strong>. Awalan <code>08</code> akan otomatis dikonversi ke format internasional <code>628</code> dengan pesan: <em>"Halo HIMATIKA UNUJA, saya ingin bertanya."</em>
                     </div>
                 </div>
 

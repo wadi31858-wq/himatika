@@ -163,6 +163,66 @@
                 display: flex;
             }
         }
+
+        /* ==================== WHATSAPP ACCESS (FOOTER & FLOATING) ==================== */
+        .footer-wa-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-wa-link:hover {
+            color: var(--gold) !important;
+        }
+        .footer-wa-link i {
+            font-size: 1rem;
+            color: #25D366;
+            transition: transform 0.2s ease;
+        }
+        .footer-wa-link:hover i {
+            transform: scale(1.15);
+        }
+
+        .floating-whatsapp-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background-color: #25D366;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.42), 0 2px 6px rgba(0, 0, 0, 0.15);
+            z-index: 990;
+            text-decoration: none;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+        .floating-whatsapp-btn:hover {
+            background-color: #20ba59;
+            color: #ffffff !important;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.55), 0 3px 8px rgba(0, 0, 0, 0.18);
+        }
+        .floating-whatsapp-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .floating-whatsapp-btn {
+                bottom: 18px;
+                right: 18px;
+                width: 48px;
+                height: 48px;
+                font-size: 25px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -296,6 +356,35 @@
     </main>
 
     {{-- ==================== FOOTER ==================== --}}
+    @php
+        // Sumber tunggal nomor WhatsApp resmi organisasi
+        $rawWa = $siteSettings['whatsapp_number'] ?? ($globalProfile->phone ?? '');
+        $digitsOnly = preg_replace('/\D/', '', (string)$rawWa);
+        
+        // Cek apakah nomor merupakan nomor contoh/placeholder atau belum diisi
+        $isDummyOrPlaceholder = empty($digitsOnly)
+            || in_array($digitsOnly, ['081234567890', '6281234567890', '1234567890', '08123456789', '628123456789'])
+            || str_contains((string)$rawWa, '[NOMOR_WHATSAPP_HIMATIKA]')
+            || strlen($digitsOnly) < 8;
+
+        if (!$isDummyOrPlaceholder) {
+            // Ubah awalan 08 menjadi 628 untuk format internasional angka saja
+            if (str_starts_with($digitsOnly, '08')) {
+                $waFormattedPhone = '628' . substr($digitsOnly, 2);
+            } elseif (str_starts_with($digitsOnly, '8')) {
+                $waFormattedPhone = '628' . substr($digitsOnly, 1);
+            } else {
+                $waFormattedPhone = $digitsOnly;
+            }
+            $waMessage = rawurlencode('Halo HIMATIKA UNUJA, saya ingin bertanya.');
+            $waUrl = "https://wa.me/{$waFormattedPhone}?text={$waMessage}";
+            $waIsActive = true;
+        } else {
+            $waFormattedPhone = null;
+            $waUrl = 'javascript:void(0)';
+            $waIsActive = false;
+        }
+    @endphp
     <footer class="footer-custom">
         <div class="container">
             <div class="row g-4">
@@ -366,6 +455,13 @@
                     <h5 class="footer-heading">TEMUI KAMI</h5>
                     <p class="footer-contact-text">{{ $globalProfile->address ?? 'Sekretariat HIMATIKA UNUJA' }}</p>
                     <p class="footer-contact-text"><a href="mailto:{{ $globalProfile->email ?? 'himatika@unuja.ac.id' }}">{{ $globalProfile->email ?? 'himatika@unuja.ac.id' }}</a></p>
+                    <p class="footer-contact-text">
+                        <a href="{{ $waUrl }}"
+                           @if($waIsActive) target="_blank" rel="noopener noreferrer" @else onclick="alert('Nomor WhatsApp resmi HIMATIKA belum dikonfigurasi. Silakan atur pada menu Admin > Tampilan > Footer & Kontak.')" @endif
+                           class="footer-wa-link">
+                            <i class="fab fa-whatsapp me-2" style="color: #25D366; font-size: 0.95rem;"></i>Hubungi via WhatsApp
+                        </a>
+                    </p>
                     @php
                         $mapsEmbed = $siteSettings['footer_maps_embed'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890!2d113.1234567890!3d-7.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDExM8KwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1234567890';
                     @endphp
@@ -523,5 +619,14 @@
         })();
     </script>
     @stack('scripts')
+
+    {{-- ==================== TOMBOL WHATSAPP BULAT MENGAMBANG ==================== --}}
+    <a href="{{ $waUrl }}"
+       @if($waIsActive) target="_blank" rel="noopener noreferrer" @else onclick="alert('Nomor WhatsApp resmi HIMATIKA belum dikonfigurasi. Silakan atur pada menu Admin > Tampilan > Footer & Kontak.')" @endif
+       class="floating-whatsapp-btn"
+       aria-label="Hubungi HIMATIKA via WhatsApp"
+       title="Hubungi HIMATIKA via WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 </html>

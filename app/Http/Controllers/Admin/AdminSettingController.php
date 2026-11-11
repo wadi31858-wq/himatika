@@ -284,6 +284,7 @@ class AdminSettingController extends Controller
             'managed_by' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'phone' => 'nullable|string|max:50',
+            'whatsapp_number' => 'nullable|string|max:50',
             'address' => 'nullable|string|max:500',
             'instagram' => 'nullable|string|max:255',
             'youtube' => 'nullable|string|max:255',
@@ -307,8 +308,9 @@ class AdminSettingController extends Controller
         SiteSetting::set('footer_copyright', $validated['copyright_text'] ?? '© 2026 HIMATIKA UNUJA 2026.', 'footer');
         SiteSetting::set('footer_managed_by', $validated['managed_by'] ?? 'Dikelola oleh Tim Website HIMATIKA', 'footer');
         SiteSetting::set('footer_maps_embed', $validated['maps_embed'] ?? '', 'footer');
+        SiteSetting::set('whatsapp_number', $validated['whatsapp_number'] ?? '', 'footer');
 
-        ActivityLog::record('update', 'Memperbarui teks footer, kontak, sosial media, dan peta', null);
+        ActivityLog::record('update', 'Memperbarui teks footer, kontak, WhatsApp resmi, sosial media, dan peta', null);
 
         return back()->with('success', 'Pengaturan Footer & Kontak berhasil disimpan.');
     }
