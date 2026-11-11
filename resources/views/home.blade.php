@@ -129,7 +129,7 @@
                                 @if($globalProfile && $globalProfile->logo)
                                     <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo HIMATIKA">
                                 @else
-                                    <i class="fas fa-infinity" style="color: #002B66; font-size: 1.4rem;"></i>
+                                    <i class="fas fa-infinity" style="color: #711C35; font-size: 1.4rem;"></i>
                                 @endif
                             </div>
                             <div>
