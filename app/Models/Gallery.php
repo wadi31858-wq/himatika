@@ -24,6 +24,11 @@ class Gallery extends Model
         return $this->belongsTo(Activity::class);
     }
 
+    public function photos()
+    {
+        return $this->hasMany(GalleryPhoto::class)->orderBy('order_num');
+    }
+
     public function scopePublished($query)
     {
         return $query->where('status', 'published');

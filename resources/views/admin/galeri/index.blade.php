@@ -57,6 +57,11 @@
                             <span class="badge bg-warning text-dark shadow-sm">Draft</span>
                         @endif
                     </div>
+                    <div class="position-absolute bottom-0 start-0 m-2">
+                        <span class="badge bg-dark bg-opacity-75 text-white shadow-sm" style="font-size: 0.72rem;">
+                            <i class="fas fa-images me-1"></i> {{ $g->photos_count ?? $g->photos->count() ?: 1 }} Foto
+                        </span>
+                    </div>
                 </div>
 
                 <div class="card-body p-3 d-flex flex-column justify-content-between">

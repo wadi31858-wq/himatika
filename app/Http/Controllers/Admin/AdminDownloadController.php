@@ -26,9 +26,9 @@ class AdminDownloadController extends Controller
 
         if ($request->filled('type')) {
             if ($request->type === 'website') {
-                $query->whereNotNull('website_url');
+                $query->whereNotNull('website_url')->where('website_url', '!=', '');
             } elseif ($request->type === 'file') {
-                $query->whereNotNull('file');
+                $query->whereNotNull('file')->where('file', '!=', '');
             }
         }
 
@@ -36,12 +36,12 @@ class AdminDownloadController extends Controller
             $query->where('status', $request->status);
         }
 
-        $downloads = $query->latest()->paginate(10)->withQueryString();
+        $downloads = $query->orderBy('order_num')->latest()->paginate(12)->withQueryString();
 
         $counts = [
             'total' => Download::count(),
-            'websites' => Download::whereNotNull('website_url')->count(),
-            'files' => Download::whereNotNull('file')->count(),
+            'websites' => Download::whereNotNull('website_url')->where('website_url', '!=', '')->count(),
+            'files' => Download::whereNotNull('file')->where('file', '!=', '')->count(),
         ];
 
         return view('admin.download.index', compact('downloads', 'counts'));
@@ -58,10 +58,13 @@ class AdminDownloadController extends Controller
             'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:100',
             'author_name' => 'nullable|string|max:150',
+            'year' => 'nullable|string|max:10',
+            'order_num' => 'nullable|integer|min:0',
             'website_url' => 'nullable|url|max:255',
             'description' => 'nullable|string|max:1000',
             'status' => 'required|in:published,draft',
             'file' => 'nullable|file|max:20480', // 20 MB max
+            'preview_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
 
         if (empty($validated['website_url']) && !$request->hasFile('file')) {
@@ -86,6 +89,18 @@ class AdminDownloadController extends Controller
             $validated['file_type'] = $ext;
         }
 
+        if ($request->hasFile('preview_image')) {
+            $prevFile = $request->file('preview_image');
+            $prevFilename = 'prev_' . time() . '_' . $prevFile->hashName();
+            $prevDest = storage_path('app/public/downloads/previews');
+            if (!File::isDirectory($prevDest)) {
+                File::makeDirectory($prevDest, 0755, true);
+            }
+            $prevFile->move($prevDest, $prevFilename);
+            $validated['preview_image'] = 'downloads/previews/' . $prevFilename;
+        }
+
+        $validated['order_num'] = $validated['order_num'] ?? 0;
         $download = Download::create($validated);
 
         $typeLabel = $download->website_url ? 'Website Mahasiswa' : 'Dokumen';
@@ -109,10 +124,13 @@ class AdminDownloadController extends Controller
             'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:100',
             'author_name' => 'nullable|string|max:150',
+            'year' => 'nullable|string|max:10',
+            'order_num' => 'nullable|integer|min:0',
             'website_url' => 'nullable|url|max:255',
             'description' => 'nullable|string|max:1000',
             'status' => 'required|in:published,draft',
             'file' => 'nullable|file|max:20480',
+            'preview_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
 
         if (empty($validated['website_url']) && empty($download->file) && !$request->hasFile('file')) {
@@ -140,6 +158,20 @@ class AdminDownloadController extends Controller
             $validated['file_type'] = $ext;
         }
 
+        if ($request->hasFile('preview_image')) {
+            $prevFile = $request->file('preview_image');
+            $prevFilename = 'prev_' . time() . '_' . $prevFile->hashName();
+            $prevDest = storage_path('app/public/downloads/previews');
+            if (!File::isDirectory($prevDest)) {
+                File::makeDirectory($prevDest, 0755, true);
+            }
+            if ($download->preview_image && file_exists(storage_path('app/public/' . $download->preview_image))) {
+                @unlink(storage_path('app/public/' . $download->preview_image));
+            }
+            $prevFile->move($prevDest, $prevFilename);
+            $validated['preview_image'] = 'downloads/previews/' . $prevFilename;
+        }
+
         $download->update($validated);
 
         ActivityLog::record(
@@ -157,6 +189,9 @@ class AdminDownloadController extends Controller
 
         if ($download->file && file_exists(storage_path('app/public/' . $download->file))) {
             @unlink(storage_path('app/public/' . $download->file));
+        }
+        if ($download->preview_image && file_exists(storage_path('app/public/' . $download->preview_image))) {
+            @unlink(storage_path('app/public/' . $download->preview_image));
         }
 
         $download->delete();

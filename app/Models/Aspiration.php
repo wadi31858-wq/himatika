@@ -17,6 +17,7 @@ class Aspiration extends Model
         'title',
         'message',
         'status',
+        'is_archived',
         'admin_reply',
         'admin_notes',
         'ip_address'

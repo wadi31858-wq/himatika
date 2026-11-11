@@ -9,7 +9,7 @@ class DownloadController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Download::published();
+        $query = Download::published()->whereNotNull('website_url')->where('website_url', '!=', '');
 
         if ($request->filled('search')) {
             $s = $request->search;
@@ -21,7 +21,9 @@ class DownloadController extends Controller
             });
         }
 
-        $downloads = $query->latest()->paginate(9)->withQueryString();
-        return view('download', compact('downloads'));
+        $downloads = $query->orderBy('order_num')->latest()->paginate(9)->withQueryString();
+        $totalWebsites = Download::published()->whereNotNull('website_url')->where('website_url', '!=', '')->count();
+
+        return view('download', compact('downloads', 'totalWebsites'));
     }
 }

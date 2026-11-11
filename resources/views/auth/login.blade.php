@@ -21,8 +21,24 @@
             <div class="col-md-10">
                 <div class="login-card row g-0">
                     <div class="col-lg-5 login-left d-none d-lg-flex">
+                        @php
+                            $loginLogo = null;
+                            $loginAlt = $siteSettings['logo_admin_login_alt'] ?? 'Logo HIMATIKA';
+                            if (($siteSettings['logo_admin_login_custom'] ?? '0') === '1' && !empty($siteSettings['logo_admin_login_file'])) {
+                                $loginLogo = asset('storage/' . $siteSettings['logo_admin_login_file']);
+                            } elseif (!empty($siteSettings['main_logo'])) {
+                                $loginLogo = asset('storage/' . $siteSettings['main_logo']);
+                            } elseif ($globalProfile && $globalProfile->logo) {
+                                $loginLogo = asset('storage/' . $globalProfile->logo);
+                            }
+                        @endphp
                         <div>
-                            <h2><i class="fas fa-laptop-code me-2"></i>HIMATIKA UNUJA</h2>
+                            @if($loginLogo)
+                                <div class="mb-3">
+                                    <img src="{{ $loginLogo }}" alt="{{ $loginAlt }}" style="max-height: 54px; max-width: 100%; object-fit: contain;">
+                                </div>
+                            @endif
+                            <h2><i class="fas fa-laptop-code me-2"></i>{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} UNUJA</h2>
                             <p class="mt-3 opacity-75">Himpunan Mahasiswa Matematika</p>
                             <p class="small opacity-50">Silakan login untuk mengelola konten website.</p>
                         </div>

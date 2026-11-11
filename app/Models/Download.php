@@ -18,6 +18,9 @@ class Download extends Model
         'file',
         'file_size',
         'file_type',
+        'preview_image',
+        'year',
+        'order_num',
         'status',
     ];
 

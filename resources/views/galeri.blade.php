@@ -18,9 +18,9 @@
 
 <section class="section-cream galeri-hero">
     <div class="container text-center">
-        <span class="galeri-hero-label">GALERI</span>
-        <h1 class="galeri-hero-heading">Momen HIMATIKA UNUJA</h1>
-        <p class="galeri-hero-desc">Dokumentasi kegiatan yang memperlihatkan semangat, kolaborasi, dan capaian HIMATIKA</p>
+        <span class="galeri-hero-label">{{ $siteSettings['gallery_page_badge'] ?? 'GALERI' }}</span>
+        <h1 class="galeri-hero-heading">{{ $siteSettings['gallery_page_title'] ?? 'Momen HIMATIKA UNUJA' }}</h1>
+        <p class="galeri-hero-desc">{{ $siteSettings['gallery_page_desc'] ?? 'Dokumentasi kegiatan yang memperlihatkan semangat, kolaborasi, dan capaian HIMATIKA' }}</p>
     </div>
 </section>
 
@@ -32,7 +32,7 @@
             @endif
                 <div class="col-md-6">
                     <div class="galeri-card">
-                        <div class="galeri-card-img" onclick="openLightbox('{{ asset('storage/' . ($g->cover_image ?? $g->image)) }}')">
+                        <div class="galeri-card-img" onclick="window.location.href='{{ route('galeri.show', $g->id) }}'">
                             @if($g->cover_image || $g->image)
                                 <img src="{{ asset('storage/' . ($g->cover_image ?? $g->image)) }}" alt="{{ $g->title }}">
                             @else
@@ -41,19 +41,24 @@
                                     <span>Dokumentasi</span>
                                 </div>
                             @endif
+                            <span class="badge bg-dark bg-opacity-75 text-white position-absolute bottom-0 start-0 m-2 px-2 py-1" style="font-size: 0.75rem;">
+                                <i class="fas fa-images me-1"></i> {{ $g->photos->count() ?: 1 }} Foto
+                            </span>
                             <div class="galeri-card-overlay">
                                 <i class="fas fa-expand"></i>
                             </div>
                         </div>
                         <div class="galeri-card-body">
-                            <h3 class="galeri-card-title">{{ $g->title }}</h3>
+                            <h3 class="galeri-card-title">
+                                <a href="{{ route('galeri.show', $g->id) }}" class="text-decoration-none text-dark">{{ $g->title }}</a>
+                            </h3>
                             @if($g->activity)
                                 <span class="galeri-card-badge"><i class="fas fa-calendar-alt me-1"></i>{{ $g->activity->title }}</span>
                             @endif
                             @if($g->description)
                                 <p class="galeri-card-desc">{{ Str::limit($g->description, 100) }}</p>
                             @endif
-                            <a href="#" class="galeri-card-link" onclick="event.preventDefault(); openLightbox('{{ asset('storage/' . ($g->cover_image ?? $g->image)) }}');">Buka dokumentasi <i class="fas fa-arrow-right ms-1"></i></a>
+                            <a href="{{ route('galeri.show', $g->id) }}" class="galeri-card-link">Buka album ({{ $g->photos->count() ?: 1 }} foto) <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                     </div>
                 </div>

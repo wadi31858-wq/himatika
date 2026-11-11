@@ -321,7 +321,7 @@
                 <div class="col-md-5 d-flex justify-content-md-end mt-4 mt-md-0">
                     <div class="doc-stats">
                         <div class="stat-box">
-                            <div class="stat-num">{{ str_pad($downloads->total(), 2, '0', STR_PAD_LEFT) }}</div>
+                            <div class="stat-num">{{ str_pad($totalWebsites ?? $downloads->total(), 2, '0', STR_PAD_LEFT) }}</div>
                             <div class="stat-label">WEBSITE TERSIMPAN</div>
                         </div>
                         <div class="stat-box">
@@ -353,29 +353,27 @@
         <div class="doc-grid">
             @forelse($downloads as $d)
             @php
-                $websiteUrl = '#';
-                if (!empty($d->url)) {
-                    $websiteUrl = $d->url;
-                } elseif (!empty($d->link)) {
-                    $websiteUrl = $d->link;
-                } elseif (!empty($d->file)) {
-                    $websiteUrl = Str::startsWith($d->file, ['http://', 'https://']) ? $d->file : asset('storage/' . $d->file);
-                }
+                $websiteUrl = $d->website_url ?: ($d->url ?: ($d->link ?: ($d->file ? asset('storage/' . $d->file) : '#')));
 
-                $isImage = false;
-                if (!empty($d->image)) {
-                    $isImage = true;
+                $previewImg = null;
+                if (!empty($d->preview_image)) {
+                    $previewImg = asset('storage/' . $d->preview_image);
+                } elseif (!empty($d->image)) {
+                    $previewImg = asset('storage/' . $d->image);
                 } elseif (!empty($d->file)) {
                     $ext = strtolower(pathinfo($d->file, PATHINFO_EXTENSION));
-                    $isImage = in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif']);
+                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif'])) {
+                        $previewImg = asset('storage/' . $d->file);
+                    }
                 }
 
-                $author = $d->author ?? $d->creator ?? $d->student_name ?? $d->pembuat ?? null;
+                $author = $d->author_name ?: ($d->author ?: ($d->creator ?: ($d->student_name ?: null)));
+                $displayYear = $d->year ?: ($d->created_at ? $d->created_at->format('Y') : date('Y'));
             @endphp
             <a href="{{ $websiteUrl }}" class="doc-card" target="_blank" rel="noopener noreferrer">
                 <div class="doc-cover">
-                    @if($isImage)
-                        <img src="{{ asset('storage/' . ($d->image ?? $d->file)) }}" alt="{{ $d->title }}" class="doc-cover-img">
+                    @if($previewImg)
+                        <img src="{{ $previewImg }}" alt="{{ $d->title }}" class="doc-cover-img" style="width: 100%; height: 100%; object-fit: cover;">
                     @else
                         <div class="doc-cover-browser-bar">
                             <span class="browser-dot red"></span>
@@ -396,7 +394,7 @@
                 </div>
                 
                 <div class="doc-meta">
-                    <span class="doc-year">{{ $d->created_at ? $d->created_at->format('Y') : date('Y') }}</span>
+                    <span class="doc-year">{{ $displayYear }}</span>
                     <span class="doc-type">Website</span>
                 </div>
 

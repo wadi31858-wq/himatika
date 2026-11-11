@@ -7,8 +7,8 @@
 <section class="sejarah-banner">
     <div class="container position-relative">
         <div class="sejarah-banner-content">
-            <h1 class="sejarah-banner-title">Sejarah HIMATIKA</h1>
-            <p class="sejarah-banner-subtitle">Perjalanan HIMATIKA FMIPA UNUJA dari awal berdiri hingga sekarang.</p>
+            <h1 class="sejarah-banner-title">{{ $siteSettings['history_title'] ?? 'Sejarah HIMATIKA' }}</h1>
+            <p class="sejarah-banner-subtitle">{{ $siteSettings['history_subtitle'] ?? 'Perjalanan HIMATIKA FMIPA UNUJA dari awal berdiri hingga sekarang.' }}</p>
         </div>
     </div>
 </section>
@@ -25,29 +25,40 @@
                 </div>
 
                 {{-- FOTO HORIZONTAL MEMBULAT --}}
+                @php
+                    $historyImg = !empty($siteSettings['history_image']) && file_exists(storage_path('app/public/' . $siteSettings['history_image']))
+                        ? asset('storage/' . $siteSettings['history_image'])
+                        : asset('images/unuja-campus-banner.jpg');
+                @endphp
                 <div class="sejarah-img-wrap mb-4">
-                    <img src="{{ asset('images/unuja-campus-banner.jpg') }}" alt="Gedung Kampus UNUJA - Sejarah HIMATIKA" class="sejarah-horizontal-img">
+                    <img src="{{ $historyImg }}" alt="Sejarah HIMATIKA" class="sejarah-horizontal-img">
                 </div>
 
                 {{-- TEKS SEJARAH DALAM PARAGRAF --}}
                 <div class="sejarah-text-body">
-                    <h3 class="sejarah-section-heading mb-3">Sejarah HIMATIKA UNUJA</h3>
+                    <h3 class="sejarah-section-heading mb-3">{{ $siteSettings['history_title'] ?? 'Sejarah HIMATIKA UNUJA' }}</h3>
                     
-                    <p class="sejarah-p">
-                        Himpunan Mahasiswa Matematika (HIMATIKA) Universitas Nurul Jadid (UNUJA) merupakan organisasi kemahasiswaan di tingkat Program Studi Matematika Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA) yang berdiri sebagai wadah perjuangan, keilmuan, dan pengembangan diri bagi mahasiswa.
-                    </p>
-                    
-                    <p class="sejarah-p">
-                        Berdirinya HIMATIKA dilandasi oleh semangat kebersamaan dan kebutuhan akan sebuah rumah bersama yang mampu menaungi aspirasi, mempererat ukhuwah, serta memacu prestasi akademik maupun non-akademik mahasiswa Matematika. Sejak awal berdirinya, organisasi ini berkomitmen menciptakan lingkungan intelektual yang berakar pada nilai-nilai keislaman, kejujuran ilmiah, dan integritas tinggi.
-                    </p>
-                    
-                    <p class="sejarah-p">
-                        Dalam perjalanannya, HIMATIKA terus beradaptasi dan berinovasi dengan perkembangan zaman tanpa meninggalkan identitas moral dan akademis. Berbagai kegiatan strategis rutin diselenggarakan, mulai dari seminar keilmuan, workshop teknologi data dan komputasi, olimpiade matematika, hingga program pengabdian kepada masyarakat luas.
-                    </p>
-                    
-                    <p class="sejarah-p mb-0">
-                        Memasuki periode 2026 dengan mengusung tema <em>“Synchronized Growth, Reaching New Heights”</em>, HIMATIKA UNUJA terus melangkah mantap menjadi organisasi yang inklusif, adaptif, dan siap mencetak generasi insan cendekia yang berdaya saing global dan bermanfaat bagi peradaban.
-                    </p>
+                    @if($profile && !empty($profile->history))
+                        <div class="sejarah-p">
+                            {!! nl2br(e($profile->history)) !!}
+                        </div>
+                    @else
+                        <p class="sejarah-p">
+                            Himpunan Mahasiswa Matematika (HIMATIKA) Universitas Nurul Jadid (UNUJA) merupakan organisasi kemahasiswaan di tingkat Program Studi Matematika Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA) yang berdiri sebagai wadah perjuangan, keilmuan, dan pengembangan diri bagi mahasiswa.
+                        </p>
+                        
+                        <p class="sejarah-p">
+                            Berdirinya HIMATIKA dilandasi oleh semangat kebersamaan dan kebutuhan akan sebuah rumah bersama yang mampu menaungi aspirasi, mempererat ukhuwah, serta memacu prestasi akademik maupun non-akademik mahasiswa Matematika. Sejak awal berdirinya, organisasi ini berkomitmen menciptakan lingkungan intelektual yang berakar pada nilai-nilai keislaman, kejujuran ilmiah, dan integritas tinggi.
+                        </p>
+                        
+                        <p class="sejarah-p">
+                            Dalam perjalanannya, HIMATIKA terus beradaptasi dan berinovasi dengan perkembangan zaman tanpa meninggalkan identitas moral dan akademis. Berbagai kegiatan strategis rutin diselenggarakan, mulai dari seminar keilmuan, workshop teknologi data dan komputasi, olimpiade matematika, hingga program pengabdian kepada masyarakat luas.
+                        </p>
+                        
+                        <p class="sejarah-p mb-0">
+                            Memasuki periode 2026 dengan mengusung tema <em>“Synchronized Growth, Reaching New Heights”</em>, HIMATIKA UNUJA terus melangkah mantap menjadi organisasi yang inklusif, adaptif, dan siap mencetak generasi insan cendekia yang berdaya saing global dan bermanfaat bagi peradaban.
+                        </p>
+                    @endif
                 </div>
             </div>
 
@@ -58,8 +69,8 @@
                     <p class="text-secondary small mb-0">Jelajahi dokumentasi dan arsip kegiatan perjalanan HIMATIKA di galeri kami.</p>
                 </div>
                 <div class="text-end">
-                    <a href="{{ route('galeri') }}" class="btn-sejarah-galeri">
-                        Lihat Galeri &rarr;
+                    <a href="{{ $siteSettings['history_doc_url'] ?? route('galeri') }}" class="btn-sejarah-galeri">
+                        {{ $siteSettings['history_doc_text'] ?? 'Lihat Galeri' }} &rarr;
                     </a>
                 </div>
             </div>

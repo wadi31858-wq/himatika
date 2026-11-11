@@ -3,8 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Beranda') - HIMATIKA UNUJA 2026</title>
-    <meta name="description" content="@yield('description', 'Website resmi HIMATIKA FMIPA Universitas Nahdlatul Ulama Jember - Himpunan Mahasiswa Matematika')">
+    <title>@yield('title', 'Beranda') - {{ $globalProfile->title ?? 'HIMATIKA UNUJA 2026' }}</title>
+    <meta name="description" content="@yield('description', $globalProfile->meta_description ?? 'Website resmi HIMATIKA FMIPA Universitas Nurul Jadid - Himpunan Mahasiswa Matematika')">
+    @if(!empty($siteSettings['site_meta_keywords']))
+        <meta name="keywords" content="{{ $siteSettings['site_meta_keywords'] }}">
+    @endif
+
+    <!-- Dynamic Favicon -->
+    @php
+        $publicFavicon = null;
+        if (($siteSettings['favicon_custom'] ?? '0') === '1' && !empty($siteSettings['favicon_file'])) {
+            $publicFavicon = asset('storage/' . $siteSettings['favicon_file']);
+        } elseif (!empty($siteSettings['main_favicon'])) {
+            $publicFavicon = asset('storage/' . $siteSettings['main_favicon']);
+        } elseif ($globalProfile && $globalProfile->favicon) {
+            $publicFavicon = asset('storage/' . $globalProfile->favicon);
+        }
+    @endphp
+    @if($publicFavicon)
+        <link rel="icon" type="image/x-icon" href="{{ $publicFavicon }}">
+        <link rel="shortcut icon" href="{{ $publicFavicon }}">
+    @endif
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -152,15 +171,26 @@
         <div class="container">
             <a class="navbar-brand navbar-brand-custom" href="{{ route('home') }}">
                 <span class="brand-logo">
-                    @if($globalProfile && $globalProfile->logo)
-                        <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo HIMATIKA" style="width: 100%; height: 100%; object-fit: contain;">
+                    @php
+                        $navLogo = null;
+                        $navAlt = $siteSettings['logo_nav_desktop_alt'] ?? 'Logo HIMATIKA';
+                        if (($siteSettings['logo_nav_desktop_custom'] ?? '0') === '1' && !empty($siteSettings['logo_nav_desktop_file'])) {
+                            $navLogo = asset('storage/' . $siteSettings['logo_nav_desktop_file']);
+                        } elseif (!empty($siteSettings['main_logo'])) {
+                            $navLogo = asset('storage/' . $siteSettings['main_logo']);
+                        } elseif ($globalProfile && $globalProfile->logo) {
+                            $navLogo = asset('storage/' . $globalProfile->logo);
+                        }
+                    @endphp
+                    @if($navLogo)
+                        <img src="{{ $navLogo }}" alt="{{ $navAlt }}" style="width: 100%; height: 100%; object-fit: contain;">
                     @else
                         <i class="fas fa-infinity" style="color: #711C35;"></i>
                     @endif
                 </span>
                 <span class="brand-text">
-                    <span class="brand-name">HIMATIKA UNUJA 2026</span>
-                    <span class="brand-tagline">Synchronized Growth, Reaching New Heights</span>
+                    <span class="brand-name">{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} UNUJA 2026</span>
+                    <span class="brand-tagline">{{ $globalProfile->motto ?? 'Synchronized Growth, Reaching New Heights' }}</span>
                     <span class="brand-accent-line"></span>
                 </span>
             </a>
@@ -267,23 +297,42 @@
                 <div class="col-lg-4">
                     <div class="d-flex align-items-center mb-3">
                         <span class="brand-logo-footer">
-                            @if($globalProfile && $globalProfile->logo)
-                                <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain; filter: brightness(0) invert(1);">
+                            @php
+                                $footerLogo = null;
+                                $footerAlt = $siteSettings['logo_footer_alt'] ?? 'Logo Footer HIMATIKA';
+                                if (($siteSettings['logo_footer_custom'] ?? '0') === '1' && !empty($siteSettings['logo_footer_file'])) {
+                                    $footerLogo = asset('storage/' . $siteSettings['logo_footer_file']);
+                                } elseif (!empty($siteSettings['main_logo'])) {
+                                    $footerLogo = asset('storage/' . $siteSettings['main_logo']);
+                                } elseif ($globalProfile && $globalProfile->logo) {
+                                    $footerLogo = asset('storage/' . $globalProfile->logo);
+                                }
+                            @endphp
+                            @if($footerLogo)
+                                <img src="{{ $footerLogo }}" alt="{{ $footerAlt }}" style="width: 40px; height: 40px; object-fit: contain;">
                             @else
                                 <i class="fas fa-infinity"></i>
                             @endif
                         </span>
                         <div class="brand-text-footer">
-                            <span class="brand-name-footer">HIMATIKA FMIPA UNUJA</span>
+                            <span class="brand-name-footer">{{ $globalProfile->title ?? 'HIMATIKA FMIPA UNUJA' }}</span>
                             <span class="brand-period-footer">HIMATIKA UNUJA 2026</span>
                         </div>
                     </div>
-                    <p class="footer-desc">Website resmi HIMATIKA FMIPA UNUJA periode 2026.</p>
+                    <p class="footer-desc">{{ $globalProfile->footer_text ?? 'Website resmi HIMATIKA FMIPA UNUJA periode 2026.' }}</p>
                     <div class="d-flex gap-3 mt-3">
-                        <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="footer-social"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="footer-social"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
+                        @if($globalProfile && $globalProfile->instagram)
+                            <a href="{{ $globalProfile->instagram }}" target="_blank" class="footer-social"><i class="fab fa-instagram"></i></a>
+                        @endif
+                        @if($globalProfile && $globalProfile->tiktok)
+                            <a href="{{ $globalProfile->tiktok }}" target="_blank" class="footer-social"><i class="fab fa-tiktok"></i></a>
+                        @endif
+                        @if($globalProfile && $globalProfile->facebook)
+                            <a href="{{ $globalProfile->facebook }}" target="_blank" class="footer-social"><i class="fab fa-facebook"></i></a>
+                        @endif
+                        @if($globalProfile && $globalProfile->youtube)
+                            <a href="{{ $globalProfile->youtube }}" target="_blank" class="footer-social"><i class="fab fa-youtube"></i></a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-2">
@@ -291,7 +340,7 @@
                     <ul class="list-unstyled footer-links">
                         <li><a href="{{ route('home') }}">Beranda</a></li>
                         <li><a href="{{ route('profil') }}">Tentang</a></li>
-                        <li><a href="{{ route('profil') }}#sejarah">Sejarah</a></li>
+                        <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
                         <li><a href="{{ route('struktur-organisasi') }}">Struktur</a></li>
                         <li><a href="{{ route('agenda') }}">Agenda</a></li>
                         <li><a href="{{ route('berita') }}">Informasi</a></li>
@@ -301,28 +350,33 @@
                     <h5 class="footer-heading">LAYANAN</h5>
                     <ul class="list-unstyled footer-links">
                         <li><a href="{{ route('galeri') }}">Galeri</a></li>
-                        <li><a href="{{ route('download') }}">Dokumen</a></li>
-                        <li><a href="{{ route('download') }}">Aksioma</a></li>
-                        <li><a href="{{ route('download') }}">Bank Soal</a></li>
-                        <li><a href="{{ route('download') }}">MODUS</a></li>
+                        <li><a href="{{ route('download') }}">Galeri Website</a></li>
+                        <li><a href="{{ route('prestasi') }}">Prestasi</a></li>
+                        <li><a href="{{ route('kegiatan') }}">Kegiatan</a></li>
+                        <li><a href="{{ route('pendaftaran.index') }}">Pendaftaran</a></li>
                         <li><a href="{{ route('aspirasi.index') }}">Kirim Aspirasi</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">
                     <h5 class="footer-heading">TEMUI KAMI</h5>
-                    <p class="footer-contact-text">Sekretariat HIMATIKA UNUJA</p>
-                    <p class="footer-contact-text"><a href="mailto:himatika@unuja.ac.id">himatika@unuja.ac.id</a></p>
+                    <p class="footer-contact-text">{{ $globalProfile->address ?? 'Sekretariat HIMATIKA UNUJA' }}</p>
+                    <p class="footer-contact-text"><a href="mailto:{{ $globalProfile->email ?? 'himatika@unuja.ac.id' }}">{{ $globalProfile->email ?? 'himatika@unuja.ac.id' }}</a></p>
+                    @php
+                        $mapsEmbed = $siteSettings['footer_maps_embed'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890!2d113.1234567890!3d-7.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDExM8KwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1234567890';
+                    @endphp
+                    @if($mapsEmbed)
                     <div class="footer-map-placeholder mt-3">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.1234567890!2d113.1234567890!3d-7.1234567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDcnMjQuNCJTIDExM8KwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1234567890" width="100%" height="120" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="{{ $mapsEmbed }}" width="100%" height="120" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
-                    <a href="#" class="footer-map-link mt-2 d-inline-block">Buka peta &rarr;</a>
+                    @endif
+                    <a href="https://maps.google.com" target="_blank" class="footer-map-link mt-2 d-inline-block">Buka peta &rarr;</a>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                    <span>&copy; 2026 HIMATIKA UNUJA 2026.</span>
-                    <span class="footer-tagline">Synchronized Growth, Reaching New Heights.</span>
-                    <span>Dikelola oleh Tim Website HIMATIKA</span>
+                    <span>{{ $siteSettings['footer_copyright'] ?? '© 2026 HIMATIKA UNUJA 2026.' }}</span>
+                    <span class="footer-tagline">{{ $globalProfile->motto ?? 'Synchronized Growth, Reaching New Heights.' }}</span>
+                    <span>{{ $siteSettings['footer_managed_by'] ?? 'Dikelola oleh Tim Website HIMATIKA' }}</span>
                 </div>
             </div>
         </div>

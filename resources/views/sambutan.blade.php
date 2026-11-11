@@ -7,8 +7,8 @@
 <section class="sambutan-banner">
     <div class="container position-relative">
         <div class="sambutan-banner-content">
-            <h1 class="sambutan-banner-title">Sambutan Kaprodi</h1>
-            <p class="sambutan-banner-subtitle">Sambutan Ketua Program Studi Matematika UNUJA.</p>
+            <h1 class="sambutan-banner-title">{{ $siteSettings['sambutan_banner_title'] ?? 'Sambutan Kaprodi' }}</h1>
+            <p class="sambutan-banner-subtitle">{{ $siteSettings['sambutan_banner_subtitle'] ?? 'Sambutan Ketua Program Studi Matematika UNUJA.' }}</p>
         </div>
     </div>
 </section>
@@ -23,8 +23,16 @@
                 {{-- CARD PROFIL --}}
                 <div class="card-profil-kaprodi p-4 bg-white rounded-4 border shadow-sm text-center mb-3">
                     <div class="kaprodi-photo-container mb-3">
-                        @if($kaprodi && $kaprodi->photo)
-                            <img src="{{ asset('storage/' . $kaprodi->photo) }}" alt="{{ $kaprodi->name }}" class="kaprodi-avatar-img">
+                        @php
+                            $kaprodiPhoto = null;
+                            if (!empty($siteSettings['sambutan_photo']) && file_exists(storage_path('app/public/' . $siteSettings['sambutan_photo']))) {
+                                $kaprodiPhoto = asset('storage/' . $siteSettings['sambutan_photo']);
+                            } elseif ($kaprodi && $kaprodi->photo) {
+                                $kaprodiPhoto = asset('storage/' . $kaprodi->photo);
+                            }
+                        @endphp
+                        @if($kaprodiPhoto)
+                            <img src="{{ $kaprodiPhoto }}" alt="{{ $siteSettings['sambutan_name'] ?? ($kaprodi->name ?? 'Kaprodi') }}" class="kaprodi-avatar-img">
                         @else
                             <div class="kaprodi-avatar-placeholder d-flex flex-column align-items-center justify-content-center">
                                 <i class="fas fa-user-tie fa-4x text-primary opacity-75 mb-2"></i>
@@ -34,10 +42,10 @@
                     </div>
 
                     <h4 class="fw-bold mb-1" style="color: #28151D; font-size: 1.15rem;">
-                        {{ $kaprodi->name ?? 'Ketua Program Studi' }}
+                        {{ $siteSettings['sambutan_name'] ?? ($kaprodi->name ?? 'MUDDAKKIR, S.Pd., MM.') }}
                     </h4>
                     <p class="text-secondary small mb-0">
-                        {{ $kaprodi->position ?? 'Ketua Program Studi Matematika FMIPA UNUJA' }}
+                        {{ $siteSettings['sambutan_title'] ?? ($kaprodi->position ?? 'Ketua Program Studi Matematika FMIPA UNUJA') }}
                     </p>
                 </div>
 
@@ -47,7 +55,7 @@
                         <i class="fas fa-quote-left text-primary" style="font-size: 1.5rem; opacity: 0.8;"></i>
                     </div>
                     <p class="quote-text mb-0">
-                        "Mewujudkan generasi mahasiswa Matematika yang berkarakter islami, unggul dalam keilmuan, mandiri, dan berdaya saing global."
+                        “{{ $siteSettings['sambutan_quote'] ?? 'Mewujudkan generasi mahasiswa Matematika yang berkarakter islami, unggul dalam keilmuan, mandiri, dan berdaya saing global.' }}”
                     </p>
                 </div>
             </div>
@@ -59,35 +67,41 @@
                         <span class="gold-subtitle">Sambutan Kaprodi</span>
                     </div>
 
-                    {{-- PANEL BERLATAR BIRU MUDA --}}
+                    {{-- PANEL BERLATAR --}}
                     <div class="sambutan-inner-panel p-4 rounded-3">
-                        <p class="sambutan-p">
-                            Assalamu’alaikum Warahmatullahi Wabarakatuh,
-                        </p>
+                        @if(!empty($siteSettings['sambutan_content']))
+                            <div class="sambutan-p">
+                                {!! nl2br(e($siteSettings['sambutan_content'])) !!}
+                            </div>
+                        @else
+                            <p class="sambutan-p">
+                                Assalamu’alaikum Warahmatullahi Wabarakatuh,
+                            </p>
 
-                        <p class="sambutan-p">
-                            Puji syukur ke hadirat Allah SWT atas segala limpahan rahmat dan karunia-Nya, sehingga website resmi Himpunan Mahasiswa Matematika (HIMATIKA) Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Nurul Jadid (UNUJA) dapat hadir sebagai media informasi, komunikasi, dan representasi positif civitas akademika.
-                        </p>
+                            <p class="sambutan-p">
+                                Puji syukur ke hadirat Allah SWT atas segala limpahan rahmat dan karunia-Nya, sehingga website resmi Himpunan Mahasiswa Matematika (HIMATIKA) Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Nurul Jadid (UNUJA) dapat hadir sebagai media informasi, komunikasi, dan representasi positif civitas akademika.
+                            </p>
 
-                        <p class="sambutan-p">
-                            Website ini kami sambut sebagai upaya strategis untuk memperkuat transparansi, memperluas jangkauan layanan akademik maupun kemahasiswaan, serta mempererat tali silaturahmi antara program studi, dosen, mahasiswa, alumni, dan masyarakat luas. Melalui kanal ini, seluruh kegiatan keilmuan, prestasi mahasiswa, agenda organisasi, hingga publikasi ilmiah dapat diakses secara cepat dan terintegrasi.
-                        </p>
+                            <p class="sambutan-p">
+                                Website ini kami sambut sebagai upaya strategis untuk memperkuat transparansi, memperluas jangkauan layanan akademik maupun kemahasiswaan, serta mempererat tali silaturahmi antara program studi, dosen, mahasiswa, alumni, dan masyarakat luas. Melalui kanal ini, seluruh kegiatan keilmuan, prestasi mahasiswa, agenda organisasi, hingga publikasi ilmiah dapat diakses secara cepat dan terintegrasi.
+                            </p>
 
-                        <p class="sambutan-p">
-                            Kami senantiasa berpesan kepada seluruh pengurus dan anggota HIMATIKA untuk terus menumbuhkan semangat keilmuan matematika terapan, menjunjung tinggi integritas moral, serta berkolaborasi aktif demi kemajuan program studi dan almamater tercinta.
-                        </p>
+                            <p class="sambutan-p">
+                                Kami senantiasa berpesan kepada seluruh pengurus dan anggota HIMATIKA untuk terus menumbuhkan semangat keilmuan matematika terapan, menjunjung tinggi integritas moral, serta berkolaborasi aktif demi kemajuan program studi dan almamater tercinta.
+                            </p>
 
-                        <p class="sambutan-p mb-4">
-                            Semoga Allah SWT senantiasa memberikan kemudahan dan keberkahan dalam setiap ikhtiar kita bersama. Selamat berproses dan berkarya.
-                        </p>
+                            <p class="sambutan-p mb-4">
+                                Semoga Allah SWT senantiasa memberikan kemudahan dan keberkahan dalam setiap ikhtiar kita bersama. Selamat berproses dan berkarya.
+                            </p>
+                        @endif
 
                         {{-- TANDA TANGAN / PENUTUP KANAN BAWAH --}}
                         <div class="text-end pt-3 border-top border-light-subtle">
                             <h6 class="fw-bold mb-0" style="color: #28151D;">
-                                {{ $kaprodi->name ?? 'Ketua Program Studi Matematika' }}
+                                {{ $siteSettings['sambutan_name'] ?? ($kaprodi->name ?? 'MUDDAKKIR, S.Pd., MM.') }}
                             </h6>
                             <small class="text-muted">
-                                {{ $kaprodi->position ?? 'FMIPA Universitas Nurul Jadid (UNUJA)' }}
+                                {{ $siteSettings['sambutan_title'] ?? ($kaprodi->position ?? 'FMIPA Universitas Nurul Jadid (UNUJA)') }}
                             </small>
                         </div>
                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aspiration;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
 class AspirationController extends Controller
@@ -39,7 +40,9 @@ class AspirationController extends Controller
 
         Aspiration::create($validated);
 
-        return redirect()->route('aspirasi.index')->with('success', 'Aspirasi Anda berhasil dikirim dan akan segera ditinjau oleh pengurus HIMATIKA. Terima kasih!');
+        $successMessage = SiteSetting::get('aspiration_success_msg', 'Aspirasi Anda berhasil dikirim dan akan segera ditinjau oleh pengurus HIMATIKA. Terima kasih!');
+
+        return redirect()->route('aspirasi.index')->with('success', $successMessage);
     }
 
     public function cek(Request $request)

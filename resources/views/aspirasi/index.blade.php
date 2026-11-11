@@ -108,8 +108,8 @@
     <div class="container position-relative">
         <span class="asp-hero-badge d-none d-lg-flex"><i class="fas fa-comments"></i></span>
         <span class="asp-hero-label">ASPIRASI</span>
-        <h1>Kirim Aspirasi<br>HIMATIKA UNUJA</h1>
-        <p>Sampaikan saran, masukan, atau aspirasi Anda untuk kemajuan HIMATIKA UNUJA.</p>
+        <h1>{{ $siteSettings['aspiration_intro_title'] ?? 'Kirim Aspirasi HIMATIKA UNUJA' }}</h1>
+        <p>{{ $siteSettings['aspiration_intro_desc'] ?? 'Sampaikan saran, masukan, atau aspirasi Anda untuk kemajuan HIMATIKA UNUJA.' }}</p>
     </div>
 </section>
 
@@ -165,7 +165,7 @@
                                 @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary-custom btn-lg w-100"><i class="fas fa-paper-plane me-2"></i>Kirim Aspirasi</button>
+                                <button type="submit" class="btn btn-primary-custom btn-lg w-100"><i class="fas fa-paper-plane me-2"></i>{{ $siteSettings['aspiration_btn_text'] ?? 'Kirim Aspirasi Sekarang' }}</button>
                             </div>
                         </div>
                     </form>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Aspirasi Mahasiswa')
-@section('page_title', 'Kelola Aspirasi Mahasiswa')
+@section('title', 'Kotak Masuk Aspirasi')
+@section('page_title', 'Kotak Masuk Aspirasi')
 @section('page_subtitle', 'Tinjau kritik, saran, gagasan, dan pertanyaan dari mahasiswa Matematika')
 
 @section('content')
@@ -10,7 +10,7 @@
     <div class="col-sm-6 col-md-3">
         <div class="him-card p-3 text-center mb-0">
             <h3 class="mb-0 fw-bold text-dark">{{ $counts['total'] }}</h3>
-            <small class="text-muted">Total Aspirasi</small>
+            <small class="text-muted">Aspirasi Aktif</small>
         </div>
     </div>
     <div class="col-sm-6 col-md-3">
@@ -34,10 +34,20 @@
 </div>
 
 <div class="him-card">
-    <div class="him-card-header">
-        <h2 class="him-card-title">
-            <i class="fas fa-comment-dots"></i> Daftar Aspirasi Masuk
-        </h2>
+    <div class="him-card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div class="d-flex align-items-center gap-2">
+            <h2 class="him-card-title mb-0">
+                <i class="fas fa-inbox text-primary"></i> Kotak Masuk Aspirasi
+            </h2>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ route('admin.aspirasi.arsip') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-archive me-1"></i> Arsip ({{ $counts['arsip'] }})
+            </a>
+            <a href="{{ route('admin.aspirasi.pengaturan') }}" class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-cog me-1"></i> Pengaturan Formulir
+            </a>
+        </div>
     </div>
 
     <!-- Filter & Search Toolbar -->
@@ -50,7 +60,7 @@
         </div>
         <div class="col-md-3">
             <select name="status" class="form-select" onchange="this.form.submit()">
-                <option value="">Semua Status</option>
+                <option value="">Semua Status Aktif</option>
                 <option value="Baru" {{ request('status') === 'Baru' ? 'selected' : '' }}>Baru</option>
                 <option value="Diproses" {{ request('status') === 'Diproses' ? 'selected' : '' }}>Diproses</option>
                 <option value="Selesai" {{ request('status') === 'Selesai' ? 'selected' : '' }}>Selesai</option>
@@ -77,7 +87,7 @@
                     <th>Kategori</th>
                     <th>Status</th>
                     <th>Waktu Masuk</th>
-                    <th class="text-end" style="width: 120px;">Aksi</th>
+                    <th class="text-end" style="width: 150px;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,12 +126,19 @@
                             <a href="{{ route('admin.aspirasi.show', $asp) }}" class="btn btn-sm btn-outline-primary" title="Tinjau & Tanggapi">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            <form action="{{ route('admin.aspirasi.archive', $asp) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="btn btn-sm btn-outline-warning" title="Pindahkan ke Arsip" onclick="return confirm('Pindahkan aspirasi ini ke arsip?')">
+                                    <i class="fas fa-archive"></i>
+                                </button>
+                            </form>
                             <button type="button" class="btn btn-sm btn-outline-danger" 
                                     data-bs-toggle="modal" 
                                     data-bs-target="#deleteConfirmModal" 
                                     data-action="{{ route('admin.aspirasi.destroy', $asp) }}" 
                                     data-title="Aspirasi dari {{ $asp->name }} ({{ $asp->title }})"
-                                    title="Hapus">
+                                    title="Hapus Permanen">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
@@ -131,7 +148,7 @@
                 <tr>
                     <td colspan="7" class="text-center py-5 text-muted">
                         <i class="fas fa-inbox fs-1 d-block mb-2 text-muted"></i>
-                        Tidak ada data aspirasi ditemukan.
+                        Tidak ada data aspirasi aktif.
                     </td>
                 </tr>
                 @endforelse

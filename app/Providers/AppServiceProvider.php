@@ -20,7 +20,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Illuminate\Support\Facades\View::composer('*', function ($view) {
-            $view->with('globalProfile', \App\Models\Profile::first());
+            $profile = \App\Models\Profile::first();
+            $settings = [];
+            try {
+                if (\Illuminate\Support\Facades\Schema::hasTable('site_settings')) {
+                    $settings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+                }
+            } catch (\Throwable $e) {
+                // fallback
+            }
+
+            $view->with('globalProfile', $profile)
+                 ->with('siteSettings', $settings);
         });
     }
 }

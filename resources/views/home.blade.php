@@ -123,13 +123,13 @@
         <div class="tentang-header-area">
             <div class="tentang-top-label">
                 <span class="tentang-label-bar"></span>
-                <span>Tentang Organisasi</span>
+                <span>{{ $siteSettings['home_tentang_badge'] ?? 'Tentang Organisasi' }}</span>
             </div>
             <h2 class="tentang-main-title">
-                Tentang <span style="color: #711C35;">HIMATIKA</span>
+                {{ $siteSettings['home_tentang_title'] ?? 'Tentang HIMATIKA' }}
             </h2>
             <p class="tentang-main-desc">
-                Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.
+                {{ $siteSettings['home_tentang_desc'] ?? 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.' }}
             </p>
         </div>
 
@@ -178,8 +178,8 @@
                     </div>
 
                     <div>
-                        <a href="{{ route('profil') }}" class="btn-tentang-outline w-100">
-                            <span>Pelajari Profil Lengkap</span>
+                        <a href="{{ $siteSettings['home_sambutan_btn_url'] ?? route('profil') }}" class="btn-tentang-outline w-100">
+                            <span>{{ $siteSettings['home_sambutan_btn_text'] ?? 'Pelajari Profil Lengkap' }}</span>
                             <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>
@@ -203,14 +203,14 @@
                         </div>
 
                         <p class="struktur-desc-text">
-                            Bagan kepengurusan HIMATIKA FMIPA UNUJA yang menaungi Badan Pengurus Harian (BPH) serta divisi keilmuan, minat bakat, humas, dan pengembangan mahasiswa.
+                            {{ $siteSettings['home_struktur_desc'] ?? 'Bagan kepengurusan HIMATIKA FMIPA UNUJA yang menaungi Badan Pengurus Harian (BPH) serta divisi keilmuan, minat bakat, humas, dan pengembangan mahasiswa.' }}
                         </p>
                     </div>
 
                     <div>
-                        <a href="{{ route('struktur-organisasi') }}" class="btn-tentang-primary w-100">
+                        <a href="{{ $siteSettings['home_struktur_btn_url'] ?? route('struktur-organisasi') }}" class="btn-tentang-primary w-100">
                             <i class="fas fa-sitemap me-1"></i>
-                            <span>Lihat Struktur</span>
+                            <span>{{ $siteSettings['home_struktur_btn_text'] ?? 'Lihat Struktur' }}</span>
                             <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>
@@ -228,15 +228,15 @@
             <div>
                 <div class="berita-top-label">
                     <span class="berita-label-bar"></span>
-                    <span>Kabar & Artikel</span>
+                    <span>{{ $siteSettings['home_berita_badge'] ?? 'Kabar & Artikel' }}</span>
                 </div>
                 <h2 class="berita-main-title">
-                    Berita & <span class="berita-gold-text">Informasi Terkini</span>
+                    {{ $siteSettings['home_berita_title'] ?? 'Berita & Informasi Terkini' }}
                 </h2>
             </div>
             <div>
-                <a href="{{ route('berita') }}" class="btn-semua-artikel">
-                    <span>Lihat Semua Artikel</span>
+                <a href="{{ $siteSettings['home_berita_btn_url'] ?? route('berita') }}" class="btn-semua-artikel">
+                    <span>{{ $siteSettings['home_berita_btn_text'] ?? 'Lihat Semua Artikel' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -368,12 +368,12 @@
         <div class="peduli-main-grid">
             {{-- Kolom Kiri: Teks Pengantar --}}
             <div class="peduli-text-col">
-                <h2 class="peduli-heading">HIMATIKA Berdampak</h2>
+                <h2 class="peduli-heading">{{ $siteSettings['home_peduli_title'] ?? 'HIMATIKA Berdampak' }}</h2>
                 <p class="peduli-desc">
-                    Mengenal karya, kegiatan, dan kontribusi HIMATIKA yang memberikan manfaat bagi mahasiswa dan lingkungan sekitar.
+                    {{ $siteSettings['home_peduli_desc'] ?? 'Mengenal karya, kegiatan, dan kontribusi HIMATIKA yang memberikan manfaat bagi mahasiswa dan lingkungan sekitar.' }}
                 </p>
-                <a href="{{ route('prestasi') }}" class="peduli-cta">
-                    <span>Jelajahi karya & prestasi</span>
+                <a href="{{ $siteSettings['home_peduli_btn_url'] ?? route('prestasi') }}" class="peduli-cta">
+                    <span>{{ $siteSettings['home_peduli_btn_text'] ?? 'Jelajahi karya & prestasi' }}</span>
                     <span class="peduli-cta-arrow"><i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
@@ -446,18 +446,18 @@
             <div>
                 <div class="tentang-top-label">
                     <span class="tentang-label-bar"></span>
-                    <span>Dokumentasi Kegiatan</span>
+                    <span>{{ $siteSettings['home_galeri_badge'] ?? 'Dokumentasi Kegiatan' }}</span>
                 </div>
                 <h2 class="tentang-main-title">
-                    Dokumentasi <span style="color: #711C35;">Momen</span>
+                    {{ $siteSettings['home_galeri_title'] ?? 'Dokumentasi Momen' }}
                 </h2>
                 <p class="tentang-main-desc">
-                    Jejak kebersamaan dan berbagai kegiatan HIMATIKA dalam setiap momen.
+                    {{ $siteSettings['home_galeri_desc'] ?? 'Jejak kebersamaan dan berbagai kegiatan HIMATIKA dalam setiap momen.' }}
                 </p>
             </div>
             <div>
-                <a href="{{ route('galeri') }}" class="btn-semua-artikel">
-                    <span>Lihat Semua Dokumentasi</span>
+                <a href="{{ $siteSettings['home_galeri_btn_url'] ?? route('galeri') }}" class="btn-semua-artikel">
+                    <span>{{ $siteSettings['home_galeri_btn_text'] ?? 'Lihat Semua Dokumentasi' }}</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

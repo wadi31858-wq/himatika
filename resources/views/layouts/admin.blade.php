@@ -6,6 +6,22 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Panel') - HIMATIKA FMIPA UNUJA</title>
 
+    <!-- Dynamic Favicon -->
+    @php
+        $faviconPath = null;
+        if (($siteSettings['favicon_custom'] ?? '0') === '1' && !empty($siteSettings['favicon_file'])) {
+            $faviconPath = asset('storage/' . $siteSettings['favicon_file']);
+        } elseif (!empty($siteSettings['main_favicon'])) {
+            $faviconPath = asset('storage/' . $siteSettings['main_favicon']);
+        } elseif ($globalProfile && $globalProfile->favicon) {
+            $faviconPath = asset('storage/' . $globalProfile->favicon);
+        }
+    @endphp
+    @if($faviconPath)
+        <link rel="icon" type="image/x-icon" href="{{ $faviconPath }}">
+        <link rel="shortcut icon" href="{{ $faviconPath }}">
+    @endif
+
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +46,7 @@
             --him-text: #28151D;
             --him-text-muted: #5C4B51;
             --him-card: #FFFFFF;
-            --sidebar-width: 270px;
+            --sidebar-width: 275px;
             --sidebar-collapsed-width: 80px;
             --topbar-height: 70px;
         }
@@ -52,7 +68,7 @@
             left: 0;
             bottom: 0;
             width: var(--sidebar-width);
-            background: linear-gradient(180deg, #1A0A0F 0%, #541326 45%, #711C35 100%);
+            background: linear-gradient(180deg, #1A0A0F 0%, #3B0E1B 45%, #711C35 100%);
             color: #FFFFFF;
             z-index: 1045;
             display: flex;
@@ -91,6 +107,7 @@
             font-size: 1.1rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             flex-shrink: 0;
+            overflow: hidden;
         }
 
         .brand-text-group {
@@ -118,7 +135,7 @@
         .sidebar-nav-scroll {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem 0.75rem 2rem;
+            padding: 0.75rem 0.65rem 2rem;
         }
 
         .sidebar-nav-scroll::-webkit-scrollbar {
@@ -130,23 +147,23 @@
         }
 
         .nav-group-title {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.5);
-            padding: 1rem 0.75rem 0.4rem;
+            color: rgba(255, 255, 255, 0.45);
+            padding: 0.85rem 0.75rem 0.35rem;
         }
 
         .admin-nav-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 0.7rem 0.85rem;
+            padding: 0.65rem 0.85rem;
             color: rgba(255, 255, 255, 0.82);
             text-decoration: none;
             border-radius: 10px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 500;
             transition: all 0.2s ease;
             margin-bottom: 2px;
@@ -155,7 +172,7 @@
 
         .admin-nav-item i {
             width: 22px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-align: center;
             color: rgba(255, 255, 255, 0.75);
             transition: all 0.2s ease;
@@ -183,10 +200,102 @@
             color: #FFFFFF;
         }
 
+        /* Collapsible Dropdown in Sidebar */
+        .sidebar-dropdown-group {
+            margin-bottom: 2px;
+        }
+
+        .sidebar-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            color: rgba(255, 255, 255, 0.85);
+            background: transparent;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #FFFFFF;
+        }
+
+        .sidebar-dropdown-toggle.parent-active {
+            background: rgba(255, 255, 255, 0.12);
+            color: #FFFFFF;
+            font-weight: 600;
+            border-left: 3px solid #F4D6DE;
+        }
+
+        .sidebar-dropdown-toggle .toggle-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-dropdown-toggle .toggle-left i {
+            width: 22px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.75);
+            flex-shrink: 0;
+        }
+
+        .sidebar-dropdown-toggle .chevron-icon {
+            font-size: 0.72rem;
+            transition: transform 0.25s ease;
+            opacity: 0.7;
+        }
+
+        .sidebar-dropdown-toggle[aria-expanded="true"] .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-sub-menu {
+            list-style: none;
+            padding: 0.3rem 0 0.4rem 1.75rem;
+            margin: 0;
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            margin-left: 1.35rem;
+        }
+
+        .sidebar-sub-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.45rem 0.75rem;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            transition: all 0.2s ease;
+            margin-bottom: 1px;
+        }
+
+        .sidebar-sub-item:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+
+        .sidebar-sub-item.active {
+            color: #FFFFFF;
+            background: #711C35;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(113, 28, 53, 0.4);
+        }
+
         .nav-badge-pill {
             margin-left: auto;
-            font-size: 0.72rem;
-            padding: 0.2rem 0.55rem;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.2);
             color: #FFFFFF;
@@ -200,9 +309,9 @@
 
         /* Sidebar Footer */
         .sidebar-footer {
-            padding: 1rem 1.25rem;
+            padding: 0.85rem 1.25rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.18);
         }
 
         /* Main Content Container */
@@ -366,7 +475,7 @@
         /* Content Area */
         .admin-content-body {
             flex: 1;
-            padding: 2rem 1.75rem 3rem;
+            padding: 1.75rem 1.75rem 3rem;
         }
 
         /* Responsive Layout Behavior */
@@ -415,17 +524,21 @@
             body.sidebar-collapsed .nav-group-title,
             body.sidebar-collapsed .nav-item-label,
             body.sidebar-collapsed .nav-badge-pill,
-            body.sidebar-collapsed .sidebar-footer-text {
-                display: none;
+            body.sidebar-collapsed .sidebar-footer-text,
+            body.sidebar-collapsed .chevron-icon,
+            body.sidebar-collapsed .sidebar-sub-menu {
+                display: none !important;
             }
 
-            body.sidebar-collapsed .admin-nav-item {
+            body.sidebar-collapsed .admin-nav-item,
+            body.sidebar-collapsed .sidebar-dropdown-toggle {
                 justify-content: center;
                 padding: 0.85rem 0;
                 margin: 4px 10px;
             }
 
-            body.sidebar-collapsed .admin-nav-item i {
+            body.sidebar-collapsed .admin-nav-item i,
+            body.sidebar-collapsed .sidebar-dropdown-toggle .toggle-left i {
                 margin: 0;
                 font-size: 1.2rem;
             }
@@ -440,14 +553,14 @@
             background: #FFFFFF;
             border: 1px solid var(--him-border);
             border-radius: 14px;
-            box-shadow: 0 4px 16px rgba(13, 71, 161, 0.04);
+            box-shadow: 0 4px 16px rgba(113, 28, 53, 0.04);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             transition: box-shadow 0.2s ease;
         }
 
         .him-card:hover {
-            box-shadow: 0 6px 20px rgba(13, 71, 161, 0.07);
+            box-shadow: 0 6px 20px rgba(113, 28, 53, 0.08);
         }
 
         .him-card-header {
@@ -461,62 +574,50 @@
 
         .him-card-title {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
             font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--him-primary-dark);
+            color: var(--him-text);
             margin: 0;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .him-card-title i {
-            color: var(--him-primary);
-        }
-
         .btn-him-primary {
             background: var(--him-primary);
             color: #FFFFFF;
             border: none;
-            padding: 0.55rem 1.25rem;
             border-radius: 10px;
             font-weight: 600;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 0.88rem;
+            padding: 0.55rem 1.25rem;
             transition: all 0.2s ease;
         }
 
         .btn-him-primary:hover {
             background: var(--him-primary-hover);
             color: #FFFFFF;
-            box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(113, 28, 53, 0.3);
         }
 
         .btn-him-outline {
             background: transparent;
             color: var(--him-primary);
             border: 1px solid var(--him-primary);
-            padding: 0.55rem 1.25rem;
             border-radius: 10px;
             font-weight: 600;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 0.88rem;
+            padding: 0.5rem 1.15rem;
             transition: all 0.2s ease;
         }
 
         .btn-him-outline:hover {
-            background: var(--him-bg);
-            color: var(--him-primary-dark);
+            background: var(--him-primary);
+            color: #FFFFFF;
         }
 
         .table-him {
-            border-collapse: separate;
-            border-spacing: 0;
             width: 100%;
         }
 
@@ -534,42 +635,12 @@
         .table-him td {
             padding: 1rem;
             vertical-align: middle;
-            border-bottom: 1px solid rgba(191, 219, 254, 0.4);
+            border-bottom: 1px solid rgba(233, 205, 213, 0.5);
             font-size: 0.88rem;
         }
 
         .table-him tr:hover td {
-            background: rgba(239, 246, 255, 0.6);
-        }
-
-        .badge-status-published {
-            background: #DCFCE7;
-            color: #15803D;
-            border: 1px solid #BBF7D0;
-            padding: 0.3rem 0.75rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
-
-        .badge-status-draft {
-            background: #FEF3C7;
-            color: #B45309;
-            border: 1px solid #FDE68A;
-            padding: 0.3rem 0.75rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
-
-        .badge-status-archived {
-            background: #F1F5F9;
-            color: #64748B;
-            border: 1px solid #E2E8F0;
-            padding: 0.3rem 0.75rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.75rem;
+            background: rgba(244, 214, 222, 0.3);
         }
     </style>
     @stack('styles')
@@ -585,14 +656,24 @@
         <div class="sidebar-header">
             <a href="{{ route('admin.dashboard') }}" class="sidebar-brand-link">
                 <div class="brand-logo-circle">
-                    @if($globalProfile && $globalProfile->logo)
-                        <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo" style="width: 28px; height: 28px; object-fit: contain;">
+                    @php
+                        $sidebarLogo = null;
+                        if (($siteSettings['logo_admin_sidebar_custom'] ?? '0') === '1' && !empty($siteSettings['logo_admin_sidebar_file'])) {
+                            $sidebarLogo = asset('storage/' . $siteSettings['logo_admin_sidebar_file']);
+                        } elseif (!empty($siteSettings['main_logo'])) {
+                            $sidebarLogo = asset('storage/' . $siteSettings['main_logo']);
+                        } elseif ($globalProfile && $globalProfile->logo) {
+                            $sidebarLogo = asset('storage/' . $globalProfile->logo);
+                        }
+                    @endphp
+                    @if($sidebarLogo)
+                        <img src="{{ $sidebarLogo }}" alt="{{ $siteSettings['logo_admin_sidebar_alt'] ?? 'Logo Admin' }}" style="width: 28px; height: 28px; object-fit: contain;">
                     @else
                         <span>H</span>
                     @endif
                 </div>
                 <div class="brand-text-group">
-                    <span class="brand-text-name">HIMATIKA</span>
+                    <span class="brand-text-name">{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }}</span>
                     <span class="brand-text-sub">Admin Panel</span>
                 </div>
             </a>
@@ -601,103 +682,337 @@
             </button>
         </div>
 
-        <!-- Navigation Links -->
+        <!-- Navigation Links (Modular Accordion / Dropdowns) -->
         <nav class="sidebar-nav-scroll">
+            <!-- 1. DASHBOARD -->
             <div class="nav-group-title">Utama</div>
             <a href="{{ route('admin.dashboard') }}" class="admin-nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="fas fa-chart-pie"></i>
                 <span class="nav-item-label">Dashboard</span>
             </a>
 
-            <div class="nav-group-title">Tampilan Website</div>
-            <a href="{{ route('admin.beranda.edit') }}" class="admin-nav-item {{ request()->routeIs('admin.beranda.*') ? 'active' : '' }}">
-                <i class="fas fa-sliders-h"></i>
-                <span class="nav-item-label">Beranda & Hero</span>
-            </a>
-            <a href="{{ route('admin.profil.edit') }}" class="admin-nav-item {{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
-                <i class="fas fa-university"></i>
-                <span class="nav-item-label">Profil & Sejarah</span>
-            </a>
-            <a href="{{ route('admin.visi-misi.edit') }}" class="admin-nav-item {{ request()->routeIs('admin.visi-misi.*') ? 'active' : '' }}">
-                <i class="fas fa-bullseye"></i>
-                <span class="nav-item-label">Visi, Misi & Tujuan</span>
-            </a>
-
-            <div class="nav-group-title">Organisasi</div>
-            <a href="{{ route('admin.struktur-organisasi.index') }}" class="admin-nav-item {{ request()->routeIs('admin.struktur-*') ? 'active' : '' }}">
-                <i class="fas fa-sitemap"></i>
-                <span class="nav-item-label">Struktur Organisasi</span>
-            </a>
-            <a href="{{ route('admin.pengurus.index') }}" class="admin-nav-item {{ request()->routeIs('admin.pengurus.*') ? 'active' : '' }}">
-                <i class="fas fa-user-friends"></i>
-                <span class="nav-item-label">Anggota & Pengurus</span>
-            </a>
-            <a href="{{ route('admin.program-kerja.index') }}" class="admin-nav-item {{ request()->routeIs('admin.program-*') ? 'active' : '' }}">
-                <i class="fas fa-tasks"></i>
-                <span class="nav-item-label">Program Kerja</span>
-            </a>
-            <a href="{{ route('admin.prestasi.index') }}" class="admin-nav-item {{ request()->routeIs('admin.prestasi.*') ? 'active' : '' }}">
-                <i class="fas fa-trophy"></i>
-                <span class="nav-item-label">Prestasi</span>
-            </a>
-
-            <div class="nav-group-title">Konten & Publikasi</div>
-            <a href="{{ route('admin.berita.index') }}" class="admin-nav-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
-                <i class="fas fa-newspaper"></i>
-                <span class="nav-item-label">Berita & Informasi</span>
-            </a>
-            <a href="{{ route('admin.agenda.index') }}" class="admin-nav-item {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
-                <i class="fas fa-calendar-alt"></i>
-                <span class="nav-item-label">Agenda Kegiatan</span>
-            </a>
-            <a href="{{ route('admin.galeri.index') }}" class="admin-nav-item {{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
-                <i class="fas fa-photo-video"></i>
-                <span class="nav-item-label">Galeri Foto</span>
-            </a>
-            <a href="{{ route('admin.download.index') }}" class="admin-nav-item {{ request()->routeIs('admin.download.*') ? 'active' : '' }}">
-                <i class="fas fa-globe-americas"></i>
-                <span class="nav-item-label">Galeri Website & Berkas</span>
-            </a>
-
-            <div class="nav-group-title">Layanan & Interaksi</div>
-            <a href="{{ route('admin.aspirasi.index') }}" class="admin-nav-item {{ request()->routeIs('admin.aspirasi.*') ? 'active' : '' }}">
-                <i class="fas fa-comment-dots"></i>
-                <span class="nav-item-label">Aspirasi Mahasiswa</span>
+            <!-- 2. BERANDA DROPDOWN -->
+            <div class="sidebar-dropdown-group">
                 @php
-                    $newAspirationsCount = \App\Models\Aspiration::where('status', 'Baru')->count();
+                    $isBerandaActive = request()->routeIs('admin.beranda.*');
                 @endphp
-                @if($newAspirationsCount > 0)
-                    <span class="nav-badge-pill badge-accent">{{ $newAspirationsCount }}</span>
-                @endif
-            </a>
-            <a href="{{ route('admin.pesan.index') }}" class="admin-nav-item {{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
-                <i class="fas fa-envelope-open-text"></i>
-                <span class="nav-item-label">Pesan Kontak</span>
-                @php
-                    $unreadMessagesCount = \App\Models\Message::where('is_read', false)->count();
-                @endphp
-                @if($unreadMessagesCount > 0)
-                    <span class="nav-badge-pill badge-accent">{{ $unreadMessagesCount }}</span>
-                @endif
-            </a>
-            <a href="{{ route('admin.pendaftaran.index') }}" class="admin-nav-item {{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
-                <i class="fas fa-user-plus"></i>
-                <span class="nav-item-label">Pendaftaran Anggota</span>
-            </a>
+                <button type="button" class="sidebar-dropdown-toggle {{ $isBerandaActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownBeranda" aria-expanded="{{ $isBerandaActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-home"></i>
+                        <span class="nav-item-label">Beranda</span>
+                    </div>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </button>
+                <div class="collapse {{ $isBerandaActive ? 'show' : '' }}" id="dropdownBeranda">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.beranda.hero') }}" class="sidebar-sub-item {{ request()->routeIs('admin.beranda.hero') ? 'active' : '' }}">
+                                <i class="fas fa-bullhorn small"></i> Hero
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.beranda.tentang') }}" class="sidebar-sub-item {{ request()->routeIs('admin.beranda.tentang') ? 'active' : '' }}">
+                                <i class="fas fa-info-circle small"></i> Tentang HIMATIKA
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.beranda.berita') }}" class="sidebar-sub-item {{ request()->routeIs('admin.beranda.berita') ? 'active' : '' }}">
+                                <i class="fas fa-newspaper small"></i> Berita & Info Terkini
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.beranda.berdampak') }}" class="sidebar-sub-item {{ request()->routeIs('admin.beranda.berdampak') ? 'active' : '' }}">
+                                <i class="fas fa-hand-holding-heart small"></i> HIMATIKA Berdampak
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.beranda.momen') }}" class="sidebar-sub-item {{ request()->routeIs('admin.beranda.momen') ? 'active' : '' }}">
+                                <i class="fas fa-camera-retro small"></i> Dokumentasi Momen
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-            <div class="nav-group-title">Sistem & Akses</div>
-            <a href="{{ route('admin.pengaturan.edit') }}" class="admin-nav-item {{ request()->routeIs('admin.pengaturan.*') ? 'active' : '' }}">
-                <i class="fas fa-cogs"></i>
-                <span class="nav-item-label">Pengaturan Website</span>
-            </a>
-            <a href="{{ route('admin.users.index') }}" class="admin-nav-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                <i class="fas fa-user-shield"></i>
-                <span class="nav-item-label">Kelola Akun Admin</span>
-            </a>
-            <a href="{{ route('admin.logs.index') }}" class="admin-nav-item {{ request()->routeIs('admin.logs.*') ? 'active' : '' }}">
-                <i class="fas fa-history"></i>
-                <span class="nav-item-label">Log Aktivitas</span>
-            </a>
+            <!-- 3. TENTANG DROPDOWN -->
+            <div class="sidebar-dropdown-group">
+                @php
+                    $isTentangActive = request()->routeIs('admin.tentang.*') || request()->routeIs('admin.visi-misi.*') || request()->routeIs('admin.struktur-*') || request()->routeIs('admin.pengurus.*') || request()->routeIs('admin.profil.*');
+                @endphp
+                <button type="button" class="sidebar-dropdown-toggle {{ $isTentangActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownTentang" aria-expanded="{{ $isTentangActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-university"></i>
+                        <span class="nav-item-label">Tentang</span>
+                    </div>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </button>
+                <div class="collapse {{ $isTentangActive ? 'show' : '' }}" id="dropdownTentang">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.tentang.sejarah') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tentang.sejarah*') ? 'active' : '' }}">
+                                <i class="fas fa-landmark small"></i> Sejarah
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.tentang.sambutan') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tentang.sambutan*') ? 'active' : '' }}">
+                                <i class="fas fa-user-tie small"></i> Sambutan Kaprodi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.visi-misi.edit') }}" class="sidebar-sub-item {{ request()->routeIs('admin.visi-misi.*') ? 'active' : '' }}">
+                                <i class="fas fa-bullseye small"></i> Visi dan Misi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.struktur-organisasi.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.struktur-*') ? 'active' : '' }}">
+                                <i class="fas fa-sitemap small"></i> Struktur Organisasi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.pengurus.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.pengurus.*') ? 'active' : '' }}">
+                                <i class="fas fa-user-friends small"></i> Anggota Pengurus
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. INFORMASI DROPDOWN -->
+            <div class="sidebar-dropdown-group">
+                @php
+                    $isInformasiActive = request()->routeIs('admin.berita.*') || request()->routeIs('admin.kegiatan.*') || request()->routeIs('admin.agenda.*') || request()->routeIs('admin.prestasi.*') || request()->routeIs('admin.program-*') || request()->routeIs('admin.informasi.*');
+                @endphp
+                <button type="button" class="sidebar-dropdown-toggle {{ $isInformasiActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownInformasi" aria-expanded="{{ $isInformasiActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-newspaper"></i>
+                        <span class="nav-item-label">Informasi</span>
+                    </div>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </button>
+                <div class="collapse {{ $isInformasiActive ? 'show' : '' }}" id="dropdownInformasi">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.berita.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+                                <i class="fas fa-newspaper small"></i> Semua Berita & Info
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.kegiatan.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-check small"></i> Kegiatan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.agenda.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.agenda.*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-alt small"></i> Agenda
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.prestasi.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.prestasi.*') ? 'active' : '' }}">
+                                <i class="fas fa-trophy small"></i> Prestasi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.program-kerja.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.program-*') ? 'active' : '' }}">
+                                <i class="fas fa-tasks small"></i> Program Kerja
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.informasi.kategori.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.informasi.kategori.*') ? 'active' : '' }}">
+                                <i class="fas fa-tags small"></i> Kelola Kategori
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5. GALERI DROPDOWN -->
+            <div class="sidebar-dropdown-group">
+                @php
+                    $isGaleriActive = request()->routeIs('admin.galeri.*');
+                @endphp
+                <button type="button" class="sidebar-dropdown-toggle {{ $isGaleriActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownGaleri" aria-expanded="{{ $isGaleriActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-photo-video"></i>
+                        <span class="nav-item-label">Galeri</span>
+                    </div>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </button>
+                <div class="collapse {{ $isGaleriActive ? 'show' : '' }}" id="dropdownGaleri">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.galeri.pengaturan') }}" class="sidebar-sub-item {{ request()->routeIs('admin.galeri.pengaturan') ? 'active' : '' }}">
+                                <i class="fas fa-cog small"></i> Pengaturan Halaman
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.galeri.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.galeri.index') || request()->routeIs('admin.galeri.create') || request()->routeIs('admin.galeri.edit') ? 'active' : '' }}">
+                                <i class="fas fa-images small"></i> Album Dokumentasi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.galeri.media') }}" class="sidebar-sub-item {{ request()->routeIs('admin.galeri.media') ? 'active' : '' }}">
+                                <i class="fas fa-camera small"></i> Foto dan Video
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 6. DOKUMEN & KARYA DROPDOWN -->
+            <div class="sidebar-dropdown-group">
+                @php
+                    $isDownloadActive = request()->routeIs('admin.download.*');
+                @endphp
+                <button type="button" class="sidebar-dropdown-toggle {{ $isDownloadActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownDownload" aria-expanded="{{ $isDownloadActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-layer-group"></i>
+                        <span class="nav-item-label">Dokumen & Karya</span>
+                    </div>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </button>
+                <div class="collapse {{ $isDownloadActive ? 'show' : '' }}" id="dropdownDownload">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.download.index', ['type' => 'website']) }}" class="sidebar-sub-item {{ request('type') === 'website' ? 'active' : '' }}">
+                                <i class="fas fa-globe small"></i> Galeri Website Mahasiswa
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.download.index', ['type' => 'file']) }}" class="sidebar-sub-item {{ request('type') === 'file' ? 'active' : '' }}">
+                                <i class="fas fa-file-download small"></i> Dokumen Unduhan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.download.index') }}" class="sidebar-sub-item {{ !request()->filled('type') && request()->routeIs('admin.download.index') ? 'active' : '' }}">
+                                <i class="fas fa-list small"></i> Semua Karya & Berkas
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 7. ASPIRASI DROPDOWN -->
+            <div class="sidebar-dropdown-group">
+                @php
+                    $isAspirasiActive = request()->routeIs('admin.aspirasi.*') || request()->routeIs('admin.pesan.*');
+                    $newAspirationsCount = \App\Models\Aspiration::where('is_archived', false)->where('status', 'Baru')->count();
+                @endphp
+                <button type="button" class="sidebar-dropdown-toggle {{ $isAspirasiActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownAspirasi" aria-expanded="{{ $isAspirasiActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-comment-dots"></i>
+                        <span class="nav-item-label">Aspirasi</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-1">
+                        @if($newAspirationsCount > 0)
+                            <span class="nav-badge-pill badge-accent">{{ $newAspirationsCount }}</span>
+                        @endif
+                        <i class="fas fa-chevron-down chevron-icon"></i>
+                    </div>
+                </button>
+                <div class="collapse {{ $isAspirasiActive ? 'show' : '' }}" id="dropdownAspirasi">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.aspirasi.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.aspirasi.index') ? 'active' : '' }}">
+                                <i class="fas fa-inbox small"></i> Kotak Masuk
+                                @if($newAspirationsCount > 0)
+                                    <span class="badge bg-danger ms-auto" style="font-size: 0.65rem;">{{ $newAspirationsCount }}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.aspirasi.arsip') }}" class="sidebar-sub-item {{ request()->routeIs('admin.aspirasi.arsip') ? 'active' : '' }}">
+                                <i class="fas fa-archive small"></i> Arsip
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.aspirasi.pengaturan') }}" class="sidebar-sub-item {{ request()->routeIs('admin.aspirasi.pengaturan*') ? 'active' : '' }}">
+                                <i class="fas fa-sliders-h small"></i> Pengaturan Formulir
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.pesan.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
+                                <i class="fas fa-envelope-open-text small"></i> Pesan Kontak
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.pendaftaran.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
+                                <i class="fas fa-user-plus small"></i> Pendaftaran Anggota
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 8. TAMPILAN WEBSITE DROPDOWN -->
+            <div class="sidebar-dropdown-group">
+                @php
+                    $isTampilanActive = request()->routeIs('admin.tampilan.*') || request()->routeIs('admin.pengaturan.*');
+                @endphp
+                <button type="button" class="sidebar-dropdown-toggle {{ $isTampilanActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownTampilan" aria-expanded="{{ $isTampilanActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-paint-brush"></i>
+                        <span class="nav-item-label">Tampilan Website</span>
+                    </div>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </button>
+                <div class="collapse {{ $isTampilanActive ? 'show' : '' }}" id="dropdownTampilan">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.tampilan.identitas') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tampilan.identitas*') || request()->routeIs('admin.pengaturan.*') ? 'active' : '' }}">
+                                <i class="fas fa-id-card small"></i> Identitas Website
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.tampilan.logo-favicon') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tampilan.logo-favicon*') ? 'active' : '' }}">
+                                <i class="fas fa-certificate small"></i> Logo & Favicon
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.tampilan.navbar') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tampilan.navbar*') ? 'active' : '' }}">
+                                <i class="fas fa-bars small"></i> Navbar & Submenu
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.tampilan.footer') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tampilan.footer*') ? 'active' : '' }}">
+                                <i class="fas fa-shoe-prints small"></i> Footer & Kontak
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.tampilan.media') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tampilan.media*') ? 'active' : '' }}">
+                                <i class="fas fa-photo-video small"></i> Pustaka Media
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 9. PENGGUNA & AKSES DROPDOWN -->
+            <div class="sidebar-dropdown-group">
+                @php
+                    $isUsersActive = request()->routeIs('admin.users.*') || request()->routeIs('admin.logs.*');
+                @endphp
+                <button type="button" class="sidebar-dropdown-toggle {{ $isUsersActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownUsers" aria-expanded="{{ $isUsersActive ? 'true' : 'false' }}">
+                    <div class="toggle-left">
+                        <i class="fas fa-user-shield"></i>
+                        <span class="nav-item-label">Pengguna & Akses</span>
+                    </div>
+                    <i class="fas fa-chevron-down chevron-icon"></i>
+                </button>
+                <div class="collapse {{ $isUsersActive ? 'show' : '' }}" id="dropdownUsers">
+                    <ul class="sidebar-sub-menu">
+                        <li>
+                            <a href="{{ route('admin.users.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                                <i class="fas fa-users-cog small"></i> Kelola Akun Admin
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.logs.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.logs.*') ? 'active' : '' }}">
+                                <i class="fas fa-history small"></i> Log Aktivitas
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
 
         <!-- Sidebar Bottom Footer -->
@@ -741,14 +1056,16 @@
                 <div class="dropdown">
                     <div class="admin-profile-pill" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="admin-avatar">
-                            @if(auth()->user()->avatar)
+                            @if(auth()->user() && auth()->user()->avatar)
                                 <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}">
-                            @else
+                            @elseif(auth()->user())
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            @else
+                                A
                             @endif
                         </div>
                         <div class="admin-user-info d-none d-md-flex">
-                            <span class="admin-user-name">{{ auth()->user()->name }}</span>
+                            <span class="admin-user-name">{{ auth()->user()->name ?? 'Admin' }}</span>
                             <span class="admin-user-role">Administrator</span>
                         </div>
                         <i class="fas fa-chevron-down text-muted" style="font-size: 0.7rem;"></i>
@@ -756,15 +1073,17 @@
 
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 py-2" style="border-radius: 12px; min-width: 210px;">
                         <li class="px-3 py-2 border-bottom">
-                            <div class="fw-bold text-dark">{{ auth()->user()->name }}</div>
-                            <div class="small text-muted">{{ auth()->user()->email }}</div>
+                            <div class="fw-bold text-dark">{{ auth()->user()->name ?? 'Admin' }}</div>
+                            <div class="small text-muted">{{ auth()->user()->email ?? '' }}</div>
                             <span class="badge bg-primary-subtle text-primary mt-1">Role: Admin</span>
                         </li>
+                        @if(auth()->user())
                         <li>
                             <a class="dropdown-item py-2" href="{{ route('admin.users.edit', auth()->user()->id) }}">
                                 <i class="fas fa-user-edit text-primary me-2"></i>Edit Akun Saya
                             </a>
                         </li>
+                        @endif
                         <li>
                             <a class="dropdown-item py-2" href="{{ route('admin.logs.index') }}">
                                 <i class="fas fa-history text-secondary me-2"></i>Log Aktivitas Saya
@@ -817,7 +1136,7 @@
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
@@ -879,7 +1198,7 @@
             backdrop.classList.toggle('show');
         }
 
-        // Restore collapsed state
+        // Restore collapsed state and setup accordion keyboard support
         document.addEventListener('DOMContentLoaded', function () {
             if (window.innerWidth >= 992) {
                 const savedState = localStorage.getItem('himatika_admin_sidebar_collapsed');
@@ -887,6 +1206,16 @@
                     document.body.classList.add('sidebar-collapsed');
                 }
             }
+
+            // Keyboard accessibility for sidebar dropdown toggles (Space / Enter)
+            document.querySelectorAll('.sidebar-dropdown-toggle').forEach(btn => {
+                btn.addEventListener('keydown', function (e) {
+                    if (e.key === ' ' || e.key === 'Spacebar') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
 
             // Global Delete Confirmation Modal Handler
             const deleteModal = document.getElementById('deleteConfirmModal');
@@ -915,7 +1244,6 @@
                     if (submitBtn) {
                         this.dataset.submitting = 'true';
                         submitBtn.disabled = true;
-                        const originalHtml = submitBtn.innerHTML;
                         submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Memproses...';
                     }
                 });
