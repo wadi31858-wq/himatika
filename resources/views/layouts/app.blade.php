@@ -12,48 +12,63 @@
     <link href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}" rel="stylesheet">
     @stack('styles')
     <style>
-        /* ==================== TENTANG SPLIT DROPDOWN ==================== */
+        /* ==================== TENTANG DROPDOWN ==================== */
         .tentang-dropdown-wrapper {
             position: relative;
         }
-        .nav-split-group {
-            display: inline-flex;
-            align-items: center;
-        }
-        .tentang-main-link {
-            padding-right: 4px !important;
-        }
-        .tentang-arrow-btn {
+        .tentang-dropdown-toggle-btn {
             background: transparent;
             border: none;
-            color: #1565C0;
-            padding: 8px 6px 8px 2px;
-            font-size: 0.72rem;
             cursor: pointer;
+            font-family: inherit;
+            color: #1e293b !important;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            transition: transform 0.25s ease, color 0.2s ease;
+            gap: 6px;
+            padding: 0.45rem 1rem !important;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            transition: all 0.25s ease;
             outline: none;
         }
-        .tentang-arrow-btn:hover {
-            color: #0D47A1;
+        .tentang-dropdown-toggle-btn:hover,
+        .tentang-dropdown-toggle-btn:focus-visible {
+            color: #1565C0 !important;
+            background: rgba(21, 101, 192, 0.06);
         }
-        .tentang-dropdown-wrapper.show .tentang-arrow-btn i {
+        .tentang-dropdown-wrapper.active .tentang-dropdown-toggle-btn,
+        .tentang-dropdown-toggle-btn.active {
+            color: #ffffff !important;
+            background: #1565C0 !important;
+            font-weight: 600;
+            padding: 0.45rem 1.4rem !important;
+            box-shadow: 0 4px 12px rgba(21, 101, 192, 0.25);
+        }
+        .tentang-dropdown-wrapper.show .tentang-dropdown-toggle-btn:not(.active) {
+            color: #1565C0 !important;
+            background: rgba(21, 101, 192, 0.08);
+        }
+        .tentang-chevron {
+            font-size: 0.72rem;
+            transition: transform 0.25s ease;
+            margin-left: 2px;
+        }
+        .tentang-dropdown-wrapper.show .tentang-chevron {
             transform: rotate(180deg);
         }
         .tentang-dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
-            min-width: 210px;
+            min-width: 220px;
             background: #0D47A1;
             border: 1px solid #1E40AF;
             border-radius: 12px;
             padding: 8px;
             margin: 6px 0 0 0;
             list-style: none;
-            box-shadow: 0 10px 25px rgba(13, 71, 161, 0.25);
+            box-shadow: 0 10px 28px rgba(13, 71, 161, 0.28);
             display: none;
             flex-direction: column;
             gap: 4px;
@@ -72,10 +87,12 @@
             border-radius: 8px;
             transition: all 0.2s ease;
         }
-        .tentang-dropdown-item:hover {
+        .tentang-dropdown-item:hover,
+        .tentang-dropdown-item:focus {
             background: rgba(255, 255, 255, 0.12);
             color: #93C5FD;
             padding-left: 18px;
+            outline: none;
         }
         .tentang-dropdown-item.active {
             background: #1565C0;
@@ -83,25 +100,15 @@
             font-weight: 600;
             border-left: 3px solid #60A5FA;
         }
-        @media (min-width: 992px) {
-            .tentang-dropdown-wrapper:hover .tentang-dropdown-menu {
-                display: flex;
-            }
-            .tentang-dropdown-wrapper:hover .tentang-arrow-btn i {
-                transform: rotate(180deg);
-            }
-        }
         @media (max-width: 991.98px) {
             .tentang-dropdown-wrapper {
                 width: 100%;
             }
-            .nav-split-group {
+            .tentang-dropdown-toggle-btn {
                 width: 100%;
                 justify-content: space-between;
-            }
-            .tentang-arrow-btn {
-                padding: 10px 14px;
-                font-size: 0.85rem;
+                padding: 0.75rem 1rem !important;
+                border-radius: 8px;
             }
             .tentang-dropdown-menu {
                 position: static;
@@ -145,16 +152,13 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="fas fa-home me-1"></i> Beranda</a>
                     </li>
-                    <li class="nav-item tentang-dropdown-wrapper {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*') ? 'active' : '' }}">
-                        <div class="nav-split-group">
-                            <a class="nav-link tentang-main-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">
-                                <i class="fas fa-circle-info me-1"></i> Tentang
-                            </a>
-                            <button type="button" class="tentang-arrow-btn" id="tentangDropdownToggle" aria-expanded="false" aria-label="Buka submenu Tentang">
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                        </div>
-                        <ul class="tentang-dropdown-menu" id="tentangDropdownMenu">
+                    <li class="nav-item dropdown tentang-dropdown-wrapper {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*') ? 'active' : '' }}">
+                        <button type="button" class="nav-link tentang-dropdown-toggle-btn {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*') ? 'active' : '' }}" id="tentangDropdownBtn" aria-expanded="false" aria-haspopup="true">
+                            <i class="fas fa-circle-info me-1"></i>
+                            <span>Tentang</span>
+                            <i class="fas fa-chevron-down ms-1 tentang-chevron"></i>
+                        </button>
+                        <ul class="tentang-dropdown-menu" id="tentangDropdownMenu" aria-labelledby="tentangDropdownBtn">
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('sejarah*') ? 'active' : '' }}" href="{{ route('sejarah') }}">
                                     Sejarah
@@ -168,6 +172,11 @@
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('visi-misi*') ? 'active' : '' }}" href="{{ route('visi-misi') }}">
                                     Visi dan Misi
+                                </a>
+                            </li>
+                            <li>
+                                <a class="tentang-dropdown-item {{ (request()->routeIs('profil*') && request()->fullUrl() == route('profil') . '#struktur') ? 'active' : '' }}" id="navLinkStruktur" href="{{ route('profil') }}#struktur">
+                                    Struktur Organisasi
                                 </a>
                             </li>
                         </ul>
@@ -284,37 +293,56 @@
         // Tentang Dropdown Interaction
         (function() {
             var wrapper = document.querySelector('.tentang-dropdown-wrapper');
-            var toggleBtn = document.getElementById('tentangDropdownToggle');
+            var btn = document.getElementById('tentangDropdownBtn');
             var menu = document.getElementById('tentangDropdownMenu');
+            var strukturLink = document.getElementById('navLinkStruktur');
             
-            if (toggleBtn && wrapper) {
-                toggleBtn.addEventListener('click', function(e) {
+            if (btn && wrapper) {
+                // Toggle dropdown saat tulisan Tentang atau panah diklik
+                btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     var isOpen = wrapper.classList.toggle('show');
-                    toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                 });
                 
+                // Tutup dropdown saat salah satu pilihan diklik
                 if (menu) {
                     menu.querySelectorAll('.tentang-dropdown-item').forEach(function(item) {
-                        item.addEventListener('click', function() {
+                        item.addEventListener('click', function(e) {
+                            if (item === strukturLink && window.location.pathname.replace(/\/+$/, '') === '{{ parse_url(route('profil'), PHP_URL_PATH) }}') {
+                                var target = document.getElementById('struktur');
+                                if (target) {
+                                    e.preventDefault();
+                                    wrapper.classList.remove('show');
+                                    btn.setAttribute('aria-expanded', 'false');
+                                    target.scrollIntoView({ behavior: 'smooth' });
+                                    if (window.history && window.history.pushState) {
+                                        window.history.pushState(null, null, '#struktur');
+                                    }
+                                    return;
+                                }
+                            }
                             wrapper.classList.remove('show');
-                            toggleBtn.setAttribute('aria-expanded', 'false');
+                            btn.setAttribute('aria-expanded', 'false');
                         });
                     });
                 }
                 
+                // Tutup saat mengeklik di luar menu
                 document.addEventListener('click', function(e) {
                     if (!wrapper.contains(e.target)) {
                         wrapper.classList.remove('show');
-                        toggleBtn.setAttribute('aria-expanded', 'false');
+                        btn.setAttribute('aria-expanded', 'false');
                     }
                 });
                 
+                // Tutup saat menekan tombol Esc
                 document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
+                    if (e.key === 'Escape' && wrapper.classList.contains('show')) {
                         wrapper.classList.remove('show');
-                        toggleBtn.setAttribute('aria-expanded', 'false');
+                        btn.setAttribute('aria-expanded', 'false');
+                        btn.focus();
                     }
                 });
             }

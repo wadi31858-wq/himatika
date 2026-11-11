@@ -594,7 +594,7 @@
             </div>
 
             {{-- 5. STRUKTUR ORGANISASI (SECTION KONTEN TERAKHIR SEBELUM FOOTER) --}}
-            <div>
+            <div id="struktur" style="scroll-margin-top: 100px;">
                 <div class="text-center">
                     <div class="section-center-bar">
                         <i class="fas fa-sitemap"></i>
@@ -644,6 +644,17 @@
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             closeStructureModal();
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.location.hash === '#struktur') {
+            setTimeout(function() {
+                var el = document.getElementById('struktur');
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300);
         }
     });
 </script>
