@@ -65,31 +65,36 @@
             </div>
         </div>
 
-        <!-- Right Card: Struktur Organisasi Preview Card -->
+        <!-- Right Card: Visi dan Misi Preview Card -->
         <div class="col-md-6">
             <div class="him-card h-100">
                 <div class="him-card-header">
                     <h2 class="him-card-title">
-                        <i class="fas fa-sitemap text-primary"></i> Kartu 2: Struktur Organisasi
+                        <i class="fas fa-bullseye text-primary"></i> Kartu 2: Visi dan Misi
                     </h2>
                     <span class="badge bg-primary-subtle text-primary">Kartu Kanan</span>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-semibold text-dark">Ringkasan Struktur di Beranda</label>
-                    <textarea name="home_struktur_summary" class="form-control" rows="4">{{ old('home_struktur_summary', $siteSettings['home_struktur_summary'] ?? 'Struktur kepengurusan resmi HIMATIKA UNUJA 2026 yang terbagi dalam divisi Putra dan Putri dengan komitmen kolaborasi, transparansi, dan sinergi.') }}</textarea>
-                    <div class="form-text">Ringkasan bagan dan divisi kepengurusan yang tampil di kartu Beranda.</div>
-                </div>
-
-                <div class="row g-2">
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="form-label fw-semibold text-dark small">Lencana Kartu</label>
+                        <input type="text" name="home_visi_badge" class="form-control" value="{{ old('home_visi_badge', $siteSettings['home_visi_badge'] ?? 'PEDOMAN ORGANISASI') }}">
+                    </div>
                     <div class="col-6">
                         <label class="form-label fw-semibold text-dark small">Teks Tombol</label>
-                        <input type="text" name="home_struktur_btn_text" class="form-control" value="{{ old('home_struktur_btn_text', $siteSettings['home_struktur_btn_text'] ?? 'Lihat Struktur Lengkap') }}">
+                        <input type="text" name="home_visi_btn_text" class="form-control" value="{{ old('home_visi_btn_text', $siteSettings['home_visi_btn_text'] ?? 'Lihat Visi & Misi Selengkapnya') }}">
                     </div>
-                    <div class="col-6">
-                        <label class="form-label fw-semibold text-dark small">Tautan / URL</label>
-                        <input type="text" name="home_struktur_btn_url" class="form-control" value="{{ old('home_struktur_btn_url', $siteSettings['home_struktur_btn_url'] ?? route('struktur-organisasi')) }}">
-                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-dark">Ringkasan Visi di Beranda</label>
+                    <textarea name="home_visi_summary" class="form-control" rows="3">{{ old('home_visi_summary', $siteSettings['home_visi_summary'] ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.') }}</textarea>
+                    <div class="form-text">Pernyataan visi utama yang tampil di kartu Beranda.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-dark small">Tautan / URL Tombol</label>
+                    <input type="text" name="home_visi_btn_url" class="form-control" value="{{ old('home_visi_btn_url', $siteSettings['home_visi_btn_url'] ?? route('visi-misi')) }}">
                 </div>
             </div>
         </div>

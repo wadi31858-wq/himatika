@@ -241,31 +241,50 @@
                 </div>
             </div>
 
-            {{-- Card Kanan: Struktur Organisasi --}}
+            {{-- Card Kanan: Visi dan Misi --}}
             <div class="col-lg-6">
-                <div class="tentang-card">
+                <div class="tentang-card h-100 d-flex flex-column justify-content-between">
                     <div>
-                        <div class="tentang-card-badge">
-                            <i class="fas fa-sitemap me-1"></i> {{ $siteSettings['home_struktur_badge'] ?? 'Kepengurusan Periode 2026' }}
+                        <div class="sambutan-ref-badge-wrap mb-2">
+                            <span class="sambutan-ref-bar"></span>
+                            <span class="sambutan-ref-badge-text">{{ $siteSettings['home_visi_badge'] ?? 'PEDOMAN ORGANISASI' }}</span>
                         </div>
-                        <h3 class="tentang-card-title">
-                            <i class="fas fa-project-diagram"></i> {{ $siteSettings['home_struktur_title'] ?? 'Struktur Organisasi' }}
+                        <h3 class="sambutan-ref-home-title mb-3">
+                            Visi &amp; <span class="sambutan-title-accent">Misi HIMATIKA</span>
                         </h3>
 
-                        {{-- Diagram Preview Vector / Graphic --}}
-                        <div class="struktur-preview-box">
-                            <img src="{{ asset('images/struktur-organisasi-himatika.svg') }}" alt="Bagan Struktur Organisasi HIMATIKA UNUJA 2026" class="struktur-preview-img">
+                        {{-- Box Visi Utama --}}
+                        <div class="p-3 rounded-3 mb-3" style="background: var(--rose-pale); border-left: 4px solid var(--burgundy-main); border: 1px solid var(--border-rose); border-left-width: 4px;">
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <span class="badge" style="background: var(--burgundy-main); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px;">VISI</span>
+                                <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-compass me-1"></i> Pedoman Strategis</small>
+                            </div>
+                            <p class="mb-0" style="font-family: 'Georgia', serif; font-style: italic; font-size: 0.9rem; color: #374151; line-height: 1.6;">
+                                “{{ $vm?->vision ?? ($siteSettings['home_visi_summary'] ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.') }}”
+                            </p>
                         </div>
 
-                        <p class="struktur-desc-text">
-                            {{ $siteSettings['home_struktur_summary'] ?? ($siteSettings['home_struktur_desc'] ?? 'Bagan kepengurusan HIMATIKA FMIPA UNUJA yang menaungi Badan Pengurus Harian (BPH) serta divisi keilmuan, minat bakat, humas, dan pengembangan mahasiswa.') }}
-                        </p>
+                        {{-- Preview Misi Utama --}}
+                        <div class="mb-4">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="badge" style="background: var(--rose-soft); color: var(--burgundy-main); font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px;">MISI</span>
+                                <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-bullseye me-1"></i> Aksi &amp; Komitmen</small>
+                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                @foreach(array_slice($missions ?? [], 0, 3) as $idx => $m)
+                                    <div class="d-flex align-items-start gap-2">
+                                        <span style="width: 20px; height: 20px; border-radius: 50%; background: var(--burgundy-main); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;">{{ $idx + 1 }}</span>
+                                        <span style="font-size: 0.82rem; color: #4B5563; line-height: 1.5;">{{ $m }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
 
                     <div>
-                        <a href="{{ !empty($siteSettings['home_struktur_btn_url']) ? url($siteSettings['home_struktur_btn_url']) : route('struktur-organisasi') }}" class="btn-tentang-primary w-100">
-                            <i class="fas fa-sitemap me-1"></i>
-                            <span>{{ $siteSettings['home_struktur_btn_text'] ?? 'Lihat Struktur Lengkap' }}</span>
+                        <a href="{{ !empty($siteSettings['home_visi_btn_url']) ? url($siteSettings['home_visi_btn_url']) : route('visi-misi') }}" class="btn-tentang-primary w-100">
+                            <i class="fas fa-bullseye me-1"></i>
+                            <span>{{ $siteSettings['home_visi_btn_text'] ?? 'Lihat Visi & Misi Selengkapnya' }}</span>
                             <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>

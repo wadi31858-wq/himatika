@@ -14,6 +14,7 @@ use App\Models\Achievement;
 use App\Models\Gallery;
 use App\Models\Profile;
 use App\Models\OrganizationalStructure;
+use App\Models\VisionMission;
 
 class HomeController extends Controller
 {
@@ -217,10 +218,28 @@ class HomeController extends Controller
             ->values()
             ->take(6);
 
+        // Visi dan Misi untuk kartu Tentang di Beranda
+        $vm = VisionMission::first();
+        $missions = [];
+        if ($vm && !empty($vm->mission)) {
+            $missions = is_array($vm->mission) ? $vm->mission : json_decode($vm->mission, true);
+        }
+        if (empty($missions)) {
+            $missions = [
+                'Meningkatkan kemampuan akademik dan non-akademik mahasiswa Matematika.',
+                'Mendorong kreativitas dan inovasi dalam bidang matematika terapan.',
+                'Membangun solidaritas antar mahasiswa Matematika.',
+                'Menyelenggarakan kegiatan edukatif dan kompetitif.',
+                'Membangun kerja sama dengan pihak internal dan eksternal kampus.'
+            ];
+        }
+
         $data = [
             'heroRecentPhotos' => $heroRecentPhotos,
             'kaprodi'          => $kaprodi,
             'structures'       => $structures,
+            'vm'               => $vm,
+            'missions'         => $missions,
             'activities'       => Activity::latest('date')->take(4)->get(),
             'programs'         => Program::latest()->take(3)->get(),
             'news'             => $combinedNews,
