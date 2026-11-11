@@ -783,15 +783,6 @@
                 </div>
             </div>
 
-            {{-- Diagram Bagan Alur Kepengurusan --}}
-            <div class="mt-5 pt-4 text-center">
-                <span class="column-header-badge mb-2"><i class="fas fa-project-diagram me-1"></i> Diagram Alur Kepengurusan</span>
-                <h3 class="fw-bold mt-2" style="font-size: 1.35rem; color: var(--text-dark);">Bagan Alur Koordinasi HIMATIKA UNUJA</h3>
-                <p class="text-secondary small mb-3">Diagram resmi alur koordinasi kepengurusan HIMATIKA FMIPA UNUJA periode 2026.</p>
-                <div class="bg-white rounded-4 border shadow-sm p-3 p-md-4 mx-auto" style="max-width: 1040px; border-color: var(--border-rose) !important;">
-                    <img src="{{ asset('images/struktur-organisasi-himatika.svg') }}" alt="Diagram Struktur Organisasi HIMATIKA FMIPA UNUJA" class="img-fluid rounded-3" style="width: 100%; height: auto;">
-                </div>
-            </div>
 
         </div>
     </div>
