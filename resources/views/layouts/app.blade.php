@@ -152,8 +152,8 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="fas fa-home me-1"></i> Beranda</a>
                     </li>
-                    <li class="nav-item dropdown tentang-dropdown-wrapper {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*') ? 'active' : '' }}">
-                        <button type="button" class="nav-link tentang-dropdown-toggle-btn {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*') ? 'active' : '' }}" id="tentangDropdownBtn" aria-expanded="false" aria-haspopup="true">
+                    <li class="nav-item dropdown tentang-dropdown-wrapper {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*', 'struktur-organisasi*') ? 'active' : '' }}">
+                        <button type="button" class="nav-link tentang-dropdown-toggle-btn {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*', 'struktur-organisasi*') ? 'active' : '' }}" id="tentangDropdownBtn" aria-expanded="false" aria-haspopup="true">
                             <i class="fas fa-circle-info me-1"></i>
                             <span>Tentang</span>
                             <i class="fas fa-chevron-down ms-1 tentang-chevron"></i>
@@ -175,7 +175,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="tentang-dropdown-item {{ (request()->routeIs('profil*') && request()->fullUrl() == route('profil') . '#struktur') ? 'active' : '' }}" id="navLinkStruktur" href="{{ route('profil') }}#struktur">
+                                <a class="tentang-dropdown-item {{ request()->routeIs('struktur-organisasi*') ? 'active' : '' }}" id="navLinkStruktur" href="{{ route('struktur-organisasi') }}">
                                     Struktur Organisasi
                                 </a>
                             </li>
@@ -309,20 +309,7 @@
                 // Tutup dropdown saat salah satu pilihan diklik
                 if (menu) {
                     menu.querySelectorAll('.tentang-dropdown-item').forEach(function(item) {
-                        item.addEventListener('click', function(e) {
-                            if (item === strukturLink && window.location.pathname.replace(/\/+$/, '') === '{{ parse_url(route('profil'), PHP_URL_PATH) }}') {
-                                var target = document.getElementById('struktur');
-                                if (target) {
-                                    e.preventDefault();
-                                    wrapper.classList.remove('show');
-                                    btn.setAttribute('aria-expanded', 'false');
-                                    target.scrollIntoView({ behavior: 'smooth' });
-                                    if (window.history && window.history.pushState) {
-                                        window.history.pushState(null, null, '#struktur');
-                                    }
-                                    return;
-                                }
-                            }
+                        item.addEventListener('click', function() {
                             wrapper.classList.remove('show');
                             btn.setAttribute('aria-expanded', 'false');
                         });

@@ -210,38 +210,34 @@
     }
 
     .card-body-inner {
-        display: flex;
-        gap: 18px;
-        align-items: flex-start;
-    }
-
-    .photo-placeholder {
-        width: 60px; height: 60px;
-        min-width: 60px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.3rem;
-        color: #fff;
-        flex-shrink: 0;
-    }
-    .photo-placeholder.gold {
-        background: linear-gradient(135deg, #3B82F6, #60A5FA);
-    }
-    .photo-placeholder.teal {
-        background: linear-gradient(135deg, #1565C0, #0D47A1);
+        display: block;
     }
 
     .card-title-text {
-        font-size: 1rem;
+        font-size: 1.05rem;
         font-weight: 700;
         color: var(--dark-text);
         margin-bottom: 4px;
     }
+    .card-subtitle-badge {
+        display: inline-block;
+        font-size: 0.76rem;
+        font-weight: 600;
+        padding: 2px 10px;
+        border-radius: 50px;
+        margin-bottom: 8px;
+    }
+    .card-subtitle-badge.gold {
+        background: rgba(59, 130, 246, 0.12);
+        color: #1565C0;
+    }
+    .card-subtitle-badge.teal {
+        background: rgba(21, 101, 192, 0.1);
+        color: #0D47A1;
+    }
     .card-desc {
-        font-size: 0.82rem;
-        color: rgba(15, 23, 42, 0.55);
+        font-size: 0.85rem;
+        color: rgba(15, 23, 42, 0.65);
         line-height: 1.6;
         margin-bottom: 0;
     }
@@ -336,8 +332,6 @@
     }
     @media (max-width: 575.98px) {
         .org-card { padding: 16px 18px; }
-        .card-body-inner { gap: 14px; }
-        .photo-placeholder { width: 50px; height: 50px; min-width: 50px; font-size: 1.1rem; }
     }
 </style>
 
@@ -354,7 +348,6 @@ function updateModalView() {
     const member = currentModalMembers[currentSlideIndex];
     document.getElementById('modalName').textContent = member.name;
     document.getElementById('modalDivision').textContent = member.position; // Kepala Biro, etc.
-    document.getElementById('modalPhoto').src = member.photo ? "{{ asset('storage') }}/" + member.photo : 'https://ui-avatars.com/api/?name='+encodeURIComponent(member.name)+'&background=1565C0&color=fff&size=120';
     
     document.getElementById('slideCounter').textContent = (currentSlideIndex + 1) + ' / ' + currentModalMembers.length;
     
@@ -462,28 +455,12 @@ function closeDetailModal() {
                                 return str_contains($pos, 'kaprodi') || str_contains($pos, 'ketua program studi') || str_contains($div, 'kaprodi') || str_contains($pos, 'pembina');
                             });
                         @endphp
-                        @if($kaprodi && $kaprodi->photo)
-                            <img src="{{ asset('storage/' . $kaprodi->photo) }}" class="photo-placeholder gold" style="object-fit: cover; padding: 0;">
-                        @else
-                            <div class="photo-placeholder gold">
-                                <i class="fas fa-user-graduate"></i>
-                            </div>
-                        @endif
                         <div>
-                            <div class="card-title-text">{{ $kaprodi->name ?? 'Ketua Program Studi' }}</div>
-                            @if($kaprodi && $kaprodi->name)
-                                <div style="color: var(--gold); font-size: 0.78rem; font-weight: 600; margin-top: -2px; margin-bottom: 4px;">{{ $kaprodi->position ?: 'Ketua Program Studi' }}</div>
-                            @endif
-                            <p class="card-desc">{{ $kaprodi->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika.' }}</p>
+                            <span class="card-subtitle-badge gold">Pembina / Kaprodi</span>
+                            <div class="card-title-text">{{ $kaprodi?->name ?? 'Ketua Program Studi' }}</div>
+                            <div style="color: var(--gold); font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</div>
+                            <p class="card-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika.' }}</p>
                         </div>
-                    </div>
-                    <div class="card-footer-inner">
-                        @if($kaprodi)
-                            <a href="{{ route('struktur-organisasi.show', $kaprodi->id) }}" class="card-footer-link gold-link">Lihat profil &rarr;</a>
-                        @else
-                            <span class="card-footer-left">Pembina Organisasi</span>
-                            <span class="card-footer-link gold-link">→</span>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -500,20 +477,12 @@ function closeDetailModal() {
                         @php
                             $ketua = collect($members)->firstWhere('id', 1);
                         @endphp
-                        @if($ketua && $ketua->photo)
-                            <img src="{{ asset('storage/' . $ketua->photo) }}?v={{ time() }}" class="photo-placeholder teal" style="object-fit: cover; padding: 0;">
-                        @else
-                            <div class="photo-placeholder teal">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                        @endif
                         <div>
-                            <div class="card-title-text">{{ $ketua->name ?? 'Ketua Umum' }}</div>
-                            <p class="card-desc">{{ $ketua->description ?? 'Memimpin dan mengoordinasikan seluruh kegiatan HIMATIKA serta bertanggung jawab atas arah organisasi.' }}</p>
+                            <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
+                            <div class="card-title-text">{{ $ketua?->name ?? 'Ketua Umum' }}</div>
+                            <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $ketua?->position ?? 'Ketua Umum HIMATIKA' }}</div>
+                            <p class="card-desc">{{ $ketua?->description ?? 'Memimpin dan mengoordinasikan seluruh kegiatan HIMATIKA serta bertanggung jawab atas arah organisasi.' }}</p>
                         </div>
-                    </div>
-                    <div class="card-footer-inner">
-                        <a href="{{ route('struktur-organisasi.show', 1) }}" class="card-footer-link">Lihat profil &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -530,20 +499,12 @@ function closeDetailModal() {
                         @php
                             $wakil = collect($members)->firstWhere('id', 2);
                         @endphp
-                        @if($wakil && $wakil->photo)
-                            <img src="{{ asset('storage/' . $wakil->photo) }}?v={{ time() }}" class="photo-placeholder teal" style="object-fit: cover; padding: 0;">
-                        @else
-                            <div class="photo-placeholder teal">
-                                <i class="fas fa-user-shield"></i>
-                            </div>
-                        @endif
                         <div>
-                            <div class="card-title-text">{{ $wakil->name ?? 'Wakil Ketua Umum' }}</div>
-                            <p class="card-desc">{{ $wakil->description ?? 'Menjadi second leader yang memperkuat koordinasi dan mengawal kerja internal kepengurusan HIMATIKA.' }}</p>
+                            <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
+                            <div class="card-title-text">{{ $wakil?->name ?? 'Wakil Ketua Umum' }}</div>
+                            <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $wakil?->position ?? 'Wakil Ketua Umum HIMATIKA' }}</div>
+                            <p class="card-desc">{{ $wakil?->description ?? 'Menjadi second leader yang memperkuat koordinasi dan mengawal kerja internal kepengurusan HIMATIKA.' }}</p>
                         </div>
-                    </div>
-                    <div class="card-footer-inner">
-                        <a href="{{ route('struktur-organisasi.show', 2) }}" class="card-footer-link">Lihat profil &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -569,20 +530,12 @@ function closeDetailModal() {
                             @php
                                 $sekretaris = collect($members)->firstWhere('id', 3);
                             @endphp
-                            @if($sekretaris && $sekretaris->photo)
-                            <img src="{{ asset('storage/' . $sekretaris->photo) }}?v={{ time() }}" class="photo-placeholder teal" style="object-fit: cover; padding: 0;">
-                        @else
-                                <div class="photo-placeholder teal">
-                                    <i class="fas fa-file-lines"></i>
-                                </div>
-                            @endif
                             <div>
-                                <div class="card-title-text">{{ $sekretaris->name ?? 'Sekretaris Umum' }}</div>
-                                <p class="card-desc">{{ $sekretaris->description ?? 'Mengoordinasikan kesekretariatan, administrasi, dan arsip agar kerja organisasi terdokumentasi dengan tertib.' }}</p>
+                                <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
+                                <div class="card-title-text">{{ $sekretaris?->name ?? 'Sekretaris Umum' }}</div>
+                                <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $sekretaris?->position ?? 'Sekretaris Umum HIMATIKA' }}</div>
+                                <p class="card-desc">{{ $sekretaris?->description ?? 'Mengoordinasikan kesekretariatan, administrasi, dan arsip agar kerja organisasi terdokumentasi dengan tertib.' }}</p>
                             </div>
-                        </div>
-                        <div class="card-footer-inner">
-                        <a href="{{ route('struktur-organisasi.show', 3) }}" class="card-footer-link">Lihat profil &rarr;</a>
                         </div>
                     </div>
 
@@ -591,20 +544,20 @@ function closeDetailModal() {
                     <div class="biro-grid">
                         <div class="biro-card">
                             @php $biroAdm = collect($members)->firstWhere('id', 5); @endphp
-                            <div class="biro-card-title">{{ $biroAdm->division ?? 'Biro Administrasi Kesekretariatan' }}</div>
-                            <p class="biro-card-desc">{{ $biroAdm->description ?? 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.' }}</p>
+                            <div class="biro-card-title">{{ $biroAdm?->division ?? 'Biro Administrasi Kesekretariatan' }}</div>
+                            <p class="biro-card-desc">{{ $biroAdm?->description ?? 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.' }}</p>
                             <div class="biro-card-footer">
-                                <span class="card-footer-left">5 anggota</span>
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroAdm->division ?? 'Biro Administrasi Kesekretariatan' }}', 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.', '{{ $biroAdm->photo ? asset('storage/'.$biroAdm->photo) : 'https://ui-avatars.com/api/?name=Biro+Administrasi+Kesekretariatan&background=1565C0&color=fff&size=200' }}', 5)">Lihat &rarr;</a>
+                                <span class="card-footer-left">Biro Kesekretariatan</span>
+                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroAdm?->division ?? 'Biro Administrasi Kesekretariatan' }}', 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.', null, 5)">Rincian &rarr;</a>
                             </div>
                         </div>
                         <div class="biro-card">
                             @php $biroKons = collect($members)->firstWhere('id', 6); @endphp
-                            <div class="biro-card-title">{{ $biroKons->division ?? 'Biro Konsolidasi Lembaga' }}</div>
-                            <p class="biro-card-desc">{{ $biroKons->description ?? 'Memantau keaktifan dan konsolidasi kepengurusan.' }}</p>
+                            <div class="biro-card-title">{{ $biroKons?->division ?? 'Biro Konsolidasi Lembaga' }}</div>
+                            <p class="biro-card-desc">{{ $biroKons?->description ?? 'Memantau keaktifan dan konsolidasi kepengurusan.' }}</p>
                             <div class="biro-card-footer">
-                                <span class="card-footer-left">6 anggota</span>
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKons->division ?? 'Biro Konsolidasi Lembaga' }}', 'Memantau keaktifan pengurus, menumbuhkan rasa memiliki, dan menjaga kekompakan internal HIMATIKA.', '{{ $biroKons->photo ? asset('storage/'.$biroKons->photo) : 'https://ui-avatars.com/api/?name=Biro+Konsolidasi+Lembaga&background=1565C0&color=fff&size=200' }}', 6)">Lihat &rarr;</a>
+                                <span class="card-footer-left">Biro Konsolidasi</span>
+                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKons?->division ?? 'Biro Konsolidasi Lembaga' }}', 'Memantau keaktifan pengurus, menumbuhkan rasa memiliki, dan menjaga kekompakan internal HIMATIKA.', null, 6)">Rincian &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -624,20 +577,12 @@ function closeDetailModal() {
                             @php
                                 $bendahara = collect($members)->firstWhere('id', 4);
                             @endphp
-                            @if($bendahara && $bendahara->photo)
-                            <img src="{{ asset('storage/' . $bendahara->photo) }}?v={{ time() }}" class="photo-placeholder teal" style="object-fit: cover; padding: 0;">
-                        @else
-                                <div class="photo-placeholder teal">
-                                    <i class="fas fa-coins"></i>
-                                </div>
-                            @endif
                             <div>
-                                <div class="card-title-text">{{ $bendahara->name ?? 'Bendahara Umum' }}</div>
-                                <p class="card-desc">{{ $bendahara->description ?? 'Mengoordinasikan kebendaharaan dan mengelola keuangan HIMATIKA secara efektif, efisien, dan bertanggung jawab.' }}</p>
+                                <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
+                                <div class="card-title-text">{{ $bendahara?->name ?? 'Bendahara Umum' }}</div>
+                                <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $bendahara?->position ?? 'Bendahara Umum HIMATIKA' }}</div>
+                                <p class="card-desc">{{ $bendahara?->description ?? 'Mengoordinasikan kebendaharaan dan mengelola keuangan HIMATIKA secara efektif, efisien, dan bertanggung jawab.' }}</p>
                             </div>
-                        </div>
-                        <div class="card-footer-inner">
-                        <a href="{{ route('struktur-organisasi.show', 4) }}" class="card-footer-link">Lihat profil &rarr;</a>
                         </div>
                     </div>
 
@@ -646,26 +591,37 @@ function closeDetailModal() {
                     <div class="biro-grid">
                         <div class="biro-card">
                             @php $biroKeu = collect($members)->firstWhere('id', 7); @endphp
-                            <div class="biro-card-title">{{ $biroKeu->division ?? 'Biro Administrasi Keuangan' }}</div>
-                            <p class="biro-card-desc">{{ $biroKeu->description ?? 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.' }}</p>
+                            <div class="biro-card-title">{{ $biroKeu?->division ?? 'Biro Administrasi Keuangan' }}</div>
+                            <p class="biro-card-desc">{{ $biroKeu?->description ?? 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.' }}</p>
                             <div class="biro-card-footer">
-                                <span class="card-footer-left">4 anggota</span>
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKeu->division ?? 'Biro Administrasi Keuangan' }}', 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.', '{{ $biroKeu->photo ? asset('storage/'.$biroKeu->photo) : 'https://ui-avatars.com/api/?name=Biro+Administrasi+Keuangan&background=1565C0&color=fff&size=200' }}', 7)">Lihat &rarr;</a>
+                                <span class="card-footer-left">Biro Keuangan</span>
+                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKeu?->division ?? 'Biro Administrasi Keuangan' }}', 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.', null, 7)">Rincian &rarr;</a>
                             </div>
                         </div>
                         <div class="biro-card">
                             @php $biroEko = collect($members)->firstWhere('id', 8); @endphp
-                            <div class="biro-card-title">{{ $biroEko->division ?? 'Biro Ekonomi Kreatif' }}</div>
-                            <p class="biro-card-desc">{{ $biroEko->description ?? 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.' }}</p>
+                            <div class="biro-card-title">{{ $biroEko?->division ?? 'Biro Ekonomi Kreatif' }}</div>
+                            <p class="biro-card-desc">{{ $biroEko?->description ?? 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.' }}</p>
                             <div class="biro-card-footer">
-                                <span class="card-footer-left">6 anggota</span>
-
-                                <a href="#" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroEko->division ?? 'Biro Ekonomi Kreatif' }}', 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.', '{{ $biroEko->photo ? asset('storage/'.$biroEko->photo) : 'https://ui-avatars.com/api/?name=Biro+Ekonomi+Kreatif&background=1565C0&color=fff&size=200' }}', 8)">Lihat &rarr;</a>
+                                <span class="card-footer-left">Biro Ekonomi</span>
+                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroEko?->division ?? 'Biro Ekonomi Kreatif' }}', 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.', null, 8)">Rincian &rarr;</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
+            </div>
+
+            {{-- DIAGRAM BAGAN RESMI HIMATIKA --}}
+            <div class="mt-5 pt-4">
+                <div class="text-center mb-4">
+                    <span class="branch-label"><i class="fas fa-project-diagram me-1"></i> DIAGRAM BAGAN STRUKTUR</span>
+                    <h3 class="fw-bold mt-2" style="font-size: 1.35rem; color: #0D47A1;">Diagram Bagan Alur Kepengurusan HIMATIKA</h3>
+                    <p class="text-secondary small mb-0">Diagram resmi bagan struktur organisasi HIMATIKA FMIPA UNUJA periode 2026.</p>
+                </div>
+                <div class="bg-white rounded-4 border shadow-sm p-3 p-md-4 mx-auto text-center" style="max-width: 1100px;">
+                    <img src="{{ asset('images/struktur-organisasi-himatika.svg') }}" alt="Diagram Struktur Organisasi HIMATIKA FMIPA UNUJA" class="img-fluid rounded-3" style="width: 100%; height: auto;">
+                </div>
             </div>
 
         </div>
@@ -675,44 +631,36 @@ function closeDetailModal() {
 <!-- MODAL DETAIL -->
 <div id="detailModal" class="modal-overlay">
     <div class="modal-content">
-        <button class="modal-close" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
-        <span class="modal-label">DETAIL JABATAN</span>
+        <button class="modal-close" onclick="closeDetailModal()" aria-label="Tutup"><i class="fas fa-times"></i></button>
+        <span class="modal-label">DETAIL JABATAN / UNIT</span>
         <h2 id="modalPosition" class="modal-title"></h2>
         <p id="modalDesc" class="modal-desc"></p>
         
         <div class="modal-body-content">
-            <!-- Ini slider anggota yang hardcoded sesuai gambar -->
-            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                <div style="width: 100%; height: 300px; background: #e2e8f0; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                    <img id="modalPhoto" src="" alt="Photo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                </div>
-                
-                <div style="text-align: center;">
-                    <h3 id="modalName" style="color: #0D47A1; font-size: 20px; font-weight: 600; margin-bottom: 4px;"></h3>
-                    <div id="modalDivision" style="color: #1565C0; font-size: 12px; font-weight: 700; text-transform: uppercase;"></div>
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+                <div style="text-align: center; width: 100%; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 16px 20px;">
+                    <div id="modalDivision" style="color: #1565C0; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;"></div>
+                    <h3 id="modalName" style="color: #0D47A1; font-size: 19px; font-weight: 700; margin-bottom: 0;"></h3>
                 </div>
 
-                                <!-- Slider Controls (Tampilan Statis) -->
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 10px;">
+                <!-- Slider Controls -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 6px;">
                     <div style="display: flex; align-items: center; gap: 16px;">
-                        <button onclick="slidePrev()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #ccc; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <button type="button" onclick="slidePrev()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #1565C0; display: flex; align-items: center; justify-content: center; cursor: pointer;">
                             <i class="fas fa-arrow-left" style="font-size: 12px;"></i>
                         </button>
-                        <span id="slideCounter" style="color: #666; font-size: 13px; font-weight: 600;">1 / 6</span>
-                        <button onclick="slideNext()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #64748B; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <span id="slideCounter" style="color: #666; font-size: 13px; font-weight: 600;">1 / 1</span>
+                        <button type="button" onclick="slideNext()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #1565C0; display: flex; align-items: center; justify-content: center; cursor: pointer;">
                             <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
                         </button>
                     </div>
-                    <div id="slideDots" style="display: flex; gap: 6px;">
-                        <span style="width: 24px; height: 4px; background: #3B82F6; border-radius: 2px;"></span>
-                        <span style="width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%; align-self: center;"></span>
-                    </div>
+                    <div id="slideDots" style="display: flex; gap: 6px;"></div>
                 </div>
             </div>
         </div>
 
-        <div class="modal-footer" style="justify-content: flex-start; border-top: none; padding-top: 0;">
-            <a href="#" id="modalDetailLink" class="btn btn-primary-custom" style="padding: 10px 20px; font-size: 13px;">Lihat Detail Jabatan</a>
+        <div class="modal-footer" style="justify-content: flex-end; border-top: none; padding-top: 0;">
+            <button type="button" class="btn btn-secondary px-4 py-2" onclick="closeDetailModal()" style="font-size: 13px; border-radius: 8px;">Tutup</button>
         </div>
     </div>
 </div>
