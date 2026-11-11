@@ -91,3 +91,4 @@ class AdminCategoryController extends Controller
         return back()->with('success', "Kategori \"{$name}\" berhasil dihapus.");
     }
 }
+

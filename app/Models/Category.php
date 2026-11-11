@@ -31,3 +31,4 @@ class Category extends Model
         return News::where('category', $this->name)->count();
     }
 }
+

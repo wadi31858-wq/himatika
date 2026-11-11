@@ -28,3 +28,4 @@ class NavMenu extends Model
         return $this->hasMany(NavMenu::class, 'parent_id')->orderBy('order_num');
     }
 }
+

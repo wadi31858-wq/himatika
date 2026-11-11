@@ -23,24 +23,24 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Kapsul Label (Badge Atas)</label>
-                    <input type="text" name="hero_badge" class="form-control" value="{{ old('hero_badge', $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA') }}" placeholder="HIMATIKA FMIPA UNUJA">
+                    <input type="text" name="hero_badge" class="form-control" value="{{ old('hero_badge', $profile->hero_badge ?? 'HIMATIKA UNUJA') }}" placeholder="HIMATIKA UNUJA">
                     <div class="form-text">Tampil di dalam kapsul navy di atas judul hero.</div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Teks Pendamping (Tagline)</label>
-                    <input type="text" name="hero_tagline" class="form-control" value="{{ old('hero_tagline', $profile->hero_tagline ?? 'Synchronized Growth, Reaching New Heights') }}" placeholder="Synchronized Growth, Reaching New Heights">
+                    <input type="text" name="hero_tagline" class="form-control" value="{{ old('hero_tagline', $profile->hero_tagline ?? 'Grow with himatika') }}" placeholder="Grow with himatika">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Judul Utama Hero <span class="text-danger">*</span></label>
-                    <textarea name="hero_title" class="form-control" rows="3" required placeholder="Tuliskan judul utama hero">{{ old('hero_title', $profile->hero_title ?? "Rumah yang\ninklusif, inovatif,\ndan tumbuh bersama.") }}</textarea>
+                    <textarea name="hero_title" class="form-control" rows="4" required placeholder="Tuliskan judul utama hero">{{ old('hero_title', $profile->hero_title ?? "Ruang\nberkembang,berinovasi\nBagi Mahasiswa\nInformatika") }}</textarea>
                     <div class="form-text">Gunakan Enter / baris baru untuk mengatur pemenggalan kalimat pada tampilan Beranda.</div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Deskripsi Singkat</label>
-                    <textarea name="hero_desc" class="form-control" rows="3">{{ old('hero_desc', $profile->hero_desc ?? 'Ruang resmi mahasiswa Matematika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.') }}</textarea>
+                    <textarea name="hero_desc" class="form-control" rows="3">{{ old('hero_desc', $profile->hero_desc ?? 'Ruang resmi mahasiswa Informatika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.') }}</textarea>
                 </div>
             </div>
 
@@ -161,3 +161,4 @@
     </div>
 </form>
 @endsection
+

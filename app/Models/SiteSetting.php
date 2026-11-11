@@ -37,3 +37,4 @@ class SiteSetting extends Model
         return static::where('group', $group)->pluck('value', 'key')->toArray();
     }
 }
+

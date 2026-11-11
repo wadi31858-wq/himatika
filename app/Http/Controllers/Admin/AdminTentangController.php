@@ -113,3 +113,4 @@ class AdminTentangController extends Controller
         return back()->with('success', 'Halaman Sambutan Kaprodi berhasil diperbarui.');
     }
 }
+

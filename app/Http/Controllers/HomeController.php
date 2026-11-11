@@ -52,7 +52,102 @@ class HomeController extends Controller
             ? $profile->hero_stats_biro
             : (OrganizationalStructure::whereNull('parent_id')->count() ?: 4);
 
+        // Helper to resolve image URL with proper asset path and fallback
+        $resolvePhoto = function ($path, $defaultPlaceholder) {
+            if (empty($path)) {
+                return asset($defaultPlaceholder);
+            }
+            if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+                return $path;
+            }
+            if (file_exists(public_path('storage/' . $path))) {
+                return asset('storage/' . $path);
+            }
+            if (file_exists(public_path('images/' . $path))) {
+                return asset('images/' . $path);
+            }
+            if (file_exists(public_path($path))) {
+                return asset($path);
+            }
+            return asset('storage/' . $path);
+        };
+
+        // 5 Foto Terbaru di Pinggir Kiri Hero: Berita, Prestasi, Agenda, Kegiatan
+        $latestNewsItem = News::published()->whereNotNull('thumbnail')->latest('published_at')->first()
+            ?? News::published()->latest('published_at')->first();
+
+        $latestAchievementItem = Achievement::whereNotNull('image')->latest('year')->latest('id')->first()
+            ?? Achievement::latest('id')->first();
+
+        $latestAgendaItem = Agenda::published()->whereNotNull('image')->latest('date')->first()
+            ?? Agenda::published()->latest('date')->first()
+            ?? Agenda::latest('id')->first();
+
+        $latestActivityItem = Activity::whereNotNull('image')->latest('date')->latest('id')->first()
+            ?? Activity::latest('date')->latest('id')->first();
+
+        $secondNewsItem = News::published()->whereNotNull('thumbnail')
+            ->when($latestNewsItem, fn($q) => $q->where('id', '!=', $latestNewsItem->id))
+            ->latest('published_at')
+            ->first()
+            ?? Gallery::published()->whereNotNull('image')->latest('id')->first();
+
+        $heroRecentPhotos = [];
+
+        if ($latestNewsItem) {
+            $heroRecentPhotos[] = [
+                'category' => 'Berita Terbaru',
+                'badge'    => 'Berita',
+                'title'    => $latestNewsItem->title,
+                'photo'    => $resolvePhoto($latestNewsItem->thumbnail, 'images/news/news-1.jpg'),
+                'url'      => route('berita.show', $latestNewsItem->slug ?? $latestNewsItem->id),
+            ];
+        }
+
+        if ($latestAchievementItem) {
+            $heroRecentPhotos[] = [
+                'category' => 'Prestasi',
+                'badge'    => 'Prestasi',
+                'title'    => $latestAchievementItem->title,
+                'photo'    => $resolvePhoto($latestAchievementItem->image, 'images/news/news-2.jpg'),
+                'url'      => route('prestasi'),
+            ];
+        }
+
+        if ($latestAgendaItem) {
+            $heroRecentPhotos[] = [
+                'category' => 'Agenda',
+                'badge'    => 'Agenda',
+                'title'    => $latestAgendaItem->title,
+                'photo'    => $resolvePhoto($latestAgendaItem->image, 'images/news/news-5.jpg'),
+                'url'      => route('agenda'),
+            ];
+        }
+
+        if ($latestActivityItem) {
+            $heroRecentPhotos[] = [
+                'category' => 'Kegiatan',
+                'badge'    => 'Kegiatan',
+                'title'    => $latestActivityItem->title,
+                'photo'    => $resolvePhoto($latestActivityItem->image, 'images/news/news-3.jpg'),
+                'url'      => route('kegiatan.show', $latestActivityItem->slug ?? $latestActivityItem->id),
+            ];
+        }
+
+        if ($secondNewsItem) {
+            $isGal = $secondNewsItem instanceof Gallery;
+            $photoPath = $isGal ? $secondNewsItem->image : ($secondNewsItem->thumbnail ?? $secondNewsItem->image);
+            $heroRecentPhotos[] = [
+                'category' => $isGal ? 'Dokumentasi' : 'Kabar Terkini',
+                'badge'    => $isGal ? 'Galeri' : 'Berita',
+                'title'    => $secondNewsItem->title,
+                'photo'    => $resolvePhoto($photoPath, 'images/news/news-4.jpg'),
+                'url'      => $isGal ? route('galeri') : route('berita.show', $secondNewsItem->slug ?? $secondNewsItem->id),
+            ];
+        }
+
         $data = [
+            'heroRecentPhotos' => $heroRecentPhotos,
             'kaprodi'          => $kaprodi,
             'structures'       => $structures,
             'activities'       => Activity::latest('date')->take(4)->get(),

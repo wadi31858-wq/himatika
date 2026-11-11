@@ -22,7 +22,7 @@
                 <div class="hero-badge-container mb-3">
                     <div class="hero-navy-capsule">
                         <i class="fas fa-graduation-cap me-1"></i>
-                        <span>{{ $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA' }}</span>
+                        <span>{{ $profile->hero_badge ?? 'HIMATIKA UNUJA' }}</span>
                     </div>
                     @if(!empty($profile->hero_tagline))
                         <div class="hero-tag-companion">
@@ -32,18 +32,18 @@
                     @else
                         <div class="hero-tag-companion">
                             <span class="hero-tag-vbar"></span>
-                            <span>Synchronized Growth, Reaching New Heights</span>
+                            <span>Grow with himatika</span>
                         </div>
                     @endif
                 </div>
 
                 {{-- Main Title --}}
                 <h1 class="hero-main-title">
-                    {!! nl2br(e($profile->hero_title ?? "Rumah yang\ninklusif, inovatif,\ndan tumbuh bersama.")) !!}
+                    {!! nl2br(e($profile->hero_title ?? "Ruang\nberkembang,berinovasi\nBagi Mahasiswa\nInformatika")) !!}
                 </h1>
 
                 <p class="hero-new-desc">
-                    {{ $profile->hero_desc ?? 'Ruang resmi mahasiswa Matematika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.' }}
+                    {{ $profile->hero_desc ?? 'Ruang resmi mahasiswa Informatika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.' }}
                 </p>
 
                 {{-- Action Buttons: Stacked vertically with consistent width, navy background, white text, and right arrow --}}
@@ -57,6 +57,30 @@
                         <i class="fas fa-caret-right"></i>
                     </a>
                 </div>
+
+                {{-- 5 Foto Terbaru di Pinggir Kiri: Berita Terbaru, Prestasi, Agenda, Kegiatan --}}
+                @if(!empty($heroRecentPhotos) && count($heroRecentPhotos) > 0)
+                    <div class="hero-recent-preview-group mt-4 pt-1">
+                        <div class="hero-recent-avatars-row">
+                            <div class="hero-avatar-stack" aria-label="5 Foto Terbaru Kegiatan & Informasi HIMATIKA">
+                                @foreach($heroRecentPhotos as $idx => $photoItem)
+                                    <a href="{{ $photoItem['url'] }}" 
+                                       class="hero-avatar-item" 
+                                       title="[{{ $photoItem['category'] }}] {{ $photoItem['title'] }}"
+                                       data-bs-toggle="tooltip" 
+                                       data-bs-placement="top"
+                                       style="z-index: {{ 10 - $idx }};">
+                                        <img src="{{ $photoItem['photo'] }}" alt="{{ $photoItem['title'] }}" loading="lazy">
+                                    </a>
+                                @endforeach
+                            </div>
+                            <div class="hero-recent-text">
+                                <span class="hero-recent-headline">Update Terkini</span>
+                                <span class="hero-recent-subline">Berita • Prestasi • Agenda • Kegiatan</span>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             {{-- Right Visual: Large Rounded Frame with Collage (~55% on desktop) --}}
@@ -68,10 +92,19 @@
                                 ? asset('storage/' . $globalProfile->image)
                                 : asset('storage/profile/MmO6PGEjnheZras5q3R0WVRZ8WpodO9mDExn1wgH.jpg');
 
-                            $photo1 = (isset($news[0]) && $news[0]->image) ? asset('storage/' . $news[0]->image) : asset('images/news/news-1.jpg');
-                            $photo2 = (isset($news[1]) && $news[1]->image) ? asset('storage/' . $news[1]->image) : asset('images/news/news-2.jpg');
-                            $photo3 = (isset($news[2]) && $news[2]->image) ? asset('storage/' . $news[2]->image) : asset('images/news/news-3.jpg');
-                            $photo4 = (isset($news[3]) && $news[3]->image) ? asset('storage/' . $news[3]->image) : asset('images/news/news-4.jpg');
+                            $getNewsPhoto = function($item, $default) {
+                                if (!$item) return asset($default);
+                                $thumb = $item->thumbnail ?? $item->image;
+                                if (!$thumb) return asset($default);
+                                if (file_exists(public_path('storage/' . $thumb))) return asset('storage/' . $thumb);
+                                if (file_exists(public_path('images/' . $thumb))) return asset('images/' . $thumb);
+                                return asset('storage/' . $thumb);
+                            };
+
+                            $photo1 = $getNewsPhoto($news[0] ?? null, 'images/news/news-1.jpg');
+                            $photo2 = $getNewsPhoto($news[1] ?? null, 'images/news/news-2.jpg');
+                            $photo3 = $getNewsPhoto($news[2] ?? null, 'images/news/news-3.jpg');
+                            $photo4 = $getNewsPhoto($news[3] ?? null, 'images/news/news-4.jpg');
                         @endphp
 
                         {{-- Collage Grid --}}
