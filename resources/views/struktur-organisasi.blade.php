@@ -752,14 +752,14 @@
 
     .modal-pubrel-putra .modal-photo-circle,
     .modal-pubrel-putra .modal-photo-placeholder {
-        width: 110px;
-        height: 110px;
+        width: 140px;
+        height: 140px;
         border-radius: 50%;
         object-fit: cover;
         object-position: center 20%;
-        border: 3.5px solid var(--burgundy-main);
-        margin: 0 auto 12px;
-        box-shadow: 0 4px 14px rgba(113, 28, 53, 0.12);
+        border: 4px solid var(--burgundy-main);
+        margin: 0 auto 14px;
+        box-shadow: 0 6px 20px rgba(113, 28, 53, 0.16);
         aspect-ratio: 1 / 1;
     }
 
@@ -783,8 +783,8 @@
     @media (max-width: 575.98px) {
         .modal-pubrel-putra .modal-photo-circle,
         .modal-pubrel-putra .modal-photo-placeholder {
-            width: 105px;
-            height: 105px;
+            width: 125px;
+            height: 125px;
         }
         .modal-pubrel-putra .modal-member-card {
             padding: 20px 16px 16px;
