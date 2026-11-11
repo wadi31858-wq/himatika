@@ -4,7 +4,7 @@
 @push('styles')
 <style>
     body {
-        background-color: #EFF6FF !important;
+        background-color: #FFF7F9 !important;
     }
     
     .breadcrumb-section {
@@ -14,13 +14,13 @@
     .breadcrumb-section .breadcrumb { margin-bottom: 0; padding: 0; }
     .breadcrumb-section .breadcrumb-item a { color: var(--dark-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
     .breadcrumb-section .breadcrumb-item a:hover { color: var(--gold); }
-    .breadcrumb-section .breadcrumb-item.active { color: rgba(21, 101, 192, 0.7); font-size: 0.85rem; }
-    .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before { color: rgba(21, 101, 192, 0.45); }
+    .breadcrumb-section .breadcrumb-item.active { color: rgba(113, 28, 53, 0.7); font-size: 0.85rem; }
+    .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before { color: rgba(113, 28, 53, 0.45); }
     .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--dark-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
     .back-link:hover { color: var(--gold); }
 
     .doc-hero-card {
-        background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+        background: linear-gradient(135deg, #FFF7F9, #F4D6DE);
         border: 1px solid rgba(0,0,0,0.05);
         border-radius: 16px;
         padding: 40px;
@@ -38,7 +38,7 @@
         transform: translateY(-50%);
         font-size: 150px;
         font-weight: 800;
-        color: rgba(21, 101, 192, 0.03);
+        color: rgba(113, 28, 53, 0.03);
         pointer-events: none;
         letter-spacing: -5px;
     }
@@ -51,7 +51,7 @@
         font-size: 140px;
         font-weight: 700;
         font-family: monospace;
-        color: rgba(21, 101, 192, 0.03);
+        color: rgba(113, 28, 53, 0.03);
         pointer-events: none;
     }
 
@@ -64,7 +64,7 @@
         z-index: 2;
     }
     .doc-hero-desc {
-        color: rgba(21, 101, 192, 0.7);
+        color: rgba(113, 28, 53, 0.7);
         font-size: 0.95rem;
         max-width: 520px;
         line-height: 1.6;
@@ -97,7 +97,7 @@
         font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 1px;
-        color: rgba(21, 101, 192, 0.6);
+        color: rgba(113, 28, 53, 0.6);
         text-transform: uppercase;
     }
 

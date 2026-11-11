@@ -15,13 +15,13 @@
     /* TOP BANNER HORIZONTAL */
     .tentang-banner {
         position: relative;
-        background: linear-gradient(105deg, #0D47A1 0%, #1565C0 50%, #1976D2 100%);
+        background: linear-gradient(105deg, #1A0A0F 0%, #711C35 50%, #541326 100%);
         min-height: 220px;
         display: flex;
         align-items: center;
         overflow: hidden;
         margin-bottom: 50px;
-        box-shadow: 0 4px 20px rgba(13, 71, 161, 0.15);
+        box-shadow: 0 4px 20px rgba(26, 10, 15, 0.25);
     }
     .tentang-banner-img-wrap {
         position: absolute;
@@ -43,7 +43,7 @@
     .tentang-banner-overlay {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to right, #0D47A1 0%, rgba(13, 71, 161, 0.88) 35%, transparent 70%);
+        background: linear-gradient(to right, #1A0A0F 0%, rgba(26, 10, 15, 0.88) 35%, transparent 70%);
         pointer-events: none;
     }
     .tentang-banner-content {
@@ -79,15 +79,15 @@
     /* TENTANG CONTENT CARDS (SEJARAH & SAMBUTAN) */
     .tentang-card {
         background: #ffffff;
-        border: 1px solid #BFDBFE;
+        border: 1px solid #E9CDD5;
         border-radius: 16px;
         padding: 28px 32px;
-        box-shadow: 0 4px 18px rgba(13, 71, 161, 0.05);
+        box-shadow: 0 4px 18px rgba(26, 10, 15, 0.05);
         height: 100%;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .tentang-card:hover {
-        box-shadow: 0 8px 26px rgba(13, 71, 161, 0.08);
+        box-shadow: 0 8px 26px rgba(26, 10, 15, 0.08);
     }
 
     .tentang-card-header {
@@ -96,16 +96,16 @@
         gap: 12px;
         margin-bottom: 20px;
         padding-bottom: 12px;
-        border-bottom: 1px solid #EFF6FF;
+        border-bottom: 1px solid #FFF7F9;
     }
 
     .card-header-icon-box {
         width: 40px;
         height: 40px;
         border-radius: 10px;
-        background: #EFF6FF;
-        border: 1px solid #BFDBFE;
-        color: #1565C0;
+        background: #FFF7F9;
+        border: 1px solid #E9CDD5;
+        color: #711C35;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -146,7 +146,7 @@
         color: #475569;
         margin-top: 14px;
         padding-top: 14px;
-        border-top: 1px dashed #BFDBFE;
+        border-top: 1px dashed #E9CDD5;
     }
 
     /* SAMBUTAN KAPRODI - PHOTO CARD */
@@ -165,12 +165,12 @@
         aspect-ratio: 4/5;
         border-radius: 14px;
         overflow: hidden;
-        background: #EFF6FF;
-        border: 1px solid #BFDBFE;
+        background: #FFF7F9;
+        border: 1px solid #E9CDD5;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 14px rgba(13, 71, 161, 0.08);
+        box-shadow: 0 4px 14px rgba(26, 10, 15, 0.08);
         margin-bottom: 16px;
     }
     .kaprodi-photo-img {
@@ -181,8 +181,8 @@
         display: block;
     }
     .kaprodi-photo-placeholder {
-        background: linear-gradient(145deg, #EFF6FF 0%, #DBEAFE 100%);
-        border: 2px dashed #93C5FD;
+        background: linear-gradient(145deg, #FFF7F9 0%, #F4D6DE 100%);
+        border: 2px dashed #E9CDD5;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -190,7 +190,7 @@
     }
     .kaprodi-avatar-icon {
         font-size: 3.5rem;
-        color: #1565C0;
+        color: #711C35;
         opacity: 0.85;
     }
     .kaprodi-photo-badge {
@@ -198,14 +198,14 @@
         bottom: 12px;
         left: 50%;
         transform: translateX(-50%);
-        background: #0D47A1;
+        background: #711C35;
         color: #ffffff;
         font-size: 0.78rem;
         font-weight: 700;
         padding: 4px 18px;
         border-radius: 20px;
         letter-spacing: 0.5px;
-        box-shadow: 0 2px 8px rgba(13, 71, 161, 0.35);
+        box-shadow: 0 2px 8px rgba(113, 28, 53, 0.35);
         white-space: nowrap;
     }
 
@@ -227,9 +227,9 @@
     .speech-status-pill {
         display: inline-flex;
         align-items: center;
-        background: #EFF6FF;
-        border: 1px dashed #93C5FD;
-        color: #1565C0;
+        background: #FFF7F9;
+        border: 1px dashed #E9CDD5;
+        color: #711C35;
         padding: 8px 16px;
         border-radius: 8px;
         font-size: 0.85rem;
@@ -239,7 +239,7 @@
 
     /* HORIZONTAL BAR HEADERS (VISI & MISI) */
     .section-bar-header {
-        background-color: #0D47A1;
+        background-color: #711C35;
         color: #ffffff;
         font-weight: 700;
         font-size: 1.05rem;
@@ -248,7 +248,7 @@
         border-radius: 6px;
         margin-bottom: 22px;
         letter-spacing: 0.5px;
-        box-shadow: 0 2px 6px rgba(13, 71, 161, 0.15);
+        box-shadow: 0 2px 6px rgba(26, 10, 15, 0.25);
     }
 
     .section-center-bar {
@@ -256,7 +256,7 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        background-color: #0D47A1;
+        background-color: #711C35;
         color: #ffffff;
         font-weight: 700;
         font-size: 1.05rem;
@@ -264,12 +264,12 @@
         border-radius: 6px;
         margin-bottom: 28px;
         letter-spacing: 0.5px;
-        box-shadow: 0 2px 6px rgba(13, 71, 161, 0.15);
+        box-shadow: 0 2px 6px rgba(26, 10, 15, 0.25);
     }
 
     /* ITEM WITH VERTICAL LINE */
     .item-with-line {
-        border-left: 2.5px solid #1565C0;
+        border-left: 2.5px solid #711C35;
         padding-left: 14px;
         margin-bottom: 15px;
         font-size: 0.95rem;
@@ -291,10 +291,10 @@
     /* STRUKTUR ORGANISASI IMAGE & ZOOM */
     .org-image-wrapper {
         background: #ffffff;
-        border: 1px solid #BFDBFE;
+        border: 1px solid #E9CDD5;
         border-radius: 14px;
         padding: 20px;
-        box-shadow: 0 4px 20px rgba(13, 71, 161, 0.05);
+        box-shadow: 0 4px 20px rgba(26, 10, 15, 0.05);
         cursor: pointer;
         position: relative;
         overflow: hidden;
@@ -302,7 +302,7 @@
     }
     .org-image-wrapper:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(13, 71, 161, 0.12);
+        box-shadow: 0 10px 30px rgba(26, 10, 15, 0.12);
     }
     .org-image-wrapper:hover .org-zoom-hint {
         opacity: 1;
@@ -318,7 +318,7 @@
         position: absolute;
         bottom: 24px;
         right: 24px;
-        background: rgba(13, 71, 161, 0.92);
+        background: rgba(26, 10, 15, 0.92);
         color: #ffffff;
         padding: 8px 16px;
         border-radius: 20px;
@@ -373,7 +373,7 @@
         position: absolute;
         top: 12px;
         right: 12px;
-        background: #0D47A1;
+        background: #711C35;
         color: #ffffff;
         border: none;
         width: 36px;
@@ -390,7 +390,7 @@
         z-index: 10;
     }
     .structure-modal-close:hover {
-        background: #1565C0;
+        background: #711C35;
         transform: scale(1.1);
     }
 
@@ -509,7 +509,7 @@
                                 <img src="{{ asset('storage/' . $kaprodi->photo) }}" alt="{{ $kaprodi->name }}" class="kaprodi-photo-img">
                                 <span class="kaprodi-photo-badge">Kaprodi</span>
                             </div>
-                            <h5 class="fw-bold mb-1" style="color: #0D47A1; font-size: 1.05rem;">{{ $kaprodi->name }}</h5>
+                            <h5 class="fw-bold mb-1" style="color: #711C35; font-size: 1.05rem;">{{ $kaprodi->name }}</h5>
                             <p class="text-muted small mb-0">{{ $kaprodi->position ?? 'Ketua Program Studi Matematika' }}</p>
                         @else
                             <div class="kaprodi-photo-wrap kaprodi-photo-placeholder">
@@ -518,7 +518,7 @@
                                 </div>
                                 <span class="kaprodi-photo-badge">Kaprodi</span>
                             </div>
-                            <h5 class="fw-bold mb-1" style="color: #0D47A1; font-size: 1.05rem;">Ketua Program Studi</h5>
+                            <h5 class="fw-bold mb-1" style="color: #711C35; font-size: 1.05rem;">Ketua Program Studi</h5>
                             <p class="text-muted small mb-1">Matematika FMIPA UNUJA</p>
                             <span class="badge bg-light text-secondary border px-2 py-1 mt-1" style="font-size: 0.75rem;">
                                 Foto resmi akan dilengkapi

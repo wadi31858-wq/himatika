@@ -54,7 +54,7 @@
             {{-- CARD RINGKAS DOKUMENTASI SEJARAH --}}
             <div class="card-dokumentasi-sejarah p-3 p-md-4 rounded-4 bg-white border shadow-sm d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
                 <div>
-                    <h5 class="fw-bold mb-1" style="color: #0D47A1; font-size: 1.05rem;">Dokumentasi Sejarah</h5>
+                    <h5 class="fw-bold mb-1" style="color: #28151D; font-size: 1.05rem;">Dokumentasi Sejarah</h5>
                     <p class="text-secondary small mb-0">Jelajahi dokumentasi dan arsip kegiatan perjalanan HIMATIKA di galeri kami.</p>
                 </div>
                 <div class="text-end">
@@ -74,11 +74,11 @@
 <style>
     /* BANNER SEJARAH */
     .sejarah-banner {
-        background: linear-gradient(105deg, #0D47A1 0%, #1565C0 55%, #1976D2 100%);
+        background: linear-gradient(105deg, #1A0A0F 0%, #711C35 55%, #541326 100%);
         padding: 70px 0 50px;
         position: relative;
         overflow: hidden;
-        border-bottom: 1px solid #BFDBFE;
+        border-bottom: 1px solid #E9CDD5;
     }
     .sejarah-banner-title {
         color: #ffffff;
@@ -102,15 +102,15 @@
     /* CARD SEJARAH UTAMA */
     .card-sejarah-utama {
         background: #ffffff;
-        border: 1px solid #BFDBFE;
+        border: 1px solid #E9CDD5;
         border-radius: 16px;
         padding: 36px 40px;
-        box-shadow: 0 4px 20px rgba(13, 71, 161, 0.05);
+        box-shadow: 0 4px 20px rgba(26, 10, 15, 0.05);
     }
     .sejarah-gold-title {
         font-size: 0.95rem;
         font-weight: 700;
-        color: #B45309;
+        color: #711C35;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -118,8 +118,8 @@
         width: 100%;
         border-radius: 14px;
         overflow: hidden;
-        border: 1px solid #BFDBFE;
-        background: #EFF6FF;
+        border: 1px solid #E9CDD5;
+        background: #FFF7F9;
     }
     .sejarah-horizontal-img {
         width: 100%;
@@ -129,7 +129,7 @@
         display: block;
     }
     .sejarah-section-heading {
-        color: #0D47A1;
+        color: #28151D;
         font-weight: 700;
         font-size: 1.4rem;
         letter-spacing: -0.3px;
@@ -144,14 +144,14 @@
 
     /* CARD DOKUMENTASI */
     .card-dokumentasi-sejarah {
-        border: 1px solid #BFDBFE !important;
+        border: 1px solid #E9CDD5 !important;
         border-radius: 14px;
     }
     .btn-sejarah-galeri {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: #1565C0;
+        background: #711C35;
         color: #ffffff;
         padding: 7px 18px;
         border-radius: 8px;
@@ -162,7 +162,7 @@
         white-space: nowrap;
     }
     .btn-sejarah-galeri:hover {
-        background: #0D47A1;
+        background: #541326;
         color: #ffffff;
         transform: translateX(2px);
     }

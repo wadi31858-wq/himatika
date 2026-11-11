@@ -78,7 +78,7 @@
                 <span>Tentang Organisasi</span>
             </div>
             <h2 class="tentang-main-title">
-                Tentang <span style="color: #1565C0;">HIMATIKA</span>
+                Tentang <span style="color: #711C35;">HIMATIKA</span>
             </h2>
             <p class="tentang-main-desc">
                 Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.
@@ -401,7 +401,7 @@
                     <span>Dokumentasi Kegiatan</span>
                 </div>
                 <h2 class="tentang-main-title">
-                    Dokumentasi <span style="color: #1565C0;">Momen</span>
+                    Dokumentasi <span style="color: #711C35;">Momen</span>
                 </h2>
                 <p class="tentang-main-desc">
                     Jejak kebersamaan dan berbagai kegiatan HIMATIKA dalam setiap momen.

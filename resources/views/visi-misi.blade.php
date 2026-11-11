@@ -77,11 +77,11 @@
 <style>
     /* BANNER VISI & MISI */
     .vm-banner {
-        background: linear-gradient(105deg, #0D47A1 0%, #1565C0 55%, #1976D2 100%);
+        background: linear-gradient(105deg, #1A0A0F 0%, #711C35 55%, #541326 100%);
         padding: 70px 0 50px;
         position: relative;
         overflow: hidden;
-        border-bottom: 1px solid #BFDBFE;
+        border-bottom: 1px solid #E9CDD5;
     }
     .vm-banner-title {
         color: #ffffff;
@@ -99,14 +99,14 @@
 
     /* CARD VISI BIRU TUA */
     .card-visi-navy {
-        background: linear-gradient(145deg, #0D47A1 0%, #1565C0 100%);
-        border: 1px solid #1E40AF;
+        background: linear-gradient(145deg, #1A0A0F 0%, #711C35 100%);
+        border: 1px solid #711C35;
         border-radius: 16px;
-        box-shadow: 0 8px 24px rgba(13, 71, 161, 0.2);
+        box-shadow: 0 8px 24px rgba(26, 10, 15, 0.25);
     }
     .visi-quote-icon {
         font-size: 2.5rem;
-        color: #93C5FD;
+        color: #F4D6DE;
         opacity: 0.9;
         line-height: 1;
     }
@@ -125,13 +125,13 @@
 
     /* CARD MISI PUTIH */
     .card-misi-white {
-        border: 1px solid #BFDBFE !important;
+        border: 1px solid #E9CDD5 !important;
         border-radius: 16px;
     }
     .misi-gold-subtitle {
         font-size: 1rem;
         font-weight: 700;
-        color: #B45309;
+        color: #711C35;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -142,7 +142,7 @@
         width: 30px;
         height: 30px;
         min-width: 30px;
-        background: #1565C0;
+        background: #711C35;
         color: #FFFFFF;
         border-radius: 6px;
         display: flex;
@@ -151,7 +151,7 @@
         font-size: 0.85rem;
         font-weight: 700;
         margin-top: 2px;
-        box-shadow: 0 2px 6px rgba(21, 101, 192, 0.25);
+        box-shadow: 0 2px 6px rgba(113, 28, 53, 0.25);
     }
     .misi-text-content {
         font-size: 0.96rem;

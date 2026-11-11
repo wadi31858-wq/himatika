@@ -34,20 +34,20 @@
         }
         .tentang-dropdown-toggle-btn:hover,
         .tentang-dropdown-toggle-btn:focus-visible {
-            color: #1565C0 !important;
-            background: rgba(21, 101, 192, 0.06);
+            color: #711C35 !important;
+            background: rgba(113, 28, 53, 0.06);
         }
         .tentang-dropdown-wrapper.active .tentang-dropdown-toggle-btn,
         .tentang-dropdown-toggle-btn.active {
             color: #ffffff !important;
-            background: #1565C0 !important;
+            background: #711C35 !important;
             font-weight: 600;
             padding: 0.45rem 1.4rem !important;
-            box-shadow: 0 4px 12px rgba(21, 101, 192, 0.25);
+            box-shadow: 0 4px 12px rgba(113, 28, 53, 0.25);
         }
         .tentang-dropdown-wrapper.show .tentang-dropdown-toggle-btn:not(.active) {
-            color: #1565C0 !important;
-            background: rgba(21, 101, 192, 0.08);
+            color: #711C35 !important;
+            background: rgba(113, 28, 53, 0.08);
         }
         .tentang-chevron {
             font-size: 0.72rem;
@@ -62,13 +62,13 @@
             top: 100%;
             left: 0;
             min-width: 220px;
-            background: #0D47A1;
-            border: 1px solid #1E40AF;
+            background: #1A0A0F;
+            border: 1px solid #711C35;
             border-radius: 12px;
             padding: 8px;
             margin: 6px 0 0 0;
             list-style: none;
-            box-shadow: 0 10px 28px rgba(13, 71, 161, 0.28);
+            box-shadow: 0 10px 28px rgba(26, 10, 15, 0.35);
             display: none;
             flex-direction: column;
             gap: 4px;
@@ -90,15 +90,15 @@
         .tentang-dropdown-item:hover,
         .tentang-dropdown-item:focus {
             background: rgba(255, 255, 255, 0.12);
-            color: #93C5FD;
+            color: #F4D6DE;
             padding-left: 18px;
             outline: none;
         }
         .tentang-dropdown-item.active {
-            background: #1565C0;
+            background: #711C35;
             color: #FFFFFF;
             font-weight: 600;
-            border-left: 3px solid #60A5FA;
+            border-left: 3px solid #A33B59;
         }
         @media (max-width: 991.98px) {
             .tentang-dropdown-wrapper {
@@ -113,7 +113,7 @@
             .tentang-dropdown-menu {
                 position: static;
                 width: 100%;
-                background: #0B3A82;
+                background: #1A0A0F;
                 border-radius: 8px;
                 box-shadow: none;
                 margin-top: 4px;
@@ -135,7 +135,7 @@
                     @if($globalProfile && $globalProfile->logo)
                         <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo HIMATIKA" style="width: 100%; height: 100%; object-fit: contain;">
                     @else
-                        <i class="fas fa-infinity" style="color: #1565C0;"></i>
+                        <i class="fas fa-infinity" style="color: #711C35;"></i>
                     @endif
                 </span>
                 <span class="brand-text">

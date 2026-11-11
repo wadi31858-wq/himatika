@@ -8,11 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0D47A1 0%, #1565C0 100%); min-height: 100vh; display: flex; align-items: center; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1A0A0F 0%, #711C35 100%); min-height: 100vh; display: flex; align-items: center; }
         .login-card { background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); overflow: hidden; }
-        .login-left { background: linear-gradient(135deg, #0D47A1 0%, #1565C0 100%); color: #fff; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        .login-left { background: linear-gradient(135deg, #1A0A0F 0%, #711C35 100%); color: #fff; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
         .login-right { padding: 3rem; }
-        .form-control:focus { border-color: #3B82F6; box-shadow: 0 0 0 0.2rem rgba(21, 101, 192, 0.25); }
+        .form-control:focus { border-color: #A33B59; box-shadow: 0 0 0 0.2rem rgba(163, 59, 89, 0.25); }
     </style>
 </head>
 <body>

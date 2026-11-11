@@ -4,7 +4,7 @@
 @push('styles')
 <style>
     .prestasi-hero {
-        background: linear-gradient(135deg, #0D47A1 0%, #1565C0 50%, #1976D2 100%);
+        background: linear-gradient(135deg, #1A0A0F 0%, #711C35 50%, #541326 100%);
         padding: 80px 0 50px;
         position: relative;
         overflow: hidden;
@@ -44,7 +44,7 @@
         right: 8%; top: 50%;
         transform: translateY(-50%);
         font-size: 6rem;
-        color: rgba(59, 130, 246, 0.15);
+        color: rgba(163, 59, 89, 0.15);
         z-index: 0;
     }
     .prestasi-search-card {

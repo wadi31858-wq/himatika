@@ -3,29 +3,29 @@
 @section('title', 'Detail Jabatan - HIMATIKA UNUJA 2026')
 
 @section('content')
-<div class="struktur-detail-wrapper" style="background-color: #f6f5ec; padding: 40px 0; min-height: 100vh;">
+<div class="struktur-detail-wrapper" style="background-color: #FFF7F9; padding: 40px 0; min-height: 100vh;">
     <div class="container">
         {{-- BREADCRUMB --}}
         <div class="detail-breadcrumb d-flex justify-content-between align-items-center mb-4">
-            <a href="{{ route('struktur-organisasi') }}" class="text-decoration-none" style="color: #0D47A1; font-weight: 500; font-size: 15px;">
+            <a href="{{ route('struktur-organisasi') }}" class="text-decoration-none" style="color: #711C35; font-weight: 500; font-size: 15px;">
                 <i class="fas fa-arrow-left me-2"></i> Kembali ke Struktur
             </a>
             <div class="breadcrumb-links" style="font-size: 14px; color: #666;">
                 <a href="{{ route('home') }}" class="text-decoration-none text-muted">Beranda</a> / 
                 <a href="{{ route('struktur-organisasi') }}" class="text-decoration-none text-muted">Struktur</a> / 
-                <span style="color: #0D47A1; font-weight: 500;">{{ $jabatan->position }}</span>
+                <span style="color: #711C35; font-weight: 500;">{{ $jabatan->position }}</span>
             </div>
         </div>
 
         {{-- HERO SECTION --}}
-        <div class="detail-hero" style="background-color: #0D47A1; border-radius: 24px; padding: 48px; color: white; display: flex; gap: 40px; position: relative; overflow: hidden; margin-bottom: 64px;">
+        <div class="detail-hero" style="background-color: #711C35; border-radius: 24px; padding: 48px; color: white; display: flex; gap: 40px; position: relative; overflow: hidden; margin-bottom: 64px;">
             {{-- Background decorative element --}}
             <div style="position: absolute; top: -100px; left: -100px; opacity: 0.05; font-size: 400px; font-family: serif; user-select: none;">&sum;</div>
             
             <div class="hero-content" style="flex: 1; z-index: 1;">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span style="color: #3B82F6; font-weight: 700; font-size: 14px; letter-spacing: 1px;">DETAIL JABATAN</span>
-                    <span style="color: #3B82F6; font-size: 24px; line-height: 1;">&times;</span>
+                    <span style="color: #A33B59; font-weight: 700; font-size: 14px; letter-spacing: 1px;">DETAIL JABATAN</span>
+                    <span style="color: #A33B59; font-size: 24px; line-height: 1;">&times;</span>
                 </div>
                 
                 <h1 style="font-size: 56px; font-weight: 700; margin-bottom: 24px;">{{ $jabatan->position }}</h1>
@@ -36,11 +36,11 @@
                 
                 <div class="d-flex gap-4 mb-4">
                     <div style="border: 1px solid rgba(255,255,255,0.2); padding: 16px 24px; border-radius: 12px; min-width: 140px;">
-                        <h2 style="color: #3B82F6; font-size: 32px; font-weight: 700; margin: 0; line-height: 1;">01</h2>
+                        <h2 style="color: #A33B59; font-size: 32px; font-weight: 700; margin: 0; line-height: 1;">01</h2>
                         <span style="font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px;">Anggota Aktif</span>
                     </div>
                     <div style="border: 1px solid rgba(255,255,255,0.2); padding: 16px 24px; border-radius: 12px; min-width: 140px;">
-                        <h2 style="color: #3B82F6; font-size: 32px; font-weight: 700; margin: 0; line-height: 1;">04</h2>
+                        <h2 style="color: #A33B59; font-size: 32px; font-weight: 700; margin: 0; line-height: 1;">04</h2>
                         <span style="font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px;">Tugas Utama</span>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="terkait-chips" style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px;">
                     @foreach($terkait as $tk)
                         <a href="{{ route('struktur-organisasi.show', $tk->id) }}" style="text-decoration: none; border: 1px solid rgba(255,255,255,0.2); padding: 12px 20px; border-radius: 8px; font-size: 14px; color: white; display: inline-block; transition: all 0.3s ease; background: rgba(255,255,255,0.05);">
-                            <span style="display: block; font-size: 10px; color: #3B82F6; margin-bottom: 4px; text-transform: uppercase;">Terkait</span>
+                            <span style="display: block; font-size: 10px; color: #A33B59; margin-bottom: 4px; text-transform: uppercase;">Terkait</span>
                             {{ $tk->position }}
                         </a>
                     @endforeach
@@ -68,7 +68,7 @@
                     @endif
                     
                     {{-- Small watermark badge --}}
-                    <div style="position: absolute; bottom: 24px; right: 24px; background: #3B82F6; color: #0D47A1; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 20px;">
+                    <div style="position: absolute; bottom: 24px; right: 24px; background: #A33B59; color: #711C35; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 20px;">
                         HIMATIKA 2026
                     </div>
                 </div>
@@ -78,7 +78,7 @@
         {{-- RUANG KERJA SECTION --}}
         <div class="ruang-kerja-section" style="margin-bottom: 64px;">
             <h6 style="color: #666; font-size: 14px; letter-spacing: 1px; font-weight: 600; margin-bottom: 16px;">RUANG KERJA</h6>
-            <h2 style="color: #0D47A1; font-size: 40px; font-weight: 500; margin-bottom: 12px; letter-spacing: -1px;">Arah kerja dalam satu pandangan.</h2>
+            <h2 style="color: #711C35; font-size: 40px; font-weight: 500; margin-bottom: 12px; letter-spacing: -1px;">Arah kerja dalam satu pandangan.</h2>
             <p style="color: #666; font-size: 16px; margin-bottom: 40px;">Tugas, program, dan rincian teknis disusun agar peran jabatan ini mudah dipahami.</p>
             
             <div class="row g-4">
@@ -87,12 +87,12 @@
                     <div style="background: white; border: 1px solid rgba(17,66,50,0.1); border-radius: 16px; padding: 32px; height: 100%; position: relative; overflow: hidden;">
                         <div style="position: absolute; top: 20px; right: 20px; font-size: 60px; color: rgba(17,66,50,0.05); font-family: serif;">&sum;</div>
                         <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-3">
-                            <div style="width: 40px; height: 40px; background: #0D47A1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                            <div style="width: 40px; height: 40px; background: #711C35; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
                                 <i class="fas fa-tasks"></i>
                             </div>
                             <div>
                                 <span style="display: block; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px;">KATEGORI 01</span>
-                                <h4 style="margin: 0; font-size: 20px; color: #0D47A1; font-weight: 600;">Tugas Utama</h4>
+                                <h4 style="margin: 0; font-size: 20px; color: #711C35; font-weight: 600;">Tugas Utama</h4>
                             </div>
                         </div>
                         <ul style="list-style: none; padding: 0; margin: 0;">
@@ -117,20 +117,20 @@
                     <div style="background: #fdfaf0; border: 1px solid rgba(244,208,63,0.3); border-radius: 16px; padding: 32px; height: 100%; position: relative; overflow: hidden;">
                         <div style="position: absolute; top: 20px; right: 20px; font-size: 60px; color: rgba(17,66,50,0.05); font-family: serif;">&pi;</div>
                         <div class="d-flex align-items-center gap-3 mb-4 border-bottom pb-3" style="border-color: rgba(244,208,63,0.3) !important;">
-                            <div style="width: 40px; height: 40px; background: #1565C0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
+                            <div style="width: 40px; height: 40px; background: #711C35; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">
                                 <i class="fas fa-project-diagram"></i>
                             </div>
                             <div>
-                                <span style="display: block; font-size: 10px; color: #1565C0; text-transform: uppercase; letter-spacing: 1px;">KATEGORI 02</span>
-                                <h4 style="margin: 0; font-size: 20px; color: #1565C0; font-weight: 600;">Program</h4>
+                                <span style="display: block; font-size: 10px; color: #711C35; text-transform: uppercase; letter-spacing: 1px;">KATEGORI 02</span>
+                                <h4 style="margin: 0; font-size: 20px; color: #711C35; font-weight: 600;">Program</h4>
                             </div>
                         </div>
                         <ul style="list-style: none; padding: 0; margin: 0;">
                             <li style="margin-bottom: 16px; display: flex; gap: 12px; color: #554112; font-size: 15px; line-height: 1.5;">
-                                <i class="fas fa-circle" style="color: #3B82F6; font-size: 8px; margin-top: 8px;"></i> Koordinasi Kepengurusan
+                                <i class="fas fa-circle" style="color: #A33B59; font-size: 8px; margin-top: 8px;"></i> Koordinasi Kepengurusan
                             </li>
                             <li style="display: flex; gap: 12px; color: #554112; font-size: 15px; line-height: 1.5;">
-                                <i class="fas fa-circle" style="color: #3B82F6; font-size: 8px; margin-top: 8px;"></i> Monitoring Program Kerja
+                                <i class="fas fa-circle" style="color: #A33B59; font-size: 8px; margin-top: 8px;"></i> Monitoring Program Kerja
                             </li>
                         </ul>
                     </div>
@@ -146,7 +146,7 @@
                             </div>
                             <div>
                                 <span style="display: block; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px;">KATEGORI 03</span>
-                                <h4 style="margin: 0; font-size: 20px; color: #0D47A1; font-weight: 600;">Tugas Teknik</h4>
+                                <h4 style="margin: 0; font-size: 20px; color: #711C35; font-weight: 600;">Tugas Teknik</h4>
                             </div>
                         </div>
                         <ul style="list-style: none; padding: 0; margin: 0;">
@@ -173,7 +173,7 @@
             <div class="d-flex justify-content-between align-items-start mb-5">
                 <div>
                     <h6 style="color: #666; font-size: 14px; letter-spacing: 1px; font-weight: 600; margin-bottom: 8px;">ANGGOTA</h6>
-                    <h3 style="color: #0D47A1; font-size: 32px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.5px;">Anggota dalam jabatan ini</h3>
+                    <h3 style="color: #711C35; font-size: 32px; font-weight: 500; margin-bottom: 8px; letter-spacing: -0.5px;">Anggota dalam jabatan ini</h3>
                     <p style="color: #666; margin: 0;">Orang-orang yang bergerak bersama di balik peran ini.</p>
                 </div>
                 <div style="color: #666; font-size: 14px;">1 anggota aktif</div>
@@ -195,13 +195,13 @@
                             <div style="position: absolute; bottom: 16px; left: 16px; width: 32px; height: 32px; background: rgba(0,0,0,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
                                 <i class="fas fa-id-badge" style="font-size: 14px;"></i>
                             </div>
-                            <div style="position: absolute; bottom: 16px; right: 16px; width: 32px; height: 32px; background: #3B82F6; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #0D47A1;">
+                            <div style="position: absolute; bottom: 16px; right: 16px; width: 32px; height: 32px; background: #A33B59; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #711C35;">
                                 <i class="fas fa-arrow-right" style="font-size: 14px;"></i>
                             </div>
                         </div>
                         <div style="padding: 24px; background: white;">
-                            <h4 style="color: #0D47A1; font-size: 20px; font-weight: 600; margin-bottom: 8px;">{{ $jabatan->name ?? 'Belum ada nama' }}</h4>
-                            <span style="color: #1565C0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">{{ $jabatan->position }}</span>
+                            <h4 style="color: #711C35; font-size: 20px; font-weight: 600; margin-bottom: 8px;">{{ $jabatan->name ?? 'Belum ada nama' }}</h4>
+                            <span style="color: #711C35; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">{{ $jabatan->position }}</span>
                         </div>
                     </div>
                 </div>

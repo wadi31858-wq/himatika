@@ -80,10 +80,10 @@
 
 @push('styles')
 <style>
-.galeri-back-link{color:rgba(59, 130, 246, 0.8);font-weight:500;font-size:0.9rem;transition:color 0.3s}
+.galeri-back-link{color:rgba(113, 28, 53, 0.8);font-weight:500;font-size:0.9rem;transition:color 0.3s}
 .galeri-back-link:hover{color:var(--gold)}
 .galeri-hero{padding:80px 0 60px}
-.galeri-hero-label{color:var(--primary-green);font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(21, 101, 192, 0.25);border-radius:6px;display:inline-block;padding:0.35rem 1rem;margin-bottom:1rem}
+.galeri-hero-label{color:var(--primary-green);font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(113, 28, 53, 0.25);border-radius:6px;display:inline-block;padding:0.35rem 1rem;margin-bottom:1rem}
 .galeri-hero-heading{font-size:2.6rem;font-weight:700;color:var(--dark-text);margin-bottom:1rem}
 .galeri-hero-desc{color:#666;font-size:1rem;max-width:560px;margin:0 auto;line-height:1.7}
 .galeri-grid-section{padding:60px 0 80px}
@@ -92,10 +92,10 @@
 .galeri-card-img{position:relative;aspect-ratio:16/10;overflow:hidden;cursor:pointer}
 .galeri-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
 .galeri-card:hover .galeri-card-img img{transform:scale(1.05)}
-.galeri-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#1565C0 0%,#0D47A1 50%,#0F172A 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);gap:0.5rem}
+.galeri-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#711C35 0%,#1A0A0F 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);gap:0.5rem}
 .galeri-placeholder i{font-size:2.5rem;opacity:0.5}
 .galeri-placeholder span{font-size:0.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:0.6}
-.galeri-card-overlay{position:absolute;inset:0;background:rgba(13, 71, 161, 0.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease}
+.galeri-card-overlay{position:absolute;inset:0;background:rgba(26, 10, 15, 0.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease}
 .galeri-card-overlay i{color:#fff;font-size:1.5rem;opacity:0.8}
 .galeri-card:hover .galeri-card-overlay{opacity:1}
 .galeri-card-body{padding:1.5rem}

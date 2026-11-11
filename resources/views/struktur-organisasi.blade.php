@@ -4,7 +4,7 @@
 
 <style>
     .breadcrumb-section {
-        background: #EFF6FF;
+        background: #FFF7F9;
         padding: 96px 0 10px;
     }
     .breadcrumb-section .breadcrumb {
@@ -23,11 +23,11 @@
         color: var(--gold);
     }
     .breadcrumb-section .breadcrumb-item.active {
-        color: rgba(21, 101, 192, 0.7);
+        color: rgba(113, 28, 53, 0.7);
         font-size: 0.85rem;
     }
     .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before {
-        color: rgba(21, 101, 192, 0.45);
+        color: rgba(113, 28, 53, 0.45);
     }
 
     .back-link {
@@ -53,7 +53,7 @@
     }
 
     .hero-section {
-        background: #EFF6FF;
+        background: #FFF7F9;
         padding: 20px 0 30px;
         position: relative;
         overflow: hidden;
@@ -64,7 +64,7 @@
         position: absolute;
         top: -80px; right: -80px;
         width: 280px; height: 280px;
-        background: radial-gradient(circle, rgba(21, 101, 192, 0.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(113, 28, 53, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .hero-section::after {
@@ -72,7 +72,7 @@
         position: absolute;
         bottom: -60px; left: -60px;
         width: 220px; height: 220px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(163, 59, 89, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .hero-label {
@@ -102,7 +102,7 @@
     }
 
     .org-section {
-        background: #EFF6FF;
+        background: #FFF7F9;
         padding: 0 0 60px;
         position: relative;
     }
@@ -122,7 +122,7 @@
     }
     .tree-connector.dashed {
         background-color: transparent;
-        border-left: 2px dashed #3B82F6;
+        border-left: 2px dashed #A33B59;
     }
     .tree-connector.h-20 { height: 20px; }
     .tree-connector.h-24 { height: 24px; }
@@ -166,7 +166,7 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         color: var(--deep-teal);
-        background: rgba(21, 101, 192, 0.07);
+        background: rgba(113, 28, 53, 0.07);
         display: inline-block;
         padding: 5px 16px;
         border-radius: 50px;
@@ -189,7 +189,7 @@
         transform: translateY(-2px);
     }
     .org-card.gold-border {
-        border: 1.5px solid rgba(59, 130, 246, 0.3);
+        border: 1.5px solid rgba(163, 59, 89, 0.3);
     }
     .org-card.gold-border::before {
         content: '';
@@ -199,14 +199,14 @@
         background: var(--gold);
     }
     .org-card.teal-border {
-        border: 1.5px solid rgba(21, 101, 192, 0.2);
+        border: 1.5px solid rgba(113, 28, 53, 0.2);
     }
     .org-card.teal-border::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 3px;
-        background: linear-gradient(90deg, #1565C0, #0D47A1);
+        background: linear-gradient(90deg, #711C35, #1A0A0F);
     }
 
     .card-body-inner {
@@ -228,12 +228,12 @@
         margin-bottom: 8px;
     }
     .card-subtitle-badge.gold {
-        background: rgba(59, 130, 246, 0.12);
-        color: #1565C0;
+        background: rgba(163, 59, 89, 0.12);
+        color: #711C35;
     }
     .card-subtitle-badge.teal {
-        background: rgba(21, 101, 192, 0.1);
-        color: #0D47A1;
+        background: rgba(113, 28, 53, 0.1);
+        color: #28151D;
     }
     .card-desc {
         font-size: 0.85rem;
@@ -272,7 +272,7 @@
         color: var(--gold);
     }
     .card-footer-link.gold-link:hover {
-        color: #1565C0;
+        color: #711C35;
     }
 
     .org-card-center {
@@ -357,7 +357,7 @@ function updateModalView() {
     for(let i=0; i<currentModalMembers.length; i++) {
         let dot = document.createElement('span');
         if(i === currentSlideIndex) {
-            dot.style.cssText = "width: 24px; height: 4px; background: #3B82F6; border-radius: 2px;";
+            dot.style.cssText = "width: 24px; height: 4px; background: #711C35; border-radius: 2px;";
         } else {
             dot.style.cssText = "width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%; align-self: center; cursor: pointer;";
             dot.onclick = () => { currentSlideIndex = i; updateModalView(); };
@@ -480,7 +480,7 @@ function closeDetailModal() {
                         <div>
                             <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
                             <div class="card-title-text">{{ $ketua?->name ?? 'Ketua Umum' }}</div>
-                            <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $ketua?->position ?? 'Ketua Umum HIMATIKA' }}</div>
+                            <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $ketua?->position ?? 'Ketua Umum HIMATIKA' }}</div>
                             <p class="card-desc">{{ $ketua?->description ?? 'Memimpin dan mengoordinasikan seluruh kegiatan HIMATIKA serta bertanggung jawab atas arah organisasi.' }}</p>
                         </div>
                     </div>
@@ -502,7 +502,7 @@ function closeDetailModal() {
                         <div>
                             <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
                             <div class="card-title-text">{{ $wakil?->name ?? 'Wakil Ketua Umum' }}</div>
-                            <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $wakil?->position ?? 'Wakil Ketua Umum HIMATIKA' }}</div>
+                            <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $wakil?->position ?? 'Wakil Ketua Umum HIMATIKA' }}</div>
                             <p class="card-desc">{{ $wakil?->description ?? 'Menjadi second leader yang memperkuat koordinasi dan mengawal kerja internal kepengurusan HIMATIKA.' }}</p>
                         </div>
                     </div>
@@ -533,7 +533,7 @@ function closeDetailModal() {
                             <div>
                                 <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
                                 <div class="card-title-text">{{ $sekretaris?->name ?? 'Sekretaris Umum' }}</div>
-                                <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $sekretaris?->position ?? 'Sekretaris Umum HIMATIKA' }}</div>
+                                <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $sekretaris?->position ?? 'Sekretaris Umum HIMATIKA' }}</div>
                                 <p class="card-desc">{{ $sekretaris?->description ?? 'Mengoordinasikan kesekretariatan, administrasi, dan arsip agar kerja organisasi terdokumentasi dengan tertib.' }}</p>
                             </div>
                         </div>
@@ -580,7 +580,7 @@ function closeDetailModal() {
                             <div>
                                 <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
                                 <div class="card-title-text">{{ $bendahara?->name ?? 'Bendahara Umum' }}</div>
-                                <div style="color: #1565C0; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $bendahara?->position ?? 'Bendahara Umum HIMATIKA' }}</div>
+                                <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $bendahara?->position ?? 'Bendahara Umum HIMATIKA' }}</div>
                                 <p class="card-desc">{{ $bendahara?->description ?? 'Mengoordinasikan kebendaharaan dan mengelola keuangan HIMATIKA secara efektif, efisien, dan bertanggung jawab.' }}</p>
                             </div>
                         </div>
@@ -616,7 +616,7 @@ function closeDetailModal() {
             <div class="mt-5 pt-4">
                 <div class="text-center mb-4">
                     <span class="branch-label"><i class="fas fa-project-diagram me-1"></i> DIAGRAM BAGAN STRUKTUR</span>
-                    <h3 class="fw-bold mt-2" style="font-size: 1.35rem; color: #0D47A1;">Diagram Bagan Alur Kepengurusan HIMATIKA</h3>
+                    <h3 class="fw-bold mt-2" style="font-size: 1.35rem; color: #28151D;">Diagram Bagan Alur Kepengurusan HIMATIKA</h3>
                     <p class="text-secondary small mb-0">Diagram resmi bagan struktur organisasi HIMATIKA FMIPA UNUJA periode 2026.</p>
                 </div>
                 <div class="bg-white rounded-4 border shadow-sm p-3 p-md-4 mx-auto text-center" style="max-width: 1100px;">
@@ -638,19 +638,19 @@ function closeDetailModal() {
         
         <div class="modal-body-content">
             <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px;">
-                <div style="text-align: center; width: 100%; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 16px 20px;">
-                    <div id="modalDivision" style="color: #1565C0; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;"></div>
-                    <h3 id="modalName" style="color: #0D47A1; font-size: 19px; font-weight: 700; margin-bottom: 0;"></h3>
+                <div style="text-align: center; width: 100%; background: #FFF7F9; border: 1px solid #E9CDD5; border-radius: 12px; padding: 16px 20px;">
+                    <div id="modalDivision" style="color: #711C35; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;"></div>
+                    <h3 id="modalName" style="color: #28151D; font-size: 19px; font-weight: 700; margin-bottom: 0;"></h3>
                 </div>
 
                 <!-- Slider Controls -->
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 6px;">
                     <div style="display: flex; align-items: center; gap: 16px;">
-                        <button type="button" onclick="slidePrev()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #1565C0; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <button type="button" onclick="slidePrev()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #711C35; display: flex; align-items: center; justify-content: center; cursor: pointer;">
                             <i class="fas fa-arrow-left" style="font-size: 12px;"></i>
                         </button>
                         <span id="slideCounter" style="color: #666; font-size: 13px; font-weight: 600;">1 / 1</span>
-                        <button type="button" onclick="slideNext()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #1565C0; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <button type="button" onclick="slideNext()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #711C35; display: flex; align-items: center; justify-content: center; cursor: pointer;">
                             <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
                         </button>
                     </div>
@@ -673,12 +673,12 @@ function closeDetailModal() {
 .modal-overlay.show .modal-content { transform: translateY(0); }
 .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: 1px solid rgba(0,0,0,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #666; transition: all 0.2s; }
 .modal-close:hover { background: rgba(0,0,0,0.05); }
-.modal-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #1565C0; margin-bottom: 12px; }
-.modal-title { font-size: 28px; font-weight: 600; color: #0D47A1; margin-bottom: 12px; line-height: 1.2; }
+.modal-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #711C35; margin-bottom: 12px; }
+.modal-title { font-size: 28px; font-weight: 600; color: #28151D; margin-bottom: 12px; line-height: 1.2; }
 .modal-desc { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(0,0,0,0.05); }
 .modal-body-content { margin-bottom: 32px; }
-.btn-primary-custom { background-color: #0D47A1; color: #fff; border: none; font-weight: 600; transition: all 0.3s; border-radius: 8px; text-decoration: none; }
-.btn-primary-custom:hover { background-color: #1565C0; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2); }
+.btn-primary-custom { background-color: #28151D; color: #fff; border: none; font-weight: 600; transition: all 0.3s; border-radius: 8px; text-decoration: none; }
+.btn-primary-custom:hover { background-color: #711C35; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26, 10, 15, 0.2); }
 </style>
 
 

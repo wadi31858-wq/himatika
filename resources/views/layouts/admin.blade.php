@@ -20,15 +20,15 @@
 
     <style>
         :root {
-            --him-primary: #1565C0;
-            --him-primary-dark: #0D47A1;
-            --him-primary-hover: #1976D2;
-            --him-accent: #3B82F6;
-            --him-bg: #EFF6FF;
-            --him-bg-alt: #DBEAFE;
-            --him-border: #BFDBFE;
-            --him-text: #0F172A;
-            --him-text-muted: #475569;
+            --him-primary: #711C35;
+            --him-primary-dark: #1A0A0F;
+            --him-primary-hover: #541326;
+            --him-accent: #A33B59;
+            --him-bg: #FFF7F9;
+            --him-bg-alt: #F4D6DE;
+            --him-border: #E9CDD5;
+            --him-text: #28151D;
+            --him-text-muted: #5C4B51;
             --him-card: #FFFFFF;
             --sidebar-width: 270px;
             --sidebar-collapsed-width: 80px;
@@ -52,13 +52,13 @@
             left: 0;
             bottom: 0;
             width: var(--sidebar-width);
-            background: linear-gradient(180deg, #0A3275 0%, #0D47A1 45%, #1565C0 100%);
+            background: linear-gradient(180deg, #1A0A0F 0%, #541326 45%, #711C35 100%);
             color: #FFFFFF;
             z-index: 1045;
             display: flex;
             flex-direction: column;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 4px 0 24px rgba(13, 71, 161, 0.15);
+            box-shadow: 4px 0 24px rgba(26, 10, 15, 0.25);
         }
 
         .sidebar-header {
@@ -174,9 +174,9 @@
 
         .admin-nav-item.active {
             color: #FFFFFF;
-            background: #1976D2;
+            background: #711C35;
             font-weight: 600;
-            box-shadow: 0 4px 14px rgba(25, 118, 210, 0.4);
+            box-shadow: 0 4px 14px rgba(113, 28, 53, 0.4);
         }
 
         .admin-nav-item.active i {
@@ -226,7 +226,7 @@
             position: sticky;
             top: 0;
             z-index: 1030;
-            box-shadow: 0 2px 10px rgba(13, 71, 161, 0.04);
+            box-shadow: 0 2px 10px rgba(26, 10, 15, 0.04);
         }
 
         .topbar-left {

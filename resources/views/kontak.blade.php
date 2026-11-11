@@ -14,7 +14,7 @@
         position: absolute;
         bottom: -120px; right: -80px;
         width: 400px; height: 400px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(163, 59, 89, 0.1) 0%, transparent 70%);
         border-radius: 50%;
     }
     .kontak-hero-label {

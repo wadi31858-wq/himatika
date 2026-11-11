@@ -131,7 +131,7 @@
 
                 <div class="mb-3">
                     <label class="form-label small text-muted">Pratinjau Foto Latar Saat Ini:</label>
-                    <div class="rounded-3 overflow-hidden border shadow-sm position-relative mb-2" style="height: 160px; background: #0D47A1;">
+                    <div class="rounded-3 overflow-hidden border shadow-sm position-relative mb-2" style="height: 160px; background: #1A0A0F;">
                         @if(!empty($profile->hero_image))
                             <img src="{{ asset('storage/' . $profile->hero_image) }}" alt="Hero Background" class="w-100 h-100" style="object-fit: cover;">
                         @else

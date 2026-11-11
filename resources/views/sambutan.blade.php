@@ -33,7 +33,7 @@
                         @endif
                     </div>
 
-                    <h4 class="fw-bold mb-1" style="color: #0D47A1; font-size: 1.15rem;">
+                    <h4 class="fw-bold mb-1" style="color: #28151D; font-size: 1.15rem;">
                         {{ $kaprodi->name ?? 'Ketua Program Studi' }}
                     </h4>
                     <p class="text-secondary small mb-0">
@@ -83,7 +83,7 @@
 
                         {{-- TANDA TANGAN / PENUTUP KANAN BAWAH --}}
                         <div class="text-end pt-3 border-top border-light-subtle">
-                            <h6 class="fw-bold mb-0" style="color: #0D47A1;">
+                            <h6 class="fw-bold mb-0" style="color: #28151D;">
                                 {{ $kaprodi->name ?? 'Ketua Program Studi Matematika' }}
                             </h6>
                             <small class="text-muted">
@@ -104,11 +104,11 @@
 <style>
     /* BANNER SAMBUTAN */
     .sambutan-banner {
-        background: linear-gradient(105deg, #0D47A1 0%, #1565C0 55%, #1976D2 100%);
+        background: linear-gradient(105deg, #1A0A0F 0%, #711C35 55%, #541326 100%);
         padding: 70px 0 50px;
         position: relative;
         overflow: hidden;
-        border-bottom: 1px solid #BFDBFE;
+        border-bottom: 1px solid #E9CDD5;
     }
     .sambutan-banner-title {
         color: #ffffff;
@@ -126,7 +126,7 @@
 
     /* CARD PROFIL */
     .card-profil-kaprodi {
-        border: 1px solid #BFDBFE !important;
+        border: 1px solid #E9CDD5 !important;
         border-radius: 16px;
     }
     .kaprodi-photo-container {
@@ -135,8 +135,8 @@
         aspect-ratio: 4/5;
         border-radius: 14px;
         overflow: hidden;
-        border: 1px solid #BFDBFE;
-        background: #EFF6FF;
+        border: 1px solid #E9CDD5;
+        background: #FFF7F9;
         margin: 0 auto;
     }
     .kaprodi-avatar-img {
@@ -149,12 +149,12 @@
     .kaprodi-avatar-placeholder {
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+        background: linear-gradient(135deg, #FFF7F9 0%, #F4D6DE 100%);
     }
 
     /* CARD KUTIPAN */
     .card-kutipan-kaprodi {
-        border: 1px solid #BFDBFE !important;
+        border: 1px solid #E9CDD5 !important;
         border-radius: 14px;
         background: #FAFAFA;
     }
@@ -167,19 +167,19 @@
 
     /* CARD SAMBUTAN UTAMA */
     .card-sambutan-utama {
-        border: 1px solid #BFDBFE !important;
+        border: 1px solid #E9CDD5 !important;
         border-radius: 16px;
     }
     .gold-subtitle {
         font-size: 0.95rem;
         font-weight: 700;
-        color: #B45309;
+        color: #711C35;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
     .sambutan-inner-panel {
-        background: #EFF6FF;
-        border: 1px solid #BFDBFE;
+        background: #FFF7F9;
+        border: 1px solid #E9CDD5;
     }
     .sambutan-p {
         font-size: 0.95rem;
