@@ -96,57 +96,57 @@ class HomeController extends Controller
             ->first()
             ?? Gallery::published()->whereNotNull('image')->latest('id')->first();
 
+        // 4 Foto Profil/Dokumentasi Terbaru di Pinggir Kiri Hero
         $heroRecentPhotos = [];
 
-        if ($latestNewsItem) {
+        // 1. Logo HIMATIKA
+        $logoPath = file_exists(public_path('storage/branding/logo_main_1794400336.jpeg'))
+            ? asset('storage/branding/logo_main_1794400336.jpeg')
+            : ($profile && $profile->logo && file_exists(public_path('storage/' . $profile->logo))
+                ? asset('storage/' . $profile->logo)
+                : asset('images/logo.png'));
+
+        $heroRecentPhotos[] = [
+            'category' => 'HIMATIKA',
+            'badge'    => 'Logo',
+            'title'    => 'HIMATIKA UNUJA',
+            'photo'    => $logoPath,
+            'url'      => route('profil'),
+        ];
+
+        // 2. Santriwati (News ID 9 / Khotmil Quran)
+        $newsKhidmah = News::where('thumbnail', 'like', '%news_1794407889%')->first();
+        if ($newsKhidmah) {
             $heroRecentPhotos[] = [
-                'category' => 'Berita Terbaru',
+                'category' => 'Berita',
                 'badge'    => 'Berita',
-                'title'    => $latestNewsItem->title,
-                'photo'    => $resolvePhoto($latestNewsItem->thumbnail, 'images/news/news-1.jpg'),
-                'url'      => route('berita.show', $latestNewsItem->slug ?? $latestNewsItem->id),
+                'title'    => $newsKhidmah->title,
+                'photo'    => asset('storage/' . $newsKhidmah->thumbnail),
+                'url'      => route('berita.show', $newsKhidmah->slug ?? $newsKhidmah->id),
             ];
         }
 
-        if ($latestAchievementItem) {
-            $heroRecentPhotos[] = [
-                'category' => 'Prestasi',
-                'badge'    => 'Prestasi',
-                'title'    => $latestAchievementItem->title,
-                'photo'    => $resolvePhoto($latestAchievementItem->image, 'images/news/news-2.jpg'),
-                'url'      => route('prestasi'),
-            ];
-        }
-
-        if ($latestAgendaItem) {
-            $heroRecentPhotos[] = [
-                'category' => 'Agenda',
-                'badge'    => 'Agenda',
-                'title'    => $latestAgendaItem->title,
-                'photo'    => $resolvePhoto($latestAgendaItem->image, 'images/news/news-5.jpg'),
-                'url'      => route('agenda'),
-            ];
-        }
-
-        if ($latestActivityItem) {
+        // 3. Kegiatan / Kader (News ID 6)
+        $newsKader = News::where('thumbnail', 'like', '%news_1794402196%')->first();
+        if ($newsKader) {
             $heroRecentPhotos[] = [
                 'category' => 'Kegiatan',
                 'badge'    => 'Kegiatan',
-                'title'    => $latestActivityItem->title,
-                'photo'    => $resolvePhoto($latestActivityItem->image, 'images/news/news-3.jpg'),
-                'url'      => route('kegiatan.show', $latestActivityItem->slug ?? $latestActivityItem->id),
+                'title'    => $newsKader->title,
+                'photo'    => asset('storage/' . $newsKader->thumbnail),
+                'url'      => route('berita.show', $newsKader->slug ?? $newsKader->id),
             ];
         }
 
-        if ($secondNewsItem) {
-            $isGal = $secondNewsItem instanceof Gallery;
-            $photoPath = $isGal ? $secondNewsItem->image : ($secondNewsItem->thumbnail ?? $secondNewsItem->image);
+        // 4. Suasana Belajar (News ID 5)
+        $newsBelajar = News::where('thumbnail', 'like', '%suasana-belajar-madrasah%')->first();
+        if ($newsBelajar) {
             $heroRecentPhotos[] = [
-                'category' => $isGal ? 'Dokumentasi' : 'Kabar Terkini',
-                'badge'    => $isGal ? 'Galeri' : 'Berita',
-                'title'    => $secondNewsItem->title,
-                'photo'    => $resolvePhoto($photoPath, 'images/news/news-4.jpg'),
-                'url'      => $isGal ? route('galeri') : route('berita.show', $secondNewsItem->slug ?? $secondNewsItem->id),
+                'category' => 'Prestasi & Belajar',
+                'badge'    => 'Pendidikan',
+                'title'    => $newsBelajar->title,
+                'photo'    => $resolvePhoto($newsBelajar->thumbnail, 'images/news/suasana-belajar-madrasah.jpg'),
+                'url'      => route('berita.show', $newsBelajar->slug ?? $newsBelajar->id),
             ];
         }
 

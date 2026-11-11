@@ -4,21 +4,15 @@
 
 {{-- ==================== BAGIAN 1: SAMPUL (HERO) ==================== --}}
 <section class="hero-modern-section" id="hero">
-    {{-- Background Campus Photo with Translucent White Overlay --}}
+    {{-- Background Campus Photo with Bright, Visible Architecture --}}
     <div class="hero-bg-photo-wrapper" aria-hidden="true">
-        @if(!empty($profile->hero_image) && file_exists(public_path('storage/' . $profile->hero_image)))
-            <img src="{{ asset('storage/' . $profile->hero_image) }}" alt="{{ $profile->hero_image_alt ?? 'Kampus UNUJA' }}" class="hero-bg-photo">
-        @elseif(file_exists(public_path('images/hero-bg-unuja.jpg')))
-            <img src="{{ asset('images/hero-bg-unuja.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
-        @else
-            <img src="{{ asset('images/unuja-campus-banner.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
-        @endif
+        <img src="{{ asset('images/hero-bg-unuja.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
         <div class="hero-bg-photo-overlay"></div>
     </div>
 
     <div class="container position-relative" style="z-index: 2;">
         <div class="row align-items-center hero-grid-row gx-lg-5 gy-5 gy-lg-0">
-            {{-- Left Content (~45% on desktop) --}}
+            {{-- Left Content (~48% on desktop) --}}
             <div class="col-lg-5 hero-col-content">
                 {{-- Badge Capsule & Companion Text --}}
                 <div class="hero-badge-container mb-3">
@@ -26,49 +20,42 @@
                         <i class="fas fa-graduation-cap me-1"></i>
                         <span>{{ $profile->hero_badge ?? 'HIMATIKA UNUJA' }}</span>
                     </div>
-                    @if(!empty($profile->hero_tagline))
-                        <div class="hero-tag-companion">
-                            <span class="hero-tag-vbar"></span>
-                            <span>{{ $profile->hero_tagline }}</span>
-                        </div>
-                    @else
-                        <div class="hero-tag-companion">
-                            <span class="hero-tag-vbar"></span>
-                            <span>Grow with himatika</span>
-                        </div>
-                    @endif
+                    <div class="hero-tag-companion">
+                        <span class="hero-tag-vbar"></span>
+                        <span>{{ !empty($profile->hero_tagline) ? $profile->hero_tagline : 'Grow with himatika' }}</span>
+                    </div>
                 </div>
 
                 {{-- Main Title --}}
                 <h1 class="hero-main-title">
-                    {!! nl2br(e($profile->hero_title ?? "Ruang\nberkembang,berinovasi\nBagi Mahasiswa\nInformatika")) !!}
+                    {!! nl2br(e($profile->hero_title ?? "Ruang Berkarya\nMahasiswa Informatika")) !!}
                 </h1>
 
                 <p class="hero-new-desc">
-                    {{ $profile->hero_desc ?? 'Ruang resmi mahasiswa Informatika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.' }}
+                    {{ $profile->hero_desc ?? 'Temukan kegiatan, layanan, dan karya HIMATIKA UNUJA.' }}
                 </p>
 
-                {{-- Action Buttons: Stacked vertically with consistent width, burgundy background, white text, and right arrow --}}
-                <div class="hero-vertical-buttons">
+                {{-- Action Buttons: Horizontal Pill Buttons Matching Mockup --}}
+                <div class="hero-horizontal-buttons">
                     @if(($profile->hero_btn_primary_active ?? 1) == 1)
-                        <a href="{{ !empty($profile->hero_btn_primary_url) ? url($profile->hero_btn_primary_url) : route('kontak') }}" class="btn-hero-navy btn-hero-primary">
+                        <a href="{{ !empty($profile->hero_btn_primary_url) ? url($profile->hero_btn_primary_url) : route('kontak') }}" class="btn-hero-pill">
                             <span>{{ $profile->hero_btn_primary_text ?? 'Hubungi Kami' }}</span>
                             <i class="fas fa-caret-right"></i>
                         </a>
                     @endif
                     @if(($profile->hero_btn_secondary_active ?? 1) == 1)
-                        <a href="{{ ($profile->hero_btn_secondary_url && $profile->hero_btn_secondary_url !== '/profil') ? url($profile->hero_btn_secondary_url) : '#tentang' }}" class="btn-hero-navy btn-hero-outline">
+                        <a href="{{ ($profile->hero_btn_secondary_url && $profile->hero_btn_secondary_url !== '/profil') ? url($profile->hero_btn_secondary_url) : route('profil') }}" class="btn-hero-pill">
                             <span>{{ $profile->hero_btn_secondary_text ?? 'Pelajari Profil' }}</span>
                             <i class="fas fa-caret-right"></i>
                         </a>
                     @endif
                 </div>
 
-                {{-- 5 Foto Terbaru di Pinggir Kiri: Berita Terbaru, Prestasi, Agenda, Kegiatan, Dokumentasi --}}
+                {{-- 4 Foto Terbaru di Pinggir Kiri: Logo + 3 Dokumentasi Terkini --}}
                 @if(!empty($heroRecentPhotos) && count($heroRecentPhotos) > 0)
                     <div class="hero-recent-preview-group mt-4 pt-1">
                         <div class="hero-recent-avatars-row">
-                            <div class="hero-avatar-stack" aria-label="5 Foto Terbaru Kegiatan & Informasi HIMATIKA">
+                            <div class="hero-avatar-stack" aria-label="Foto & Informasi Terkini HIMATIKA">
                                 @foreach($heroRecentPhotos as $idx => $photoItem)
                                     <a href="{{ $photoItem['url'] }}" 
                                        class="hero-avatar-item" 
@@ -89,76 +76,71 @@
                 @endif
             </div>
 
-            {{-- Right Visual: Large Rounded Frame with Collage (~55% on desktop) --}}
+            {{-- Right Visual: 2x2 Frame Matching Mockup (~52% on desktop) --}}
             <div class="col-lg-7 hero-col-visual">
                 <div class="hero-frame-wrapper">
                     <div class="hero-visual-frame">
                         @php
-                            $mainPhoto = null;
-                            if ($globalProfile && $globalProfile->image && file_exists(public_path('storage/' . $globalProfile->image))) {
-                                $mainPhoto = asset('storage/' . $globalProfile->image);
-                            } elseif (file_exists(public_path('images/unuja-campus-banner.jpg'))) {
-                                $mainPhoto = asset('images/unuja-campus-banner.jpg');
-                            } else {
-                                $mainPhoto = asset('images/hero-bg-unuja.jpg');
-                            }
+                            $logoEmblem = file_exists(public_path('storage/branding/logo_main_1794400336.jpeg'))
+                                ? asset('storage/branding/logo_main_1794400336.jpeg')
+                                : ($globalProfile && $globalProfile->logo && file_exists(public_path('storage/' . $globalProfile->logo))
+                                    ? asset('storage/' . $globalProfile->logo)
+                                    : asset('images/logo.png'));
 
-                            $getNewsPhoto = function($item, $default) {
-                                if (!$item) return asset($default);
-                                $thumb = $item->thumbnail ?? $item->image;
-                                if (!$thumb) return asset($default);
-                                if (file_exists(public_path('storage/' . $thumb))) return asset('storage/' . $thumb);
-                                if (file_exists(public_path('images/' . $thumb))) return asset('images/' . $thumb);
-                                if (file_exists(public_path($thumb))) return asset($thumb);
-                                return asset('storage/' . $thumb);
-                            };
+                            // 1. Top-Left: Santriwati reading in classroom
+                            $photo1 = file_exists(public_path('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png'))
+                                ? asset('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png')
+                                : asset('images/news/news-1.jpg');
 
-                            $photo1 = $getNewsPhoto($news[0] ?? null, 'images/news/news-1.jpg');
-                            $photo2 = $getNewsPhoto($news[1] ?? null, 'images/news/news-2.jpg');
-                            $photo3 = $getNewsPhoto($news[2] ?? null, 'images/news/news-3.jpg');
-                            $photo4 = $getNewsPhoto($news[3] ?? null, 'images/news/news-4.jpg');
+                            // 2. Top-Right: Official Circular HIMATIKA Logo on white card
+                            $photo2 = $logoEmblem;
+
+                            // 3. Bottom-Left: Santri putra studying in madrasah with camera badge
+                            $photo3 = file_exists(public_path('images/news/suasana-belajar-madrasah.jpg'))
+                                ? asset('images/news/suasana-belajar-madrasah.jpg')
+                                : asset('images/news/news-3.jpg');
+
+                            // 4. Bottom-Right: Members group collage with central logo
+                            $photo4 = file_exists(public_path('storage/news/news_1794125062_fmSjML66RhWE145vpg9O6EUhBhMqYTfaatATKdgk.jpg'))
+                                ? asset('storage/news/news_1794125062_fmSjML66RhWE145vpg9O6EUhBhMqYTfaatATKdgk.jpg')
+                                : asset('images/news/news-4.jpg');
                         @endphp
 
-                        {{-- Collage Grid --}}
+                        {{-- Collage Grid 2x2 --}}
                         <div class="hero-collage-grid" aria-hidden="true">
                             <div class="hero-collage-cell">
-                                <img src="{{ $photo1 }}" alt="Aktivitas HIMATIKA 1">
+                                <img src="{{ $photo1 }}" alt="Aktivitas Mahasantriwati HIMATIKA">
+                            </div>
+                            <div class="hero-collage-cell cell-logo-white">
+                                <img src="{{ $photo2 }}" alt="Logo Resmi HIMATIKA UNUJA">
                             </div>
                             <div class="hero-collage-cell">
-                                <img src="{{ $photo2 }}" alt="Aktivitas HIMATIKA 2">
+                                <img src="{{ $photo3 }}" alt="Suasana Belajar Mahasantri HIMATIKA">
+                                <span class="hero-cell-camera-badge" title="Dokumentasi Kegiatan">
+                                    <i class="fas fa-camera"></i>
+                                </span>
                             </div>
                             <div class="hero-collage-cell">
-                                <img src="{{ $photo3 }}" alt="Aktivitas HIMATIKA 3">
-                            </div>
-                            <div class="hero-collage-cell">
-                                <img src="{{ $photo4 }}" alt="Aktivitas HIMATIKA 4">
+                                <img src="{{ $photo4 }}" alt="Kader & Pengurus HIMATIKA">
                             </div>
                         </div>
 
-                        {{-- Center Emblem Badge --}}
+                        {{-- Center Floating Emblem Badge --}}
                         <div class="hero-collage-emblem">
                             <div class="hero-collage-emblem-logo">
-                                @if($globalProfile && $globalProfile->logo && file_exists(public_path('storage/' . $globalProfile->logo)))
-                                    <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo HIMATIKA">
-                                @elseif(!empty($siteSettings['main_logo']) && file_exists(public_path('storage/' . $siteSettings['main_logo'])))
-                                    <img src="{{ asset('storage/' . $siteSettings['main_logo']) }}" alt="Logo HIMATIKA">
-                                @else
-                                    <i class="fas fa-infinity" style="color: #711C35; font-size: 1.4rem;"></i>
-                                @endif
+                                <img src="{{ $logoEmblem }}" alt="Logo HIMATIKA">
                             </div>
                             <div>
                                 <div class="hero-collage-emblem-title">HIMATIKA</div>
                                 <div class="hero-collage-emblem-sub">FMIPA UNUJA</div>
                             </div>
                         </div>
-
-                        {{-- Overlapping Front Card (Main Visual / Team) --}}
-                        <div class="hero-collage-front-card">
-                            <img src="{{ $mainPhoto }}" alt="HIMATIKA UNUJA 2026">
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
         </div>
     </div>
 </section>
