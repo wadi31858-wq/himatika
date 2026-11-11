@@ -4,7 +4,7 @@
 
 {{-- ==================== BAGIAN 1: SAMPUL (HERO) ==================== --}}
 <section class="hero-modern-section" id="hero">
-    {{-- Background Campus Photo with Elegant Overlay --}}
+    {{-- Background Campus Photo with Translucent White Overlay --}}
     <div class="hero-bg-photo-wrapper" aria-hidden="true">
         @if(!empty($profile->hero_image))
             <img src="{{ asset('storage/' . $profile->hero_image) }}" alt="{{ $profile->hero_image_alt ?? 'Kampus UNUJA' }}" class="hero-bg-photo">
@@ -15,19 +15,26 @@
     </div>
 
     <div class="container position-relative" style="z-index: 2;">
-        <div class="row align-items-center gy-5 gy-lg-0">
-            {{-- Left Content --}}
-            <div class="col-lg-6 pe-lg-4">
+        <div class="row align-items-center hero-grid-row gx-lg-5 gy-5 gy-lg-0">
+            {{-- Left Content (~45% on desktop) --}}
+            <div class="col-lg-5 hero-col-content">
                 {{-- Badge Capsule & Companion Text --}}
                 <div class="hero-badge-container mb-3">
                     <div class="hero-navy-capsule">
                         <i class="fas fa-graduation-cap me-1"></i>
                         <span>{{ $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA' }}</span>
                     </div>
-                    <div class="hero-tag-companion">
-                        <span class="hero-tag-vbar"></span>
-                        <span>{{ $profile->hero_tagline ?? 'Synchronized Growth, Reaching New Heights' }}</span>
-                    </div>
+                    @if(!empty($profile->hero_tagline))
+                        <div class="hero-tag-companion">
+                            <span class="hero-tag-vbar"></span>
+                            <span>{{ $profile->hero_tagline }}</span>
+                        </div>
+                    @else
+                        <div class="hero-tag-companion">
+                            <span class="hero-tag-vbar"></span>
+                            <span>Synchronized Growth, Reaching New Heights</span>
+                        </div>
+                    @endif
                 </div>
 
                 {{-- Main Title --}}
@@ -39,28 +46,69 @@
                     {{ $profile->hero_desc ?? 'Ruang resmi mahasiswa Matematika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.' }}
                 </p>
 
-                {{-- Action Buttons --}}
-                <div class="hero-new-btn-group d-flex gap-3 flex-wrap">
-                    <a href="{{ $profile->hero_btn_primary_url ?? route('kontak') }}" class="btn-hero-primary">
-                        <i class="fas fa-home"></i>
+                {{-- Action Buttons: Stacked vertically with consistent width, navy background, white text, and right arrow --}}
+                <div class="hero-vertical-buttons">
+                    <a href="{{ $profile->hero_btn_primary_url ?? route('kontak') }}" class="btn-hero-navy btn-hero-primary">
                         <span>{{ $profile->hero_btn_primary_text ?? 'Hubungi Kami' }}</span>
+                        <i class="fas fa-caret-right"></i>
                     </a>
-                    <a href="{{ $profile->hero_btn_secondary_url ?? route('profil') }}" class="btn-hero-outline">
-                        <i class="fas fa-user"></i>
+                    <a href="{{ $profile->hero_btn_secondary_url ?? route('profil') }}" class="btn-hero-navy btn-hero-outline">
                         <span>{{ $profile->hero_btn_secondary_text ?? 'Pelajari Profil' }}</span>
+                        <i class="fas fa-caret-right"></i>
                     </a>
                 </div>
             </div>
 
-            {{-- Right Visual: Rectangular Wide Frame --}}
-            <div class="col-lg-6 ps-lg-4">
+            {{-- Right Visual: Large Rounded Frame with Collage (~55% on desktop) --}}
+            <div class="col-lg-7 hero-col-visual">
                 <div class="hero-frame-wrapper">
-                    <div class="hero-wide-card">
-                        @if($globalProfile && $globalProfile->image)
-                            <img src="{{ asset('storage/' . $globalProfile->image) }}" alt="HIMATIKA UNUJA 2026" class="hero-wide-img">
-                        @else
-                            <img src="{{ asset('storage/profile/MmO6PGEjnheZras5q3R0WVRZ8WpodO9mDExn1wgH.jpg') }}" alt="HIMATIKA UNUJA 2026" class="hero-wide-img">
-                        @endif
+                    <div class="hero-visual-frame">
+                        @php
+                            $mainPhoto = ($globalProfile && $globalProfile->image)
+                                ? asset('storage/' . $globalProfile->image)
+                                : asset('storage/profile/MmO6PGEjnheZras5q3R0WVRZ8WpodO9mDExn1wgH.jpg');
+
+                            $photo1 = (isset($news[0]) && $news[0]->image) ? asset('storage/' . $news[0]->image) : asset('images/news/news-1.jpg');
+                            $photo2 = (isset($news[1]) && $news[1]->image) ? asset('storage/' . $news[1]->image) : asset('images/news/news-2.jpg');
+                            $photo3 = (isset($news[2]) && $news[2]->image) ? asset('storage/' . $news[2]->image) : asset('images/news/news-3.jpg');
+                            $photo4 = (isset($news[3]) && $news[3]->image) ? asset('storage/' . $news[3]->image) : asset('images/news/news-4.jpg');
+                        @endphp
+
+                        {{-- Collage Grid --}}
+                        <div class="hero-collage-grid" aria-hidden="true">
+                            <div class="hero-collage-cell">
+                                <img src="{{ $photo1 }}" alt="Aktivitas HIMATIKA 1">
+                            </div>
+                            <div class="hero-collage-cell">
+                                <img src="{{ $photo2 }}" alt="Aktivitas HIMATIKA 2">
+                            </div>
+                            <div class="hero-collage-cell">
+                                <img src="{{ $photo3 }}" alt="Aktivitas HIMATIKA 3">
+                            </div>
+                            <div class="hero-collage-cell">
+                                <img src="{{ $photo4 }}" alt="Aktivitas HIMATIKA 4">
+                            </div>
+                        </div>
+
+                        {{-- Center Emblem Badge --}}
+                        <div class="hero-collage-emblem">
+                            <div class="hero-collage-emblem-logo">
+                                @if($globalProfile && $globalProfile->logo)
+                                    <img src="{{ asset('storage/' . $globalProfile->logo) }}" alt="Logo HIMATIKA">
+                                @else
+                                    <i class="fas fa-infinity" style="color: #002B66; font-size: 1.4rem;"></i>
+                                @endif
+                            </div>
+                            <div>
+                                <div class="hero-collage-emblem-title">HIMATIKA</div>
+                                <div class="hero-collage-emblem-sub">FMIPA UNUJA</div>
+                            </div>
+                        </div>
+
+                        {{-- Overlapping Front Card (Main Visual / Team) --}}
+                        <div class="hero-collage-front-card">
+                            <img src="{{ $mainPhoto }}" alt="HIMATIKA UNUJA 2026">
+                        </div>
                     </div>
                 </div>
             </div>
