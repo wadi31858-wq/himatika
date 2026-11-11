@@ -1,11 +1,27 @@
 @extends('layouts.app')
-@section('title', 'Struktur Organisasi')
+@section('title', 'Struktur Organisasi - HIMATIKA UNUJA 2026')
 @section('content')
 
 <style>
+    /* ========================================================
+       THEME VARIABLES & BASE
+       ======================================================== */
+    :root {
+        --bg-dark: #1A0A0F;
+        --burgundy-main: #711C35;
+        --burgundy-hover: #541326;
+        --burgundy-focus: #A33B59;
+        --rose-soft: #F4D6DE;
+        --rose-pale: #FFF7F9;
+        --text-dark: #28151D;
+        --border-rose: #E9CDD5;
+        --pure-white: #FFFFFF;
+    }
+
     .breadcrumb-section {
-        background: #FFF7F9;
+        background: var(--rose-pale);
         padding: 96px 0 10px;
+        border-bottom: 1px solid var(--border-rose);
     }
     .breadcrumb-section .breadcrumb {
         margin-bottom: 0;
@@ -13,17 +29,18 @@
         padding: 0;
     }
     .breadcrumb-section .breadcrumb-item a {
-        color: var(--dark-green);
+        color: var(--burgundy-main);
         text-decoration: none;
         font-weight: 600;
         font-size: 0.85rem;
-        transition: var(--transition);
+        transition: all 0.2s ease;
     }
     .breadcrumb-section .breadcrumb-item a:hover {
-        color: var(--gold);
+        color: var(--burgundy-hover);
+        text-decoration: underline;
     }
     .breadcrumb-section .breadcrumb-item.active {
-        color: rgba(113, 28, 53, 0.7);
+        color: rgba(40, 21, 29, 0.7);
         font-size: 0.85rem;
     }
     .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before {
@@ -34,14 +51,15 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        color: var(--dark-green);
+        color: var(--burgundy-main);
         text-decoration: none;
         font-weight: 600;
         font-size: 0.85rem;
-        transition: var(--transition);
+        transition: all 0.2s ease;
     }
     .back-link:hover {
-        color: var(--gold);
+        color: var(--burgundy-hover);
+        transform: translateX(-2px);
     }
 
     .breadcrumb-row {
@@ -52,12 +70,14 @@
         gap: 8px;
     }
 
+    /* ========================================================
+       HERO BANNER
+       ======================================================== */
     .hero-section {
-        background: #FFF7F9;
-        padding: 20px 0 30px;
+        background: var(--rose-pale);
+        padding: 24px 0 36px;
         position: relative;
         overflow: hidden;
-        min-height: auto;
     }
     .hero-section::before {
         content: '';
@@ -77,340 +97,440 @@
     }
     .hero-label {
         display: inline-block;
-        background: var(--primary-green);
+        background: var(--burgundy-main);
         color: #fff;
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
         padding: 6px 18px;
         border-radius: 50px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
     }
     .hero-heading {
-        font-size: 2rem;
+        font-size: 2.1rem;
         font-weight: 800;
-        color: var(--dark-text);
-        line-height: 1.2;
-        margin-bottom: 8px;
+        color: var(--text-dark);
+        line-height: 1.25;
+        margin-bottom: 10px;
     }
     .hero-desc {
-        font-size: 0.95rem;
-        color: rgba(15, 23, 42, 0.6);
-        max-width: 560px;
-        line-height: 1.5;
+        font-size: 0.96rem;
+        color: rgba(40, 21, 29, 0.72);
+        max-width: 680px;
+        line-height: 1.6;
         margin-bottom: 0;
     }
 
+    /* ========================================================
+       ORG SECTION & CHART
+       ======================================================== */
     .org-section {
-        background: #FFF7F9;
-        padding: 0 0 60px;
+        background: var(--rose-pale);
+        padding: 10px 0 70px;
         position: relative;
     }
 
     .org-chart {
         position: relative;
-        max-width: 1100px;
+        max-width: 1080px;
         margin: 0 auto;
     }
 
-    /* Elegant Tree Connectors */
+    /* Connectors */
     .tree-connector {
         width: 2px;
         margin: 0 auto;
-        background-color: var(--deep-teal);
+        background-color: var(--burgundy-main);
         position: relative;
     }
     .tree-connector.dashed {
         background-color: transparent;
-        border-left: 2px dashed #A33B59;
+        border-left: 2px dashed var(--burgundy-focus);
     }
+    .tree-connector.h-16 { height: 16px; }
     .tree-connector.h-20 { height: 20px; }
     .tree-connector.h-24 { height: 24px; }
-    .tree-connector.h-32 { height: 32px; }
-    
-    .tree-branch-container {
+    .tree-connector.h-30 { height: 30px; }
+
+    /* Branch Split Lines */
+    .branch-split-bar {
         position: relative;
-        margin-top: 16px;
+        width: 60%;
+        margin: 0 auto;
+        height: 2px;
+        background: var(--burgundy-main);
     }
-    .tree-horizontal-line {
+    .branch-split-bar::before,
+    .branch-split-bar::after {
+        content: '';
         position: absolute;
         top: 0;
-        left: 25%;
-        width: 50%;
-        height: 2px;
-        background-color: var(--deep-teal);
+        width: 2px;
+        height: 16px;
+        background: var(--burgundy-main);
     }
-    
-    @media (max-width: 767.98px) {
-        .tree-horizontal-line { display: none; }
-        .tree-branch-container { margin-top: 0; }
-        .mobile-hide-line { display: none !important; }
-    }
+    .branch-split-bar::before { left: 0; }
+    .branch-split-bar::after { right: 0; }
 
-    /* Level labels */
+    /* Level Labels */
     .level-label {
         text-align: center;
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 2.5px;
-        text-transform: uppercase;
-        color: rgba(15, 23, 42, 0.45);
-        margin-bottom: 8px;
-    }
-    .level-label.gold { color: var(--gold); }
-
-    .branch-label {
-        text-align: center;
-        font-size: 0.68rem;
+        font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
         text-transform: uppercase;
-        color: var(--deep-teal);
-        background: rgba(113, 28, 53, 0.07);
-        display: inline-block;
-        padding: 5px 16px;
-        border-radius: 50px;
-        margin-bottom: 16px;
-    }
-
-    /* Cards */
-    .org-card {
-        background: #FFFFFF;
-        border: 1px solid rgba(0,0,0,.04);
-        border-radius: 12px;
-        padding: 20px 22px;
-        box-shadow: 0 4px 14px rgba(0,0,0,.03);
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-    }
-    .org-card:hover {
-        box-shadow: 0 8px 24px rgba(0,0,0,.06);
-        transform: translateY(-2px);
-    }
-    .org-card.gold-border {
-        border: 1.5px solid rgba(163, 59, 89, 0.3);
-    }
-    .org-card.gold-border::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 4px;
-        background: var(--gold);
-    }
-    .org-card.teal-border {
-        border: 1.5px solid rgba(113, 28, 53, 0.2);
-    }
-    .org-card.teal-border::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #711C35, #1A0A0F);
-    }
-
-    .card-body-inner {
-        display: block;
-    }
-
-    .card-title-text {
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: var(--dark-text);
-        margin-bottom: 4px;
-    }
-    .card-subtitle-badge {
-        display: inline-block;
-        font-size: 0.76rem;
-        font-weight: 600;
-        padding: 2px 10px;
-        border-radius: 50px;
+        color: var(--burgundy-main);
         margin-bottom: 8px;
     }
-    .card-subtitle-badge.gold {
-        background: rgba(163, 59, 89, 0.12);
-        color: #711C35;
-    }
-    .card-subtitle-badge.teal {
-        background: rgba(113, 28, 53, 0.1);
-        color: #28151D;
-    }
-    .card-desc {
-        font-size: 0.85rem;
-        color: rgba(15, 23, 42, 0.65);
-        line-height: 1.6;
-        margin-bottom: 0;
+
+    .column-header-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--burgundy-main);
+        background: var(--rose-soft);
+        border: 1px solid var(--border-rose);
+        padding: 6px 18px;
+        border-radius: 50px;
+        margin-bottom: 12px;
     }
 
-    .card-footer-inner {
-        border-top: 1px solid rgba(0,0,0,.05);
-        margin-top: 16px;
-        padding-top: 12px;
+    /* ========================================================
+       CHART CARDS (NO PHOTOS)
+       ======================================================== */
+    .chart-card {
+        background: var(--pure-white);
+        border: 1px solid var(--border-rose);
+        border-radius: 14px;
+        padding: 20px 22px;
+        box-shadow: 0 4px 16px rgba(113, 28, 53, 0.04);
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+        text-align: left;
+    }
+    .chart-card:hover {
+        box-shadow: 0 8px 24px rgba(113, 28, 53, 0.09);
+        transform: translateY(-2px);
+        border-color: var(--burgundy-focus);
+    }
+    .chart-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3.5px;
+        background: linear-gradient(90deg, var(--burgundy-main), var(--burgundy-focus));
+    }
+    .chart-card.gold-top::before {
+        background: linear-gradient(90deg, #D4AF37, var(--burgundy-main));
+    }
+
+    .chart-badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 50px;
+        background: var(--rose-soft);
+        color: var(--burgundy-main);
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .chart-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 4px;
+        line-height: 1.3;
+    }
+
+    .chart-officer {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--burgundy-main);
+        margin-bottom: 6px;
+    }
+
+    .chart-desc {
+        font-size: 0.83rem;
+        color: rgba(40, 21, 29, 0.7);
+        line-height: 1.55;
+        margin-bottom: 14px;
+    }
+
+    .chart-card-footer {
+        border-top: 1px solid rgba(233, 205, 213, 0.6);
+        padding-top: 10px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
     }
-    .card-footer-left {
-        font-size: 0.8rem;
-        color: rgba(15, 23, 42, 0.5);
-        font-weight: 500;
-    }
-    .card-footer-link {
+
+    .link-detail {
         font-size: 0.82rem;
-        font-weight: 600;
-        color: var(--deep-teal);
+        font-weight: 700;
+        color: var(--burgundy-main);
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 4px;
-        transition: var(--transition);
+        transition: all 0.2s ease;
     }
-    .card-footer-link:hover {
-        color: var(--primary-green);
-    }
-    .card-footer-link.gold-link {
-        color: var(--gold);
-    }
-    .card-footer-link.gold-link:hover {
-        color: #711C35;
+    .link-detail:hover {
+        color: var(--burgundy-hover);
+        text-decoration: none;
+        transform: translateX(3px);
     }
 
-    .org-card-center {
-        max-width: 480px;
+    .chart-card-center {
+        max-width: 500px;
         margin: 0 auto;
     }
 
-    .biro-grid {
+    /* ========================================================
+       DIVISI SECTION & 5 CARDS
+       ======================================================== */
+    .divisi-section-wrap {
+        margin-top: 50px;
+        padding-top: 36px;
+        border-top: 1px solid var(--border-rose);
+        position: relative;
+    }
+
+    .divisi-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 28px;
     }
 
-    .biro-card {
-        background: #fff;
-        border: 1px solid rgba(0,0,0,.05);
-        border-radius: 12px;
-        padding: 18px 20px;
-        box-shadow: 0 1px 8px rgba(0,0,0,.04);
-        transition: var(--transition);
+    @media (max-width: 991.98px) {
+        .divisi-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
-    .biro-card:hover {
-        box-shadow: 0 6px 20px rgba(0,0,0,.08);
-        transform: translateY(-1px);
+    @media (max-width: 640px) {
+        .divisi-grid {
+            grid-template-columns: 1fr;
+        }
     }
-    .biro-card-title {
-        font-size: 0.88rem;
-        font-weight: 700;
-        color: var(--dark-text);
-        margin-bottom: 4px;
-    }
-    .biro-card-desc {
-        font-size: 0.78rem;
-        color: rgba(15, 23, 42, 0.5);
-        line-height: 1.55;
-        margin-bottom: 10px;
-    }
-    .biro-card-footer {
+
+    .divisi-card {
+        background: var(--pure-white);
+        border: 1px solid var(--border-rose);
+        border-radius: 14px;
+        padding: 24px 22px;
+        box-shadow: 0 3px 14px rgba(113, 28, 53, 0.04);
+        transition: all 0.25s ease;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
-        border-top: 1px solid rgba(0,0,0,.04);
-        padding-top: 8px;
+        position: relative;
+        overflow: hidden;
     }
-    .biro-card-footer .card-footer-left {
-        font-size: 0.75rem;
+    .divisi-card:hover {
+        border-color: var(--burgundy-main);
+        box-shadow: 0 8px 24px rgba(113, 28, 53, 0.1);
+        transform: translateY(-3px);
+    }
+    .divisi-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--burgundy-main);
     }
 
+    .divisi-icon-wrap {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: var(--rose-soft);
+        color: var(--burgundy-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 14px;
+    }
+
+    .divisi-card-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+
+    .divisi-card-desc {
+        font-size: 0.85rem;
+        color: rgba(40, 21, 29, 0.7);
+        line-height: 1.55;
+        margin-bottom: 18px;
+        flex-grow: 1;
+    }
+
+    .btn-divisi {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: var(--burgundy-main);
+        color: #ffffff !important;
+        font-size: 0.83rem;
+        font-weight: 600;
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        border: 1px solid var(--burgundy-main);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        width: 100%;
+    }
+    .btn-divisi:hover {
+        background: var(--burgundy-hover);
+        border-color: var(--burgundy-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(113, 28, 53, 0.2);
+    }
+    .btn-divisi:focus-visible {
+        outline: 2px solid var(--burgundy-focus);
+        outline-offset: 2px;
+    }
+
+    /* ========================================================
+       POP-UP MODAL (DIVISI)
+       ======================================================== */
+    .divisi-modal-overlay {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        width: 100%; height: 100%;
+        background: rgba(26, 10, 15, 0.65);
+        backdrop-filter: blur(4px);
+        z-index: 1050;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+    }
+    .divisi-modal-overlay.show {
+        display: flex;
+        opacity: 1;
+    }
+
+    .divisi-modal-dialog {
+        background: var(--pure-white);
+        width: 100%;
+        max-width: 540px;
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 18px;
+        padding: 32px 28px 24px;
+        position: relative;
+        box-shadow: 0 16px 40px rgba(26, 10, 15, 0.25);
+        border: 1px solid var(--border-rose);
+        transform: translateY(20px);
+        transition: transform 0.25s ease;
+    }
+    .divisi-modal-overlay.show .divisi-modal-dialog {
+        transform: translateY(0);
+    }
+
+    .divisi-modal-close {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        background: var(--rose-pale);
+        border: 1px solid var(--border-rose);
+        color: var(--text-dark);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+    .divisi-modal-close:hover {
+        background: var(--rose-soft);
+        color: var(--burgundy-main);
+    }
+    .divisi-modal-close:focus-visible {
+        outline: 2px solid var(--burgundy-focus);
+    }
+
+    .modal-member-card {
+        background: var(--rose-pale);
+        border: 1px solid var(--border-rose);
+        border-radius: 14px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 16px;
+    }
+    .modal-photo-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 12px;
+        border: 3px solid var(--burgundy-main);
+        display: block;
+        background: var(--rose-soft);
+    }
+    .modal-photo-placeholder {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto 12px;
+        border: 3px solid var(--border-rose);
+        background: var(--rose-soft);
+        color: var(--burgundy-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+    }
+
+    .slider-nav-btn {
+        background: var(--pure-white);
+        border: 1px solid var(--border-rose);
+        color: var(--burgundy-main);
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .slider-nav-btn:hover {
+        background: var(--rose-soft);
+        color: var(--burgundy-hover);
+        border-color: var(--burgundy-focus);
+    }
+    .slider-nav-btn:focus-visible {
+        outline: 2px solid var(--burgundy-focus);
+    }
+
+    /* Mobile Responsive Tweaks */
     @media (max-width: 767.98px) {
+        .branch-split-bar { display: none; }
         .hero-heading { font-size: 1.7rem; }
-        .hero-section { padding: 40px 0 32px; }
-        .org-section { padding: 32px 0 48px; }
-        .biro-grid { grid-template-columns: 1fr; }
-        .org-card-center { max-width: 100%; }
-        .branch-split::before, .branch-split::after { display: none; }
+        .chart-card { margin-bottom: 16px; }
         .breadcrumb-row { flex-direction: column; align-items: flex-start; }
     }
-    @media (max-width: 575.98px) {
-        .org-card { padding: 16px 18px; }
-    }
 </style>
-
-<script>
-// Serialize members from PHP
-const allMembers = @json($members ?? []);
-let currentModalMembers = [];
-let currentSlideIndex = 0;
-let currentStructId = 1;
-
-function updateModalView() {
-    if(currentModalMembers.length === 0) return;
-    
-    const member = currentModalMembers[currentSlideIndex];
-    document.getElementById('modalName').textContent = member.name;
-    document.getElementById('modalDivision').textContent = member.position; // Kepala Biro, etc.
-    
-    document.getElementById('slideCounter').textContent = (currentSlideIndex + 1) + ' / ' + currentModalMembers.length;
-    
-    // Render dots
-    const dotsContainer = document.getElementById('slideDots');
-    dotsContainer.innerHTML = '';
-    for(let i=0; i<currentModalMembers.length; i++) {
-        let dot = document.createElement('span');
-        if(i === currentSlideIndex) {
-            dot.style.cssText = "width: 24px; height: 4px; background: #711C35; border-radius: 2px;";
-        } else {
-            dot.style.cssText = "width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%; align-self: center; cursor: pointer;";
-            dot.onclick = () => { currentSlideIndex = i; updateModalView(); };
-        }
-        dotsContainer.appendChild(dot);
-    }
-}
-
-function slidePrev() {
-    if(currentModalMembers.length <= 1) return;
-    currentSlideIndex--;
-    if(currentSlideIndex < 0) currentSlideIndex = currentModalMembers.length - 1;
-    updateModalView();
-}
-
-function slideNext() {
-    if(currentModalMembers.length <= 1) return;
-    currentSlideIndex++;
-    if(currentSlideIndex >= currentModalMembers.length) currentSlideIndex = 0;
-    updateModalView();
-}
-
-function openDetailModal(title, desc, photo, structId) {
-    document.getElementById('modalPosition').textContent = title;
-    document.getElementById('modalDesc').textContent = desc;
-    
-    currentStructId = structId || 1;
-    
-    // Find members for this division/title
-    currentModalMembers = allMembers.filter(m => m.division === title || m.position === title);
-    
-    // Fallback if no members found
-    if(currentModalMembers.length === 0) {
-        currentModalMembers = [{
-            name: 'Belum ada data',
-            position: '-',
-            photo: null
-        }];
-    }
-    
-    currentSlideIndex = 0;
-    updateModalView();
-    
-    let baseUrl = "{{ route('struktur-organisasi.show', ':id') }}";
-    document.getElementById('modalDetailLink').href = baseUrl.replace(':id', currentStructId);
-
-    document.getElementById('detailModal').classList.add('show');
-}
-
-function closeDetailModal() {
-    document.getElementById('detailModal').classList.remove('show');
-}
-</script>
 
 {{-- ==================== BREADCRUMB ==================== --}}
 <section class="breadcrumb-section">
@@ -422,204 +542,253 @@ function closeDetailModal() {
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-                    <li class="breadcrumb-item active">Struktur HIMATIKA UNUJA 2026</li>
+                    <li class="breadcrumb-item"><a href="{{ route('struktur-organisasi') }}">Tentang</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Struktur Organisasi</li>
                 </ol>
             </nav>
         </div>
     </div>
 </section>
 
-{{-- ==================== HERO ==================== --}}
+{{-- ==================== HERO BANNER ==================== --}}
 <section class="hero-section">
-    <div class="container" style="position:relative;z-index:1;" data-aos="zoom-in">
+    <div class="container" style="position:relative; z-index:1;">
         <span class="hero-label">STRUKTUR ORGANISASI</span>
         <h1 class="hero-heading">Struktur HIMATIKA<br>UNUJA 2026</h1>
-        <p class="hero-desc">Kenali pengurus dan peran setiap unit yang menggerakkan HIMATIKA UNUJA periode 2026.</p>
+        <p class="hero-desc">Kenali susunan kepengurusan, jalur koordinasi Putra &amp; Putri, serta lima divisi penggerak HIMATIKA FMIPA UNUJA periode 2026.</p>
     </div>
 </section>
 
-{{-- ==================== ORG CHART ==================== --}}
+{{-- ==================== MAIN ORG CHART ==================== --}}
 <section class="org-section">
     <div class="container">
         <div class="org-chart">
 
-            {{-- LEVEL 1: KAPRODI --}}
-            <div class="level-label gold">KAPRODI</div>
-            <div class="org-card-center mx-auto mb-0">
-                <div class="org-card gold-border">
-                    <div class="card-body-inner">
-                        @php
-                            $kaprodi = collect($members)->first(function($m) {
-                                $pos = strtolower($m->position ?? '');
-                                $div = strtolower($m->division ?? '');
-                                return str_contains($pos, 'kaprodi') || str_contains($pos, 'ketua program studi') || str_contains($div, 'kaprodi') || str_contains($pos, 'pembina');
-                            });
-                        @endphp
-                        <div>
-                            <span class="card-subtitle-badge gold">Pembina / Kaprodi</span>
-                            <div class="card-title-text">{{ $kaprodi?->name ?? 'Ketua Program Studi' }}</div>
-                            <div style="color: var(--gold); font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</div>
-                            <p class="card-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika.' }}</p>
-                        </div>
+            {{-- LEVEL 1: PEMBINA / KAPRODI --}}
+            <div class="level-label">PEMBINA / KETUA PROGRAM STUDI</div>
+            <div class="chart-card-center mb-0">
+                <div class="chart-card gold-top">
+                    <span class="chart-badge">Pembina / Kaprodi</span>
+                    <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</h3>
+                    <div class="chart-officer">{{ $kaprodi?->name ?? 'Ketua Program Studi Matematika' }}</div>
+                    <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika FMIPA UNUJA.' }}</p>
+                    <div class="chart-card-footer">
+                        <a href="{{ route('struktur-organisasi.show', $kaprodi?->id ?? 12) }}" class="link-detail">
+                            Lihat Detail &rarr;
+                        </a>
                     </div>
                 </div>
             </div>
 
-            {{-- Connector: Gold Dashed --}}
+            {{-- Vertical Connector to Branch Split --}}
             <div class="tree-connector dashed h-24"></div>
 
-            {{-- LEVEL 2: KETUA UMUM --}}
-            <div class="level-label mb-2">KETUA UMUM</div>
-            <div class="tree-connector h-20 mb-2"></div>
-            <div class="org-card-center mx-auto mb-0">
-                <div class="org-card teal-border">
-                    <div class="card-body-inner">
-                        @php
-                            $ketua = collect($members)->firstWhere('id', 1);
-                        @endphp
-                        <div>
-                            <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
-                            <div class="card-title-text">{{ $ketua?->name ?? 'Ketua Umum' }}</div>
-                            <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $ketua?->position ?? 'Ketua Umum HIMATIKA' }}</div>
-                            <p class="card-desc">{{ $ketua?->description ?? 'Memimpin dan mengoordinasikan seluruh kegiatan HIMATIKA serta bertanggung jawab atas arah organisasi.' }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{-- Branch Split Bar (Desktop) --}}
+            <div class="branch-split-bar d-none d-md-block"></div>
+            <div class="tree-connector h-16 d-none d-md-block"></div>
 
-            {{-- Connector: Teal --}}
-            <div class="tree-connector h-24"></div>
+            {{-- LEVEL 2, 3, 4: TWO-COLUMN LAYOUT (KOLOM PUTRA & KOLOM PUTRI) --}}
+            <div class="row g-4 mt-0">
 
-            {{-- LEVEL 3: WAKIL KETUA UMUM --}}
-            <div class="level-label mb-2">WAKIL KETUA UMUM</div>
-            <div class="tree-connector h-20 mb-2"></div>
-            <div class="org-card-center mx-auto mb-0">
-                <div class="org-card teal-border">
-                    <div class="card-body-inner">
-                        @php
-                            $wakil = collect($members)->firstWhere('id', 2);
-                        @endphp
-                        <div>
-                            <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
-                            <div class="card-title-text">{{ $wakil?->name ?? 'Wakil Ketua Umum' }}</div>
-                            <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $wakil?->position ?? 'Wakil Ketua Umum HIMATIKA' }}</div>
-                            <p class="card-desc">{{ $wakil?->description ?? 'Menjadi second leader yang memperkuat koordinasi dan mengawal kerja internal kepengurusan HIMATIKA.' }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Connector: Teal to branch --}}
-            <div class="tree-connector h-24 mobile-hide-line"></div>
-
-            {{-- LEVEL 4: BRANCHES --}}
-            <div class="tree-branch-container row g-4 mt-0">
-                <div class="tree-horizontal-line"></div>
-
-                {{-- LEFT: ADMINISTRASI & INTERNAL --}}
-                <div class="col-lg-6 col-md-6 position-relative">
-                    <div class="tree-connector h-20 mb-2 mobile-hide-line"></div>
+                {{-- ==================== KOLOM PUTRA ==================== --}}
+                <div class="col-md-6">
                     <div class="text-center mb-3">
-                        <span class="branch-label">ADMINISTRASI & INTERNAL</span>
+                        <span class="column-header-badge">
+                            <i class="fas fa-user-tie"></i> Kepengurusan Putra
+                        </span>
                     </div>
-                    <div class="tree-connector h-24"></div>
 
-                    {{-- Sekretaris Umum --}}
-                    <div class="org-card teal-border mb-3">
-                        <div class="card-body-inner">
-                            @php
-                                $sekretaris = collect($members)->firstWhere('id', 3);
-                            @endphp
-                            <div>
-                                <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
-                                <div class="card-title-text">{{ $sekretaris?->name ?? 'Sekretaris Umum' }}</div>
-                                <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $sekretaris?->position ?? 'Sekretaris Umum HIMATIKA' }}</div>
-                                <p class="card-desc">{{ $sekretaris?->description ?? 'Mengoordinasikan kesekretariatan, administrasi, dan arsip agar kerja organisasi terdokumentasi dengan tertib.' }}</p>
-                            </div>
+                    {{-- Baris 1: Ketua Umum Putra --}}
+                    <div class="chart-card mb-3">
+                        <span class="chart-badge">Badan Pengurus Harian</span>
+                        <h4 class="chart-title">Ketua Umum Putra</h4>
+                        <div class="chart-officer">{{ $ketuaPutra?->name ?? 'Ahmad Rizki' }}</div>
+                        <p class="chart-desc">{{ $ketuaPutra?->description ?? 'Memimpin dan mengoordinasikan seluruh jajaran kepengurusan HIMATIKA UNUJA Putra serta bertanggung jawab penuh atas arah gerak organisasi kemahasiswaan putra.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $ketuaPutra?->id ?? 1) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
                         </div>
                     </div>
 
+                    {{-- Connector to Sekretaris Putra --}}
                     <div class="tree-connector h-20"></div>
 
-                    <div class="biro-grid">
-                        <div class="biro-card">
-                            @php $biroAdm = collect($members)->firstWhere('id', 5); @endphp
-                            <div class="biro-card-title">{{ $biroAdm?->division ?? 'Biro Administrasi Kesekretariatan' }}</div>
-                            <p class="biro-card-desc">{{ $biroAdm?->description ?? 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.' }}</p>
-                            <div class="biro-card-footer">
-                                <span class="card-footer-left">Biro Kesekretariatan</span>
-                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroAdm?->division ?? 'Biro Administrasi Kesekretariatan' }}', 'Mengelola administrasi, arsip, dan kebutuhan kesekretariatan organisasi.', null, 5)">Rincian &rarr;</a>
-                            </div>
+                    {{-- Baris 2: Sekretaris Putra --}}
+                    <div class="chart-card mb-3">
+                        <span class="chart-badge">Badan Pengurus Harian</span>
+                        <h4 class="chart-title">Sekretaris Putra</h4>
+                        <div class="chart-officer">{{ $sekretarisPutra?->name ?? 'Budi Santoso' }}</div>
+                        <p class="chart-desc">{{ $sekretarisPutra?->description ?? 'Mengoordinasikan tata kelola kesekretariatan, administrasi persuratan, notulensi rapat, dan tertib arsip digital kepengurusan HIMATIKA UNUJA Putra.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $sekretarisPutra?->id ?? 3) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
                         </div>
-                        <div class="biro-card">
-                            @php $biroKons = collect($members)->firstWhere('id', 6); @endphp
-                            <div class="biro-card-title">{{ $biroKons?->division ?? 'Biro Konsolidasi Lembaga' }}</div>
-                            <p class="biro-card-desc">{{ $biroKons?->description ?? 'Memantau keaktifan dan konsolidasi kepengurusan.' }}</p>
-                            <div class="biro-card-footer">
-                                <span class="card-footer-left">Biro Konsolidasi</span>
-                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKons?->division ?? 'Biro Konsolidasi Lembaga' }}', 'Memantau keaktifan pengurus, menumbuhkan rasa memiliki, dan menjaga kekompakan internal HIMATIKA.', null, 6)">Rincian &rarr;</a>
-                            </div>
+                    </div>
+
+                    {{-- Connector to Bendahara Putra --}}
+                    <div class="tree-connector h-20"></div>
+
+                    {{-- Baris 3: Bendahara Putra --}}
+                    <div class="chart-card">
+                        <span class="chart-badge">Badan Pengurus Harian</span>
+                        <h4 class="chart-title">Bendahara Putra</h4>
+                        <div class="chart-officer">{{ $bendaharaPutra?->name ?? 'M. Farhan' }}</div>
+                        <p class="chart-desc">{{ $bendaharaPutra?->description ?? 'Mengoordinasikan kebendaharaan, pencatatan transaksi kas masuk dan keluar, serta penyusunan anggaran dan laporan keuangan HIMATIKA UNUJA Putra.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $bendaharaPutra?->id ?? 11) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                {{-- RIGHT: KEUANGAN & KEMANDIRIAN --}}
-                <div class="col-lg-6 col-md-6 position-relative">
-                    <div class="tree-connector h-20 mb-2 mobile-hide-line"></div>
+                {{-- ==================== KOLOM PUTRI ==================== --}}
+                <div class="col-md-6">
                     <div class="text-center mb-3">
-                        <span class="branch-label">KEUANGAN & KEMANDIRIAN</span>
+                        <span class="column-header-badge">
+                            <i class="fas fa-user-circle"></i> Kepengurusan Putri
+                        </span>
                     </div>
-                    <div class="tree-connector h-24"></div>
 
-                    {{-- Bendahara Umum --}}
-                    <div class="org-card teal-border mb-3">
-                        <div class="card-body-inner">
-                            @php
-                                $bendahara = collect($members)->firstWhere('id', 4);
-                            @endphp
-                            <div>
-                                <span class="card-subtitle-badge teal">Badan Pengurus Harian</span>
-                                <div class="card-title-text">{{ $bendahara?->name ?? 'Bendahara Umum' }}</div>
-                                <div style="color: #711C35; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;">{{ $bendahara?->position ?? 'Bendahara Umum HIMATIKA' }}</div>
-                                <p class="card-desc">{{ $bendahara?->description ?? 'Mengoordinasikan kebendaharaan dan mengelola keuangan HIMATIKA secara efektif, efisien, dan bertanggung jawab.' }}</p>
-                            </div>
+                    {{-- Baris 1: Ketua Umum Putri --}}
+                    <div class="chart-card mb-3">
+                        <span class="chart-badge">Badan Pengurus Harian</span>
+                        <h4 class="chart-title">Ketua Umum Putri</h4>
+                        <div class="chart-officer">{{ $ketuaPutri?->name ?? 'Siti Nurhaliza' }}</div>
+                        <p class="chart-desc">{{ $ketuaPutri?->description ?? 'Memimpin dan mengoordinasikan seluruh jajaran kepengurusan HIMATIKA UNUJA Putri, memperkuat sinergi dan keharmonisan kepengurusan putri, serta mewakili himpunan.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $ketuaPutri?->id ?? 2) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
                         </div>
                     </div>
 
+                    {{-- Connector to Sekretaris Putri --}}
                     <div class="tree-connector h-20"></div>
 
-                    <div class="biro-grid">
-                        <div class="biro-card">
-                            @php $biroKeu = collect($members)->firstWhere('id', 7); @endphp
-                            <div class="biro-card-title">{{ $biroKeu?->division ?? 'Biro Administrasi Keuangan' }}</div>
-                            <p class="biro-card-desc">{{ $biroKeu?->description ?? 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.' }}</p>
-                            <div class="biro-card-footer">
-                                <span class="card-footer-left">Biro Keuangan</span>
-                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroKeu?->division ?? 'Biro Administrasi Keuangan' }}', 'Mengelola administrasi, pencatatan, dan kebutuhan keuangan organisasi.', null, 7)">Rincian &rarr;</a>
-                            </div>
+                    {{-- Baris 2: Sekretaris Putri --}}
+                    <div class="chart-card mb-3">
+                        <span class="chart-badge">Badan Pengurus Harian</span>
+                        <h4 class="chart-title">Sekretaris Putri</h4>
+                        <div class="chart-officer">{{ $sekretarisPutri?->name ?? 'Nurul Aini' }}</div>
+                        <p class="chart-desc">{{ $sekretarisPutri?->description ?? 'Mengoordinasikan administrasi, pengarsipan berkas kegiatan, dan dokumentasi musyawarah kepengurusan HIMATIKA UNUJA Putri secara rapi dan akurat.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $sekretarisPutri?->id ?? 10) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
                         </div>
-                        <div class="biro-card">
-                            @php $biroEko = collect($members)->firstWhere('id', 8); @endphp
-                            <div class="biro-card-title">{{ $biroEko?->division ?? 'Biro Ekonomi Kreatif' }}</div>
-                            <p class="biro-card-desc">{{ $biroEko?->description ?? 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.' }}</p>
-                            <div class="biro-card-footer">
-                                <span class="card-footer-left">Biro Ekonomi</span>
-                                <a href="javascript:void(0)" class="card-footer-link" style="font-size:0.78rem;" onclick="openDetailModal('{{ $biroEko?->division ?? 'Biro Ekonomi Kreatif' }}', 'Mengembangkan usaha, kemandirian, dan potensi ekonomi organisasi.', null, 8)">Rincian &rarr;</a>
-                            </div>
+                    </div>
+
+                    {{-- Connector to Bendahara Putri --}}
+                    <div class="tree-connector h-20"></div>
+
+                    {{-- Baris 3: Bendahara Putri --}}
+                    <div class="chart-card">
+                        <span class="chart-badge">Badan Pengurus Harian</span>
+                        <h4 class="chart-title">Bendahara Putri</h4>
+                        <div class="chart-officer">{{ $bendaharaPutri?->name ?? 'Dewi Lestari' }}</div>
+                        <p class="chart-desc">{{ $bendaharaPutri?->description ?? 'Mengoordinasikan pengelolaan kas dan kebendaharaan putri, memvalidasi anggaran program kerja, serta menyajikan laporan keuangan secara transparan.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $bendaharaPutri?->id ?? 4) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            {{-- DIAGRAM BAGAN RESMI HIMATIKA --}}
-            <div class="mt-5 pt-4">
-                <div class="text-center mb-4">
-                    <span class="branch-label"><i class="fas fa-project-diagram me-1"></i> DIAGRAM BAGAN STRUKTUR</span>
-                    <h3 class="fw-bold mt-2" style="font-size: 1.35rem; color: #28151D;">Diagram Bagan Alur Kepengurusan HIMATIKA</h3>
-                    <p class="text-secondary small mb-0">Diagram resmi bagan struktur organisasi HIMATIKA FMIPA UNUJA periode 2026.</p>
+            {{-- ==================== DIVISI HIMATIKA ==================== --}}
+            <div class="divisi-section-wrap">
+                <div class="text-center mb-2">
+                    <span class="hero-label">DIVISI HIMATIKA</span>
+                    <h2 class="fw-bold mt-2" style="font-size: 1.55rem; color: var(--text-dark);">Lima Divisi Penggerak HIMATIKA</h2>
+                    <p class="text-secondary small mb-0">Unit kerja strategis yang mengawal program kerja, keilmuan, kaderisasi, relasi, litbang, dan publikasi informasi.</p>
                 </div>
-                <div class="bg-white rounded-4 border shadow-sm p-3 p-md-4 mx-auto text-center" style="max-width: 1100px;">
+
+                <div class="divisi-grid">
+
+                    {{-- 1. Divisi Keilmuan --}}
+                    <div class="divisi-card">
+                        <div>
+                            <div class="divisi-icon-wrap">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="divisi-card-title">1. Divisi Keilmuan</h3>
+                            <p class="divisi-card-desc">Mengembangkan kapasitas akademik mahasiswa melalui kajian sains matematika murni dan terapan, tutorial sebaya, workshop matematika, serta pembinaan kompetisi olimpiade sains.</p>
+                        </div>
+                        <button type="button" class="btn-divisi" onclick="openDivisiModal('keilmuan', this)">
+                            Lihat Divisi &rarr;
+                        </button>
+                    </div>
+
+                    {{-- 2. Divisi Kaderisasi --}}
+                    <div class="divisi-card">
+                        <div>
+                            <div class="divisi-icon-wrap">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <h3 class="divisi-card-title">2. Divisi Kaderisasi</h3>
+                            <p class="divisi-card-desc">Mengawal pembinaan karakter kepemimpinan, proses kaderisasi dan orientasi mahasiswa baru, upgrading kapasitas pengurus, serta penanaman integritas dan loyalitas organisasi.</p>
+                        </div>
+                        <button type="button" class="btn-divisi" onclick="openDivisiModal('kaderisasi', this)">
+                            Lihat Divisi &rarr;
+                        </button>
+                    </div>
+
+                    {{-- 3. Divisi Publik Relasi --}}
+                    <div class="divisi-card">
+                        <div>
+                            <div class="divisi-icon-wrap">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 class="divisi-card-title">3. Divisi Publik Relasi</h3>
+                            <p class="divisi-card-desc">Membangun jejaring kolaborasi dan kemitraan eksternal kampus, menjalin hubungan erat dengan alumni, menyelenggarakan program bakti sosial, serta menjaga reputasi publik himpunan.</p>
+                        </div>
+                        <button type="button" class="btn-divisi" onclick="openDivisiModal('publik_relasi', this)">
+                            Lihat Divisi &rarr;
+                        </button>
+                    </div>
+
+                    {{-- 4. Divisi Litbang --}}
+                    <div class="divisi-card">
+                        <div>
+                            <div class="divisi-icon-wrap">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h3 class="divisi-card-title">4. Divisi Litbang</h3>
+                            <p class="divisi-card-desc">Melaksanakan riset organisasi, survei aspirasi mahasiswa, pemantauan dan evaluasi mutu program kerja berkala, serta merumuskan inovasi strategis pengembangan HIMATIKA.</p>
+                        </div>
+                        <button type="button" class="btn-divisi" onclick="openDivisiModal('litbang', this)">
+                            Lihat Divisi &rarr;
+                        </button>
+                    </div>
+
+                    {{-- 5. Divisi Kominfo --}}
+                    <div class="divisi-card">
+                        <div>
+                            <div class="divisi-icon-wrap">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3 class="divisi-card-title">5. Divisi Kominfo</h3>
+                            <p class="divisi-card-desc">Mengelola ekosistem media komunikasi digital, produksi konten multimedia kreatif, pengelolaan website resmi dan media sosial, serta pusat informasi terkini HIMATIKA UNUJA.</p>
+                        </div>
+                        <button type="button" class="btn-divisi" id="btnDivisiKominfo" onclick="openDivisiModal('kominfo', this)">
+                            Lihat Divisi &rarr;
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            {{-- Diagram Bagan Alur Kepengurusan --}}
+            <div class="mt-5 pt-4 text-center">
+                <span class="column-header-badge mb-2"><i class="fas fa-project-diagram me-1"></i> Diagram Alur Kepengurusan</span>
+                <h3 class="fw-bold mt-2" style="font-size: 1.35rem; color: var(--text-dark);">Bagan Alur Koordinasi HIMATIKA UNUJA</h3>
+                <p class="text-secondary small mb-3">Diagram resmi alur koordinasi kepengurusan HIMATIKA FMIPA UNUJA periode 2026.</p>
+                <div class="bg-white rounded-4 border shadow-sm p-3 p-md-4 mx-auto" style="max-width: 1040px; border-color: var(--border-rose) !important;">
                     <img src="{{ asset('images/struktur-organisasi-himatika.svg') }}" alt="Diagram Struktur Organisasi HIMATIKA FMIPA UNUJA" class="img-fluid rounded-3" style="width: 100%; height: auto;">
                 </div>
             </div>
@@ -628,58 +797,169 @@ function closeDetailModal() {
     </div>
 </section>
 
-<!-- MODAL DETAIL -->
-<div id="detailModal" class="modal-overlay">
-    <div class="modal-content">
-        <button class="modal-close" onclick="closeDetailModal()" aria-label="Tutup"><i class="fas fa-times"></i></button>
-        <span class="modal-label">DETAIL JABATAN / UNIT</span>
-        <h2 id="modalPosition" class="modal-title"></h2>
-        <p id="modalDesc" class="modal-desc"></p>
-        
-        <div class="modal-body-content">
-            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px;">
-                <div style="text-align: center; width: 100%; background: #FFF7F9; border: 1px solid #E9CDD5; border-radius: 12px; padding: 16px 20px;">
-                    <div id="modalDivision" style="color: #711C35; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;"></div>
-                    <h3 id="modalName" style="color: #28151D; font-size: 19px; font-weight: 700; margin-bottom: 0;"></h3>
-                </div>
+{{-- ==================== POP-UP MODAL DETAIL DIVISI ==================== --}}
+<div id="divisiModal" class="divisi-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalDivisiTitle">
+    <div class="divisi-modal-dialog">
+        {{-- Close Button --}}
+        <button type="button" class="divisi-modal-close" id="btnModalClose" onclick="closeDivisiModal()" aria-label="Tutup pop-up">
+            <i class="fas fa-times"></i>
+        </button>
 
-                <!-- Slider Controls -->
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 6px;">
-                    <div style="display: flex; align-items: center; gap: 16px;">
-                        <button type="button" onclick="slidePrev()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #711C35; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                            <i class="fas fa-arrow-left" style="font-size: 12px;"></i>
-                        </button>
-                        <span id="slideCounter" style="color: #666; font-size: 13px; font-weight: 600;">1 / 1</span>
-                        <button type="button" onclick="slideNext()" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: white; color: #711C35; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                            <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
-                        </button>
-                    </div>
-                    <div id="slideDots" style="display: flex; gap: 6px;"></div>
-                </div>
+        {{-- Modal Header --}}
+        <span class="chart-badge">DIVISI HIMATIKA</span>
+        <h2 id="modalDivisiTitle" style="color: var(--text-dark); font-size: 1.55rem; font-weight: 700; margin: 4px 0 10px;">Divisi HIMATIKA</h2>
+        <p id="modalDivisiDesc" style="color: rgba(40,21,29,0.75); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px;"></p>
+
+        {{-- Member Profile Card (Supports slider with photos) --}}
+        <div class="modal-member-card">
+            <div id="modalPhotoContainer">
+                {{-- Injected dynamically --}}
+            </div>
+            <h4 id="modalMemberName" style="color: var(--text-dark); font-weight: 700; font-size: 1.15rem; margin-bottom: 4px;">Nama Pengurus</h4>
+            <span id="modalMemberPosition" class="chart-badge" style="background: var(--pure-white); border: 1px solid var(--border-rose);">Kepala Divisi</span>
+            <p id="modalMemberBio" style="color: rgba(40,21,29,0.65); font-size: 0.82rem; margin-top: 8px; margin-bottom: 0; line-height: 1.5;"></p>
+
+            {{-- Slider Controls (for multiple members) --}}
+            <div id="sliderControlsWrap" style="display: none; align-items: center; justify-content: center; gap: 14px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-rose);">
+                <button type="button" class="slider-nav-btn" onclick="modalSlidePrev()">
+                    <i class="fas fa-chevron-left"></i> Sebelumnya
+                </button>
+                <span id="sliderCounterText" style="font-size: 0.82rem; font-weight: 700; color: var(--burgundy-main);">1 / 1</span>
+                <button type="button" class="slider-nav-btn" onclick="modalSlideNext()">
+                    Berikutnya <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
 
-        <div class="modal-footer" style="justify-content: flex-end; border-top: none; padding-top: 0;">
-            <button type="button" class="btn btn-secondary px-4 py-2" onclick="closeDetailModal()" style="font-size: 13px; border-radius: 8px;">Tutup</button>
+        {{-- Modal Footer --}}
+        <div class="d-flex justify-content-between align-items-center mt-4 pt-3" style="border-top: 1px solid var(--border-rose);">
+            <button type="button" class="btn btn-sm btn-outline-secondary px-3 py-2" onclick="closeDivisiModal()" style="border-radius: 8px;">
+                Tutup
+            </button>
+            <a id="modalDetailDivisiLink" href="#" class="btn-divisi" style="width: auto; padding: 8px 18px;">
+                Lihat Detail Divisi &rarr;
+            </a>
         </div>
     </div>
 </div>
 
-<style>
-/* CSS Modal (Disembunyikan agar tidak panjang, asumsikan sudah ada style nya di atas) */
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
-.modal-overlay.show { display: flex; opacity: 1; }
-.modal-content { background: #FFFFFF; width: 90%; max-width: 500px; border-radius: 16px; padding: 32px; position: relative; transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
-.modal-overlay.show .modal-content { transform: translateY(0); }
-.modal-close { position: absolute; top: 20px; right: 20px; background: none; border: 1px solid rgba(0,0,0,0.1); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #666; transition: all 0.2s; }
-.modal-close:hover { background: rgba(0,0,0,0.05); }
-.modal-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #711C35; margin-bottom: 12px; }
-.modal-title { font-size: 28px; font-weight: 600; color: #28151D; margin-bottom: 12px; line-height: 1.2; }
-.modal-desc { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(0,0,0,0.05); }
-.modal-body-content { margin-bottom: 32px; }
-.btn-primary-custom { background-color: #28151D; color: #fff; border: none; font-weight: 600; transition: all 0.3s; border-radius: 8px; text-decoration: none; }
-.btn-primary-custom:hover { background-color: #711C35; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(26, 10, 15, 0.2); }
-</style>
+<script>
+    // Data divisi yang disiapkan dari controller
+    const divisiDataMap = @json($divisiData ?? []);
+    let currentDivisiKey = null;
+    let currentMemberIndex = 0;
+    let lastActiveTrigger = null;
 
+    function openDivisiModal(key, triggerEl) {
+        lastActiveTrigger = triggerEl || document.activeElement;
+        const data = divisiDataMap[key];
+        if (!data) return;
+
+        currentDivisiKey = key;
+        currentMemberIndex = 0;
+
+        document.getElementById('modalDivisiTitle').textContent = data.name;
+        document.getElementById('modalDivisiDesc').textContent = data.description;
+        document.getElementById('modalDetailDivisiLink').href = data.detail_url;
+
+        renderModalMember();
+
+        const modal = document.getElementById('divisiModal');
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+
+        // Focus the close button for accessibility
+        setTimeout(() => {
+            const closeBtn = document.getElementById('btnModalClose');
+            if (closeBtn) closeBtn.focus();
+        }, 50);
+    }
+
+    function renderModalMember() {
+        const data = divisiDataMap[currentDivisiKey];
+        if (!data) return;
+
+        const members = data.members || [];
+        const sliderWrap = document.getElementById('sliderControlsWrap');
+        const photoContainer = document.getElementById('modalPhotoContainer');
+        const nameEl = document.getElementById('modalMemberName');
+        const posEl = document.getElementById('modalMemberPosition');
+        const bioEl = document.getElementById('modalMemberBio');
+        const counterEl = document.getElementById('sliderCounterText');
+
+        if (members.length === 0) {
+            photoContainer.innerHTML = '<div class="modal-photo-placeholder"><i class="fas fa-user"></i></div>';
+            nameEl.textContent = 'Data Pengurus Sedang Dilengkapi';
+            posEl.textContent = data.name;
+            bioEl.textContent = 'Informasi resmi susunan kepengurusan unit ini akan diperbarui.';
+            sliderWrap.style.display = 'none';
+            return;
+        }
+
+        const member = members[currentMemberIndex];
+        nameEl.textContent = member.name;
+        posEl.textContent = member.position;
+        bioEl.textContent = member.bio || 'Pengurus aktif HIMATIKA UNUJA.';
+
+        if (member.photo) {
+            photoContainer.innerHTML = `<img src="${member.photo}" alt="${member.name}" class="modal-photo-circle">`;
+        } else {
+            photoContainer.innerHTML = '<div class="modal-photo-placeholder"><i class="fas fa-user"></i></div>';
+        }
+
+        if (members.length > 1) {
+            sliderWrap.style.display = 'flex';
+            counterEl.textContent = `${currentMemberIndex + 1} / ${members.length}`;
+        } else {
+            sliderWrap.style.display = 'none';
+        }
+    }
+
+    function modalSlidePrev() {
+        const data = divisiDataMap[currentDivisiKey];
+        if (!data || !data.members || data.members.length <= 1) return;
+        currentMemberIndex = (currentMemberIndex - 1 + data.members.length) % data.members.length;
+        renderModalMember();
+    }
+
+    function modalSlideNext() {
+        const data = divisiDataMap[currentDivisiKey];
+        if (!data || !data.members || data.members.length <= 1) return;
+        currentMemberIndex = (currentMemberIndex + 1) % data.members.length;
+        renderModalMember();
+    }
+
+    function closeDivisiModal() {
+        const modal = document.getElementById('divisiModal');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+
+        // Restore focus to the trigger link/button
+        if (lastActiveTrigger && typeof lastActiveTrigger.focus === 'function') {
+            lastActiveTrigger.focus();
+        }
+    }
+
+    // Keyboard navigation (Esc key to close, Left/Right arrow for slider)
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('divisiModal');
+        if (!modal.classList.contains('show')) return;
+
+        if (e.key === 'Escape') {
+            closeDivisiModal();
+        } else if (e.key === 'ArrowLeft') {
+            modalSlidePrev();
+        } else if (e.key === 'ArrowRight') {
+            modalSlideNext();
+        }
+    });
+
+    // Close when clicking on backdrop
+    document.getElementById('divisiModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeDivisiModal();
+        }
+    });
+</script>
 
 @endsection
