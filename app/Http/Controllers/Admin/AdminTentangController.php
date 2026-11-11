@@ -68,6 +68,8 @@ class AdminTentangController extends Controller
     public function updateSambutan(Request $request)
     {
         $validated = $request->validate([
+            'sambutan_badge' => 'nullable|string|max:100',
+            'sambutan_banner_title' => 'nullable|string|max:255',
             'sambutan_name' => 'required|string|max:255',
             'sambutan_title' => 'required|string|max:255',
             'sambutan_quote' => 'nullable|string|max:500',
@@ -87,6 +89,12 @@ class AdminTentangController extends Controller
             SiteSetting::set('sambutan_photo', 'profile/' . $filename, 'tentang');
         }
 
+        if (isset($validated['sambutan_badge'])) {
+            SiteSetting::set('sambutan_badge', $validated['sambutan_badge'], 'tentang');
+        }
+        if (isset($validated['sambutan_banner_title'])) {
+            SiteSetting::set('sambutan_banner_title', $validated['sambutan_banner_title'], 'tentang');
+        }
         SiteSetting::set('sambutan_name', $validated['sambutan_name'], 'tentang');
         SiteSetting::set('sambutan_title', $validated['sambutan_title'], 'tentang');
         SiteSetting::set('sambutan_quote', $validated['sambutan_quote'] ?? '', 'tentang');

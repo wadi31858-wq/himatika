@@ -190,47 +190,46 @@
         <div class="row g-4 align-items-stretch">
             {{-- Card Kiri: Sambutan Kaprodi --}}
             <div class="col-lg-6">
-                <div class="tentang-card">
+                <div class="tentang-card sambutan-home-card">
                     <div>
-                        <div class="tentang-card-badge">
-                            <i class="fas fa-university me-1"></i> {{ $siteSettings['sambutan_badge'] ?? 'Program Studi Matematika FMIPA' }}
+                        <div class="sambutan-ref-badge-wrap mb-2">
+                            <span class="sambutan-ref-bar"></span>
+                            <span class="sambutan-ref-badge-text">{{ $siteSettings['sambutan_badge'] ?? 'PESAN PIMPINAN' }}</span>
                         </div>
-                        <h3 class="tentang-card-title">
-                            <i class="fas fa-quote-left"></i> Sambutan Kaprodi
+                        <h3 class="sambutan-ref-home-title mb-3">
+                            Sambutan <span class="sambutan-title-accent">Kaprodi</span>
                         </h3>
 
                         @php
-                            $kaprodiName = !empty($siteSettings['sambutan_name']) ? $siteSettings['sambutan_name'] : ($kaprodi->name ?? 'MUDDAKKIR, S.Pd., MM.');
-                            $kaprodiRole = !empty($siteSettings['sambutan_title']) ? $siteSettings['sambutan_title'] : ($kaprodi->position ?? 'Ketua Program Studi Matematika FMIPA UNUJA');
-                            $kaprodiQuote = !empty($siteSettings['sambutan_quote']) ? $siteSettings['sambutan_quote'] : ($siteSettings['home_sambutan_summary'] ?? ($kaprodi->bio ?? 'Mewujudkan generasi mahasiswa Matematika yang berkarakter islami, unggul dalam keilmuan, mandiri, dan berdaya saing global.'));
+                            $kaprodiName = !empty($siteSettings['sambutan_name']) ? $siteSettings['sambutan_name'] : ($kaprodi->name ?? 'MUDAKKIR, S.Pd., MM.');
+                            $kaprodiRole = !empty($siteSettings['sambutan_title']) ? $siteSettings['sambutan_title'] : ($kaprodi->position ?? 'Ketua Program Studi Matematika');
+                            $kaprodiQuote = !empty($siteSettings['sambutan_quote']) ? $siteSettings['sambutan_quote'] : ($siteSettings['home_sambutan_summary'] ?? ($kaprodi->bio ?? 'Puji syukur ke hadirat Allah SWT atas segala limpahan rahmat dan karunia-Nya sehingga website resmi HIMATIKA dapat hadir sebagai media informasi dan komunikasi bagi seluruh civitas akademika, mahasiswa, alumni, serta masyarakat luas.'));
                             
                             $kaprodiPhoto = null;
                             if (!empty($siteSettings['sambutan_photo']) && file_exists(public_path('storage/' . $siteSettings['sambutan_photo']))) {
                                 $kaprodiPhoto = asset('storage/' . $siteSettings['sambutan_photo']);
                             } elseif ($kaprodi && $kaprodi->photo && file_exists(public_path('storage/' . $kaprodi->photo))) {
                                 $kaprodiPhoto = asset('storage/' . $kaprodi->photo);
+                            } else {
+                                $kaprodiPhoto = asset('storage/profile/sambutan_1794400568_4jRmDkAS3by8fJdumt7yXqA03XvRNJdCIiK1z8KM.png');
                             }
                         @endphp
 
-                        <div class="kaprodi-profile-box">
-                            <div class="kaprodi-photo-wrap">
-                                @if($kaprodiPhoto)
-                                    <img src="{{ $kaprodiPhoto }}" alt="{{ $kaprodiName }}">
-                                @else
-                                    <i class="fas fa-user-tie fs-3" style="color: #711C35;"></i>
-                                @endif
+                        <div class="row g-3 align-items-center mb-4">
+                            <div class="col-sm-4 col-5">
+                                <div class="sambutan-portrait-frame-sm">
+                                    <img src="{{ $kaprodiPhoto }}" alt="{{ $kaprodiName }}" class="sambutan-ref-photo-img">
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="kaprodi-name">{{ $kaprodiName }}</h4>
-                                <p class="kaprodi-role">{{ $kaprodiRole }}</p>
+                            <div class="col-sm-8 col-7">
+                                <div class="sambutan-italic-preview mb-2">
+                                    “{{ Str::limit(strip_tags($kaprodiQuote), 160) }}”
+                                </div>
+                                <div class="sambutan-ref-divider-sm my-2"></div>
+                                <div class="sambutan-ref-sig-name">{{ $kaprodiName }}</div>
+                                <div class="sambutan-ref-sig-role">{{ $kaprodiRole }}</div>
                             </div>
                         </div>
-
-                        @if($kaprodiQuote)
-                            <div class="kaprodi-quote-box">
-                                “{{ Str::limit(strip_tags($kaprodiQuote), 220) }}”
-                            </div>
-                        @endif
                     </div>
 
                     <div>

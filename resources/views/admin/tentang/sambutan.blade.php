@@ -23,9 +23,19 @@
                 </div>
 
                 <div class="row g-3 mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold text-dark">Lencana Atas (Badge)</label>
+                        <input type="text" name="sambutan_badge" class="form-control" value="{{ old('sambutan_badge', $siteSettings['sambutan_badge'] ?? 'PESAN PIMPINAN') }}">
+                        <div class="form-text">Contoh: PESAN PIMPINAN</div>
+                    </div>
+                    <div class="col-md-8">
+                        <label class="form-label fw-semibold text-dark">Judul Sambutan</label>
+                        <input type="text" name="sambutan_banner_title" class="form-control" value="{{ old('sambutan_banner_title', $siteSettings['sambutan_banner_title'] ?? 'Sambutan Kaprodi') }}">
+                        <div class="form-text">Contoh: Sambutan Kaprodi (Kata kedua otomatis beraksen miring emas).</div>
+                    </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Nama Lengkap & Gelar <span class="text-danger">*</span></label>
-                        <input type="text" name="sambutan_name" class="form-control" value="{{ old('sambutan_name', $siteSettings['sambutan_name'] ?? ($kaprodi->name ?? 'MUDDAKKIR, S.Pd., MM.')) }}" required>
+                        <input type="text" name="sambutan_name" class="form-control" value="{{ old('sambutan_name', $siteSettings['sambutan_name'] ?? ($kaprodi->name ?? 'MUDAKKIR, S.Pd., MM.')) }}" required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Jabatan Resmi <span class="text-danger">*</span></label>
