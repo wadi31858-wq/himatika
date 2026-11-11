@@ -29,4 +29,21 @@ class ProfileController extends Controller
 
         return view('profil', compact('profile', 'vm', 'mission', 'kaprodi'));
     }
+
+    public function sejarah()
+    {
+        $profile = Profile::first();
+        return view('sejarah', compact('profile'));
+    }
+
+    public function sambutan()
+    {
+        $profile = Profile::first();
+        $kaprodi = Member::where('position', 'like', '%kaprodi%')
+            ->orWhere('position', 'like', '%ketua program studi%')
+            ->orWhere('position', 'like', '%pembina%')
+            ->first();
+
+        return view('sambutan', compact('profile', 'kaprodi'));
+    }
 }

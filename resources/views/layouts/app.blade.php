@@ -11,6 +11,113 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}" rel="stylesheet">
     @stack('styles')
+    <style>
+        /* ==================== TENTANG SPLIT DROPDOWN ==================== */
+        .tentang-dropdown-wrapper {
+            position: relative;
+        }
+        .nav-split-group {
+            display: inline-flex;
+            align-items: center;
+        }
+        .tentang-main-link {
+            padding-right: 4px !important;
+        }
+        .tentang-arrow-btn {
+            background: transparent;
+            border: none;
+            color: #1565C0;
+            padding: 8px 6px 8px 2px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s ease, color 0.2s ease;
+            outline: none;
+        }
+        .tentang-arrow-btn:hover {
+            color: #0D47A1;
+        }
+        .tentang-dropdown-wrapper.show .tentang-arrow-btn i {
+            transform: rotate(180deg);
+        }
+        .tentang-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 210px;
+            background: #0D47A1;
+            border: 1px solid #1E40AF;
+            border-radius: 12px;
+            padding: 8px;
+            margin: 6px 0 0 0;
+            list-style: none;
+            box-shadow: 0 10px 25px rgba(13, 71, 161, 0.25);
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 1050;
+        }
+        .tentang-dropdown-wrapper.show .tentang-dropdown-menu {
+            display: flex;
+        }
+        .tentang-dropdown-item {
+            display: block;
+            padding: 8px 14px;
+            color: #FFFFFF;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .tentang-dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #93C5FD;
+            padding-left: 18px;
+        }
+        .tentang-dropdown-item.active {
+            background: #1565C0;
+            color: #FFFFFF;
+            font-weight: 600;
+            border-left: 3px solid #60A5FA;
+        }
+        @media (min-width: 992px) {
+            .tentang-dropdown-wrapper:hover .tentang-dropdown-menu {
+                display: flex;
+            }
+            .tentang-dropdown-wrapper:hover .tentang-arrow-btn i {
+                transform: rotate(180deg);
+            }
+        }
+        @media (max-width: 991.98px) {
+            .tentang-dropdown-wrapper {
+                width: 100%;
+            }
+            .nav-split-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .tentang-arrow-btn {
+                padding: 10px 14px;
+                font-size: 0.85rem;
+            }
+            .tentang-dropdown-menu {
+                position: static;
+                width: 100%;
+                background: #0B3A82;
+                border-radius: 8px;
+                box-shadow: none;
+                margin-top: 4px;
+                margin-bottom: 8px;
+                padding: 6px;
+            }
+            .tentang-dropdown-wrapper.show .tentang-dropdown-menu {
+                display: flex;
+            }
+        }
+    </style>
 </head>
 <body>
     {{-- ==================== NAVBAR ==================== --}}
@@ -38,8 +145,32 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="fas fa-home me-1"></i> Beranda</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('profil*') ? 'active' : '' }}" href="{{ route('profil') }}"><i class="fas fa-circle-info me-1"></i> Tentang</a>
+                    <li class="nav-item tentang-dropdown-wrapper {{ request()->routeIs('profil*', 'sejarah*', 'sambutan*', 'visi-misi*') ? 'active' : '' }}">
+                        <div class="nav-split-group">
+                            <a class="nav-link tentang-main-link {{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">
+                                <i class="fas fa-circle-info me-1"></i> Tentang
+                            </a>
+                            <button type="button" class="tentang-arrow-btn" id="tentangDropdownToggle" aria-expanded="false" aria-label="Buka submenu Tentang">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <ul class="tentang-dropdown-menu" id="tentangDropdownMenu">
+                            <li>
+                                <a class="tentang-dropdown-item {{ request()->routeIs('sejarah*') ? 'active' : '' }}" href="{{ route('sejarah') }}">
+                                    Sejarah
+                                </a>
+                            </li>
+                            <li>
+                                <a class="tentang-dropdown-item {{ request()->routeIs('sambutan*') ? 'active' : '' }}" href="{{ route('sambutan') }}">
+                                    Sambutan Kaprodi
+                                </a>
+                            </li>
+                            <li>
+                                <a class="tentang-dropdown-item {{ request()->routeIs('visi-misi*') ? 'active' : '' }}" href="{{ route('visi-misi') }}">
+                                    Visi dan Misi
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}" href="{{ route('berita') }}"><i class="fas fa-newspaper me-1"></i> Informasi</a>
@@ -149,6 +280,45 @@
             once: true,
             offset: 100,
         });
+
+        // Tentang Dropdown Interaction
+        (function() {
+            var wrapper = document.querySelector('.tentang-dropdown-wrapper');
+            var toggleBtn = document.getElementById('tentangDropdownToggle');
+            var menu = document.getElementById('tentangDropdownMenu');
+            
+            if (toggleBtn && wrapper) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    var isOpen = wrapper.classList.toggle('show');
+                    toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+                
+                if (menu) {
+                    menu.querySelectorAll('.tentang-dropdown-item').forEach(function(item) {
+                        item.addEventListener('click', function() {
+                            wrapper.classList.remove('show');
+                            toggleBtn.setAttribute('aria-expanded', 'false');
+                        });
+                    });
+                }
+                
+                document.addEventListener('click', function(e) {
+                    if (!wrapper.contains(e.target)) {
+                        wrapper.classList.remove('show');
+                        toggleBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        wrapper.classList.remove('show');
+                        toggleBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        })();
     </script>
     @stack('scripts')
 </body>

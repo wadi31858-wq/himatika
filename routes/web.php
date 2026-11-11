@@ -18,6 +18,8 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
+Route::get('/sejarah', [ProfileController::class, 'sejarah'])->name('sejarah');
+Route::get('/sambutan', [ProfileController::class, 'sambutan'])->name('sambutan');
 Route::get('/visi-misi', [VisionMissionController::class, 'index'])->name('visi-misi');
 Route::get('/struktur-organisasi', [OrganizationController::class, 'index'])->name('struktur-organisasi');
 Route::get('/struktur-organisasi/{id}', [OrganizationController::class, 'show'])->name('struktur-organisasi.show');
