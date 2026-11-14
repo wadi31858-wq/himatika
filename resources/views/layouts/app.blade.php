@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Beranda') - {{ $globalProfile->title ?? 'HIMATIKA UNUJA 2026' }}</title>
-    <meta name="description" content="@yield('description', $globalProfile->meta_description ?? 'Website resmi HIMATIKA FMIPA Universitas Nurul Jadid - Himpunan Mahasiswa Matematika')">
+    <meta name="description" content="@yield('description', $globalProfile->meta_description ?? 'Website resmi HIMATIKA Universitas Nurul Jadid - Himpunan Mahasiswa Informatika')">
     @if(!empty($siteSettings['site_meta_keywords']))
         <meta name="keywords" content="{{ $siteSettings['site_meta_keywords'] }}">
     @endif
@@ -256,7 +256,7 @@
         <div class="container">
             @php
                 $brandUrl = !empty($siteSettings['navbar_brand_url']) ? url($siteSettings['navbar_brand_url']) : route('home');
-                $brandTitle = $siteSettings['navbar_brand_title'] ?? (($siteSettings['site_short_title'] ?? 'HIMATIKA') . ' FMIPA UNUJA');
+                $brandTitle = $siteSettings['navbar_brand_title'] ?? (($siteSettings['site_short_title'] ?? 'HIMATIKA') . ' UNUJA');
                 $brandSubtitle = $siteSettings['navbar_brand_subtitle'] ?? '';
                 $showSubtitle = ($siteSettings['navbar_brand_show_subtitle'] ?? '0') === '1' && !empty($brandSubtitle);
                 $showAccent = ($siteSettings['navbar_brand_show_accent'] ?? '1') !== '0';
@@ -309,10 +309,15 @@
                             <i class="fas fa-chevron-down ms-1 tentang-chevron"></i>
                         </button>
                         <ul class="tentang-dropdown-menu" id="tentangDropdownMenu" aria-labelledby="tentangDropdownBtn">
+                            <li>
+                                <a class="tentang-dropdown-item {{ request()->routeIs('tentang*') ? 'active' : '' }}" href="{{ route('tentang') }}">
+                                    Tentang Kami
+                                </a>
+                            </li>
                             @if(($siteSettings['history_is_visible'] ?? '1') !== '0')
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('sejarah*') ? 'active' : '' }}" href="{{ route('sejarah') }}">
-                                    Sejarah
+                                    Sejarah &amp; ID Card
                                 </a>
                             </li>
                             @endif
@@ -382,7 +387,7 @@
                         <a class="nav-link {{ request()->routeIs('galeri*') ? 'active' : '' }}" href="{{ route('galeri') }}"><i class="fas fa-images me-1"></i> Galeri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('download*') ? 'active' : '' }}" href="{{ route('download') }}"><i class="fas fa-file-alt me-1"></i> Dokumen</a>
+                        <a class="nav-link {{ request()->routeIs('download*') ? 'active' : '' }}" href="{{ route('download') }}"><i class="fas fa-laptop-code me-1"></i> Galeri Website</a>
                     </li>
                     <li class="nav-item ms-lg-3">
                         <a class="nav-link btn-nav-aspirasi {{ request()->routeIs('aspirasi*') ? 'active' : '' }}" href="{{ route('aspirasi.index') }}">
@@ -452,11 +457,11 @@
                             @endif
                         </span>
                         <div class="brand-text-footer">
-                            <span class="brand-name-footer">{{ $globalProfile->title ?? 'HIMATIKA FMIPA UNUJA' }}</span>
-                            <span class="brand-period-footer">HIMATIKA FMIPA UNUJA</span>
+                            <span class="brand-name-footer">{{ $globalProfile->title ?? 'HIMATIKA UNUJA' }}</span>
+                            <span class="brand-period-footer">HIMATIKA UNUJA</span>
                         </div>
                     </div>
-                    <p class="footer-desc">{{ $globalProfile->footer_text ?? 'Website resmi HIMATIKA FMIPA UNUJA periode 2026.' }}</p>
+                    <p class="footer-desc">{{ $globalProfile->footer_text ?? 'Website resmi HIMATIKA UNUJA periode 2026.' }}</p>
                     @php
                         $footerIg = !empty($globalProfile->instagram) ? $globalProfile->instagram : 'https://instagram.com/himatika_unuja';
                         $footerTiktok = !empty($globalProfile->tiktok) ? $globalProfile->tiktok : 'https://tiktok.com/@himatika_unuja';
@@ -489,8 +494,9 @@
                     <h5 class="footer-heading">NAVIGASI</h5>
                     <ul class="list-unstyled footer-links">
                         <li><a href="{{ route('home') }}">Beranda</a></li>
+                        <li><a href="{{ route('tentang') }}">Tentang Kami</a></li>
                         @if(($siteSettings['history_is_visible'] ?? '1') !== '0')
-                        <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+                        <li><a href="{{ route('sejarah') }}">Sejarah &amp; ID Card</a></li>
                         @endif
                         @if(($siteSettings['structure_is_visible'] ?? '1') !== '0')
                         <li><a href="{{ route('struktur-organisasi') }}">Struktur</a></li>

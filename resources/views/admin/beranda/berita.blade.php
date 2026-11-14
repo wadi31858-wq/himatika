@@ -55,7 +55,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Deskripsi Ringkas</label>
-                    <textarea name="home_berita_desc" class="form-control" rows="3">{{ old('home_berita_desc', $siteSettings['home_berita_desc'] ?? 'Ikuti perkembangan terbaru, pengumuman penting, liputan kegiatan, dan kabar prestasi seputar mahasiswa Matematika UNUJA.') }}</textarea>
+                    <textarea name="home_berita_desc" class="form-control" rows="3">{{ old('home_berita_desc', $siteSettings['home_berita_desc'] ?? 'Ikuti perkembangan terbaru, pengumuman penting, liputan kegiatan, dan kabar prestasi seputar mahasiswa Informatika UNUJA.') }}</textarea>
                 </div>
 
                 <div class="row g-2">

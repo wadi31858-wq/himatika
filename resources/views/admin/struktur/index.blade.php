@@ -661,11 +661,11 @@
                                 @endif
                                 <div class="flex-grow-1">
                                     <span class="chart-badge">Pembina / Kaprodi</span>
-                                    <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</h3>
+                                    <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi' }}</h3>
                                     <div class="chart-officer">{{ $kaprodi?->name ?? 'Mudakkir, S.Pd., MM.' }}</div>
                                 </div>
                             </div>
-                            <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika FMIPA UNUJA.' }}</p>
+                            <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Informatika UNUJA.' }}</p>
                             <div class="chart-card-footer">
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="badge {{ $kaprodi?->is_active ? 'bg-success-subtle text-success border border-success-subtle' : 'bg-secondary-subtle text-secondary border' }}" style="font-size: 0.72rem;">
@@ -920,11 +920,11 @@
                                 @endif
                                 <div class="flex-grow-1">
                                     <span class="chart-badge">Pembina / Kaprodi</span>
-                                    <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</h3>
+                                    <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi' }}</h3>
                                     <div class="chart-officer">{{ $kaprodi?->name ?? 'Mudakkir, S.Pd., MM.' }}</div>
                                 </div>
                             </div>
-                            <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika FMIPA UNUJA.' }}</p>
+                            <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Informatika UNUJA.' }}</p>
                             <div class="chart-card-footer">
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="badge {{ $kaprodi?->is_active ? 'bg-success-subtle text-success border border-success-subtle' : 'bg-secondary-subtle text-secondary border' }}" style="font-size: 0.72rem;">

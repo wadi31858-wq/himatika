@@ -14,7 +14,7 @@
                     <i class="fas fa-heading"></i>
                 </div>
                 <div>
-                    <strong style="color: #250D17; font-size: 0.98rem;">Ingin Mengedit Logo & Teks Brand Navbar (HIMATIKA FMIPA UNUJA)?</strong>
+                    <strong style="color: #250D17; font-size: 0.98rem;">Ingin Mengedit Logo & Teks Brand Navbar (HIMATIKA UNUJA)?</strong>
                     <div class="small text-muted">Ubah logo bulat, tulisan nama himpunan, warna teks, serta garis aksen navbar secara khusus.</div>
                 </div>
             </div>

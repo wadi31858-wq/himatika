@@ -24,7 +24,7 @@
                 <div class="row g-3 mb-3">
                     <div class="col-md-8">
                         <label class="form-label fw-semibold text-dark">Nama Resmi Organisasi <span class="text-danger">*</span></label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title', $profile->title) }}" required placeholder="Contoh: HIMATIKA FMIPA UNUJA">
+                        <input type="text" name="title" class="form-control" value="{{ old('title', $profile->title) }}" required placeholder="Contoh: HIMATIKA UNUJA">
                         <div class="form-text">Nama lengkap himpunan mahasiswa.</div>
                     </div>
                     <div class="col-md-4">
@@ -57,7 +57,7 @@
 
                 <div class="mb-4">
                     <label class="form-label fw-semibold text-dark">Kata Kunci SEO (Pisahkan dengan koma)</label>
-                    <input type="text" name="meta_keywords" class="form-control" value="{{ old('meta_keywords', $siteSettings['site_meta_keywords'] ?? 'HIMATIKA, UNUJA, Matematika, FMIPA, Nurul Jadid') }}" placeholder="HIMATIKA, UNUJA, Matematika, FMIPA">
+                    <input type="text" name="meta_keywords" class="form-control" value="{{ old('meta_keywords', $siteSettings['site_meta_keywords'] ?? 'HIMATIKA, UNUJA, Informatika, Nurul Jadid') }}" placeholder="HIMATIKA, UNUJA, Informatika">
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-3 border-top">

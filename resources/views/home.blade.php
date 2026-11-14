@@ -30,7 +30,7 @@
                 <div class="hero-badge-container mb-3">
                     <div class="hero-navy-capsule">
                         <i class="fas fa-graduation-cap me-1"></i>
-                        <span>{{ $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA' }}</span>
+                        <span>{{ $profile->hero_badge ?? 'HIMATIKA UNUJA' }}</span>
                     </div>
                     @if(!empty($profile->hero_tagline))
                     <div class="hero-tag-companion">
@@ -175,10 +175,10 @@
                 <span class="tentang-hero-label">{{ $siteSettings['home_tentang_badge'] ?? 'Tentang Organisasi' }}</span>
             </div>
             <h2 class="tentang-hero-heading">
-                {{ $siteSettings['home_tentang_title'] ?? 'Tentang HIMATIKA FMIPA UNUJA' }}
+                {{ $siteSettings['home_tentang_title'] ?? 'Tentang HIMATIKA UNUJA' }}
             </h2>
             <p class="tentang-hero-desc">
-                {{ $siteSettings['home_tentang_desc'] ?? 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.' }}
+                {{ $siteSettings['home_tentang_desc'] ?? 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Informatika Universitas Nurul Jadid.' }}
             </p>
         </div>
 
@@ -198,7 +198,7 @@
 
                         @php
                             $kaprodiName = !empty($siteSettings['sambutan_name']) ? $siteSettings['sambutan_name'] : ($kaprodi->name ?? 'MUDAKKIR, S.Pd., MM.');
-                            $kaprodiRole = !empty($siteSettings['sambutan_title']) ? $siteSettings['sambutan_title'] : ($kaprodi->position ?? 'Ketua Program Studi Matematika');
+                            $kaprodiRole = !empty($siteSettings['sambutan_title']) ? $siteSettings['sambutan_title'] : ($kaprodi->position ?? 'Ketua Program Studi Informatika');
                             $kaprodiQuote = !empty($siteSettings['sambutan_quote']) ? $siteSettings['sambutan_quote'] : ($siteSettings['home_sambutan_summary'] ?? ($kaprodi->bio ?? 'Puji syukur ke hadirat Allah SWT atas segala limpahan rahmat dan karunia-Nya sehingga website resmi HIMATIKA dapat hadir sebagai media informasi dan komunikasi bagi seluruh civitas akademika, mahasiswa, alumni, serta masyarakat luas.'));
                             
                             $kaprodiPhoto = null;
@@ -246,7 +246,7 @@
                             <span class="sambutan-ref-badge-text">{{ $siteSettings['home_visi_badge'] ?? 'PEDOMAN ORGANISASI' }}</span>
                         </div>
                         <h3 class="sambutan-ref-home-title mb-3">
-                            Visi &amp; <span class="sambutan-title-accent">Misi HIMATIKA FMIPA UNUJA</span>
+                            Visi &amp; <span class="sambutan-title-accent">Misi HIMATIKA UNUJA</span>
                         </h3>
 
                         {{-- Tata Letak 2 Kolom Horizontal (VISI di Kiri, Garis Vertikal Emas di Tengah, MISI di Kanan) --}}
@@ -265,7 +265,7 @@
                                         <i class="fas fa-quote-left"></i>
                                     </div>
                                     <p class="mb-0 vm-visi-quote-text">
-                                        “{{ $vm?->vision ?? ($siteSettings['home_visi_summary'] ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.') }}”
+                                        “{{ $vm?->vision ?? ($siteSettings['home_visi_summary'] ?? 'Menjadi organisasi mahasiswa Informatika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.') }}”
                                     </p>
                                     <div class="mt-3 pt-2" style="border-top: 1px solid rgba(233, 205, 213, 0.6);">
                                         <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-bullseye me-1 text-primary"></i> Arah &amp; Cita-cita Strategis</small>
@@ -478,7 +478,114 @@
 </section>
 @endif
 
-{{-- ==================== BAGIAN 4: BERKARYA (KARYA WEBSITE MAHASISWA) ==================== --}}
+{{-- ==================== BAGIAN 4: DOKUMENTASI MOMEN ==================== --}}
+@if(($siteSettings['home_galeri_active'] ?? '1') !== '0')
+<section class="section-dokumentasi-momen" id="dokumentasi">
+    <div class="container">
+        {{-- Section Header --}}
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
+            <div>
+                <div class="tentang-top-label">
+                    <span class="tentang-label-bar"></span>
+                    <span>{{ $siteSettings['home_galeri_badge'] ?? 'DOKUMENTASI MOMEN' }}</span>
+                </div>
+                <h2 class="tentang-main-title">
+                    {{ $siteSettings['home_galeri_title'] ?? 'Jejak Langkah & Kebersamaan' }}
+                </h2>
+                <p class="tentang-main-desc">
+                    {{ $siteSettings['home_galeri_desc'] ?? 'Setiap momen kebersamaan dan perjuangan terabadikan dalam galeri resmi kegiatan HIMATIKA.' }}
+                </p>
+            </div>
+            <div>
+                <a href="{{ !empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri') }}" class="btn-semua-artikel">
+                    <span>{{ $siteSettings['home_galeri_btn_text'] ?? 'Buka Galeri Foto' }}</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        {{-- Slider Wrapper --}}
+        <div class="doc-slider-wrapper" id="docSliderWrapper">
+            <div class="doc-slider-container" id="docSliderContainer">
+                <div class="doc-slider-track" id="docSliderTrack">
+                    @if($galleries->isNotEmpty())
+                        @foreach($galleries as $gal)
+                            @php
+                                $galImg = null;
+                                if (!empty($gal->image)) {
+                                    if (file_exists(public_path('storage/' . $gal->image))) {
+                                        $galImg = asset('storage/' . $gal->image);
+                                    } elseif (file_exists(public_path('images/' . $gal->image))) {
+                                        $galImg = asset('images/' . $gal->image);
+                                    } elseif (file_exists(public_path($gal->image))) {
+                                        $galImg = asset($gal->image);
+                                    }
+                                }
+                                if (!$galImg) {
+                                    $galImg = asset('images/news/news-' . (($loop->index % 4) + 1) . '.jpg');
+                                }
+                                $cardUrl = !empty($gal->id) ? route('galeri.show', $gal->id) : (!empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri'));
+                            @endphp
+                            <div class="doc-slider-item">
+                                <a href="{{ $cardUrl }}" class="doc-momen-card" draggable="false">
+                                    <img src="{{ $galImg }}" alt="{{ $gal->alt_text ?: $gal->title }}" class="doc-momen-img" draggable="false" loading="lazy">
+                                    <div class="doc-momen-overlay">
+                                        <span class="doc-momen-badge">{{ $gal->activity ? $gal->activity->title : 'Dokumentasi HIMATIKA' }}</span>
+                                        <h3 class="doc-momen-title">{{ $gal->title }}</h3>
+                                        @if($gal->description)
+                                            <p class="doc-momen-caption">{{ Str::limit($gal->description, 95) }}</p>
+                                        @endif
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    @else
+                        @php
+                            $defaultGalleryUrl = !empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri');
+                        @endphp
+                        <div class="doc-slider-item">
+                            <a href="{{ $defaultGalleryUrl }}" class="doc-momen-card" draggable="false">
+                                <img src="{{ asset('images/news/news-1.jpg') }}" alt="Pelantikan & Rapat Kerja HIMATIKA" class="doc-momen-img" draggable="false">
+                                <div class="doc-momen-overlay">
+                                    <span class="doc-momen-badge">Kegiatan Organisasi</span>
+                                    <h3 class="doc-momen-title">Pelantikan & Rapat Kerja Kepengurusan 2026</h3>
+                                    <p class="doc-momen-caption">Momen pelantikan pengurus HIMATIKA UNUJA dan perumusan program kerja tahunan.</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="doc-slider-item">
+                            <a href="{{ $defaultGalleryUrl }}" class="doc-momen-card" draggable="false">
+                                <img src="{{ asset('images/news/news-2.jpg') }}" alt="Seminar & Workshop Informatika" class="doc-momen-img" draggable="false">
+                                <div class="doc-momen-overlay">
+                                    <span class="doc-momen-badge">Akademik & Keilmuan</span>
+                                    <h3 class="doc-momen-title">Seminar & Workshop Keilmuan Mahasiswa</h3>
+                                    <p class="doc-momen-caption">Penguatan wawasan teknologi komputasi dan analisis data terapan bagi seluruh mahasiswa.</p>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Slider Controls (Panah & Indikator Titik) --}}
+            <div class="doc-slider-controls" id="docSliderControls" style="display: none;">
+                <button type="button" class="doc-slider-arrow doc-slider-prev" id="docSliderPrev" aria-label="Lihat dokumentasi sebelumnya">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="doc-slider-dots" id="docSliderDots" role="tablist" aria-label="Pilih dokumentasi">
+                    {{-- Dinamis dibuat oleh JavaScript --}}
+                </div>
+                <button type="button" class="doc-slider-arrow doc-slider-next" id="docSliderNext" aria-label="Lihat dokumentasi berikutnya">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- ==================== BAGIAN 5: BERKARYA (KARYA WEBSITE MAHASISWA) ==================== --}}
 @if(($siteSettings['home_peduli_active'] ?? '1') !== '0')
 <section class="section-peduli" id="berkarya">
     {{-- Anchor compatibility for previous links --}}
@@ -592,113 +699,6 @@
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- ==================== BAGIAN 5: DOKUMENTASI MOMEN ==================== --}}
-@if(($siteSettings['home_galeri_active'] ?? '1') !== '0')
-<section class="section-dokumentasi-momen" id="dokumentasi">
-    <div class="container">
-        {{-- Section Header --}}
-        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-3">
-            <div>
-                <div class="tentang-top-label">
-                    <span class="tentang-label-bar"></span>
-                    <span>{{ $siteSettings['home_galeri_badge'] ?? 'DOKUMENTASI MOMEN' }}</span>
-                </div>
-                <h2 class="tentang-main-title">
-                    {{ $siteSettings['home_galeri_title'] ?? 'Jejak Langkah & Kebersamaan' }}
-                </h2>
-                <p class="tentang-main-desc">
-                    {{ $siteSettings['home_galeri_desc'] ?? 'Setiap momen kebersamaan dan perjuangan terabadikan dalam galeri resmi kegiatan HIMATIKA.' }}
-                </p>
-            </div>
-            <div>
-                <a href="{{ !empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri') }}" class="btn-semua-artikel">
-                    <span>{{ $siteSettings['home_galeri_btn_text'] ?? 'Buka Galeri Foto' }}</span>
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-        </div>
-
-        {{-- Slider Wrapper --}}
-        <div class="doc-slider-wrapper" id="docSliderWrapper">
-            <div class="doc-slider-container" id="docSliderContainer">
-                <div class="doc-slider-track" id="docSliderTrack">
-                    @if($galleries->isNotEmpty())
-                        @foreach($galleries as $gal)
-                            @php
-                                $galImg = null;
-                                if (!empty($gal->image)) {
-                                    if (file_exists(public_path('storage/' . $gal->image))) {
-                                        $galImg = asset('storage/' . $gal->image);
-                                    } elseif (file_exists(public_path('images/' . $gal->image))) {
-                                        $galImg = asset('images/' . $gal->image);
-                                    } elseif (file_exists(public_path($gal->image))) {
-                                        $galImg = asset($gal->image);
-                                    }
-                                }
-                                if (!$galImg) {
-                                    $galImg = asset('images/news/news-' . (($loop->index % 4) + 1) . '.jpg');
-                                }
-                                $cardUrl = !empty($gal->id) ? route('galeri.show', $gal->id) : (!empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri'));
-                            @endphp
-                            <div class="doc-slider-item">
-                                <a href="{{ $cardUrl }}" class="doc-momen-card" draggable="false">
-                                    <img src="{{ $galImg }}" alt="{{ $gal->alt_text ?: $gal->title }}" class="doc-momen-img" draggable="false" loading="lazy">
-                                    <div class="doc-momen-overlay">
-                                        <span class="doc-momen-badge">{{ $gal->activity ? $gal->activity->title : 'Dokumentasi HIMATIKA' }}</span>
-                                        <h3 class="doc-momen-title">{{ $gal->title }}</h3>
-                                        @if($gal->description)
-                                            <p class="doc-momen-caption">{{ Str::limit($gal->description, 95) }}</p>
-                                        @endif
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
-                    @else
-                        @php
-                            $defaultGalleryUrl = !empty($siteSettings['home_galeri_btn_url']) ? url($siteSettings['home_galeri_btn_url']) : route('galeri');
-                        @endphp
-                        <div class="doc-slider-item">
-                            <a href="{{ $defaultGalleryUrl }}" class="doc-momen-card" draggable="false">
-                                <img src="{{ asset('images/news/news-1.jpg') }}" alt="Pelantikan & Rapat Kerja HIMATIKA" class="doc-momen-img" draggable="false">
-                                <div class="doc-momen-overlay">
-                                    <span class="doc-momen-badge">Kegiatan Organisasi</span>
-                                    <h3 class="doc-momen-title">Pelantikan & Rapat Kerja Kepengurusan 2026</h3>
-                                    <p class="doc-momen-caption">Momen pelantikan pengurus HIMATIKA FMIPA UNUJA dan perumusan program kerja tahunan.</p>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="doc-slider-item">
-                            <a href="{{ $defaultGalleryUrl }}" class="doc-momen-card" draggable="false">
-                                <img src="{{ asset('images/news/news-2.jpg') }}" alt="Seminar & Workshop Matematika" class="doc-momen-img" draggable="false">
-                                <div class="doc-momen-overlay">
-                                    <span class="doc-momen-badge">Akademik & Keilmuan</span>
-                                    <h3 class="doc-momen-title">Seminar & Workshop Keilmuan Mahasiswa</h3>
-                                    <p class="doc-momen-caption">Penguatan wawasan matematika komputasi dan analisis data terapan bagi seluruh mahasiswa.</p>
-                                </div>
-                            </a>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
-            {{-- Slider Controls (Panah & Indikator Titik) --}}
-            <div class="doc-slider-controls" id="docSliderControls" style="display: none;">
-                <button type="button" class="doc-slider-arrow doc-slider-prev" id="docSliderPrev" aria-label="Lihat dokumentasi sebelumnya">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="doc-slider-dots" id="docSliderDots" role="tablist" aria-label="Pilih dokumentasi">
-                    {{-- Dinamis dibuat oleh JavaScript --}}
-                </div>
-                <button type="button" class="doc-slider-arrow doc-slider-next" id="docSliderNext" aria-label="Lihat dokumentasi berikutnya">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
             </div>
         </div>
     </div>

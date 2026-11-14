@@ -19,8 +19,8 @@
 <section class="section-cream galeri-hero">
     <div class="container text-center">
         <span class="galeri-hero-label">{{ $siteSettings['gallery_page_badge'] ?? 'GALERI' }}</span>
-        <h1 class="galeri-hero-heading">{{ $siteSettings['gallery_page_title'] ?? 'Momen HIMATIKA FMIPA UNUJA' }}</h1>
-        <p class="galeri-hero-desc">{{ $siteSettings['gallery_page_desc'] ?? 'Dokumentasi kegiatan yang memperlihatkan semangat, kolaborasi, dan capaian HIMATIKA FMIPA UNUJA.' }}</p>
+        <h1 class="galeri-hero-heading">{{ $siteSettings['gallery_page_title'] ?? 'Momen HIMATIKA UNUJA' }}</h1>
+        <p class="galeri-hero-desc">{{ $siteSettings['gallery_page_desc'] ?? 'Dokumentasi kegiatan yang memperlihatkan semangat, kolaborasi, dan capaian HIMATIKA UNUJA.' }}</p>
     </div>
 </section>
 

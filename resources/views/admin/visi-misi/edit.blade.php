@@ -57,7 +57,7 @@
                             <i class="fas fa-eraser me-1"></i> Kosongkan
                         </button>
                     </div>
-                    <textarea name="vm_banner_subtitle" id="vmBannerSubtitle" class="form-control" rows="2" placeholder="Arah dan tujuan pengembangan HIMATIKA FMIPA UNUJA.">{{ old('vm_banner_subtitle', $bannerSubtitle ?? 'Arah dan tujuan pengembangan HIMATIKA FMIPA UNUJA.') }}</textarea>
+                    <textarea name="vm_banner_subtitle" id="vmBannerSubtitle" class="form-control" rows="2" placeholder="Arah dan tujuan pengembangan HIMATIKA UNUJA.">{{ old('vm_banner_subtitle', $bannerSubtitle ?? 'Arah dan tujuan pengembangan HIMATIKA UNUJA.') }}</textarea>
                     <div class="form-text">Subjudul penjelas tepat di bawah judul banner Visi dan Misi.</div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Judul Kartu Visi</label>
-                    <input type="text" name="vm_vision_title" class="form-control" value="{{ old('vm_vision_title', $visionTitle ?? 'Visi HIMATIKA FMIPA UNUJA') }}" placeholder="Visi HIMATIKA FMIPA UNUJA">
+                    <input type="text" name="vm_vision_title" class="form-control" value="{{ old('vm_vision_title', $visionTitle ?? 'Visi HIMATIKA UNUJA') }}" placeholder="Visi HIMATIKA UNUJA">
                 </div>
 
                 <div class="mb-3">
@@ -94,7 +94,7 @@
 
                 <div class="mb-4">
                     <label class="form-label fw-semibold text-dark">Judul Kartu Misi</label>
-                    <input type="text" name="vm_mission_title" class="form-control" value="{{ old('vm_mission_title', $missionTitle ?? 'Misi HIMATIKA FMIPA UNUJA') }}" placeholder="Misi HIMATIKA FMIPA UNUJA">
+                    <input type="text" name="vm_mission_title" class="form-control" value="{{ old('vm_mission_title', $missionTitle ?? 'Misi HIMATIKA UNUJA') }}" placeholder="Misi HIMATIKA UNUJA">
                 </div>
 
                 <div class="mb-3">
@@ -144,12 +144,12 @@
     let initialMissions = @json($missionList ?? []);
     if (!initialMissions || initialMissions.length === 0) {
         initialMissions = [
-            'Meningkatkan kemampuan akademik dan non-akademik mahasiswa Matematika.',
+            'Meningkatkan kemampuan akademik dan non-akademik mahasiswa Informatika.',
             'Mendorong kreativitas dan inovasi dalam bidang matematika terapan.',
-            'Membangun solidaritas antar mahasiswa Matematika.',
+            'Membangun solidaritas antar mahasiswa Informatika.',
             'Menyelenggarakan kegiatan edukatif dan kompetitif.',
             'Membangun kerja sama dengan pihak internal dan eksternal kampus.',
-            'Mengembangkan potensi mahasiswa Matematika UNUJA.'
+            'Mengembangkan potensi mahasiswa Informatika UNUJA.'
         ];
     }
 

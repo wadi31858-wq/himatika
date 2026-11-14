@@ -22,7 +22,7 @@ class HeroSliderSeeder extends Seeder
             HeroSlider::create([
                 'image' => $existingPhoto,
                 'title' => 'Pengurus HIMATIKA UNUJA',
-                'alt_text' => 'Pengurus HIMATIKA FMIPA Universitas Nurul Jadid',
+                'alt_text' => 'Pengurus HIMATIKA Universitas Nurul Jadid',
                 'caption' => 'Pengurus HIMATIKA Periode 2026',
                 'order_num' => 1,
                 'is_active' => true,

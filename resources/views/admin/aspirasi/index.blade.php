@@ -2,7 +2,7 @@
 
 @section('title', 'Kotak Masuk Aspirasi')
 @section('page_title', 'Kotak Masuk Aspirasi')
-@section('page_subtitle', 'Tinjau kritik, saran, gagasan, dan pertanyaan dari mahasiswa Matematika')
+@section('page_subtitle', 'Tinjau kritik, saran, gagasan, dan pertanyaan dari mahasiswa Informatika')
 
 @section('content')
 <!-- Counts Overview -->

@@ -183,7 +183,7 @@
                         }
                         $logoShape = $siteSettings['navbar_brand_logo_shape'] ?? 'circle';
                         $logoSize = $siteSettings['navbar_brand_logo_size'] ?? '44px';
-                        $brandTitle = $siteSettings['navbar_brand_title'] ?? (($siteSettings['site_short_title'] ?? 'HIMATIKA') . ' FMIPA UNUJA');
+                        $brandTitle = $siteSettings['navbar_brand_title'] ?? (($siteSettings['site_short_title'] ?? 'HIMATIKA') . ' UNUJA');
                         $brandSubtitle = $siteSettings['navbar_brand_subtitle'] ?? '';
                         $showSubtitle = ($siteSettings['navbar_brand_show_subtitle'] ?? '0') === '1';
                         $showAccent = ($siteSettings['navbar_brand_show_accent'] ?? '1') !== '0';
@@ -250,9 +250,9 @@
                                class="form-control form-control-lg fw-bold" 
                                value="{{ old('navbar_brand_title', $brandTitle) }}" 
                                required 
-                               placeholder="Contoh: HIMATIKA FMIPA UNUJA">
+                               placeholder="Contoh: HIMATIKA UNUJA">
                         <div class="form-text">
-                            Tulisan utama yang paling menonjol pada bilah navigasi website (Standar: <strong>HIMATIKA FMIPA UNUJA</strong>).
+                            Tulisan utama yang paling menonjol pada bilah navigasi website (Standar: <strong>HIMATIKA UNUJA</strong>).
                         </div>
                     </div>
 
@@ -390,7 +390,7 @@
                            name="logo_nav_desktop_alt" 
                            class="form-control" 
                            value="{{ old('logo_nav_desktop_alt', $navAlt) }}" 
-                           placeholder="Contoh: Logo HIMATIKA FMIPA UNUJA">
+                           placeholder="Contoh: Logo HIMATIKA UNUJA">
                     <div class="form-text">Deskripsi gambar untuk aksesibilitas dan SEO Google.</div>
                 </div>
 
@@ -513,7 +513,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 1. Title real-time typing
     if (inputTitle && previewTitle) {
         inputTitle.addEventListener('input', function () {
-            previewTitle.textContent = this.value.trim() ? this.value : 'HIMATIKA FMIPA UNUJA';
+            previewTitle.textContent = this.value.trim() ? this.value : 'HIMATIKA UNUJA';
         });
     }
 

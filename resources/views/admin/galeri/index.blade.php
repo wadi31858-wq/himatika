@@ -2,7 +2,7 @@
 
 @section('title', 'Galeri Foto')
 @section('page_title', 'Kelola Galeri Foto')
-@section('page_subtitle', 'Dokumentasi visual kegiatan dan momen penting HIMATIKA FMIPA UNUJA')
+@section('page_subtitle', 'Dokumentasi visual kegiatan dan momen penting HIMATIKA UNUJA')
 
 @section('content')
 <div class="him-card">

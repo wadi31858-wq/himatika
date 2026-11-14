@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Struktur Organisasi - HIMATIKA FMIPA UNUJA')
+@section('title', 'Struktur Organisasi - HIMATIKA UNUJA')
 @section('content')
 
 <style>
@@ -853,8 +853,8 @@
 <section class="hero-section">
     <div class="container" style="position:relative; z-index:1;">
         <span class="hero-label">STRUKTUR ORGANISASI</span>
-        <h1 class="hero-heading">Struktur Organisasi<br>HIMATIKA FMIPA UNUJA</h1>
-        <p class="hero-desc">Kenali susunan kepengurusan, jalur koordinasi Putra &amp; Putri, serta lima divisi penggerak HIMATIKA FMIPA UNUJA periode 2026.</p>
+        <h1 class="hero-heading">Struktur Organisasi<br>HIMATIKA UNUJA</h1>
+        <p class="hero-desc">Kenali susunan kepengurusan, jalur koordinasi Putra &amp; Putri, serta lima divisi penggerak HIMATIKA UNUJA periode 2026.</p>
     </div>
 </section>
 
@@ -899,11 +899,11 @@
                             @endif
                             <div class="flex-grow-1">
                                 <span class="chart-badge">Pembina / Kaprodi</span>
-                                <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</h3>
+                                <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi' }}</h3>
                                 <div class="chart-officer">{{ $kaprodi?->name ?? 'Mudakkir, S.Pd., MM.' }}</div>
                             </div>
                         </div>
-                        <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika FMIPA UNUJA.' }}</p>
+                        <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Informatika UNUJA.' }}</p>
                         <div class="chart-card-footer">
                             <a href="{{ route('struktur-organisasi.show', $kaprodi?->id ?? 12) }}" class="link-detail">
                                 Lihat Detail &rarr;
@@ -1090,11 +1090,11 @@
                             @endif
                             <div class="flex-grow-1">
                                 <span class="chart-badge">Pembina / Kaprodi</span>
-                                <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</h3>
+                                <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi' }}</h3>
                                 <div class="chart-officer">{{ $kaprodi?->name ?? 'Mudakkir, S.Pd., MM.' }}</div>
                             </div>
                         </div>
-                        <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika FMIPA UNUJA.' }}</p>
+                        <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Informatika UNUJA.' }}</p>
                         <div class="chart-card-footer">
                             <a href="{{ route('struktur-organisasi.show', $kaprodi?->id ?? 12) }}" class="link-detail">
                                 Lihat Detail &rarr;

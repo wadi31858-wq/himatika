@@ -45,23 +45,23 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Lencana Section</label>
-                    <input type="text" name="home_peduli_badge" class="form-control" value="{{ old('home_peduli_badge', $siteSettings['home_peduli_badge'] ?? 'HIMATIKA BERDAMPAK') }}">
+                    <input type="text" name="home_peduli_badge" class="form-control" value="{{ old('home_peduli_badge', $siteSettings['home_peduli_badge'] ?? 'HIMATIKA BERKARYA') }}">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Judul Utama <span class="text-danger">*</span></label>
-                    <input type="text" name="home_peduli_title" class="form-control" value="{{ old('home_peduli_title', $siteSettings['home_peduli_title'] ?? 'Mengabdi dengan Hati, Berkontribusi Nyata') }}" required>
+                    <input type="text" name="home_peduli_title" class="form-control" value="{{ old('home_peduli_title', $siteSettings['home_peduli_title'] ?? 'Karya Website Mahasiswa') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Deskripsi Ringkas</label>
-                    <textarea name="home_peduli_desc" class="form-control" rows="3">{{ old('home_peduli_desc', $siteSettings['home_peduli_desc'] ?? 'Melalui berbagai inisiatif sosial, pelatihan, dan pengabdian masyarakat, mahasiswa Matematika terus aktif menebarkan manfaat di dalam dan luar kampus.') }}</textarea>
+                    <textarea name="home_peduli_desc" class="form-control" rows="3">{{ old('home_peduli_desc', $siteSettings['home_peduli_desc'] ?? 'Melalui berbagai inisiatif sosial, pelatihan, dan pengabdian masyarakat, mahasiswa Informatika terus aktif menebarkan manfaat di dalam dan luar kampus.') }}</textarea>
                 </div>
 
                 <div class="row g-2">
                     <div class="col-6">
                         <label class="form-label fw-semibold text-dark small">Teks Tombol</label>
-                        <input type="text" name="home_peduli_btn_text" class="form-control" value="{{ old('home_peduli_btn_text', $siteSettings['home_peduli_btn_text'] ?? 'Lihat Semua Prestasi') }}">
+                        <input type="text" name="home_peduli_btn_text" class="form-control" value="{{ old('home_peduli_btn_text', $siteSettings['home_peduli_btn_text'] ?? 'Lihat Galeri Website') }}">
                     </div>
                     <div class="col-6">
                         <label class="form-label fw-semibold text-dark small">Tautan Tombol</label>

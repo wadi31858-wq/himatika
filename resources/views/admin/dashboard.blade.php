@@ -2,7 +2,7 @@
 
 @section('title', 'Dashboard')
 @section('page_title', 'Ringkasan Sistem')
-@section('page_subtitle', 'Selamat datang di panel kendali HIMATIKA FMIPA UNUJA')
+@section('page_subtitle', 'Selamat datang di panel kendali HIMATIKA UNUJA')
 
 @section('content')
 <!-- Quick Action Shortcuts -->

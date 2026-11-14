@@ -22,7 +22,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Nama Himpunan / Website <span class="text-danger">*</span></label>
-                    <input type="text" name="title" class="form-control" value="{{ old('title', $profile->title ?? 'HIMATIKA FMIPA UNUJA') }}" required placeholder="HIMATIKA FMIPA UNUJA">
+                    <input type="text" name="title" class="form-control" value="{{ old('title', $profile->title ?? 'HIMATIKA UNUJA') }}" required placeholder="HIMATIKA UNUJA">
                 </div>
 
                 <div class="mb-3">
@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold text-dark">Alamat Sekretariat</label>
-                        <textarea name="address" class="form-control" rows="2" placeholder="Gedung FMIPA, Universitas Nurul Jadid, Paiton, Probolinggo">{{ old('address', $profile->address ?? '') }}</textarea>
+                        <textarea name="address" class="form-control" rows="2" placeholder="Gedung Rektorat Lt. 2, Universitas Nurul Jadid, Paiton, Probolinggo">{{ old('address', $profile->address ?? '') }}</textarea>
                     </div>
                 </div>
             </div>

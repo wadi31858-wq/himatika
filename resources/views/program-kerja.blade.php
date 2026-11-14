@@ -116,8 +116,8 @@
 <section class="prog-hero">
     <div class="container position-relative">
         <span class="prog-hero-label">PROGRAM KERJA</span>
-        <h1>Program Kerja<br>HIMATIKA FMIPA UNUJA</h1>
-        <p>Daftar seluruh program kerja yang telah dan akan dilaksanakan oleh HIMATIKA FMIPA UNUJA.</p>
+        <h1>Program Kerja<br>HIMATIKA UNUJA</h1>
+        <p>Daftar seluruh program kerja yang telah dan akan dilaksanakan oleh HIMATIKA UNUJA.</p>
         <div class="prog-stats-row">
             <div class="prog-stat-item">
                 <div class="prog-stat-num">{{ $programs->total() }}</div>

@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Jabatan Resmi <span class="text-danger">*</span></label>
-                        <input type="text" name="sambutan_title" class="form-control" value="{{ old('sambutan_title', $siteSettings['sambutan_title'] ?? ($kaprodi->position ?? 'Ketua Program Studi Matematika')) }}" required>
+                        <input type="text" name="sambutan_title" class="form-control" value="{{ old('sambutan_title', $siteSettings['sambutan_title'] ?? ($kaprodi->position ?? 'Ketua Program Studi')) }}" required>
                     </div>
                 </div>
 

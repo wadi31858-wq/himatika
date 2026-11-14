@@ -42,9 +42,9 @@ class AdminVisionMissionController extends Controller
         $missionText = implode("\n", $missionList);
 
         $bannerTitle = SiteSetting::get('vm_banner_title', 'Visi dan Misi');
-        $bannerSubtitle = SiteSetting::get('vm_banner_subtitle', 'Arah dan tujuan pengembangan HIMATIKA FMIPA UNUJA.');
-        $visionTitle = SiteSetting::get('vm_vision_title', 'Visi HIMATIKA FMIPA UNUJA');
-        $missionTitle = SiteSetting::get('vm_mission_title', 'Misi HIMATIKA FMIPA UNUJA');
+        $bannerSubtitle = SiteSetting::get('vm_banner_subtitle', 'Arah dan tujuan pengembangan HIMATIKA UNUJA.');
+        $visionTitle = SiteSetting::get('vm_vision_title', 'Visi HIMATIKA UNUJA');
+        $missionTitle = SiteSetting::get('vm_mission_title', 'Misi HIMATIKA UNUJA');
         $isVisible = SiteSetting::get('vm_is_visible', '1');
 
         return view('admin.visi-misi.edit', compact(
@@ -95,8 +95,8 @@ class AdminVisionMissionController extends Controller
         // Save site settings
         SiteSetting::set('vm_banner_title', $validated['vm_banner_title'], 'visi_misi');
         SiteSetting::set('vm_banner_subtitle', $validated['vm_banner_subtitle'] ?? '', 'visi_misi');
-        SiteSetting::set('vm_vision_title', $validated['vm_vision_title'] ?? 'Visi HIMATIKA FMIPA UNUJA', 'visi_misi');
-        SiteSetting::set('vm_mission_title', $validated['vm_mission_title'] ?? 'Misi HIMATIKA FMIPA UNUJA', 'visi_misi');
+        SiteSetting::set('vm_vision_title', $validated['vm_vision_title'] ?? 'Visi HIMATIKA UNUJA', 'visi_misi');
+        SiteSetting::set('vm_mission_title', $validated['vm_mission_title'] ?? 'Misi HIMATIKA UNUJA', 'visi_misi');
         SiteSetting::set('vm_is_visible', $request->has('vm_is_visible') ? '1' : '0', 'visi_misi');
 
         // Sinkronkan ke kartu Visi Beranda agar admin cukup input sekali

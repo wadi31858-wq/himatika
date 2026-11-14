@@ -47,7 +47,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Kapsul Label (Badge Atas)</label>
-                    <input type="text" name="hero_badge" class="form-control" value="{{ old('hero_badge', $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA') }}" placeholder="HIMATIKA FMIPA UNUJA">
+                    <input type="text" name="hero_badge" class="form-control" value="{{ old('hero_badge', $profile->hero_badge ?? 'HIMATIKA UNUJA') }}" placeholder="HIMATIKA UNUJA">
                     <div class="form-text">Tampil di dalam kapsul di atas judul hero.</div>
                 </div>
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $jabatan->position . ' - HIMATIKA FMIPA UNUJA')
+@section('title', $jabatan->position . ' - HIMATIKA UNUJA')
 
 @section('content')
 <style>
@@ -334,7 +334,7 @@
                 @endif
 
                 <p class="hero-desc-text">
-                    {{ $jabatan->description ?? 'Menjalankan tugas dan fungsi strategis dalam struktur kepengurusan HIMATIKA FMIPA UNUJA periode 2026.' }}
+                    {{ $jabatan->description ?? 'Menjalankan tugas dan fungsi strategis dalam struktur kepengurusan HIMATIKA UNUJA periode 2026.' }}
                 </p>
 
                 <div class="d-flex gap-3 mb-4 flex-wrap">
@@ -381,7 +381,7 @@
                         </div>
                     @endif
                     <div class="hero-photo-watermark">
-                        HIMATIKA FMIPA UNUJA
+                        HIMATIKA UNUJA
                     </div>
                 </div>
             </div>
@@ -498,7 +498,7 @@
                             @else
                                 <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center text-secondary">
                                     <i class="fas fa-user-circle" style="font-size: 70px; opacity: 0.45; margin-bottom: 8px;"></i>
-                                    <span style="font-size: 0.8rem; font-weight: 600;">HIMATIKA FMIPA UNUJA</span>
+                                    <span style="font-size: 0.8rem; font-weight: 600;">HIMATIKA UNUJA</span>
                                 </div>
                             @endif
                         </div>

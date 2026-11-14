@@ -12,7 +12,7 @@ class AdminProfileController extends Controller
 {
     public function edit()
     {
-        $profile = Profile::firstOrCreate([], ['title' => 'HIMATIKA FMIPA UNUJA', 'content' => '']);
+        $profile = Profile::firstOrCreate([], ['title' => 'HIMATIKA UNUJA', 'content' => '']);
         return view('admin.profil.edit', compact('profile'));
     }
 

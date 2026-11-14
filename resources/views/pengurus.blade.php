@@ -160,8 +160,8 @@
 <section class="pengurus-hero">
     <div class="container position-relative">
         <span class="pengurus-hero-label">PENGURUS</span>
-        <h1>Tim Pengurus<br>HIMATIKA FMIPA UNUJA</h1>
-        <p>Kenali para pengurus yang berdedikasi menggerakkan HIMATIKA FMIPA UNUJA periode 2026.</p>
+        <h1>Tim Pengurus<br>HIMATIKA UNUJA</h1>
+        <p>Kenali para pengurus yang berdedikasi menggerakkan HIMATIKA UNUJA periode 2026.</p>
         <div class="pengurus-stat-row">
             <div class="pengurus-stat-item">
                 <div class="pengurus-stat-num">{{ $members->total() }}</div>

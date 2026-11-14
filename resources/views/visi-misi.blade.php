@@ -1,13 +1,13 @@
 @extends('layouts.app')
-@section('title', ($siteSettings['vm_banner_title'] ?? 'Visi dan Misi') . ' - HIMATIKA FMIPA UNUJA')
+@section('title', ($siteSettings['vm_banner_title'] ?? 'Visi dan Misi') . ' - HIMATIKA UNUJA')
 
 @section('content')
 
 @php
     $vmBannerTitle = $siteSettings['vm_banner_title'] ?? 'Visi dan Misi';
-    $vmBannerSubtitle = $siteSettings['vm_banner_subtitle'] ?? 'Arah dan tujuan pengembangan HIMATIKA FMIPA UNUJA.';
-    $vmVisionTitle = $siteSettings['vm_vision_title'] ?? 'Visi HIMATIKA FMIPA UNUJA';
-    $vmMissionTitle = $siteSettings['vm_mission_title'] ?? 'Misi HIMATIKA FMIPA UNUJA';
+    $vmBannerSubtitle = $siteSettings['vm_banner_subtitle'] ?? 'Arah dan tujuan pengembangan HIMATIKA UNUJA.';
+    $vmVisionTitle = $siteSettings['vm_vision_title'] ?? 'Visi HIMATIKA UNUJA';
+    $vmMissionTitle = $siteSettings['vm_mission_title'] ?? 'Misi HIMATIKA UNUJA';
     $vmIsVisible = ($siteSettings['vm_is_visible'] ?? '1') !== '0';
 @endphp
 
@@ -53,7 +53,7 @@
                             <h3 class="visi-title mb-3">{{ $vmVisionTitle }}</h3>
                             
                             <p class="visi-text">
-                                “{{ $vm->vision ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.' }}”
+                                “{{ $vm->vision ?? 'Menjadi himpunan mahasiswa Informatika yang unggul, inovatif, berdaya saing global, dan berintegritas tinggi berlandaskan nilai-nilai kepesantrenan Universitas Nurul Jadid.' }}”
                             </p>
                         </div>
 

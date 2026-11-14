@@ -23,7 +23,7 @@ class AdminSettingController extends Controller
     public function identitas()
     {
         $profile = Profile::firstOrCreate([], [
-            'title' => 'HIMATIKA FMIPA UNUJA',
+            'title' => 'HIMATIKA UNUJA',
             'campus_name' => 'Universitas Nurul Jadid',
             'motto' => 'Synchronized Growth, Reaching New Heights',
             'email' => 'himatika@unuja.ac.id',
@@ -56,7 +56,7 @@ class AdminSettingController extends Controller
 
         SiteSetting::set('site_short_title', $validated['short_title'] ?? 'HIMATIKA', 'identitas');
         SiteSetting::set('site_faculty_name', $validated['faculty_name'] ?? 'Fakultas MIPA', 'identitas');
-        SiteSetting::set('site_meta_keywords', $validated['meta_keywords'] ?? 'HIMATIKA, UNUJA, Matematika, FMIPA, Nurul Jadid', 'identitas');
+        SiteSetting::set('site_meta_keywords', $validated['meta_keywords'] ?? 'HIMATIKA, UNUJA, Informatika, Nurul Jadid', 'identitas');
 
         ActivityLog::record('update', 'Memperbarui identitas dan meta informasi website', $profile);
 

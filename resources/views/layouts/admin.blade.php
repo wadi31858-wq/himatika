@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin Panel') - HIMATIKA FMIPA UNUJA</title>
+    <title>@yield('title', 'Admin Panel') - HIMATIKA UNUJA</title>
 
     <!-- Dynamic Favicon -->
     @php
@@ -1086,7 +1086,7 @@
                 </button>
                 <div class="topbar-page-info">
                     <h1 class="topbar-page-title">@yield('page_title', 'Dashboard')</h1>
-                    <p class="topbar-breadcrumb">@yield('page_subtitle', 'Panel Pengelolaan HIMATIKA FMIPA UNUJA')</p>
+                    <p class="topbar-breadcrumb">@yield('page_subtitle', 'Panel Pengelolaan HIMATIKA UNUJA')</p>
                 </div>
             </div>
 

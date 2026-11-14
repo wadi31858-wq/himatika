@@ -23,7 +23,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Kapsul Label (Badge Atas)</label>
-                    <input type="text" name="hero_badge" class="form-control" value="{{ old('hero_badge', $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA') }}" placeholder="Contoh: HIMATIKA FMIPA UNUJA">
+                    <input type="text" name="hero_badge" class="form-control" value="{{ old('hero_badge', $profile->hero_badge ?? 'HIMATIKA UNUJA') }}" placeholder="Contoh: HIMATIKA UNUJA">
                     <div class="form-text">Tampil di dalam kapsul navy di atas judul utama.</div>
                 </div>
 
@@ -41,7 +41,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Deskripsi Singkat</label>
-                    <textarea name="hero_desc" class="form-control" rows="3" placeholder="Tuliskan ringkasan singkat">{{ old('hero_desc', $profile->hero_desc ?? 'Ruang resmi mahasiswa Matematika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.') }}</textarea>
+                    <textarea name="hero_desc" class="form-control" rows="3" placeholder="Tuliskan ringkasan singkat">{{ old('hero_desc', $profile->hero_desc ?? 'Ruang resmi mahasiswa Informatika UNUJA untuk mengakses layanan, mengikuti kegiatan, menyampaikan aspirasi, dan mengenal karya HIMATIKA.') }}</textarea>
                 </div>
             </div>
 

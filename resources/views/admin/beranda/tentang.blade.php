@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold text-dark">Deskripsi Ringkas</label>
-                        <textarea name="home_tentang_desc" class="form-control" rows="2">{{ old('home_tentang_desc', $siteSettings['home_tentang_desc'] ?? 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.') }}</textarea>
+                        <textarea name="home_tentang_desc" class="form-control" rows="2">{{ old('home_tentang_desc', $siteSettings['home_tentang_desc'] ?? 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Informatika Universitas Nurul Jadid.') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Ringkasan Sambutan di Beranda</label>
-                    <textarea name="home_sambutan_summary" class="form-control" rows="4">{{ old('home_sambutan_summary', $siteSettings['home_sambutan_summary'] ?? ($siteSettings['sambutan_quote'] ?? 'Sambutan resmi dari pimpinan dan Ketua Program Studi Matematika Universitas Nurul Jadid mengenai arah, visi, dan semangat pengembangan mahasiswa di era digital.')) }}</textarea>
+                    <textarea name="home_sambutan_summary" class="form-control" rows="4">{{ old('home_sambutan_summary', $siteSettings['home_sambutan_summary'] ?? ($siteSettings['sambutan_quote'] ?? 'Sambutan resmi dari pimpinan dan Ketua Program Studi Universitas Nurul Jadid mengenai arah, visi, dan semangat pengembangan mahasiswa di era digital.')) }}</textarea>
                     <div class="form-text text-muted small"><i class="fas fa-sync-alt text-success me-1"></i> Tersinkronisasi otomatis dengan menu <a href="{{ route('admin.tentang.sambutan') }}" target="_blank"><strong>Tentang &rarr; Sambutan Kaprodi</strong></a>.</div>
                 </div>
 
@@ -112,7 +112,7 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold text-dark">Ringkasan Visi di Beranda</label>
-                    <textarea name="home_visi_summary" class="form-control" rows="3">{{ old('home_visi_summary', $siteSettings['home_visi_summary'] ?? (\App\Models\VisionMission::value('vision') ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.')) }}</textarea>
+                    <textarea name="home_visi_summary" class="form-control" rows="3">{{ old('home_visi_summary', $siteSettings['home_visi_summary'] ?? (\App\Models\VisionMission::value('vision') ?? 'Menjadi organisasi mahasiswa Informatika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu informatika dan teknologi serta sumber daya mahasiswa.')) }}</textarea>
                     <div class="form-text text-muted small"><i class="fas fa-sync-alt text-success me-1"></i> Tersinkronisasi otomatis dengan menu <a href="{{ route('admin.visi-misi.edit') }}" target="_blank"><strong>Tentang &rarr; Visi dan Misi</strong></a>.</div>
                 </div>
 

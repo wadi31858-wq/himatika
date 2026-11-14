@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Pusat Informasi - HIMATIKA FMIPA UNUJA')
+@section('title', 'Pusat Informasi - HIMATIKA UNUJA')
 
 @section('content')
 
@@ -23,9 +23,9 @@
 {{-- ==================== 2. BANNER PUSAT INFORMASI ==================== --}}
 <section class="berita-hero">
     <div class="container text-center">
-        <span class="berita-hero-label">HIMATIKA FMIPA UNUJA</span>
+        <span class="berita-hero-label">HIMATIKA UNUJA</span>
         <h1 class="berita-hero-title">Pusat Informasi</h1>
-        <p class="berita-hero-desc">Dapatkan kabar terkini, pengumuman resmi, liputan kegiatan, prestasi mahasiswa, dan agenda HIMATIKA FMIPA UNUJA.</p>
+        <p class="berita-hero-desc">Dapatkan kabar terkini, pengumuman resmi, liputan kegiatan, prestasi mahasiswa, dan agenda HIMATIKA UNUJA.</p>
     </div>
 </section>
 

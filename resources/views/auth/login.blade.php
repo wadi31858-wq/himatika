@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - HIMATIKA FMIPA UNUJA</title>
+    <title>Login - HIMATIKA UNUJA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('vendor/fontawesome/css/all.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
@@ -77,7 +77,7 @@
                                     <img src="{{ $loginLogo }}" alt="{{ $loginAlt }}" style="max-height: 54px; max-width: 100%; object-fit: contain;">
                                 </div>
                             @endif
-                            <h2><i class="fas fa-laptop-code me-2"></i>{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} FMIPA UNUJA</h2>
+                            <h2><i class="fas fa-laptop-code me-2"></i>{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} UNUJA</h2>
                             <p class="mt-3 opacity-75">Himpunan Mahasiswa Matematika</p>
                             <p class="small opacity-50">Silakan login untuk mengelola konten website.</p>
                         </div>

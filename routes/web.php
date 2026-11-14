@@ -18,8 +18,8 @@ use App\Http\Controllers\AuthController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/profil', fn() => redirect()->route('home'))->name('profil');
-Route::get('/tentang', fn() => redirect()->route('home'))->name('tentang');
+Route::get('/profil', [ProfileController::class, 'tentang'])->name('profil');
+Route::get('/tentang', [ProfileController::class, 'tentang'])->name('tentang');
 Route::get('/sejarah', [ProfileController::class, 'sejarah'])->name('sejarah');
 Route::get('/sambutan', [ProfileController::class, 'sambutan'])->name('sambutan');
 Route::get('/visi-misi', [VisionMissionController::class, 'index'])->name('visi-misi');

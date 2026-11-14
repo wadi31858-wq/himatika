@@ -273,11 +273,11 @@ class HomeController extends Controller
         }
         if (empty($missions)) {
             $missions = [
-                'Meningkatkan kemampuan akademik dan non-akademik mahasiswa Matematika.',
-                'Mendorong kreativitas dan inovasi dalam bidang matematika terapan.',
-                'Membangun solidaritas antar mahasiswa Matematika.',
-                'Menyelenggarakan kegiatan edukatif dan kompetitif.',
-                'Membangun kerja sama dengan pihak internal dan eksternal kampus.'
+                'Menyelenggarakan kegiatan penguatan kompetensi akademik dan keahlian teknologi komputasi modern.',
+                'Mendorong kreativitas riset dan inkubasi karya digital website serta rekayasa perangkat lunak.',
+                'Membangun solidaritas, profesionalisme, dan integritas kepemimpinan sivitas akademika Informatika.',
+                'Menyelenggarakan program pengabdian masyarakat dan literasi digital berbasis nilai-nilai kepesantrenan.',
+                'Memperluas jejaring kemitraan strategis dengan institusi teknologi, perguruan tinggi, dan alumni.'
             ];
         }
 
