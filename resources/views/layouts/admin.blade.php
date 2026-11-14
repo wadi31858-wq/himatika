@@ -745,6 +745,11 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('admin.beranda.slider') }}" class="sidebar-sub-item {{ request()->routeIs('admin.beranda.slider*') ? 'active' : '' }}">
+                                <i class="fas fa-images small"></i> Slider Foto
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.beranda.tentang') }}" class="sidebar-sub-item {{ request()->routeIs('admin.beranda.tentang') ? 'active' : '' }}">
                                 <i class="fas fa-info-circle small"></i> Tentang HIMATIKA
                             </a>

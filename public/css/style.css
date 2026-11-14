@@ -745,6 +745,202 @@ body {
     transform: scale(1.03);
 }
 
+/* Hero Photo Slider Carousel */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-carousel .carousel-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.hero-carousel .carousel-item {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hero-slider-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.hero-visual-frame:hover .hero-slider-img {
+    transform: scale(1.02);
+}
+
+/* Caption Overlay */
+.hero-slider-caption-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem 1.25rem 0.85rem;
+    background: linear-gradient(to top, rgba(37, 13, 23, 0.88) 0%, rgba(37, 13, 23, 0.5) 60%, transparent 100%);
+    color: #FFF7FA;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end;
+}
+
+.hero-slider-caption-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    color: #FFF7FA;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Previous & Next Burgundy Buttons */
+.hero-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(37, 13, 23, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    color: #FFF7FA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 4;
+    opacity: 0.85;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.hero-carousel-btn:hover {
+    background: #641D38;
+    color: #FFF7FA;
+    opacity: 1;
+    transform: translateY(-50%) scale(1.08);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 6px 20px rgba(100, 29, 56, 0.4);
+}
+
+.hero-carousel-prev {
+    left: 14px;
+}
+
+.hero-carousel-next {
+    right: 14px;
+}
+
+.hero-carousel-btn-icon {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Indicators */
+.hero-carousel-indicators {
+    position: absolute;
+    bottom: 12px;
+    margin-bottom: 0;
+    gap: 6px;
+    z-index: 4;
+}
+
+.hero-carousel-indicators [data-bs-target] {
+    width: 22px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.55);
+    border: none;
+    padding: 0;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.hero-carousel-indicators .active {
+    width: 34px;
+    background-color: #FFF7FA;
+    opacity: 1;
+    box-shadow: 0 2px 6px rgba(100, 29, 56, 0.5);
+}
+
+/* Play/Pause Button */
+.hero-carousel-pause-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(37, 13, 23, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    color: #FFF7FA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+    z-index: 5;
+    opacity: 0.85;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.hero-carousel-pause-btn:hover {
+    background: #641D38;
+    color: #FFF7FA;
+    opacity: 1;
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 767.98px) {
+    .hero-carousel-btn {
+        width: 36px;
+        height: 36px;
+    }
+    .hero-carousel-btn-icon {
+        font-size: 0.8rem;
+    }
+    .hero-carousel-prev {
+        left: 8px;
+    }
+    .hero-carousel-next {
+        right: 8px;
+    }
+    .hero-carousel-pause-btn {
+        top: 10px;
+        right: 10px;
+        width: 28px;
+        height: 28px;
+        font-size: 0.65rem;
+    }
+    .hero-carousel-indicators {
+        bottom: 8px;
+    }
+    .hero-carousel-indicators [data-bs-target] {
+        width: 16px;
+        height: 4px;
+    }
+    .hero-carousel-indicators .active {
+        width: 24px;
+    }
+}
+
 /* Responsive Rules for Mobile */
 @media (max-width: 991.98px) {
     .hero-vertical-buttons {
