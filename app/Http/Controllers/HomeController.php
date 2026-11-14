@@ -112,7 +112,7 @@ class HomeController extends Controller
             'badge'    => 'Logo',
             'title'    => 'HIMATIKA UNUJA',
             'photo'    => $logoPath,
-            'url'      => route('profil'),
+            'url'      => route('sejarah'),
         ];
 
         // 2. Santriwati (News ID 9 / Khotmil Quran)

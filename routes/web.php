@@ -18,8 +18,8 @@ use App\Http\Controllers\AuthController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/profil', [ProfileController::class, 'index'])->name('profil');
-Route::get('/tentang', [ProfileController::class, 'index'])->name('tentang');
+Route::get('/profil', fn() => redirect()->route('home'))->name('profil');
+Route::get('/tentang', fn() => redirect()->route('home'))->name('tentang');
 Route::get('/sejarah', [ProfileController::class, 'sejarah'])->name('sejarah');
 Route::get('/sambutan', [ProfileController::class, 'sambutan'])->name('sambutan');
 Route::get('/visi-misi', [VisionMissionController::class, 'index'])->name('visi-misi');
@@ -32,7 +32,7 @@ Route::get('/kegiatan/{slug}', [ActivityController::class, 'show'])->name('kegia
 Route::get('/berita', [NewsController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('berita.show');
 Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda');
-Route::get('/prestasi', [AchievementController::class, 'index'])->name('prestasi');
+Route::get('/prestasi', fn() => redirect()->route('home'))->name('prestasi');
 Route::get('/galeri', [GalleryController::class, 'index'])->name('galeri');
 Route::get('/galeri/{id}', [GalleryController::class, 'show'])->name('galeri.show');
 Route::get('/download', [DownloadController::class, 'index'])->name('download');

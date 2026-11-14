@@ -282,11 +282,6 @@
                         </button>
                         <ul class="tentang-dropdown-menu" id="tentangDropdownMenu" aria-labelledby="tentangDropdownBtn">
                             <li>
-                                <a class="tentang-dropdown-item {{ request()->routeIs('profil*') || request()->routeIs('tentang*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#tentang' : route('profil') }}">
-                                    Profil HIMATIKA
-                                </a>
-                            </li>
-                            <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('sejarah*') ? 'active' : '' }}" href="{{ route('sejarah') }}">
                                     Sejarah
                                 </a>
@@ -458,7 +453,6 @@
                     <h5 class="footer-heading">NAVIGASI</h5>
                     <ul class="list-unstyled footer-links">
                         <li><a href="{{ route('home') }}">Beranda</a></li>
-                        <li><a href="{{ route('profil') }}">Tentang</a></li>
                         <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
                         <li><a href="{{ route('struktur-organisasi') }}">Struktur</a></li>
                         <li><a href="{{ route('agenda') }}">Agenda</a></li>
@@ -470,7 +464,6 @@
                     <ul class="list-unstyled footer-links">
                         <li><a href="{{ route('galeri') }}">Galeri</a></li>
                         <li><a href="{{ route('download') }}">Galeri Website</a></li>
-                        <li><a href="{{ route('prestasi') }}">Prestasi</a></li>
                         <li><a href="{{ route('kegiatan') }}">Kegiatan</a></li>
                         <li><a href="{{ route('pendaftaran.index') }}">Pendaftaran</a></li>
                         <li><a href="{{ route('aspirasi.index') }}">Kirim Aspirasi</a></li>
