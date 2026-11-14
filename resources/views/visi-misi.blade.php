@@ -53,7 +53,7 @@
                             <h3 class="visi-title mb-3">{{ $vmVisionTitle }}</h3>
                             
                             <p class="visi-text">
-                                “{{ $vm->vision ?? 'Menjadi himpunan mahasiswa Informatika yang unggul, inovatif, berdaya saing global, dan berintegritas tinggi berlandaskan nilai-nilai kepesantrenan Universitas Nurul Jadid.' }}”
+                                “{{ $vm->vision ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.' }}”
                             </p>
                         </div>
 

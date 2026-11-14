@@ -60,7 +60,7 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold text-dark">Alamat Sekretariat</label>
-                        <textarea name="address" class="form-control" rows="2" placeholder="Gedung Rektorat Lt. 2, Universitas Nurul Jadid, Paiton, Probolinggo">{{ old('address', $profile->address ?? '') }}</textarea>
+                        <textarea name="address" class="form-control" rows="2" placeholder="Gedung FMIPA, Universitas Nurul Jadid, Paiton, Probolinggo">{{ old('address', $profile->address ?? '') }}</textarea>
                     </div>
                 </div>
             </div>

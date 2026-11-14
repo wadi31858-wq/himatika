@@ -146,7 +146,7 @@
                         <div class="kontak-info-icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div>
                             <div style="font-size:0.82rem; font-weight:600; color:var(--dark-text);">Alamat</div>
-                            <div style="font-size:0.85rem; color:#888;">{{ $profile->address ?? 'Kampus Universitas Nurul Jadid, Karanganyar, Paiton, Probolinggo' }}</div>
+                            <div style="font-size:0.85rem; color:#888;">Jl. KH Wahid Hasyim No. 170, Jember</div>
                         </div>
                     </div>
                     <div class="kontak-info-item">

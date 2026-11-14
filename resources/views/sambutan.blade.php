@@ -5,7 +5,7 @@
 
 @php
     $kaprodiName = !empty($siteSettings['sambutan_name']) ? $siteSettings['sambutan_name'] : ($kaprodi->name ?? 'MUDAKKIR, S.Pd., MM.');
-    $kaprodiRole = !empty($siteSettings['sambutan_title']) ? $siteSettings['sambutan_title'] : ($kaprodi->position ?? 'Ketua Program Studi');
+    $kaprodiRole = !empty($siteSettings['sambutan_title']) ? $siteSettings['sambutan_title'] : ($kaprodi->position ?? 'Ketua Program Studi Matematika');
     $badgeText = !empty($siteSettings['sambutan_badge']) ? $siteSettings['sambutan_badge'] : 'PESAN PIMPINAN';
     $rawTitle = !empty($siteSettings['sambutan_banner_title']) ? $siteSettings['sambutan_banner_title'] : 'Sambutan Kaprodi';
 
@@ -35,7 +35,7 @@
     <div class="container position-relative" style="z-index: 1;">
         <span class="tentang-hero-label">SAMBUTAN KAPRODI</span>
         <h1 class="tentang-hero-heading">Sambutan Kaprodi<br>HIMATIKA UNUJA</h1>
-        <p class="tentang-hero-desc">Pesan dan arahan Ketua Program Studi Informatika Universitas Nurul Jadid.</p>
+        <p class="tentang-hero-desc">Pesan dan arahan Ketua Program Studi Matematika Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Nurul Jadid.</p>
     </div>
 </section>
 
@@ -95,7 +95,7 @@
                                 Website ini kami hadirkan sebagai upaya strategis untuk memperkuat transparansi, meningkatkan kualitas pelayanan informasi kemahasiswaan, serta mempererat tali silaturahmi antara program studi, dosen, mahasiswa, dan masyarakat luas.
                             </p>
                             <p class="sambutan-ref-p mb-0">
-                                Semoga wadah ini dapat menjadi pendorong kemajuan intelektual, moral, dan prestasi keilmuan teknologi informatika bagi seluruh keluarga besar HIMATIKA UNUJA.
+                                Semoga wadah ini dapat menjadi pendorong kemajuan intelektual, moral, dan prestasi keilmuan matematika bagi seluruh keluarga besar HIMATIKA UNUJA.
                             </p>
                         @endif
 

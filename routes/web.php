@@ -60,13 +60,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::put('/beranda', [\App\Http\Controllers\Admin\AdminHomeController::class, 'update'])->name('beranda.update');
     Route::get('/beranda/hero', [\App\Http\Controllers\Admin\AdminHomeController::class, 'hero'])->name('beranda.hero');
     Route::put('/beranda/hero', [\App\Http\Controllers\Admin\AdminHomeController::class, 'updateHero'])->name('beranda.hero.update');
-    Route::get('/beranda/slider', [\App\Http\Controllers\Admin\AdminHomeController::class, 'slider'])->name('beranda.slider');
-    Route::post('/beranda/slider', [\App\Http\Controllers\Admin\AdminHomeController::class, 'storeSlider'])->name('beranda.slider.store');
-    Route::put('/beranda/slider/settings', [\App\Http\Controllers\Admin\AdminHomeController::class, 'updateSliderSettings'])->name('beranda.slider.settings');
-    Route::put('/beranda/slider/reorder', [\App\Http\Controllers\Admin\AdminHomeController::class, 'reorderSlider'])->name('beranda.slider.reorder');
-    Route::put('/beranda/slider/{slider}', [\App\Http\Controllers\Admin\AdminHomeController::class, 'updateSlider'])->name('beranda.slider.update');
-    Route::patch('/beranda/slider/{slider}/toggle', [\App\Http\Controllers\Admin\AdminHomeController::class, 'toggleSlider'])->name('beranda.slider.toggle');
-    Route::delete('/beranda/slider/{slider}', [\App\Http\Controllers\Admin\AdminHomeController::class, 'destroySlider'])->name('beranda.slider.destroy');
     Route::get('/beranda/tentang', [\App\Http\Controllers\Admin\AdminHomeController::class, 'tentang'])->name('beranda.tentang');
     Route::put('/beranda/tentang', [\App\Http\Controllers\Admin\AdminHomeController::class, 'updateTentang'])->name('beranda.tentang.update');
     Route::get('/beranda/berita', [\App\Http\Controllers\Admin\AdminHomeController::class, 'berita'])->name('beranda.berita');

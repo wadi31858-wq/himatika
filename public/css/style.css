@@ -6,7 +6,7 @@
 
 /* ===================== VARIABEL CSS ===================== */
 :root {
-    /* Palet Burgundy Global HIMATIKA UNUJA */
+    /* Palet Burgundy Global HIMATIKA FMIPA UNUJA */
     --burgundy-darkest: #250D17; /* Navbar, footer, latar paling gelap */
     --burgundy-primary: #641D38; /* Latar section utama, judul di atas latar terang, elemen aktif */
     --burgundy-accent: #8A3151;  /* Tombol utama, tautan, ikon antarmuka, aksen */
@@ -743,202 +743,6 @@ body {
 
 .hero-visual-frame:hover .hero-single-img {
     transform: scale(1.03);
-}
-
-/* Hero Photo Slider Carousel */
-.hero-carousel {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
-.hero-carousel .carousel-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.hero-carousel .carousel-item {
-    width: 100%;
-    height: 100%;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.hero-slider-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.hero-visual-frame:hover .hero-slider-img {
-    transform: scale(1.02);
-}
-
-/* Caption Overlay */
-.hero-slider-caption-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 2.5rem 1.25rem 0.85rem;
-    background: linear-gradient(to top, rgba(37, 13, 23, 0.88) 0%, rgba(37, 13, 23, 0.5) 60%, transparent 100%);
-    color: #FFF7FA;
-    z-index: 2;
-    pointer-events: none;
-    display: flex;
-    align-items: flex-end;
-}
-
-.hero-slider-caption-text {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    color: #FFF7FA;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-}
-
-/* Previous & Next Burgundy Buttons */
-.hero-carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: rgba(37, 13, 23, 0.65);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1.5px solid rgba(255, 255, 255, 0.35);
-    color: #FFF7FA;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 4;
-    opacity: 0.85;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-}
-
-.hero-carousel-btn:hover {
-    background: #641D38;
-    color: #FFF7FA;
-    opacity: 1;
-    transform: translateY(-50%) scale(1.08);
-    border-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 6px 20px rgba(100, 29, 56, 0.4);
-}
-
-.hero-carousel-prev {
-    left: 14px;
-}
-
-.hero-carousel-next {
-    right: 14px;
-}
-
-.hero-carousel-btn-icon {
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Indicators */
-.hero-carousel-indicators {
-    position: absolute;
-    bottom: 12px;
-    margin-bottom: 0;
-    gap: 6px;
-    z-index: 4;
-}
-
-.hero-carousel-indicators [data-bs-target] {
-    width: 22px;
-    height: 5px;
-    border-radius: 3px;
-    background-color: rgba(255, 255, 255, 0.55);
-    border: none;
-    padding: 0;
-    opacity: 0.7;
-    transition: all 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.hero-carousel-indicators .active {
-    width: 34px;
-    background-color: #FFF7FA;
-    opacity: 1;
-    box-shadow: 0 2px 6px rgba(100, 29, 56, 0.5);
-}
-
-/* Play/Pause Button */
-.hero-carousel-pause-btn {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(37, 13, 23, 0.65);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1.5px solid rgba(255, 255, 255, 0.3);
-    color: #FFF7FA;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    cursor: pointer;
-    z-index: 5;
-    opacity: 0.85;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.hero-carousel-pause-btn:hover {
-    background: #641D38;
-    color: #FFF7FA;
-    opacity: 1;
-    transform: scale(1.1);
-    border-color: rgba(255, 255, 255, 0.6);
-}
-
-@media (max-width: 767.98px) {
-    .hero-carousel-btn {
-        width: 36px;
-        height: 36px;
-    }
-    .hero-carousel-btn-icon {
-        font-size: 0.8rem;
-    }
-    .hero-carousel-prev {
-        left: 8px;
-    }
-    .hero-carousel-next {
-        right: 8px;
-    }
-    .hero-carousel-pause-btn {
-        top: 10px;
-        right: 10px;
-        width: 28px;
-        height: 28px;
-        font-size: 0.65rem;
-    }
-    .hero-carousel-indicators {
-        bottom: 8px;
-    }
-    .hero-carousel-indicators [data-bs-target] {
-        width: 16px;
-        height: 4px;
-    }
-    .hero-carousel-indicators .active {
-        width: 24px;
-    }
 }
 
 /* Responsive Rules for Mobile */
@@ -2052,38 +1856,67 @@ body {
 .peduli-cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    color: var(--gold);
+    justify-content: space-between;
+    gap: 0.95rem;
+    padding: 0.65rem 0.75rem 0.65rem 1.45rem;
+    min-height: 48px;
+    background: linear-gradient(135deg, rgba(100, 29, 56, 0.75) 0%, rgba(50, 18, 31, 0.9) 100%);
+    border: 1.5px solid rgba(246, 233, 238, 0.35);
+    border-radius: 9999px;
+    color: #FFF7FA;
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.25px;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 0.88rem;
-    padding: 0.55rem 0.6rem 0.55rem 1.2rem;
-    border: 1.5px solid rgba(138, 49, 81, 0.3);
-    border-radius: 50px;
-    transition: all 0.35s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.peduli-cta .peduli-cta-text {
+    color: #FFF7FA;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .peduli-cta-arrow {
-    width: 28px;
-    height: 28px;
-    background: var(--gold);
-    color: var(--dark-green);
+    width: 32px;
+    height: 32px;
+    background: #FFF7FA;
+    color: #641D38;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.65rem;
-    transition: var(--transition);
+    font-size: 0.78rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.3s ease, color 0.3s ease;
 }
 
-.peduli-cta:hover {
-    background: rgba(138, 49, 81, 0.1);
-    border-color: var(--gold);
-    color: var(--white);
+.peduli-cta:hover, .peduli-cta:focus-visible {
+    background: linear-gradient(135deg, #8A3151 0%, #641D38 100%);
+    border-color: rgba(255, 255, 255, 0.65);
+    color: #FFFFFF;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(100, 29, 56, 0.45), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.peduli-cta:hover .peduli-cta-text {
+    color: #FFFFFF;
 }
 
 .peduli-cta:hover .peduli-cta-arrow {
-    transform: translateX(3px);
+    background: #FFFFFF;
+    color: #8A3151;
+    transform: translateX(4px);
+}
+
+.peduli-cta:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(100, 29, 56, 0.3);
 }
 
 /* ── Image Collage ── */
@@ -6632,164 +6465,5 @@ body {
     }
     .vm-visi-content-box {
         padding: 14px 16px;
-    }
-}
-
-
-/* ==========================================================================
-   OPTIMASI KHUSUS ANDROID & PERANGKAT MOBILE (RESPONSIVE MASTER)
-   ========================================================================== */
-html {
-    overflow-x: clip;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
-
-body {
-    overflow-x: clip;
-    width: 100%;
-    max-width: 100vw;
-    position: relative;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-/* Hindari elemen keluar dari layar */
-.container,
-.container-fluid,
-.row {
-    max-width: 100%;
-}
-
-/* Touch targets nyaman ditekan di Android (minimal 44px) */
-.btn,
-.nav-link,
-.tentang-dropdown-toggle-btn,
-.informasi-dropdown-toggle-btn,
-.peduli-cta,
-.peduli-stat-btn,
-.btn-semua-artikel,
-.btn-lihat-galeri,
-.btn-sejarah-dok,
-.btn-idcard-action,
-.footer-social,
-.floating-whatsapp-btn {
-    min-height: 44px;
-    touch-action: manipulation;
-}
-
-/* Fluid Heading Scaling di Layar HP */
-@media (max-width: 767.98px) {
-    /* Mencegah teks kepanjangan meluap */
-    h1, .h1 { font-size: clamp(1.8rem, 6vw, 2.4rem) !important; line-height: 1.25 !important; }
-    h2, .h2 { font-size: clamp(1.5rem, 5vw, 1.95rem) !important; line-height: 1.3 !important; }
-    h3, .h3 { font-size: clamp(1.2rem, 4vw, 1.5rem) !important; line-height: 1.35 !important; }
-
-    /* Section padding lebih proporsional di HP */
-    section {
-        padding-top: 45px !important;
-        padding-bottom: 45px !important;
-    }
-
-    /* Container gutter */
-    .container {
-        padding-left: 18px !important;
-        padding-right: 18px !important;
-    }
-
-    /* Navbar Mobile Menu */
-    .navbar-collapse {
-        background: #250D17;
-        padding: 16px 20px;
-        border-radius: 16px;
-        margin-top: 12px;
-        border: 1px solid rgba(138, 49, 81, 0.4);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-    .navbar-collapse .nav-link {
-        padding: 10px 14px !important;
-        font-size: 0.95rem;
-    }
-    .navbar-collapse .btn-nav-aspirasi {
-        margin-top: 10px;
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-    }
-
-    /* Dropdown menu mobile */
-    .tentang-dropdown-menu,
-    .informasi-dropdown-menu {
-        position: static !important;
-        float: none;
-        width: 100% !important;
-        margin-top: 6px;
-        background: rgba(37, 13, 23, 0.85) !important;
-        border-color: rgba(138, 49, 81, 0.3) !important;
-        box-shadow: none !important;
-    }
-
-    /* Peduli / Berkarya Section Mobile */
-    .peduli-main-grid {
-        grid-template-columns: 1fr !important;
-        gap: 24px !important;
-    }
-    .peduli-text-col {
-        text-align: center;
-    }
-    .peduli-cta {
-        margin: 0 auto;
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Sambutan Card di Beranda Mobile */
-    .sambutan-home-card {
-        padding: 24px 18px !important;
-    }
-    .sambutan-home-card .row {
-        text-align: center;
-    }
-    .sambutan-portrait-frame-sm {
-        margin: 0 auto 10px;
-        width: 90px !important;
-        height: 90px !important;
-    }
-
-    /* Visi Misi Mobile */
-    .vm-two-col-wrap {
-        flex-direction: column !important;
-        gap: 20px !important;
-    }
-    .vm-col-left,
-    .vm-col-right {
-        width: 100% !important;
-    }
-
-    /* Footer Mobile Stacking */
-    .footer-custom {
-        padding: 50px 0 25px !important;
-        text-align: center;
-    }
-    .footer-custom .brand-logo-footer {
-        margin: 0 auto;
-    }
-    .footer-custom .d-flex.gap-3 {
-        justify-content: center;
-    }
-    .footer-custom .footer-heading {
-        margin-top: 20px;
-    }
-    .footer-custom .footer-links li a {
-        padding: 8px 0;
-        display: inline-block;
-    }
-    .footer-custom .footer-bottom {
-        text-align: center;
-    }
-    .footer-custom .footer-bottom .d-flex {
-        gap: 8px;
     }
 }

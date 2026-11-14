@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Beranda') - {{ $globalProfile->title ?? 'HIMATIKA UNUJA 2026' }}</title>
-    <meta name="description" content="@yield('description', $globalProfile->meta_description ?? 'Website resmi HIMATIKA Universitas Nurul Jadid - Himpunan Mahasiswa Informatika')">
+    <meta name="description" content="@yield('description', $globalProfile->meta_description ?? 'Website resmi HIMATIKA Universitas Nurul Jadid - Himpunan Mahasiswa Matematika')">
     @if(!empty($siteSettings['site_meta_keywords']))
         <meta name="keywords" content="{{ $siteSettings['site_meta_keywords'] }}">
     @endif
@@ -309,15 +309,10 @@
                             <i class="fas fa-chevron-down ms-1 tentang-chevron"></i>
                         </button>
                         <ul class="tentang-dropdown-menu" id="tentangDropdownMenu" aria-labelledby="tentangDropdownBtn">
-                            <li>
-                                <a class="tentang-dropdown-item {{ request()->routeIs('tentang*') ? 'active' : '' }}" href="{{ route('tentang') }}">
-                                    Tentang Kami
-                                </a>
-                            </li>
                             @if(($siteSettings['history_is_visible'] ?? '1') !== '0')
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('sejarah*') ? 'active' : '' }}" href="{{ route('sejarah') }}">
-                                    Sejarah &amp; ID Card
+                                    Sejarah
                                 </a>
                             </li>
                             @endif
@@ -387,7 +382,7 @@
                         <a class="nav-link {{ request()->routeIs('galeri*') ? 'active' : '' }}" href="{{ route('galeri') }}"><i class="fas fa-images me-1"></i> Galeri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('download*') ? 'active' : '' }}" href="{{ route('download') }}"><i class="fas fa-laptop-code me-1"></i> Galeri Website</a>
+                        <a class="nav-link {{ request()->routeIs('download*') ? 'active' : '' }}" href="{{ route('download') }}"><i class="fas fa-file-alt me-1"></i> Dokumen</a>
                     </li>
                     <li class="nav-item ms-lg-3">
                         <a class="nav-link btn-nav-aspirasi {{ request()->routeIs('aspirasi*') ? 'active' : '' }}" href="{{ route('aspirasi.index') }}">
@@ -494,9 +489,8 @@
                     <h5 class="footer-heading">NAVIGASI</h5>
                     <ul class="list-unstyled footer-links">
                         <li><a href="{{ route('home') }}">Beranda</a></li>
-                        <li><a href="{{ route('tentang') }}">Tentang Kami</a></li>
                         @if(($siteSettings['history_is_visible'] ?? '1') !== '0')
-                        <li><a href="{{ route('sejarah') }}">Sejarah &amp; ID Card</a></li>
+                        <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
                         @endif
                         @if(($siteSettings['structure_is_visible'] ?? '1') !== '0')
                         <li><a href="{{ route('struktur-organisasi') }}">Struktur</a></li>

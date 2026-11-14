@@ -46,9 +46,9 @@ class SiteSettingSeeder extends Seeder
 
             // Beranda Umum & Header
             ['key' => 'home_tentang_badge', 'value' => 'Tentang Organisasi', 'group' => 'home_tentang'],
-            ['key' => 'home_tentang_title', 'value' => 'Tentang HIMATIKA UNUJA', 'group' => 'home_tentang'],
-            ['key' => 'home_tentang_desc', 'value' => 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Informatika Universitas Nurul Jadid.', 'group' => 'home_tentang'],
-            ['key' => 'home_sambutan_summary', 'value' => 'Selamat datang di website resmi HIMATIKA Universitas Nurul Jadid. Wadah resmi komunikasi, transparansi kegiatan, dan publikasi prestasi mahasiswa.', 'group' => 'home_tentang'],
+            ['key' => 'home_tentang_title', 'value' => 'Tentang HIMATIKA FMIPA UNUJA', 'group' => 'home_tentang'],
+            ['key' => 'home_tentang_desc', 'value' => 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.', 'group' => 'home_tentang'],
+            ['key' => 'home_sambutan_summary', 'value' => 'Selamat datang di website resmi HIMATIKA FMIPA Universitas Nurul Jadid. Wadah resmi komunikasi, transparansi kegiatan, dan publikasi prestasi mahasiswa Matematika.', 'group' => 'home_tentang'],
             ['key' => 'home_sambutan_btn_text', 'value' => 'Baca Sambutan Lengkap', 'group' => 'home_tentang'],
             ['key' => 'home_sambutan_btn_url', 'value' => '/sambutan', 'group' => 'home_tentang'],
             ['key' => 'home_berita_badge', 'value' => 'KABAR TERBARU', 'group' => 'home_berita'],
@@ -58,7 +58,7 @@ class SiteSettingSeeder extends Seeder
             ['key' => 'home_berita_btn_url', 'value' => '/berita', 'group' => 'home_berita'],
             ['key' => 'home_galeri_badge', 'value' => 'DOKUMENTASI KEGIATAN', 'group' => 'home_momen'],
             ['key' => 'home_galeri_title', 'value' => 'Dokumentasi Momen HIMATIKA', 'group' => 'home_momen'],
-            ['key' => 'home_galeri_desc', 'value' => 'Potret semangat kebersamaan, dedikasi, dan berbagai kegiatan bermakna keluarga besar HIMATIKA UNUJA.', 'group' => 'home_momen'],
+            ['key' => 'home_galeri_desc', 'value' => 'Potret semangat kebersamaan, dedikasi, dan berbagai kegiatan bermakna keluarga besar HIMATIKA FMIPA UNUJA.', 'group' => 'home_momen'],
             ['key' => 'home_galeri_btn_text', 'value' => 'Lihat Galeri Foto', 'group' => 'home_momen'],
             ['key' => 'home_galeri_btn_url', 'value' => '/galeri', 'group' => 'home_momen'],
 
@@ -69,10 +69,10 @@ class SiteSettingSeeder extends Seeder
             ['key' => 'sambutan_title', 'value' => 'Ketua Program Studi Matematika', 'group' => 'tentang'],
 
             // Sejarah
-            ['key' => 'history_title', 'value' => 'Sejarah HIMATIKA UNUJA', 'group' => 'tentang'],
+            ['key' => 'history_title', 'value' => 'Sejarah MAN 1 PROBOLINGGO', 'group' => 'tentang'],
             ['key' => 'history_doc_text', 'value' => 'Lihat Galeri', 'group' => 'tentang'],
             ['key' => 'history_doc_url', 'value' => '/galeri', 'group' => 'tentang'],
-            ['key' => 'history_doc_desc', 'value' => 'Jelajahi dokumentasi dan arsip sejarah perjalanan HIMATIKA UNUJA dalam galeri kami.', 'group' => 'tentang'],
+            ['key' => 'history_doc_desc', 'value' => 'Jelajahi dokumentasi dan arsip sejarah perjalanan MAN 1 PROBOLINGGO dalam galeri kami.', 'group' => 'tentang'],
 
             // Identitas & Footer
             ['key' => 'site_short_title', 'value' => 'HIMATIKA', 'group' => 'identitas'],

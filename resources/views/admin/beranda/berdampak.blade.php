@@ -61,11 +61,11 @@
                 <div class="row g-2">
                     <div class="col-6">
                         <label class="form-label fw-semibold text-dark small">Teks Tombol</label>
-                        <input type="text" name="home_peduli_btn_text" class="form-control" value="{{ old('home_peduli_btn_text', $siteSettings['home_peduli_btn_text'] ?? 'Lihat Galeri Website') }}">
+                        <input type="text" name="home_peduli_btn_text" class="form-control" value="{{ old('home_peduli_btn_text', $siteSettings['home_peduli_btn_text'] ?? 'Ajukan Karya Anda') }}">
                     </div>
                     <div class="col-6">
                         <label class="form-label fw-semibold text-dark small">Tautan Tombol</label>
-                        <input type="text" name="home_peduli_btn_url" class="form-control" value="{{ old('home_peduli_btn_url', $siteSettings['home_peduli_btn_url'] ?? route('prestasi')) }}">
+                        <input type="text" name="home_peduli_btn_url" class="form-control" value="{{ old('home_peduli_btn_url', $siteSettings['home_peduli_btn_url'] ?? '/pendaftaran') }}">
                     </div>
                 </div>
             </div>
