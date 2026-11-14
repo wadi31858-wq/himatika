@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('hero_sliders', function (Blueprint $table) {
             $table->id();
+            $table->string('image');
+            $table->string('title')->nullable();
+            $table->string('alt_text')->nullable();
+            $table->text('caption')->nullable();
+            $table->integer('order_num')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

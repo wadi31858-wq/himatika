@@ -17,6 +17,7 @@ use App\Models\OrganizationalStructure;
 use App\Models\VisionMission;
 use App\Models\SiteSetting;
 use App\Models\Download;
+use App\Models\HeroSlider;
 
 class HomeController extends Controller
 {
@@ -305,7 +306,14 @@ class HomeController extends Controller
                 : null;
         }
 
+        $heroSliders = HeroSlider::active()->ordered()->get();
+        $sliderInterval = (int) (SiteSetting::get('hero_slider_interval', 5));
+        $sliderAutoplay = SiteSetting::get('hero_slider_autoplay', '1') === '1';
+
         $data = [
+            'heroSliders'        => $heroSliders,
+            'sliderInterval'     => $sliderInterval,
+            'sliderAutoplay'     => $sliderAutoplay,
             'websiteWorks'       => $websiteWorks,
             'totalWebsiteWorks'  => $totalWebsiteWorks,
             'latestWebsiteYear'  => $latestWebsiteYear,

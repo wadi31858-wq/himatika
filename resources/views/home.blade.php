@@ -90,23 +90,82 @@
                 @endif
             </div>
 
-            {{-- Right Visual: Single Hero Photo Pengurus HIMATIKA --}}
+            {{-- Right Visual: Slider Foto Hero / Single Hero Photo --}}
             <div class="col-lg-7 hero-col-visual">
                 <div class="hero-frame-wrapper">
                     <div class="hero-visual-frame">
-                        @php
-                            $heroPengurusPhoto = null;
-                            if (!empty($siteSettings['hero_pengurus_photo']) && file_exists(public_path('storage/' . $siteSettings['hero_pengurus_photo']))) {
-                                $heroPengurusPhoto = asset('storage/' . $siteSettings['hero_pengurus_photo']);
-                            } elseif (!empty($profile->image) && file_exists(public_path('storage/' . $profile->image))) {
-                                $heroPengurusPhoto = asset('storage/' . $profile->image);
-                            } elseif (file_exists(public_path('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png'))) {
-                                $heroPengurusPhoto = asset('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png');
-                            } else {
-                                $heroPengurusPhoto = asset('images/news/news-1.jpg');
-                            }
-                        @endphp
-                        <img src="{{ $heroPengurusPhoto }}" alt="{{ $profile->hero_image_alt ?? 'Pengurus HIMATIKA UNUJA' }}" class="hero-single-img">
+                        @if(isset($heroSliders) && $heroSliders->count() > 1)
+                            {{-- Multi-photo Automatic Carousel Slider --}}
+                            <div id="heroPhotoCarousel" class="carousel slide hero-carousel w-100 h-100" 
+                                 data-bs-ride="{{ ($sliderAutoplay ?? true) ? 'carousel' : 'false' }}" 
+                                 data-bs-interval="{{ ($sliderInterval ?? 5) * 1000 }}" 
+                                 data-bs-touch="true" 
+                                 data-bs-pause="hover">
+                                
+                                {{-- Carousel Indicators --}}
+                                <div class="carousel-indicators hero-carousel-indicators mb-2">
+                                    @foreach($heroSliders as $index => $slide)
+                                        <button type="button" data-bs-target="#heroPhotoCarousel" data-bs-slide-to="{{ $index }}" 
+                                                class="{{ $index === 0 ? 'active' : '' }}" 
+                                                aria-current="{{ $index === 0 ? 'true' : 'false' }}" 
+                                                aria-label="Slide {{ $index + 1 }}"></button>
+                                    @endforeach
+                                </div>
+
+                                {{-- Carousel Items --}}
+                                <div class="carousel-inner w-100 h-100">
+                                    @foreach($heroSliders as $index => $slide)
+                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }} w-100 h-100" data-bs-interval="{{ ($sliderInterval ?? 5) * 1000 }}">
+                                            <img src="{{ $slide->image_url }}" alt="{{ $slide->alt_text ?: ($profile->hero_image_alt ?? 'Pengurus HIMATIKA UNUJA') }}" class="hero-slider-img" loading="{{ $index === 0 ? 'eager' : 'lazy' }}">
+                                            @if(!empty($slide->caption))
+                                                <div class="hero-slider-caption-overlay">
+                                                    <span class="hero-slider-caption-text">{{ $slide->caption }}</span>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                {{-- Previous & Next Navigation Controls --}}
+                                <button class="carousel-control-prev hero-carousel-btn hero-carousel-prev" type="button" data-bs-target="#heroPhotoCarousel" data-bs-slide="prev" aria-label="Foto Sebelumnya">
+                                    <span class="hero-carousel-btn-icon"><i class="fas fa-chevron-left"></i></span>
+                                </button>
+                                <button class="carousel-control-next hero-carousel-btn hero-carousel-next" type="button" data-bs-target="#heroPhotoCarousel" data-bs-slide="next" aria-label="Foto Berikutnya">
+                                    <span class="hero-carousel-btn-icon"><i class="fas fa-chevron-right"></i></span>
+                                </button>
+
+                                {{-- Play/Pause Toggle Control --}}
+                                <button type="button" class="hero-carousel-pause-btn" id="heroCarouselPauseBtn" aria-label="Jeda pemutaran otomatis" title="Jeda / Putar Otomatis">
+                                    <i class="fas fa-pause" id="heroCarouselPauseIcon"></i>
+                                </button>
+                            </div>
+                        @elseif(isset($heroSliders) && $heroSliders->count() === 1)
+                            {{-- Exactly 1 Photo: Rendered as single image --}}
+                            @php
+                                $singleSlide = $heroSliders->first();
+                            @endphp
+                            <img src="{{ $singleSlide->image_url }}" alt="{{ $singleSlide->alt_text ?: ($profile->hero_image_alt ?? 'Pengurus HIMATIKA UNUJA') }}" class="hero-single-img">
+                            @if(!empty($singleSlide->caption))
+                                <div class="hero-slider-caption-overlay">
+                                    <span class="hero-slider-caption-text">{{ $singleSlide->caption }}</span>
+                                </div>
+                            @endif
+                        @else
+                            {{-- Fallback: Single Hero Photo --}}
+                            @php
+                                $heroPengurusPhoto = null;
+                                if (!empty($siteSettings['hero_pengurus_photo']) && file_exists(public_path('storage/' . $siteSettings['hero_pengurus_photo']))) {
+                                    $heroPengurusPhoto = asset('storage/' . $siteSettings['hero_pengurus_photo']);
+                                } elseif (!empty($profile->image) && file_exists(public_path('storage/' . $profile->image))) {
+                                    $heroPengurusPhoto = asset('storage/' . $profile->image);
+                                } elseif (file_exists(public_path('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png'))) {
+                                    $heroPengurusPhoto = asset('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png');
+                                } else {
+                                    $heroPengurusPhoto = asset('images/news/news-1.jpg');
+                                }
+                            @endphp
+                            <img src="{{ $heroPengurusPhoto }}" alt="{{ $profile->hero_image_alt ?? 'Pengurus HIMATIKA UNUJA' }}" class="hero-single-img">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -1200,6 +1259,66 @@ document.addEventListener('DOMContentLoaded', function() {
             goToSlide(currentIndex, false);
         }, 100);
     });
+});
+
+// Hero Photo Carousel Controls & Touch Swipe
+document.addEventListener('DOMContentLoaded', function() {
+    const carouselEl = document.getElementById('heroPhotoCarousel');
+    if (!carouselEl) return;
+
+    const pauseBtn = document.getElementById('heroCarouselPauseBtn');
+    const pauseIcon = document.getElementById('heroCarouselPauseIcon');
+    let bsCarousel = null;
+
+    if (window.bootstrap && window.bootstrap.Carousel) {
+        bsCarousel = window.bootstrap.Carousel.getOrCreateInstance(carouselEl);
+    }
+
+    let isPaused = false;
+    if (pauseBtn && bsCarousel) {
+        pauseBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (isPaused) {
+                bsCarousel.cycle();
+                isPaused = false;
+                pauseIcon.className = 'fas fa-pause';
+                pauseBtn.setAttribute('title', 'Jeda Pemutaran Otomatis');
+                pauseBtn.setAttribute('aria-label', 'Jeda Pemutaran Otomatis');
+            } else {
+                bsCarousel.pause();
+                isPaused = true;
+                pauseIcon.className = 'fas fa-play';
+                pauseBtn.setAttribute('title', 'Lanjutkan Pemutaran Otomatis');
+                pauseBtn.setAttribute('aria-label', 'Lanjutkan Pemutaran Otomatis');
+            }
+        });
+    }
+
+    // Touch Swipe Support for Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carouselEl.addEventListener('touchstart', function(e) {
+        if (e.changedTouches && e.changedTouches[0]) {
+            touchStartX = e.changedTouches[0].screenX;
+        }
+    }, { passive: true });
+
+    carouselEl.addEventListener('touchend', function(e) {
+        if (e.changedTouches && e.changedTouches[0]) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }
+    }, { passive: true });
+
+    function handleSwipe() {
+        const threshold = 40;
+        if (touchEndX < touchStartX - threshold) {
+            if (bsCarousel) bsCarousel.next();
+        } else if (touchEndX > touchStartX + threshold) {
+            if (bsCarousel) bsCarousel.prev();
+        }
+    }
 });
 </script>
 @endpush
