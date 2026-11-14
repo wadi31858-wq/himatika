@@ -1002,6 +1002,11 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('admin.tampilan.brand') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tampilan.brand*') ? 'active' : '' }}">
+                                <i class="fas fa-heading small"></i> Brand & Logo Navbar
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.tampilan.navbar') }}" class="sidebar-sub-item {{ request()->routeIs('admin.tampilan.navbar*') ? 'active' : '' }}">
                                 <i class="fas fa-bars small"></i> Navbar & Submenu
                             </a>

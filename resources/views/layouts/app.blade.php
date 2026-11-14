@@ -254,19 +254,30 @@
     {{-- ==================== NAVBAR ==================== --}}
     <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand navbar-brand-custom" href="{{ route('home') }}">
-                <span class="brand-logo">
-                    @php
-                        $navLogo = null;
-                        $navAlt = $siteSettings['logo_nav_desktop_alt'] ?? 'Logo HIMATIKA';
-                        if (($siteSettings['logo_nav_desktop_custom'] ?? '0') === '1' && !empty($siteSettings['logo_nav_desktop_file'])) {
-                            $navLogo = asset('storage/' . $siteSettings['logo_nav_desktop_file']);
-                        } elseif (!empty($siteSettings['main_logo'])) {
-                            $navLogo = asset('storage/' . $siteSettings['main_logo']);
-                        } elseif ($globalProfile && $globalProfile->logo) {
-                            $navLogo = asset('storage/' . $globalProfile->logo);
-                        }
-                    @endphp
+            @php
+                $brandUrl = !empty($siteSettings['navbar_brand_url']) ? url($siteSettings['navbar_brand_url']) : route('home');
+                $brandTitle = $siteSettings['navbar_brand_title'] ?? (($siteSettings['site_short_title'] ?? 'HIMATIKA') . ' FMIPA UNUJA');
+                $brandSubtitle = $siteSettings['navbar_brand_subtitle'] ?? '';
+                $showSubtitle = ($siteSettings['navbar_brand_show_subtitle'] ?? '0') === '1' && !empty($brandSubtitle);
+                $showAccent = ($siteSettings['navbar_brand_show_accent'] ?? '1') !== '0';
+                $accentWidth = $siteSettings['navbar_brand_accent_width'] ?? '42px';
+                $accentColor = $siteSettings['navbar_brand_accent_color'] ?? '#8A3151';
+                $textColor = $siteSettings['navbar_brand_text_color'] ?? '#FFF7FA';
+                $logoShape = $siteSettings['navbar_brand_logo_shape'] ?? 'circle';
+                $logoSize = $siteSettings['navbar_brand_logo_size'] ?? '44px';
+
+                $navLogo = null;
+                $navAlt = $siteSettings['logo_nav_desktop_alt'] ?? 'Logo HIMATIKA';
+                if (($siteSettings['logo_nav_desktop_custom'] ?? '0') === '1' && !empty($siteSettings['logo_nav_desktop_file'])) {
+                    $navLogo = asset('storage/' . $siteSettings['logo_nav_desktop_file']);
+                } elseif (!empty($siteSettings['main_logo'])) {
+                    $navLogo = asset('storage/' . $siteSettings['main_logo']);
+                } elseif ($globalProfile && $globalProfile->logo) {
+                    $navLogo = asset('storage/' . $globalProfile->logo);
+                }
+            @endphp
+            <a class="navbar-brand navbar-brand-custom" href="{{ $brandUrl }}">
+                <span class="brand-logo" style="width: {{ $logoSize }}; height: {{ $logoSize }}; {{ $logoShape === 'none' ? 'background: transparent; border: none; box-shadow: none;' : ($logoShape === 'rounded' ? 'border-radius: 10px;' : 'border-radius: 50%;') }}">
                     @if($navLogo)
                         <img src="{{ $navLogo }}" alt="{{ $navAlt }}" style="width: 100%; height: 100%; object-fit: contain;">
                     @else
@@ -274,8 +285,13 @@
                     @endif
                 </span>
                 <span class="brand-text">
-                    <span class="brand-name">{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} FMIPA UNUJA</span>
-                    <span class="brand-accent-line"></span>
+                    <span class="brand-name" style="color: {{ $textColor }} !important;">{{ $brandTitle }}</span>
+                    @if($showSubtitle)
+                        <span class="brand-tagline">{{ $brandSubtitle }}</span>
+                    @endif
+                    @if($showAccent)
+                        <span class="brand-accent-line" style="width: {{ $accentWidth }}; background: {{ $accentColor }};"></span>
+                    @endif
                 </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

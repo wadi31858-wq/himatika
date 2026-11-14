@@ -202,6 +202,83 @@ class AdminSettingController extends Controller
     }
 
     // ==========================================
+    // 2.5 BRAND & LOGO NAVBAR
+    // ==========================================
+    public function brand()
+    {
+        $profile = Profile::firstOrCreate([]);
+        $siteSettings = SiteSetting::pluck('value', 'key')->toArray();
+
+        return view('admin.tampilan.brand', compact('profile', 'siteSettings'));
+    }
+
+    public function updateBrand(Request $request)
+    {
+        $request->validate([
+            'navbar_brand_title' => 'required|string|max:120',
+            'navbar_brand_subtitle' => 'nullable|string|max:120',
+            'navbar_brand_logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'navbar_brand_logo_shape' => 'nullable|string|in:circle,rounded,none',
+            'navbar_brand_logo_size' => 'nullable|string',
+            'navbar_brand_accent_width' => 'nullable|string',
+            'navbar_brand_accent_color' => 'nullable|string',
+            'navbar_brand_text_color' => 'nullable|string',
+            'navbar_brand_url' => 'nullable|string|max:255',
+            'logo_nav_desktop_alt' => 'nullable|string|max:100',
+        ]);
+
+        SiteSetting::set('navbar_brand_title', $request->input('navbar_brand_title'), 'branding');
+        SiteSetting::set('navbar_brand_subtitle', $request->input('navbar_brand_subtitle', ''), 'branding');
+        SiteSetting::set('navbar_brand_show_subtitle', $request->has('navbar_brand_show_subtitle') ? '1' : '0', 'branding');
+        SiteSetting::set('navbar_brand_logo_shape', $request->input('navbar_brand_logo_shape', 'circle'), 'branding');
+        SiteSetting::set('navbar_brand_logo_size', $request->input('navbar_brand_logo_size', '44px'), 'branding');
+        SiteSetting::set('navbar_brand_show_accent', $request->has('navbar_brand_show_accent') ? '1' : '0', 'branding');
+        SiteSetting::set('navbar_brand_accent_width', $request->input('navbar_brand_accent_width', '42px'), 'branding');
+        SiteSetting::set('navbar_brand_accent_color', $request->input('navbar_brand_accent_color', '#8A3151'), 'branding');
+        SiteSetting::set('navbar_brand_text_color', $request->input('navbar_brand_text_color', '#FFF7FA'), 'branding');
+        SiteSetting::set('navbar_brand_url', $request->input('navbar_brand_url', '/'), 'branding');
+        SiteSetting::set('logo_nav_desktop_alt', $request->input('logo_nav_desktop_alt', 'Logo HIMATIKA'), 'branding');
+
+        if ($request->hasFile('navbar_brand_logo')) {
+            $file = $request->file('navbar_brand_logo');
+            $destination = storage_path('app/public/branding');
+            if (!File::isDirectory($destination)) {
+                File::makeDirectory($destination, 0755, true);
+            }
+            $filename = 'logo_brand_nav_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($destination, $filename);
+
+            // Clean up old custom nav logo if exists
+            $oldCustom = SiteSetting::get('logo_nav_desktop_file');
+            if ($oldCustom && file_exists(storage_path('app/public/' . $oldCustom))) {
+                @unlink(storage_path('app/public/' . $oldCustom));
+            }
+
+            SiteSetting::set('logo_nav_desktop_custom', '1', 'branding');
+            SiteSetting::set('logo_nav_desktop_file', 'branding/' . $filename, 'branding');
+        }
+
+        ActivityLog::record('update', "Memperbarui Brand & Logo Navbar: \"{$request->input('navbar_brand_title')}\"", null);
+
+        return redirect()->route('admin.tampilan.brand')->with('success', 'Pengaturan Brand & Logo Navbar berhasil disimpan dan langsung diperbarui pada website publik!');
+    }
+
+    public function resetBrandLogo()
+    {
+        $currentFile = SiteSetting::get('logo_nav_desktop_file');
+        if ($currentFile && file_exists(storage_path('app/public/' . $currentFile))) {
+            @unlink(storage_path('app/public/' . $currentFile));
+        }
+
+        SiteSetting::set('logo_nav_desktop_custom', '0', 'branding');
+        SiteSetting::set('logo_nav_desktop_file', null, 'branding');
+
+        ActivityLog::record('update', 'Mereset Logo Navbar ke logo master bawaan', null);
+
+        return redirect()->route('admin.tampilan.brand')->with('success', 'Logo Navbar berhasil dikembalikan ke Logo Utama bawaan website.');
+    }
+
+    // ==========================================
     // 3. NAVBAR & SUBMENU
     // ==========================================
     public function navbar()

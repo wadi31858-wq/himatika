@@ -6,6 +6,24 @@
 
 @section('content')
 <div class="row g-4">
+    <!-- Notice Banner to Brand Editor -->
+    <div class="col-12">
+        <div class="p-3 rounded-3 border d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 shadow-sm" style="background: #FFF7FA; border-color: #E2CBD3 !important;">
+            <div class="d-flex align-items-center gap-3">
+                <div style="width: 42px; height: 42px; background: #641D38; color: #FFF7FA; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0;">
+                    <i class="fas fa-heading"></i>
+                </div>
+                <div>
+                    <strong style="color: #250D17; font-size: 0.98rem;">Ingin Mengedit Logo & Teks Brand Navbar (HIMATIKA FMIPA UNUJA)?</strong>
+                    <div class="small text-muted">Ubah logo bulat, tulisan nama himpunan, warna teks, serta garis aksen navbar secara khusus.</div>
+                </div>
+            </div>
+            <a href="{{ route('admin.tampilan.brand') }}" class="btn btn-him-primary text-nowrap">
+                <i class="fas fa-edit me-1"></i> Edit Brand & Logo Navbar &rarr;
+            </a>
+        </div>
+    </div>
+
     <!-- Left: Menus List -->
     <div class="col-lg-8">
         <div class="him-card">

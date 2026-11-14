@@ -112,6 +112,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::delete('/aspirasi/{aspirasi}', [\App\Http\Controllers\Admin\AdminAspirationController::class, 'destroy'])->name('aspirasi.destroy');
 
     // 7. Modul Tampilan Website & Pengaturan
+    Route::get('/tampilan/brand', [\App\Http\Controllers\Admin\AdminSettingController::class, 'brand'])->name('tampilan.brand');
+    Route::put('/tampilan/brand', [\App\Http\Controllers\Admin\AdminSettingController::class, 'updateBrand'])->name('tampilan.brand.update');
+    Route::post('/tampilan/brand/reset-logo', [\App\Http\Controllers\Admin\AdminSettingController::class, 'resetBrandLogo'])->name('tampilan.brand.reset-logo');
     Route::get('/tampilan/identitas', [\App\Http\Controllers\Admin\AdminSettingController::class, 'identitas'])->name('tampilan.identitas');
     Route::put('/tampilan/identitas', [\App\Http\Controllers\Admin\AdminSettingController::class, 'updateIdentitas'])->name('tampilan.identitas.update');
     Route::get('/tampilan/logo-favicon', [\App\Http\Controllers\Admin\AdminSettingController::class, 'logoFavicon'])->name('tampilan.logo-favicon');
