@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Pusat Informasi - HIMATIKA UNUJA')
+@section('title', 'Pusat Informasi - HIMATIKA FMIPA UNUJA')
 
 @section('content')
 
@@ -35,8 +35,8 @@
         <form id="beritaFilterForm" class="filter-card p-3 p-md-4 rounded-4 bg-white border shadow-sm" method="GET" action="{{ route('berita') }}">
             <input type="hidden" name="category" id="filterCategoryInput" value="{{ request('category') }}">
             <div class="w-100">
-                <label class="filter-label fw-semibold mb-2 d-flex align-items-center gap-2" for="searchInput" style="color: #28151D; font-size: 0.9rem;">
-                    <i class="fas fa-search" style="color: #711C35;"></i>
+                <label class="filter-label fw-semibold mb-2 d-flex align-items-center gap-2" for="searchInput" style="color: #32121F; font-size: 0.9rem;">
+                    <i class="fas fa-search" style="color: #641D38;"></i>
                     <span style="font-weight: 700;">Cari</span>
                 </label>
                 <div class="position-relative w-100">
@@ -179,7 +179,7 @@
                                     <i class="fas fa-layer-group"></i>
                                 </div>
                                 <span class="card-header-divider">|</span>
-                                <h3 class="fw-bold mb-0" style="color: #28151D; font-size: 1.25rem;">Informasi Lainnya</h3>
+                                <h3 class="fw-bold mb-0" style="color: #32121F; font-size: 1.25rem;">Informasi Lainnya</h3>
                             </div>
                         </div>
                     @endif
@@ -245,7 +245,7 @@
             @elseif(!$hasNews && (!$showAgenda || $agendas->count() == 0))
                 <div class="berita-empty-state my-5 text-center p-5 bg-white rounded-4 border">
                     <i class="far fa-newspaper fa-3x text-primary opacity-50 mb-3"></i>
-                    <h4 class="fw-bold mb-2" style="color: #28151D;">Informasi tidak ditemukan</h4>
+                    <h4 class="fw-bold mb-2" style="color: #32121F;">Informasi tidak ditemukan</h4>
                     <p class="text-secondary small mb-3">Tidak ada informasi atau kabar yang sesuai dengan kata kunci pencarian atau kategori yang dipilih.</p>
                     <a href="{{ route('berita') }}" class="btn-readmore-small">
                         <i class="fas fa-rotate-left me-1"></i> Lihat Semua Informasi &rarr;
@@ -262,7 +262,7 @@
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
                             <span class="card-header-divider">|</span>
-                            <h3 class="fw-bold mb-0" style="color: #28151D; font-size: 1.3rem;">Agenda Kegiatan HIMATIKA</h3>
+                            <h3 class="fw-bold mb-0" style="color: #32121F; font-size: 1.3rem;">Agenda Kegiatan HIMATIKA</h3>
                         </div>
                         <p class="text-muted small mb-0">Jadwal dan agenda kegiatan mendatang organisasi mahasiswa Matematika UNUJA.</p>
                     </div>
@@ -289,7 +289,7 @@
 
                                     <div class="p-3 d-flex flex-column flex-grow-1 justify-content-between">
                                         <div>
-                                            <h4 class="fw-bold mb-2" style="font-size: 1.05rem; color: #28151D; line-height: 1.35;">
+                                            <h4 class="fw-bold mb-2" style="font-size: 1.05rem; color: #32121F; line-height: 1.35;">
                                                 {{ $agenda->title }}
                                             </h4>
                                             <p class="text-secondary small mb-3" style="font-size: 0.85rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
@@ -339,7 +339,7 @@
 <style>
     /* ===== BREADCRUMB ===== */
     .berita-breadcrumb {
-        background: #1A0A0F;
+        background: #250D17;
         padding: 0.85rem 0;
     }
     .berita-breadcrumb-back {
@@ -374,14 +374,14 @@
 
     /* ===== HERO BANNER PUSAT INFORMASI ===== */
     .berita-hero {
-        background: #FFF7F9;
+        background: #FFF7FA;
         padding: 3.5rem 0 2.5rem;
-        border-bottom: 1px solid #E9CDD5;
+        border-bottom: 1px solid #E2CBD3;
     }
     .berita-hero-label {
         display: inline-block;
-        background: #F4D6DE;
-        color: #711C35;
+        background: #F6E9EE;
+        color: #641D38;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -389,13 +389,13 @@
         padding: 0.35rem 1.2rem;
         border-radius: 50px;
         margin-bottom: 0.85rem;
-        border: 1px solid #E9CDD5;
+        border: 1px solid #E2CBD3;
     }
     .berita-hero-title {
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-weight: 800;
         font-size: 2.3rem;
-        color: #28151D;
+        color: #32121F;
         margin-bottom: 0.65rem;
         letter-spacing: -0.5px;
     }
@@ -414,23 +414,23 @@
         z-index: 10;
     }
     .filter-card {
-        border: 1px solid #E9CDD5 !important;
+        border: 1px solid #E2CBD3 !important;
         border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(26, 10, 15, 0.08) !important;
+        box-shadow: 0 4px 20px rgba(37, 13, 23, 0.08) !important;
         background: #FFFFFF;
     }
     .filter-input {
-        border: 1.5px solid #E9CDD5;
+        border: 1.5px solid #E2CBD3;
         border-radius: 12px;
         padding: 0.75rem 1.25rem;
         font-size: 0.95rem;
-        color: #28151D;
+        color: #32121F;
         background-color: #FFFFFF;
         transition: all 0.2s ease;
         width: 100%;
     }
     .filter-input:focus {
-        border-color: #711C35;
+        border-color: #641D38;
         box-shadow: 0 0 0 3px rgba(163, 59, 89, 0.2);
         outline: none;
     }
@@ -445,12 +445,12 @@
     .featured-main-card {
         min-height: 380px;
         height: 100%;
-        background: #1A0A0F;
+        background: #250D17;
         border-radius: 16px;
         position: relative;
         overflow: hidden;
-        border: 1px solid #E9CDD5;
-        box-shadow: 0 4px 20px rgba(26, 10, 15, 0.08);
+        border: 1px solid #E2CBD3;
+        box-shadow: 0 4px 20px rgba(37, 13, 23, 0.08);
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -468,7 +468,7 @@
     .featured-bg-fallback {
         position: absolute;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, #1A0A0F 0%, #711C35 100%);
+        background: linear-gradient(135deg, #250D17 0%, #641D38 100%);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -477,7 +477,7 @@
     .featured-overlay {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(180deg, rgba(26, 10, 15, 0.2) 0%, rgba(26, 10, 15, 0.6) 45%, rgba(26, 10, 15, 0.96) 100%);
+        background: linear-gradient(180deg, rgba(37, 13, 23, 0.2) 0%, rgba(37, 13, 23, 0.6) 45%, rgba(37, 13, 23, 0.96) 100%);
         z-index: 2;
         pointer-events: none;
     }
@@ -510,20 +510,20 @@
     /* 2 CARD KECIL BERTUMPUK DI KANAN */
     .side-compact-card {
         border-radius: 16px;
-        border: 1px solid #E9CDD5;
+        border: 1px solid #E2CBD3;
         background: #ffffff;
-        box-shadow: 0 4px 14px rgba(26, 10, 15, 0.05);
+        box-shadow: 0 4px 14px rgba(37, 13, 23, 0.05);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         overflow: hidden;
     }
     .side-compact-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(26, 10, 15, 0.1);
+        box-shadow: 0 8px 20px rgba(37, 13, 23, 0.1);
     }
     .side-card-img-wrap {
         width: 140px;
         min-width: 140px;
-        background: #FFF7F9;
+        background: #FFF7FA;
         overflow: hidden;
         position: relative;
     }
@@ -543,7 +543,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #FFF7F9;
+        background: #FFF7FA;
     }
     .side-card-title {
         font-size: 0.98rem;
@@ -556,33 +556,33 @@
         overflow: hidden;
     }
     .side-card-title a {
-        color: #28151D;
+        color: #32121F;
         transition: color 0.2s;
     }
     .side-card-title a:hover {
-        color: #711C35;
+        color: #641D38;
     }
 
     /* ===== DERETAN CARD INFORMASI TAMBAHAN (GRID 3 KOLOM) ===== */
     .info-card-standard {
         background: #ffffff;
-        border: 1px solid #E9CDD5;
+        border: 1px solid #E2CBD3;
         border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 4px 16px rgba(26, 10, 15, 0.05);
+        box-shadow: 0 4px 16px rgba(37, 13, 23, 0.05);
         transition: transform 0.25s ease, box-shadow 0.25s ease;
         display: flex;
         flex-direction: column;
     }
     .info-card-standard:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 24px rgba(26, 10, 15, 0.12);
+        box-shadow: 0 10px 24px rgba(37, 13, 23, 0.12);
     }
     .info-card-img-wrap {
         width: 100%;
         aspect-ratio: 16/10;
         overflow: hidden;
-        background: #FFF7F9;
+        background: #FFF7FA;
         position: relative;
     }
     .info-card-img {
@@ -602,7 +602,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #FFF7F9 0%, #F4D6DE 100%);
+        background: linear-gradient(135deg, #FFF7FA 0%, #F6E9EE 100%);
     }
     .info-card-title {
         font-size: 1.05rem;
@@ -615,11 +615,11 @@
         overflow: hidden;
     }
     .info-card-title a {
-        color: #28151D;
+        color: #32121F;
         transition: color 0.2s;
     }
     .info-card-title a:hover {
-        color: #711C35;
+        color: #641D38;
     }
     .info-card-excerpt {
         font-size: 0.86rem;
@@ -634,20 +634,20 @@
     /* ===== AGENDA SECTION & CARDS ===== */
     .agenda-card {
         border-radius: 16px;
-        border: 1px solid #E9CDD5;
+        border: 1px solid #E2CBD3;
         background: #ffffff;
-        box-shadow: 0 4px 16px rgba(26, 10, 15, 0.05);
+        box-shadow: 0 4px 16px rgba(37, 13, 23, 0.05);
         transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .agenda-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 24px rgba(26, 10, 15, 0.12);
+        box-shadow: 0 10px 24px rgba(37, 13, 23, 0.12);
     }
     .agenda-card-img-wrap {
         width: 100%;
         aspect-ratio: 16/9;
         overflow: hidden;
-        background: #FFF7F9;
+        background: #FFF7FA;
     }
     .agenda-card-img {
         width: 100%;
@@ -657,7 +657,7 @@
     .agenda-card-img-placeholder {
         width: 100%;
         height: 100%;
-        background: linear-gradient(145deg, #FFF7F9 0%, #F4D6DE 100%);
+        background: linear-gradient(145deg, #FFF7FA 0%, #F6E9EE 100%);
     }
 
     /* ===== TOMBOL KECIL (BACA SELENGKAPNYA / SELENGKAPNYA) ===== */
@@ -667,29 +667,29 @@
         gap: 4px;
         font-size: 0.82rem;
         font-weight: 600;
-        color: #711C35;
+        color: #641D38;
         text-decoration: none;
         padding: 5px 12px;
         border-radius: 6px;
-        background: #FFF7F9;
-        border: 1px solid #E9CDD5;
+        background: #FFF7FA;
+        border: 1px solid #E2CBD3;
         transition: all 0.2s ease;
         line-height: 1.2;
     }
     .btn-readmore-small:hover {
-        background: #711C35;
+        background: #641D38;
         color: #ffffff;
-        border-color: #711C35;
+        border-color: #641D38;
     }
     .btn-readmore-light {
         background: rgba(255, 255, 255, 0.95);
-        color: #28151D;
+        color: #32121F;
         border: none;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     }
     .btn-readmore-light:hover {
         background: #ffffff;
-        color: #711C35;
+        color: #641D38;
     }
 
     /* ICONS & DIVIDERS */
@@ -697,9 +697,9 @@
         width: 36px;
         height: 36px;
         border-radius: 8px;
-        background: #FFF7F9;
-        border: 1px solid #E9CDD5;
-        color: #711C35;
+        background: #FFF7FA;
+        border: 1px solid #E2CBD3;
+        color: #641D38;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -722,22 +722,22 @@
         gap: 0.35rem;
     }
     .berita-pagination-wrapper .page-link {
-        border: 1px solid #E9CDD5;
+        border: 1px solid #E2CBD3;
         border-radius: 8px;
         padding: 0.45rem 0.95rem;
         font-size: 0.88rem;
-        color: #711C35;
+        color: #641D38;
         background: #ffffff;
         transition: all 0.2s;
     }
     .berita-pagination-wrapper .page-link:hover {
-        background: #FFF7F9;
-        border-color: #711C35;
-        color: #28151D;
+        background: #FFF7FA;
+        border-color: #641D38;
+        color: #32121F;
     }
     .berita-pagination-wrapper .page-item.active .page-link {
-        background: #711C35;
-        border-color: #711C35;
+        background: #641D38;
+        border-color: #641D38;
         color: #fff;
     }
 

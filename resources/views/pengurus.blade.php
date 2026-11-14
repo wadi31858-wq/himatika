@@ -15,7 +15,7 @@
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
         width: 600px; height: 600px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.18) 0%, transparent 70%);
         border-radius: 50%;
     }
     .pengurus-hero-label {
@@ -145,8 +145,8 @@
 <section class="pengurus-hero">
     <div class="container position-relative">
         <span class="pengurus-hero-label">PENGURUS</span>
-        <h1>Tim Pengurus<br>HIMATIKA UNUJA</h1>
-        <p>Kenali para pengurus yang berdedikasi menggerakkan HIMATIKA UNUJA periode 2025-2026.</p>
+        <h1>Tim Pengurus<br>HIMATIKA FMIPA UNUJA</h1>
+        <p>Kenali para pengurus yang berdedikasi menggerakkan HIMATIKA FMIPA UNUJA periode 2026.</p>
         <div class="pengurus-stat-row">
             <div class="pengurus-stat-item">
                 <div class="pengurus-stat-num">{{ $members->total() }}</div>

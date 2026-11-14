@@ -42,7 +42,7 @@
             border: none;
             cursor: pointer;
             font-family: inherit;
-            color: #1e293b !important;
+            color: #FFF7FA !important;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -57,23 +57,25 @@
         .tentang-dropdown-toggle-btn:focus-visible,
         .informasi-dropdown-toggle-btn:hover,
         .informasi-dropdown-toggle-btn:focus-visible {
-            color: #711C35 !important;
-            background: rgba(113, 28, 53, 0.06);
+            color: #FFF7FA !important;
+            background: rgba(138, 49, 81, 0.35);
+            outline: 2px solid #8A3151;
+            outline-offset: 2px;
         }
         .tentang-dropdown-wrapper.active .tentang-dropdown-toggle-btn,
         .tentang-dropdown-toggle-btn.active,
         .informasi-dropdown-wrapper.active .informasi-dropdown-toggle-btn,
         .informasi-dropdown-toggle-btn.active {
-            color: #ffffff !important;
-            background: #711C35 !important;
+            color: #FFF7FA !important;
+            background: #641D38 !important;
             font-weight: 600;
             padding: 0.45rem 1.4rem !important;
-            box-shadow: 0 4px 12px rgba(113, 28, 53, 0.25);
+            box-shadow: 0 4px 12px rgba(100, 29, 56, 0.4);
         }
         .tentang-dropdown-wrapper.show .tentang-dropdown-toggle-btn:not(.active),
         .informasi-dropdown-wrapper.show .informasi-dropdown-toggle-btn:not(.active) {
-            color: #711C35 !important;
-            background: rgba(113, 28, 53, 0.08);
+            color: #FFF7FA !important;
+            background: rgba(138, 49, 81, 0.3);
         }
         .tentang-chevron,
         .informasi-chevron {
@@ -91,13 +93,13 @@
             top: 100%;
             left: 0;
             min-width: 220px;
-            background: #1A0A0F;
-            border: 1px solid #711C35;
+            background: #250D17;
+            border: 1px solid #8A3151;
             border-radius: 12px;
             padding: 8px;
             margin: 6px 0 0 0;
             list-style: none;
-            box-shadow: 0 10px 28px rgba(26, 10, 15, 0.35);
+            box-shadow: 0 10px 28px rgba(37, 13, 23, 0.5);
             display: none;
             flex-direction: column;
             gap: 4px;
@@ -111,7 +113,7 @@
         .informasi-dropdown-item {
             display: block;
             padding: 8px 14px;
-            color: #FFFFFF;
+            color: #FFF7FA;
             font-size: 0.9rem;
             font-weight: 500;
             text-decoration: none;
@@ -123,19 +125,27 @@
         .tentang-dropdown-item:focus,
         .informasi-dropdown-item:hover,
         .informasi-dropdown-item:focus {
-            background: rgba(255, 255, 255, 0.12);
-            color: #F4D6DE;
+            background: rgba(138, 49, 81, 0.35);
+            color: #FFF7FA;
             padding-left: 18px;
             outline: none;
         }
         .tentang-dropdown-item.active,
         .informasi-dropdown-item.active {
-            background: #711C35;
-            color: #FFFFFF;
+            background: #641D38;
+            color: #FFF7FA;
             font-weight: 600;
-            border-left: 3px solid #A33B59;
+            border-left: 3px solid #8A3151;
         }
         @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: #250D17;
+                border: 1px solid rgba(138, 49, 81, 0.35);
+                border-radius: 14px;
+                padding: 16px;
+                margin-top: 12px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+            }
             .tentang-dropdown-wrapper,
             .informasi-dropdown-wrapper {
                 width: 100%;
@@ -151,7 +161,8 @@
             .informasi-dropdown-menu {
                 position: static;
                 width: 100%;
-                background: #1A0A0F;
+                background: #1e0a13;
+                border: 1px solid rgba(138, 49, 81, 0.3);
                 border-radius: 8px;
                 box-shadow: none;
                 margin-top: 4px;
@@ -258,11 +269,11 @@
                     @if($navLogo)
                         <img src="{{ $navLogo }}" alt="{{ $navAlt }}" style="width: 100%; height: 100%; object-fit: contain;">
                     @else
-                        <i class="fas fa-infinity" style="color: #711C35;"></i>
+                        <i class="fas fa-infinity" style="color: #8A3151;"></i>
                     @endif
                 </span>
                 <span class="brand-text">
-                    <span class="brand-name">{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} UNUJA 2026</span>
+                    <span class="brand-name">{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} FMIPA UNUJA</span>
                     <span class="brand-accent-line"></span>
                 </span>
             </a>
@@ -417,7 +428,7 @@
                         </span>
                         <div class="brand-text-footer">
                             <span class="brand-name-footer">{{ $globalProfile->title ?? 'HIMATIKA FMIPA UNUJA' }}</span>
-                            <span class="brand-period-footer">HIMATIKA UNUJA 2026</span>
+                            <span class="brand-period-footer">HIMATIKA FMIPA UNUJA</span>
                         </div>
                     </div>
                     <p class="footer-desc">{{ $globalProfile->footer_text ?? 'Website resmi HIMATIKA FMIPA UNUJA periode 2026.' }}</p>

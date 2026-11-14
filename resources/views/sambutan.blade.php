@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Sambutan Kaprodi - HIMATIKA UNUJA')
+@section('title', 'Sambutan Kaprodi - HIMATIKA FMIPA UNUJA')
 
 @section('content')
 
@@ -72,7 +72,7 @@
                                 Website ini kami hadirkan sebagai upaya strategis untuk memperkuat transparansi, meningkatkan kualitas pelayanan informasi kemahasiswaan, serta mempererat tali silaturahmi antara program studi, dosen, mahasiswa, dan masyarakat luas.
                             </p>
                             <p class="sambutan-ref-p mb-0">
-                                Semoga wadah ini dapat menjadi pendorong kemajuan intelektual, moral, dan prestasi keilmuan matematika bagi seluruh keluarga besar HIMATIKA.
+                                Semoga wadah ini dapat menjadi pendorong kemajuan intelektual, moral, dan prestasi keilmuan matematika bagi seluruh keluarga besar HIMATIKA FMIPA UNUJA.
                             </p>
                         @endif
 

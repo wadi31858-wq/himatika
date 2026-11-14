@@ -36,15 +36,15 @@
 
     <style>
         :root {
-            --him-primary: #711C35;
-            --him-primary-dark: #1A0A0F;
-            --him-primary-hover: #541326;
-            --him-accent: #A33B59;
-            --him-bg: #FFF7F9;
-            --him-bg-alt: #F4D6DE;
-            --him-border: #E9CDD5;
-            --him-text: #28151D;
-            --him-text-muted: #5C4B51;
+            --him-primary: #641D38;
+            --him-primary-dark: #250D17;
+            --him-primary-hover: #4E132A;
+            --him-accent: #8A3151;
+            --him-bg: #FFF7FA;
+            --him-bg-alt: #F6E9EE;
+            --him-border: #E2CBD3;
+            --him-text: #32121F;
+            --him-text-muted: #5C3243;
             --him-card: #FFFFFF;
             --sidebar-width: 275px;
             --sidebar-collapsed-width: 80px;

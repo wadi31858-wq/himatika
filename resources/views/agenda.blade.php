@@ -287,7 +287,7 @@
 <section class="agenda-hero">
     <div class="container">
         <span class="agenda-hero-label">AGENDA</span>
-        <h1>Agenda dan Program HIMATIKA</h1>
+        <h1>Agenda dan Program HIMATIKA FMIPA UNUJA</h1>
         <p>Agenda dirancang untuk menguatkan kompetensi akademik, solidaritas, dan kontribusi sosial.</p>
     </div>
 </section>

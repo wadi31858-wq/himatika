@@ -153,7 +153,7 @@
     }
 
     .badge-detail-category {
-        background: #711C35;
+        background: #641D38;
         color: #ffffff;
         font-size: 0.72rem;
         font-weight: 700;
@@ -164,20 +164,20 @@
     }
 
     .badge-detail-date {
-        background: #F4D6DE;
-        color: #711C35;
+        background: #F6E9EE;
+        color: #641D38;
         font-size: 0.74rem;
         font-weight: 600;
         padding: 4px 10px;
         border-radius: 4px;
-        border: 1px solid #E9CDD5;
+        border: 1px solid #E2CBD3;
         display: inline-block;
     }
 
     .berita-detail-title {
         font-size: 1.85rem;
         font-weight: 800;
-        color: #1A0A0F;
+        color: #250D17;
         line-height: 1.25;
         margin-bottom: 0.5rem;
         letter-spacing: -0.3px;
@@ -219,7 +219,7 @@
         overflow: hidden;
         background: #F3E8EC;
         position: relative;
-        box-shadow: 0 4px 14px rgba(113, 28, 53, 0.05);
+        box-shadow: 0 4px 14px rgba(100, 29, 56, 0.05);
         border: 1px solid rgba(233, 205, 213, 0.7);
         display: flex;
         align-items: center;
@@ -236,14 +236,14 @@
 
     .berita-main-img.is-poster {
         object-fit: contain;
-        background: #1A0A0F;
+        background: #250D17;
     }
 
     .berita-photo-badge-note {
         position: absolute;
         bottom: 10px;
         right: 12px;
-        background: rgba(26, 10, 15, 0.78);
+        background: rgba(37, 13, 23, 0.78);
         backdrop-filter: blur(4px);
         color: #ffffff;
         font-size: 0.72rem;
@@ -260,13 +260,13 @@
         border-radius: 12px;
         padding: 20px;
         margin-top: 14px;
-        box-shadow: 0 4px 16px rgba(113, 28, 53, 0.04);
+        box-shadow: 0 4px 16px rgba(100, 29, 56, 0.04);
     }
 
     .berita-desc-heading {
         font-size: 1.05rem;
         font-weight: 700;
-        color: #1A0A0F;
+        color: #250D17;
         margin-bottom: 10px;
     }
 
@@ -287,7 +287,7 @@
     .berita-terbaru-heading {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #1A0A0F;
+        color: #250D17;
         margin-bottom: 14px;
     }
 
@@ -301,13 +301,13 @@
         gap: 12px;
         text-decoration: none;
         transition: all 0.25s ease;
-        box-shadow: 0 2px 8px rgba(113, 28, 53, 0.03);
+        box-shadow: 0 2px 8px rgba(100, 29, 56, 0.03);
     }
 
     .berita-terbaru-item:hover {
-        border-color: #711C35;
+        border-color: #641D38;
         transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(113, 28, 53, 0.1);
+        box-shadow: 0 6px 18px rgba(100, 29, 56, 0.1);
     }
 
     .berita-terbaru-thumb-box {
@@ -335,7 +335,7 @@
     .berita-terbaru-title {
         font-size: 0.84rem;
         font-weight: 700;
-        color: #1A0A0F;
+        color: #250D17;
         margin-bottom: 4px;
         line-height: 1.35;
         display: -webkit-box;
@@ -345,7 +345,7 @@
     }
 
     .berita-terbaru-item:hover .berita-terbaru-title {
-        color: #711C35;
+        color: #641D38;
     }
 
     .berita-terbaru-date {
@@ -363,7 +363,7 @@
     .berita-related-heading {
         font-size: 1.15rem;
         font-weight: 700;
-        color: #1A0A0F;
+        color: #250D17;
     }
 
     .berita-related-card {
@@ -377,13 +377,13 @@
         height: 100%;
         text-decoration: none;
         transition: all 0.25s ease;
-        box-shadow: 0 2px 8px rgba(113, 28, 53, 0.03);
+        box-shadow: 0 2px 8px rgba(100, 29, 56, 0.03);
     }
 
     .berita-related-card:hover {
-        border-color: #711C35;
+        border-color: #641D38;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(113, 28, 53, 0.08);
+        box-shadow: 0 8px 20px rgba(100, 29, 56, 0.08);
     }
 
     .badge-terkait {
@@ -391,8 +391,8 @@
         font-weight: 700;
         letter-spacing: 0.8px;
         text-transform: uppercase;
-        color: #711C35;
-        background: #F4D6DE;
+        color: #641D38;
+        background: #F6E9EE;
         padding: 2px 8px;
         border-radius: 4px;
         display: inline-block;
@@ -403,7 +403,7 @@
     .berita-related-title {
         font-size: 0.88rem;
         font-weight: 700;
-        color: #1A0A0F;
+        color: #250D17;
         line-height: 1.4;
         margin-bottom: 10px;
         display: -webkit-box;
@@ -413,7 +413,7 @@
     }
 
     .berita-related-card:hover .berita-related-title {
-        color: #711C35;
+        color: #641D38;
     }
 
     .berita-related-date {
@@ -423,7 +423,7 @@
     }
 
     .btn-kembali-berita {
-        color: #711C35;
+        color: #641D38;
         font-weight: 700;
         text-decoration: none;
         font-size: 0.88rem;

@@ -14,7 +14,7 @@
         position: absolute;
         bottom: -120px; right: -80px;
         width: 400px; height: 400px;
-        background: radial-gradient(circle, rgba(163, 59, 89, 0.1) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.18) 0%, transparent 70%);
         border-radius: 50%;
     }
     .kontak-hero-label {
@@ -128,7 +128,7 @@
             <span><i class="fab fa-instagram"></i></span>
         </div>
         <span class="kontak-hero-label">KONTAK</span>
-        <h1>Hubungi Kami<br>HIMATIKA UNUJA</h1>
+        <h1>Hubungi Kami<br>HIMATIKA FMIPA UNUJA</h1>
         <p>Ada pertanyaan atau saran? Jangan ragu untuk menghubungi kami.</p>
     </div>
 </section>

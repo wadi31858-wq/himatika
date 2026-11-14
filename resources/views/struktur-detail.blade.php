@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title', $jabatan->position . ' - HIMATIKA UNUJA 2026')
+@section('title', $jabatan->position . ' - HIMATIKA FMIPA UNUJA')
 
 @section('content')
 <style>
     :root {
-        --bg-dark: #1A0A0F;
-        --burgundy-main: #711C35;
+        --bg-dark: #250D17;
+        --burgundy-main: #641D38;
         --burgundy-hover: #541326;
-        --burgundy-focus: #A33B59;
-        --rose-soft: #F4D6DE;
-        --rose-pale: #FFF7F9;
-        --text-dark: #28151D;
-        --border-rose: #E9CDD5;
+        --burgundy-focus: #8A3151;
+        --rose-soft: #F6E9EE;
+        --rose-pale: #FFF7FA;
+        --text-dark: #32121F;
+        --border-rose: #E2CBD3;
         --pure-white: #FFFFFF;
     }
 
@@ -54,7 +54,7 @@
 
     /* Main Burgundy Card */
     .hero-burgundy-card {
-        background: linear-gradient(135deg, #711C35 0%, #1A0A0F 100%);
+        background: linear-gradient(135deg, #641D38 0%, #250D17 100%);
         border-radius: 24px;
         padding: 48px;
         color: #ffffff;
@@ -63,7 +63,7 @@
         position: relative;
         overflow: hidden;
         margin-bottom: 56px;
-        box-shadow: 0 16px 40px rgba(26, 10, 15, 0.2);
+        box-shadow: 0 16px 40px rgba(37, 13, 23, 0.2);
         border: 1px solid rgba(244, 214, 222, 0.2);
     }
     .hero-burgundy-card::before {
@@ -205,12 +205,12 @@
         height: 100%;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 4px 16px rgba(113, 28, 53, 0.04);
+        box-shadow: 0 4px 16px rgba(100, 29, 56, 0.04);
         transition: all 0.25s ease;
     }
     .role-category-card:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(113, 28, 53, 0.08);
+        box-shadow: 0 8px 24px rgba(100, 29, 56, 0.08);
         border-color: var(--burgundy-focus);
     }
     .role-category-card::before {
@@ -251,7 +251,7 @@
         border: 1px solid var(--border-rose);
         border-radius: 20px;
         padding: 40px;
-        box-shadow: 0 4px 20px rgba(113, 28, 53, 0.04);
+        box-shadow: 0 4px 20px rgba(100, 29, 56, 0.04);
         margin-top: 56px;
     }
 
@@ -264,7 +264,7 @@
     }
     .anggota-profile-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 24px rgba(113, 28, 53, 0.08);
+        box-shadow: 0 10px 24px rgba(100, 29, 56, 0.08);
         border-color: var(--burgundy-main);
     }
     .anggota-photo-area {
@@ -373,7 +373,7 @@
                         </div>
                     @endif
                     <div class="hero-photo-watermark">
-                        HIMATIKA 2026
+                        HIMATIKA FMIPA UNUJA
                     </div>
                 </div>
             </div>
@@ -490,7 +490,7 @@
                             @else
                                 <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center text-secondary">
                                     <i class="fas fa-user-circle" style="font-size: 70px; opacity: 0.45; margin-bottom: 8px;"></i>
-                                    <span style="font-size: 0.8rem; font-weight: 600;">HIMATIKA 2026</span>
+                                    <span style="font-size: 0.8rem; font-weight: 600;">HIMATIKA FMIPA UNUJA</span>
                                 </div>
                             @endif
                         </div>

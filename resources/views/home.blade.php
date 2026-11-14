@@ -18,11 +18,11 @@
                 <div class="hero-badge-container mb-3">
                     <div class="hero-navy-capsule">
                         <i class="fas fa-graduation-cap me-1"></i>
-                        <span>{{ $profile->hero_badge ?? 'HIMATIKA UNUJA' }}</span>
+                        <span>{{ $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA' }}</span>
                     </div>
                     <div class="hero-tag-companion">
                         <span class="hero-tag-vbar"></span>
-                        <span>{{ !empty($profile->hero_tagline) ? $profile->hero_tagline : 'Grow with himatika' }}</span>
+                        <span>{{ !empty($profile->hero_tagline) ? $profile->hero_tagline : 'Grow with HIMATIKA' }}</span>
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@
                             </div>
                             <div class="hero-recent-text">
                                 <span class="hero-recent-headline">Update Terkini</span>
-                                <span class="hero-recent-subline">Berita • Prestasi • Agenda • Kegiatan</span>
+                                <span class="hero-recent-subline">Berita • Agenda • Kegiatan</span>
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                 </div>
             </div>
             <h2 class="tentang-main-title">
-                {{ $siteSettings['home_tentang_title'] ?? 'Tentang HIMATIKA' }}
+                {{ $siteSettings['home_tentang_title'] ?? 'Tentang HIMATIKA FMIPA UNUJA' }}
             </h2>
             <p class="tentang-main-desc">
                 {{ $siteSettings['home_tentang_desc'] ?? 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.' }}
@@ -172,7 +172,7 @@
                             <span class="sambutan-ref-badge-text">{{ $siteSettings['home_visi_badge'] ?? 'PEDOMAN ORGANISASI' }}</span>
                         </div>
                         <h3 class="sambutan-ref-home-title mb-3">
-                            Visi &amp; <span class="sambutan-title-accent">Misi HIMATIKA</span>
+                            Visi &amp; <span class="sambutan-title-accent">Misi HIMATIKA FMIPA UNUJA</span>
                         </h3>
 
                         {{-- Tata Letak 2 Kolom Horizontal (VISI di Kiri, Garis Vertikal Emas di Tengah, MISI di Kanan) --}}
@@ -226,7 +226,7 @@
                     <div>
                         <a href="{{ !empty($siteSettings['home_visi_btn_url']) ? url($siteSettings['home_visi_btn_url']) : route('visi-misi') }}" class="btn-tentang-primary w-100">
                             <i class="fas fa-bullseye me-1"></i>
-                            <span>{{ $siteSettings['home_visi_btn_text'] ?? 'Lihat Visi & Misi Selengkapnya' }}</span>
+                            <span>{{ $siteSettings['home_visi_btn_text'] ?? 'Lihat Visi dan Misi' }}</span>
                             <i class="fas fa-arrow-right ms-1"></i>
                         </a>
                     </div>
@@ -687,29 +687,29 @@
         min-width: 36px;
         border-radius: 50%;
         background: #ffffff;
-        border: 1px solid rgba(113, 28, 53, 0.25);
-        color: #711C35;
+        border: 1px solid rgba(138, 49, 81, 0.25);
+        color: #8A3151;
         display: inline-flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         font-size: 0.85rem;
-        box-shadow: 0 2px 8px rgba(113, 28, 53, 0.08);
+        box-shadow: 0 2px 8px rgba(138, 49, 81, 0.08);
         transition: all 0.25s ease;
         padding: 0;
         outline: none;
     }
 
     .doc-slider-arrow:hover {
-        background: #711C35;
+        background: #8A3151;
         color: #ffffff;
-        border-color: #711C35;
+        border-color: #8A3151;
         transform: scale(1.08);
-        box-shadow: 0 4px 14px rgba(113, 28, 53, 0.25);
+        box-shadow: 0 4px 14px rgba(138, 49, 81, 0.25);
     }
 
     .doc-slider-arrow:focus-visible {
-        outline: 2px solid #711C35;
+        outline: 2px solid #8A3151;
         outline-offset: 2px;
     }
 
@@ -739,12 +739,12 @@
         width: 24px;
         height: 8px;
         border-radius: 4px;
-        background: #711C35;
-        box-shadow: 0 2px 6px rgba(113, 28, 53, 0.35);
+        background: #8A3151;
+        box-shadow: 0 2px 6px rgba(138, 49, 81, 0.35);
     }
 
     .doc-slider-dot:focus-visible {
-        outline: 2px solid #711C35;
+        outline: 2px solid #8A3151;
         outline-offset: 2px;
     }
 

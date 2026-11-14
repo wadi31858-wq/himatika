@@ -19,8 +19,8 @@
 <section class="section-cream galeri-hero">
     <div class="container text-center">
         <span class="galeri-hero-label">{{ $siteSettings['gallery_page_badge'] ?? 'GALERI' }}</span>
-        <h1 class="galeri-hero-heading">{{ $siteSettings['gallery_page_title'] ?? 'Momen HIMATIKA UNUJA' }}</h1>
-        <p class="galeri-hero-desc">{{ $siteSettings['gallery_page_desc'] ?? 'Dokumentasi kegiatan yang memperlihatkan semangat, kolaborasi, dan capaian HIMATIKA' }}</p>
+        <h1 class="galeri-hero-heading">{{ $siteSettings['gallery_page_title'] ?? 'Momen HIMATIKA FMIPA UNUJA' }}</h1>
+        <p class="galeri-hero-desc">{{ $siteSettings['gallery_page_desc'] ?? 'Dokumentasi kegiatan yang memperlihatkan semangat, kolaborasi, dan capaian HIMATIKA FMIPA UNUJA.' }}</p>
     </div>
 </section>
 
@@ -97,7 +97,7 @@
 .galeri-card-img{position:relative;aspect-ratio:16/10;overflow:hidden;cursor:pointer}
 .galeri-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
 .galeri-card:hover .galeri-card-img img{transform:scale(1.05)}
-.galeri-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#711C35 0%,#1A0A0F 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);gap:0.5rem}
+.galeri-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#641D38 0%,#250D17 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);gap:0.5rem}
 .galeri-placeholder i{font-size:2.5rem;opacity:0.5}
 .galeri-placeholder span{font-size:0.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:0.6}
 .galeri-card-overlay{position:absolute;inset:0;background:rgba(26, 10, 15, 0.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s ease}

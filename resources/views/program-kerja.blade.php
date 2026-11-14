@@ -14,7 +14,7 @@
         position: absolute;
         top: -80px; left: -80px;
         width: 300px; height: 300px;
-        background: radial-gradient(circle, rgba(21, 101, 192, 0.06) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .prog-hero::after {
@@ -22,7 +22,7 @@
         position: absolute;
         bottom: -60px; right: -60px;
         width: 250px; height: 250px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(100, 29, 56, 0.08) 0%, transparent 70%);
         border-radius: 50%;
     }
     .prog-hero-label {
@@ -116,8 +116,8 @@
 <section class="prog-hero">
     <div class="container position-relative">
         <span class="prog-hero-label">PROGRAM KERJA</span>
-        <h1>Program Kerja<br>HIMATIKA UNUJA</h1>
-        <p>Daftar seluruh program kerja yang telah dan akan dilaksanakan oleh HIMATIKA UNUJA.</p>
+        <h1>Program Kerja<br>HIMATIKA FMIPA UNUJA</h1>
+        <p>Daftar seluruh program kerja yang telah dan akan dilaksanakan oleh HIMATIKA FMIPA UNUJA.</p>
         <div class="prog-stats-row">
             <div class="prog-stat-item">
                 <div class="prog-stat-num">{{ $programs->total() }}</div>

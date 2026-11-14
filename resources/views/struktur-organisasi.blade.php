@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Struktur Organisasi - HIMATIKA UNUJA 2026')
+@section('title', 'Struktur Organisasi - HIMATIKA FMIPA UNUJA')
 @section('content')
 
 <style>
@@ -7,14 +7,14 @@
        THEME VARIABLES & BASE
        ======================================================== */
     :root {
-        --bg-dark: #1A0A0F;
-        --burgundy-main: #711C35;
-        --burgundy-hover: #541326;
-        --burgundy-focus: #A33B59;
-        --rose-soft: #F4D6DE;
-        --rose-pale: #FFF7F9;
-        --text-dark: #28151D;
-        --border-rose: #E9CDD5;
+        --bg-dark: #250D17;
+        --burgundy-main: #641D38;
+        --burgundy-hover: #4E132A;
+        --burgundy-focus: #8A3151;
+        --rose-soft: #F6E9EE;
+        --rose-pale: #FFF7FA;
+        --text-dark: #32121F;
+        --border-rose: #E2CBD3;
         --pure-white: #FFFFFF;
     }
 
@@ -455,7 +455,7 @@
         width: 100%;
         height: 100%;
         min-height: 195px;
-        background: linear-gradient(135deg, #FFF7F9 0%, #F4D6DE 100%);
+        background: linear-gradient(135deg, #FFF7FA 0%, #F6E9EE 100%);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -840,7 +840,7 @@
 <section class="hero-section">
     <div class="container" style="position:relative; z-index:1;">
         <span class="hero-label">STRUKTUR ORGANISASI</span>
-        <h1 class="hero-heading">Struktur HIMATIKA<br>UNUJA 2026</h1>
+        <h1 class="hero-heading">Struktur Organisasi<br>HIMATIKA FMIPA UNUJA</h1>
         <p class="hero-desc">Kenali susunan kepengurusan, jalur koordinasi Putra &amp; Putri, serta lima divisi penggerak HIMATIKA FMIPA UNUJA periode 2026.</p>
     </div>
 </section>

@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - HIMATIKA UNUJA</title>
+    <title>Login - HIMATIKA FMIPA UNUJA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1A0A0F 0%, #711C35 100%); min-height: 100vh; display: flex; align-items: center; }
-        .login-card { background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); overflow: hidden; }
-        .login-left { background: linear-gradient(135deg, #1A0A0F 0%, #711C35 100%); color: #fff; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #250D17 0%, #641D38 100%); min-height: 100vh; display: flex; align-items: center; }
+        .login-card { background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); overflow: hidden; }
+        .login-left { background: linear-gradient(135deg, #250D17 0%, #641D38 100%); color: #fff; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
         .login-right { padding: 3rem; }
-        .form-control:focus { border-color: #A33B59; box-shadow: 0 0 0 0.2rem rgba(163, 59, 89, 0.25); }
+        .form-control:focus { border-color: #8A3151; box-shadow: 0 0 0 0.2rem rgba(138, 49, 81, 0.25); }
+        .btn-primary { background-color: #8A3151 !important; border-color: #8A3151 !important; }
+        .btn-primary:hover { background-color: #641D38 !important; border-color: #641D38 !important; }
     </style>
 </head>
 <body>
@@ -38,7 +40,7 @@
                                     <img src="{{ $loginLogo }}" alt="{{ $loginAlt }}" style="max-height: 54px; max-width: 100%; object-fit: contain;">
                                 </div>
                             @endif
-                            <h2><i class="fas fa-laptop-code me-2"></i>{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} UNUJA</h2>
+                            <h2><i class="fas fa-laptop-code me-2"></i>{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} FMIPA UNUJA</h2>
                             <p class="mt-3 opacity-75">Himpunan Mahasiswa Matematika</p>
                             <p class="small opacity-50">Silakan login untuk mengelola konten website.</p>
                         </div>
