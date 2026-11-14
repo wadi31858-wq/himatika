@@ -405,91 +405,116 @@
     </div>
 </section>
 
-{{-- ==================== BAGIAN 4: HIMATIKA BERDAMPAK ==================== --}}
-<section class="section-peduli" id="berdampak">
+{{-- ==================== BAGIAN 4: BERKARYA (KARYA WEBSITE MAHASISWA) ==================== --}}
+<section class="section-peduli" id="berkarya">
+    {{-- Anchor compatibility for previous links --}}
+    <span id="berdampak" class="d-none" aria-hidden="true"></span>
+    <span id="mengabdi" class="d-none" aria-hidden="true"></span>
+
     <div class="peduli-bg-glow peduli-glow-1" aria-hidden="true"></div>
     <div class="peduli-bg-glow peduli-glow-2" aria-hidden="true"></div>
 
     <div class="container position-relative" style="z-index: 1;">
-        {{-- Section Header --}}
-        <div class="peduli-section-header">
-            <span class="peduli-label">
-                <span class="peduli-label-icon"><i class="fas fa-award"></i></span>
-                {{ $siteSettings['home_peduli_badge'] ?? 'KARYA & KONTRIBUSI' }}
-            </span>
-        </div>
-
         <div class="peduli-main-grid">
             {{-- Kolom Kiri: Teks Pengantar --}}
             <div class="peduli-text-col">
-                <h2 class="peduli-heading">{{ $siteSettings['home_peduli_title'] ?? 'HIMATIKA Berdampak' }}</h2>
+                <div class="peduli-section-header mb-3">
+                    <span class="peduli-label">
+                        <span class="peduli-label-icon"><i class="fas fa-laptop-code"></i></span>
+                        HIMATIKA BERKARYA
+                    </span>
+                </div>
+                <h2 class="peduli-heading">Karya Website Mahasiswa</h2>
                 <p class="peduli-desc">
-                    {{ $siteSettings['home_peduli_desc'] ?? 'Mengenal karya, kegiatan, dan kontribusi HIMATIKA yang memberikan manfaat bagi mahasiswa dan lingkungan sekitar.' }}
+                    Jelajahi website karya mahasiswa Informatika Universitas Nurul Jadid dan lihat bagaimana ide mereka diwujudkan menjadi proyek digital.
                 </p>
-                <a href="{{ !empty($siteSettings['home_peduli_btn_url']) ? url($siteSettings['home_peduli_btn_url']) : route('prestasi') }}" class="peduli-cta">
-                    <span>{{ $siteSettings['home_peduli_btn_text'] ?? 'Jelajahi karya & prestasi' }}</span>
+                <a href="{{ route('download') }}" class="peduli-cta">
+                    <span>Lihat Galeri Website</span>
                     <span class="peduli-cta-arrow"><i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
 
-            {{-- Kolom Tengah: Card Hasil Nyata & Kontribusi --}}
+            {{-- Kolom Tengah: Card Pratinjau Karya (Maksimal 3 Website Terbaru) --}}
             <div class="peduli-collage-col">
                 <div class="d-flex flex-column h-100 justify-content-center">
-                    @forelse($achievements->take(2) as $ach)
-                        <div class="berdampak-item-card">
-                            <div class="berdampak-item-header">
-                                <span class="berdampak-tag"><i class="fas fa-trophy text-warning me-1"></i> {{ $ach->rank ?? 'Prestasi' }}</span>
-                                <small class="text-white-50">{{ $ach->year }}</small>
+                    @forelse($websiteWorks as $work)
+                        @php
+                            $thumb = null;
+                            if (!empty($work->preview_image)) {
+                                if (file_exists(public_path('storage/' . $work->preview_image))) {
+                                    $thumb = asset('storage/' . $work->preview_image);
+                                } elseif (str_starts_with($work->preview_image, 'http')) {
+                                    $thumb = $work->preview_image;
+                                }
+                            }
+                            if (!$thumb && !empty($work->image)) {
+                                if (file_exists(public_path('storage/' . $work->image))) {
+                                    $thumb = asset('storage/' . $work->image);
+                                } elseif (str_starts_with($work->image, 'http')) {
+                                    $thumb = $work->image;
+                                }
+                            }
+                            if (!$thumb && !empty($work->file)) {
+                                $ext = strtolower(pathinfo($work->file, PATHINFO_EXTENSION));
+                                if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif'])) {
+                                    $thumb = asset('storage/' . $work->file);
+                                }
+                            }
+                            $targetUrl = $work->website_url ?: route('download');
+                            $isExternal = !empty($work->website_url);
+                        @endphp
+                        <a href="{{ $targetUrl }}" class="berdampak-item-card berkarya-item-card text-decoration-none d-flex align-items-center gap-3" @if($isExternal) target="_blank" rel="noopener noreferrer" @endif>
+                            <div class="berkarya-thumb-wrap">
+                                @if($thumb)
+                                    <img src="{{ $thumb }}" alt="{{ $work->title }}" class="berkarya-thumb-img" onerror="this.onerror=null; this.src='{{ asset('images/galeri-placeholder.svg') }}';">
+                                @else
+                                    <div class="berkarya-thumb-placeholder">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </div>
+                                @endif
                             </div>
-                            <h4 class="berdampak-item-title">{{ $ach->title }}</h4>
-                            <p class="berdampak-item-desc">Tingkat {{ $ach->level ?? 'Nasional' }} &bull; Kontribusi keilmuan mahasiswa Matematika UNUJA.</p>
-                        </div>
+                            <div class="berkarya-card-info flex-grow-1 min-w-0">
+                                <div class="d-flex justify-content-between align-items-center mb-1 gap-2">
+                                    <span class="berdampak-tag"><i class="fas fa-globe me-1"></i> Website</span>
+                                    @if(!empty($work->year))
+                                        <span class="berkarya-year-badge">{{ $work->year }}</span>
+                                    @endif
+                                </div>
+                                <h4 class="berdampak-item-title berkarya-card-title">{{ $work->title }}</h4>
+                                @if(!empty($work->author_name))
+                                    <div class="berkarya-card-author">
+                                        <i class="fas fa-user-edit me-1" style="color: var(--gold); font-size: 0.72rem;"></i> {{ $work->author_name }}
+                                    </div>
+                                @endif
+                            </div>
+                        </a>
                     @empty
-                        <div class="berdampak-item-card">
-                            <div class="berdampak-item-header">
-                                <span class="berdampak-tag"><i class="fas fa-laptop-code text-info me-1"></i> Karya Digital</span>
-                            </div>
-                            <h4 class="berdampak-item-title">Galeri Website Mahasiswa</h4>
-                            <p class="berdampak-item-desc">Wadah dokumentasi dan portofolio karya digital mahasiswa Matematika UNUJA.</p>
+                        <div class="berdampak-item-card text-center py-4">
+                            <i class="fas fa-laptop-code mb-2 text-white-50" style="font-size: 1.8rem;"></i>
+                            <p class="berdampak-item-desc text-white-50 mb-0">Belum ada karya website yang dipublikasikan.</p>
                         </div>
                     @endforelse
-
-                    @if($activities->isNotEmpty())
-                        @php $firstAct = $activities->first(); @endphp
-                        <div class="berdampak-item-card">
-                            <div class="berdampak-item-header">
-                                <span class="berdampak-tag"><i class="fas fa-calendar-check text-success me-1"></i> Program Terlaksana</span>
-                                <small class="text-white-50">{{ $firstAct->date ? \Carbon\Carbon::parse($firstAct->date)->format('Y') : '2026' }}</small>
-                            </div>
-                            <h4 class="berdampak-item-title">{{ $firstAct->title }}</h4>
-                            <p class="berdampak-item-desc">{{ Str::limit(strip_tags($firstAct->description), 90) ?: 'Program pengembangan kompetensi akademik dan soft-skill mahasiswa.' }}</p>
-                        </div>
-                    @endif
                 </div>
             </div>
 
-            {{-- Kolom Kanan: Stat Card (Data Nyata) --}}
+            {{-- Kolom Kanan: Stat Card (Ringkasan Galeri) --}}
             <div class="peduli-stat-col">
                 <div class="peduli-stat-card">
-                    <span class="peduli-stat-label">DAMPAK & PRESTASI</span>
+                    <span class="peduli-stat-label">GALERI WEBSITE</span>
                     <div class="peduli-stat-number-wrap">
-                        <span class="peduli-stat-number">{{ !empty($siteSettings['home_peduli_stat1_num']) ? $siteSettings['home_peduli_stat1_num'] : (($totalAchievements ?? 3) . '+') }}</span>
+                        <span class="peduli-stat-number">{{ $totalWebsiteWorks ?? 0 }}</span>
                     </div>
-                    <span class="peduli-stat-text">{{ !empty($siteSettings['home_peduli_stat1_label']) ? $siteSettings['home_peduli_stat1_label'] : 'prestasi resmi terdata' }}</span>
+                    <span class="peduli-stat-text mb-3">Website Dipublikasikan</span>
 
-                    <div class="mt-3 pt-3 border-top border-white border-opacity-10 w-100">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div class="small text-white-50">{{ !empty($siteSettings['home_peduli_stat2_label']) ? $siteSettings['home_peduli_stat2_label'] : 'Kegiatan Terlaksana' }}</div>
-                            <div class="fw-bold fs-6 text-white">{{ !empty($siteSettings['home_peduli_stat2_num']) ? $siteSettings['home_peduli_stat2_num'] : (($totalActivities ?? 5) . '+') }}</div>
-                        </div>
+                    <div class="mt-2 pt-3 border-top border-white border-opacity-10 w-100">
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="small text-white-50">{{ !empty($siteSettings['home_peduli_stat3_label']) ? $siteSettings['home_peduli_stat3_label'] : 'Dedikasi Mahasiswa' }}</div>
-                            <div class="fw-bold fs-6 text-white">{{ !empty($siteSettings['home_peduli_stat3_num']) ? $siteSettings['home_peduli_stat3_num'] : '100%' }}</div>
+                            <div class="small text-white-50">Tahun Terbaru</div>
+                            <div class="fw-bold fs-6 text-white">{{ $latestWebsiteYear ?? '—' }}</div>
                         </div>
                     </div>
 
-                    <a href="{{ !empty($siteSettings['home_peduli_btn_url']) ? url($siteSettings['home_peduli_btn_url']) : route('prestasi') }}" class="peduli-stat-btn mt-3">
-                        <span>{{ $siteSettings['home_peduli_btn_text'] ?? 'Lihat Prestasi' }}</span>
+                    <a href="{{ route('download') }}" class="peduli-stat-btn mt-3 w-100 justify-content-center">
+                        <span>Lihat Galeri Website</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>

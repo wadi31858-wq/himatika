@@ -16,6 +16,7 @@ use App\Models\Profile;
 use App\Models\OrganizationalStructure;
 use App\Models\VisionMission;
 use App\Models\SiteSetting;
+use App\Models\Download;
 
 class HomeController extends Controller
 {
@@ -279,7 +280,35 @@ class HomeController extends Controller
             ];
         }
 
+        // Karya Website Mahasiswa untuk section Berkarya di Beranda
+        $websiteWorksQuery = Download::published()
+            ->whereNotNull('website_url')
+            ->where('website_url', '!=', '');
+
+        $websiteWorks = (clone $websiteWorksQuery)
+            ->orderBy('order_num')
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $totalWebsiteWorks = (clone $websiteWorksQuery)->count();
+
+        $latestWebsiteYear = (clone $websiteWorksQuery)
+            ->whereNotNull('year')
+            ->where('year', '!=', '')
+            ->max('year');
+
+        if (empty($latestWebsiteYear)) {
+            $latestWorkWithDate = (clone $websiteWorksQuery)->latest('created_at')->first();
+            $latestWebsiteYear = $latestWorkWithDate && $latestWorkWithDate->created_at 
+                ? $latestWorkWithDate->created_at->format('Y') 
+                : null;
+        }
+
         $data = [
+            'websiteWorks'       => $websiteWorks,
+            'totalWebsiteWorks'  => $totalWebsiteWorks,
+            'latestWebsiteYear'  => $latestWebsiteYear,
             'heroRecentPhotos' => $heroRecentPhotos,
             'kaprodi'          => $kaprodi,
             'structures'       => $structures,

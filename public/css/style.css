@@ -5827,6 +5827,98 @@ body {
     margin: 0;
 }
 
+/* Berkarya (Karya Website Mahasiswa) Cards */
+.berkarya-item-card {
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.berkarya-item-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(229, 195, 120, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.berkarya-thumb-wrap {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.berkarya-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.berkarya-item-card:hover .berkarya-thumb-img {
+    transform: scale(1.05);
+}
+
+.berkarya-thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, rgba(113, 28, 53, 0.6), rgba(26, 10, 15, 0.8));
+}
+
+.berkarya-card-info {
+    min-width: 0;
+}
+
+.berkarya-card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.25rem;
+}
+
+.berkarya-card-author {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.berkarya-year-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold, #E5C378);
+    background: rgba(229, 195, 120, 0.12);
+    border: 1px solid rgba(229, 195, 120, 0.25);
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 576px) {
+    .berkarya-thumb-wrap {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+    }
+}
+
 /* 4. Section Dokumentasi Momen */
 .section-dokumentasi-momen {
     background: #F8FAFC;
