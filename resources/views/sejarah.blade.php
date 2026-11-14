@@ -1,76 +1,75 @@
 @extends('layouts.app')
-@section('title', 'Sejarah HIMATIKA FMIPA UNUJA')
+@section('title', 'Sejarah MAN 1 Probolinggo')
 
 @section('content')
 
-{{-- ==================== BANNER SEJARAH ==================== --}}
-<section class="sejarah-banner">
-    <div class="container position-relative">
-        <div class="sejarah-banner-content">
-            <h1 class="sejarah-banner-title">{{ $siteSettings['history_title'] ?? 'Sejarah HIMATIKA' }}</h1>
-            <p class="sejarah-banner-subtitle">{{ $siteSettings['history_subtitle'] ?? 'Perjalanan HIMATIKA FMIPA UNUJA dari awal berdiri hingga sekarang.' }}</p>
-        </div>
-    </div>
-</section>
-
-{{-- ==================== KONTEN SEJARAH ==================== --}}
-<section class="sejarah-content-section py-5">
+{{-- ==================== HALAMAN SEJARAH MAN 1 PROBOLINGGO ==================== --}}
+<section class="sejarah-section-wrapper">
     <div class="container">
-        <div class="sejarah-container mx-auto">
+        <div class="sejarah-card-wrapper mx-auto">
             
-            {{-- CARD PUTIH BESAR UTAMA --}}
-            <div class="card-sejarah-utama mb-4">
-                <div class="sejarah-card-header mb-3">
-                    <span class="sejarah-gold-title">Sejarah Singkat HIMATIKA</span>
+            {{-- 1. CARD UTAMA SEJARAH --}}
+            <div class="card-sejarah-main">
+                
+                {{-- 2. JUDUL SECTION (KUNING KEEMASAN) --}}
+                <div class="sejarah-top-header">
+                    <h2 class="sejarah-gold-title">Sejarah MAN 1 PROBOLINGGO</h2>
                 </div>
 
-                {{-- FOTO HORIZONTAL MEMBULAT --}}
+                {{-- 3. GAMBAR SEKOLAH (GEDUNG MAN 1 PROBOLINGGO) --}}
                 @php
-                    $historyImg = !empty($siteSettings['history_image']) && file_exists(storage_path('app/public/' . $siteSettings['history_image']))
-                        ? asset('storage/' . $siteSettings['history_image'])
-                        : asset('images/unuja-campus-banner.jpg');
+                    $historyImg = asset('images/gedung-man1-probolinggo.jpg');
+                    if (!empty($siteSettings['history_image']) && file_exists(public_path('storage/' . $siteSettings['history_image']))) {
+                        $historyImg = asset('storage/' . $siteSettings['history_image']);
+                    } elseif (file_exists(public_path('images/gedung-man1-probolinggo.jpg'))) {
+                        $historyImg = asset('images/gedung-man1-probolinggo.jpg');
+                    } elseif (!empty($profile->image) && file_exists(public_path('storage/' . $profile->image))) {
+                        $historyImg = asset('storage/' . $profile->image);
+                    }
                 @endphp
-                <div class="sejarah-img-wrap mb-4">
-                    <img src="{{ $historyImg }}" alt="Sejarah HIMATIKA" class="sejarah-horizontal-img">
+                <div class="sejarah-img-container">
+                    <img src="{{ $historyImg }}" alt="Gedung MAN 1 Probolinggo" class="sejarah-building-img">
                 </div>
 
-                {{-- TEKS SEJARAH DALAM PARAGRAF --}}
-                <div class="sejarah-text-body">
-                    <h3 class="sejarah-section-heading mb-3">{{ $siteSettings['history_title'] ?? 'Sejarah HIMATIKA UNUJA' }}</h3>
+                {{-- 4. ISI SEJARAH --}}
+                <div class="sejarah-body-content">
+                    <h3 class="sejarah-content-heading">Sejarah MAN 1 Probolinggo</h3>
                     
-                    @if($profile && !empty($profile->history))
-                        <div class="sejarah-rich-content">
+                    @if($profile && !empty($profile->history) && (str_contains($profile->history, 'MAN 1 Probolinggo') || str_contains($profile->history, 'madrasah')))
+                        <div class="sejarah-paragraphs">
                             {!! $profile->history !!}
                         </div>
                     @else
-                        <p class="sejarah-p">
-                            Himpunan Mahasiswa Matematika (HIMATIKA) Universitas Nurul Jadid (UNUJA) merupakan organisasi kemahasiswaan di tingkat Program Studi Matematika Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA) yang berdiri sebagai wadah perjuangan, keilmuan, dan pengembangan diri bagi mahasiswa.
-                        </p>
-                        
-                        <p class="sejarah-p">
-                            Berdirinya HIMATIKA dilandasi oleh semangat kebersamaan dan kebutuhan akan sebuah rumah bersama yang mampu menaungi aspirasi, mempererat ukhuwah, serta memacu prestasi akademik maupun non-akademik mahasiswa Matematika. Sejak awal berdirinya, organisasi ini berkomitmen menciptakan lingkungan intelektual yang berakar pada nilai-nilai keislaman, kejujuran ilmiah, dan integritas tinggi.
-                        </p>
-                        
-                        <p class="sejarah-p">
-                            Dalam perjalanannya, HIMATIKA terus beradaptasi dan berinovasi dengan perkembangan zaman tanpa meninggalkan identitas moral dan akademis. Berbagai kegiatan strategis rutin diselenggarakan, mulai dari seminar keilmuan, workshop teknologi data dan komputasi, olimpiade matematika, hingga program pengabdian kepada masyarakat luas.
-                        </p>
-                        
-                        <p class="sejarah-p mb-0">
-                            Memasuki periode 2026 dengan mengusung tema <em>“Synchronized Growth, Reaching New Heights”</em>, HIMATIKA UNUJA terus melangkah mantap menjadi organisasi yang inklusif, adaptif, dan siap mencetak generasi insan cendekia yang berdaya saing global dan bermanfaat bagi peradaban.
-                        </p>
+                        <div class="sejarah-paragraphs">
+                            <p>
+                                MAN 1 Probolinggo merupakan lembaga pendidikan Islam yang tumbuh dan berkembang dari semangat masyarakat dalam membangun pendidikan yang berlandaskan nilai-nilai keislaman. Cikal bakal berdirinya madrasah ini berawal dari peran Pondok Pesantren Nurul Jadid yang pada tahun 1969 M merintis lembaga pendidikan sebagai bagian dari upaya mencetak generasi yang berilmu, berakhlak mulia, dan memiliki pemahaman agama yang kuat.
+                            </p>
+                            <p>
+                                Pada masa awal berdirinya, lembaga pendidikan ini berada di bawah naungan Pondok Pesantren Nurul Jadid. Seiring berjalannya waktu dan berkembangnya kebutuhan pendidikan masyarakat, lembaga ini mengalami perkembangan hingga menjadi madrasah negeri. Perubahan tersebut menjadi bagian penting dalam perjalanan madrasah untuk memperluas akses pendidikan serta meningkatkan kualitas pembelajaran bagi generasi muda.
+                            </p>
+                            <p>
+                                Dalam perkembangannya, MAN 1 Probolinggo terus berupaya menyesuaikan diri dengan kemajuan zaman tanpa meninggalkan nilai-nilai keislaman yang menjadi landasan pendidikannya. Madrasah berkomitmen memadukan pendidikan agama, ilmu pengetahuan, teknologi, dan pembentukan karakter guna melahirkan peserta didik yang unggul dalam prestasi, kuat dalam iman, serta berakhlak mulia.
+                            </p>
+                            <p>
+                                Hingga kini, MAN 1 Probolinggo terus berbenah dan berinovasi dalam meningkatkan mutu pendidikan, mengembangkan potensi peserta didik, serta membangun lingkungan belajar yang religius, disiplin, dan berorientasi pada masa depan. Dengan semangat tersebut, MAN 1 Probolinggo diharapkan terus menjadi lembaga pendidikan yang mampu melahirkan generasi yang berilmu, berintegritas, dan siap memberikan kontribusi positif bagi masyarakat, bangsa, dan agama.
+                            </p>
+                        </div>
                     @endif
                 </div>
             </div>
 
-            {{-- CARD RINGKAS DOKUMENTASI SEJARAH --}}
-            <div class="card-dokumentasi-sejarah p-3 p-md-4 rounded-4 bg-white border shadow-sm d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                <div>
-                    <h5 class="fw-bold mb-1" style="color: #28151D; font-size: 1.05rem;">Dokumentasi Sejarah</h5>
-                    <p class="text-secondary small mb-0">Jelajahi dokumentasi dan arsip kegiatan perjalanan HIMATIKA di galeri kami.</p>
+            {{-- 5. CARD DOKUMENTASI SEJARAH (BAWAH) --}}
+            <div class="card-dokumentasi-wrapper">
+                <div class="dokumentasi-text">
+                    <h4 class="dokumentasi-title">Dokumentasi Sejarah</h4>
+                    <p class="dokumentasi-desc">
+                        {{ $siteSettings['history_doc_desc'] ?? 'Jelajahi dokumentasi dan arsip sejarah perjalanan MAN 1 PROBOLINGGO dalam galeri kami.' }}
+                    </p>
                 </div>
-                <div class="text-end">
-                    <a href="{{ $siteSettings['history_doc_url'] ?? route('galeri') }}" class="btn-sejarah-galeri">
-                        {{ $siteSettings['history_doc_text'] ?? 'Lihat Galeri' }} &rarr;
+                <div class="dokumentasi-btn-box">
+                    <a href="{{ $siteSettings['history_doc_url'] ?? route('galeri') }}" class="btn-lihat-galeri">
+                        <i class="fas fa-images"></i>
+                        <span>{{ $siteSettings['history_doc_text'] ?? 'Lihat Galeri' }}</span>
                     </a>
                 </div>
             </div>
@@ -83,128 +82,182 @@
 
 @push('styles')
 <style>
-    /* BANNER SEJARAH */
-    .sejarah-banner {
-        background: linear-gradient(105deg, #1A0A0F 0%, #711C35 55%, #541326 100%);
-        padding: 70px 0 50px;
-        position: relative;
-        overflow: hidden;
-        border-bottom: 1px solid #E9CDD5;
-    }
-    .sejarah-banner-title {
-        color: #ffffff;
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin-bottom: 8px;
-        letter-spacing: -0.5px;
-    }
-    .sejarah-banner-subtitle {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 1.05rem;
-        margin-bottom: 0;
-        font-weight: 400;
+    /* =========================================================
+       HALAMAN SEJARAH MAN 1 PROBOLINGGO
+       Sesuai Acuan Desain Referensi
+       ========================================================= */
+
+    /* Background Halaman: Putih sedikit krem */
+    .sejarah-section-wrapper {
+        background-color: #FAF8F5;
+        min-height: calc(100vh - 120px);
+        padding: 40px 0 60px;
     }
 
-    /* CONTAINER */
-    .sejarah-container {
-        max-width: 960px;
+    /* Container Wrapper di Tengah */
+    .sejarah-card-wrapper {
+        max-width: 860px;
+        width: 100%;
+        padding: 0 15px;
     }
 
-    /* CARD SEJARAH UTAMA */
-    .card-sejarah-utama {
+    /* 1. CARD UTAMA */
+    .card-sejarah-main {
         background: #ffffff;
-        border: 1px solid #E9CDD5;
-        border-radius: 16px;
-        padding: 36px 40px;
-        box-shadow: 0 4px 20px rgba(26, 10, 15, 0.05);
+        border-radius: 20px;
+        padding: 32px 34px 36px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+        border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    /* 2. JUDUL SECTION (KUNING KEEMASAN) */
+    .sejarah-top-header {
+        margin-bottom: 16px;
     }
     .sejarah-gold-title {
-        font-size: 0.95rem;
+        color: #D4AF37;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: #711C35;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.3px;
+        margin: 0;
+        line-height: 1.3;
     }
-    .sejarah-img-wrap {
+
+    /* 3. GAMBAR SEKOLAH */
+    .sejarah-img-container {
         width: 100%;
         border-radius: 14px;
         overflow: hidden;
-        border: 1px solid #E9CDD5;
-        background: #FFF7F9;
+        margin-bottom: 24px;
+        background-color: #f1f1f1;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
-    .sejarah-horizontal-img {
+    .sejarah-building-img {
         width: 100%;
         height: auto;
         max-height: 380px;
         object-fit: cover;
         display: block;
+        transition: transform 0.4s ease;
     }
-    .sejarah-section-heading {
-        color: #28151D;
+
+    /* 4. ISI SEJARAH */
+    .sejarah-body-content {
+        margin-top: 6px;
+    }
+    .sejarah-content-heading {
+        color: #4A4A4A;
+        font-size: 1.35rem;
         font-weight: 700;
-        font-size: 1.4rem;
-        letter-spacing: -0.3px;
+        margin-bottom: 16px;
+        line-height: 1.35;
     }
-    .sejarah-p,
-    .sejarah-rich-content,
-    .sejarah-rich-content p {
-        font-size: 0.96rem;
-        line-height: 1.8;
-        color: #334155;
+    .sejarah-paragraphs,
+    .sejarah-paragraphs p {
+        color: #666666;
+        font-size: 0.865rem;
+        line-height: 1.75;
         text-align: justify;
-        margin-bottom: 1.25rem;
+        text-justify: inter-word;
+        margin-bottom: 16px;
     }
-    .sejarah-rich-content p:last-child {
+    .sejarah-paragraphs p:last-child {
         margin-bottom: 0;
     }
-    .sejarah-rich-content ul,
-    .sejarah-rich-content ol {
-        color: #334155;
-        font-size: 0.96rem;
-        line-height: 1.8;
-        padding-left: 1.5rem;
-        margin-bottom: 1.25rem;
-    }
 
-    /* CARD DOKUMENTASI */
-    .card-dokumentasi-sejarah {
-        border: 1px solid #E9CDD5 !important;
-        border-radius: 14px;
+    /* 5. CARD DOKUMENTASI SEJARAH (BAWAH) */
+    .card-dokumentasi-wrapper {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 22px 30px;
+        margin-top: 22px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
     }
-    .btn-sejarah-galeri {
+    .dokumentasi-title {
+        color: #2D3748;
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+    .dokumentasi-desc {
+        color: #718096;
+        font-size: 0.825rem;
+        margin-bottom: 0;
+        line-height: 1.5;
+    }
+    .btn-lihat-galeri {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        background: #711C35;
-        color: #ffffff;
-        padding: 7px 18px;
-        border-radius: 8px;
+        justify-content: center;
+        gap: 8px;
+        background: #D4AF37;
+        color: #ffffff !important;
         font-size: 0.85rem;
         font-weight: 600;
+        padding: 9px 24px;
+        border-radius: 9999px;
         text-decoration: none;
-        transition: all 0.2s ease;
         white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35);
+        transition: all 0.25s ease;
     }
-    .btn-sejarah-galeri:hover {
-        background: #541326;
-        color: #ffffff;
-        transform: translateX(2px);
+    .btn-lihat-galeri:hover {
+        background: #bfa030;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.45);
     }
 
+    /* RESPONSIVE SMARTPHONE / ANDROID */
     @media (max-width: 767.98px) {
-        .sejarah-banner {
-            padding: 50px 0 35px;
+        .sejarah-section-wrapper {
+            padding: 20px 0 40px;
         }
-        .sejarah-banner-title {
-            font-size: 1.8rem;
+        .sejarah-card-wrapper {
+            padding: 0 10px;
         }
-        .card-sejarah-utama {
-            padding: 24px 20px;
+        .card-sejarah-main {
+            padding: 20px 16px 24px;
+            border-radius: 16px;
         }
-        .sejarah-section-heading {
-            font-size: 1.2rem;
+        .sejarah-gold-title {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .sejarah-img-container {
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+        .sejarah-building-img {
+            max-height: 220px;
+        }
+        .sejarah-content-heading {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+        .sejarah-paragraphs,
+        .sejarah-paragraphs p {
+            font-size: 0.84rem;
+            line-height: 1.68;
+            margin-bottom: 14px;
+        }
+        .card-dokumentasi-wrapper {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 18px 16px;
+            gap: 14px;
+        }
+        .dokumentasi-btn-box {
+            width: 100%;
+        }
+        .btn-lihat-galeri {
+            width: 100%;
         }
     }
 </style>
 @endpush
-
