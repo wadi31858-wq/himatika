@@ -12,14 +12,13 @@
 @endphp
 
 {{-- ==================== BANNER VISI & MISI ==================== --}}
-<section class="vm-banner" id="visi-misi-section">
-    <div class="container position-relative">
-        <div class="vm-banner-content">
-            <h1 class="vm-banner-title">{{ $vmBannerTitle }}</h1>
-            @if(!empty($vmBannerSubtitle))
-                <p class="vm-banner-subtitle">{{ $vmBannerSubtitle }}</p>
-            @endif
-        </div>
+<section class="tentang-opening-banner" id="visi-misi-section">
+    <div class="container position-relative" style="z-index: 1;">
+        <span class="tentang-hero-label">VISI &amp; MISI</span>
+        <h1 class="tentang-hero-heading">{{ $vmBannerTitle }}</h1>
+        @if(!empty($vmBannerSubtitle))
+            <p class="tentang-hero-desc">{{ $vmBannerSubtitle }}</p>
+        @endif
     </div>
 </section>
 
@@ -105,38 +104,69 @@
 
 @push('styles')
 <style>
-    /* BANNER VISI & MISI */
-    .vm-banner {
-        background: linear-gradient(135deg, #250D17 0%, #641D38 100%);
-        padding: 135px 0 55px;
+    /* ==================== OPENING BANNER MENU TENTANG ==================== */
+    .tentang-opening-banner {
+        background-color: #FFF7FA;
+        padding: 125px 0 36px;
         margin-top: 0;
         border-top: none;
-        border-bottom: 1px solid rgba(138, 49, 81, 0.35);
+        border-bottom: 1px solid #E2CBD3;
         position: relative;
-        overflow: visible;
+        overflow: hidden;
         height: auto;
         min-height: auto;
         scroll-margin-top: 85px;
     }
-    .vm-banner-content {
-        position: relative;
-        z-index: 2;
+    .tentang-opening-banner::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(circle, rgba(100, 29, 56, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
     }
-    .vm-banner-title {
+    .tentang-opening-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        left: -60px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .tentang-hero-label {
+        display: inline-block;
+        background: #641D38;
         color: #FFF7FA;
-        font-size: 2.6rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 6px 18px;
+        border-radius: 50px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+    .tentang-hero-heading {
+        font-size: 2.15rem;
         font-weight: 800;
-        margin-bottom: 10px;
+        color: #32121F;
         line-height: 1.25;
-        letter-spacing: -0.5px;
+        margin-bottom: 10px;
+        text-align: left;
     }
-    .vm-banner-subtitle {
-        color: #FFF7FA;
-        font-size: 1.05rem;
+    .tentang-hero-desc {
+        font-size: 0.98rem;
+        font-weight: 500;
+        color: #641D38;
+        max-width: 720px;
+        line-height: 1.65;
         margin-bottom: 0;
-        font-weight: 400;
-        line-height: 1.6;
-        opacity: 0.95;
+        text-align: left;
     }
 
     /* SECTION KONTEN */
@@ -210,15 +240,15 @@
     }
 
     @media (max-width: 767.98px) {
-        .vm-banner {
-            padding: 110px 0 45px;
+        .tentang-opening-banner {
+            padding: 105px 0 28px;
         }
-        .vm-banner-title {
-            font-size: 2rem;
-            margin-bottom: 10px;
+        .tentang-hero-heading {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
         }
-        .vm-banner-subtitle {
-            font-size: 0.95rem;
+        .tentang-hero-desc {
+            font-size: 0.92rem;
         }
         .card-visi-navy, .card-misi-white {
             padding: 24px 20px !important;

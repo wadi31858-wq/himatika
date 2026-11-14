@@ -4,63 +4,76 @@
 @push('styles')
 <style>
     .pengurus-hero {
-        background: linear-gradient(135deg, var(--dark-green) 0%, var(--deep-teal) 100%);
-        padding: 80px 0 50px;
+        background: #FFF7FA;
+        padding: 125px 0 45px;
         position: relative;
         overflow: hidden;
+        border-bottom: 1px solid #E2CBD3;
     }
     .pengurus-hero::before {
         content: '';
         position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 600px; height: 600px;
-        background: radial-gradient(circle, rgba(138, 49, 81, 0.18) 0%, transparent 70%);
+        top: -80px; right: -80px;
+        width: 280px; height: 280px;
+        background: radial-gradient(circle, rgba(100, 29, 56, 0.08) 0%, transparent 70%);
         border-radius: 50%;
+        pointer-events: none;
+    }
+    .pengurus-hero::after {
+        content: '';
+        position: absolute;
+        bottom: -60px; left: -60px;
+        width: 220px; height: 220px;
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
     }
     .pengurus-hero-label {
         display: inline-block;
-        background: rgba(255,255,255,.1);
-        color: #fff;
-        font-size: 0.7rem;
+        background: #641D38;
+        color: #FFF7FA;
+        font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: 2.5px;
+        letter-spacing: 2px;
         padding: 6px 18px;
         border-radius: 50px;
-        margin-bottom: 1.25rem;
-        backdrop-filter: blur(4px);
+        margin-bottom: 12px;
+        text-transform: uppercase;
     }
     .pengurus-hero h1 {
-        font-size: 2.6rem;
+        font-size: 2.15rem;
         font-weight: 800;
-        color: #fff;
-        line-height: 1.2;
-        margin-bottom: 0.75rem;
+        color: #32121F;
+        line-height: 1.25;
+        margin-bottom: 10px;
     }
     .pengurus-hero p {
-        font-size: 1rem;
-        color: rgba(255,255,255,.6);
-        max-width: 480px;
-        line-height: 1.7;
+        font-size: 0.98rem;
+        font-weight: 500;
+        color: #641D38;
+        max-width: 600px;
+        line-height: 1.65;
+        margin-bottom: 0;
     }
     .pengurus-stat-row {
         display: flex;
         gap: 2rem;
-        margin-top: 2rem;
+        margin-top: 1.75rem;
     }
     .pengurus-stat-item {
-        text-align: center;
+        text-align: left;
     }
     .pengurus-stat-num {
         font-size: 2rem;
         font-weight: 800;
-        color: var(--gold);
+        color: #641D38;
         line-height: 1;
     }
     .pengurus-stat-text {
-        font-size: 0.75rem;
-        color: rgba(255,255,255,.5);
-        margin-top: 0.25rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #32121F;
+        margin-top: 0.35rem;
     }
     .pengurus-search-card {
         background: var(--white);
@@ -129,8 +142,10 @@
         color: rgba(16,63,60,.5);
     }
     @media (max-width: 767px) {
-        .pengurus-hero h1 { font-size: 1.8rem; }
-        .pengurus-stat-row { gap: 1.5rem; }
+        .pengurus-hero { padding: 105px 0 35px; }
+        .pengurus-hero h1 { font-size: 1.75rem; margin-bottom: 8px; }
+        .pengurus-hero p { font-size: 0.92rem; }
+        .pengurus-stat-row { gap: 1.5rem; flex-wrap: wrap; }
         .pengurus-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 480px) {

@@ -57,3 +57,4 @@ class SiteSettingSeeder extends Seeder
         $this->command->info("SiteSettingSeeder executed: {$count} newly created keys.");
     }
 }
+

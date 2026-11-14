@@ -117,20 +117,17 @@
 
 {{-- ==================== BAGIAN 2: TENTANG HIMATIKA ==================== --}}
 @if(($siteSettings['home_tentang_active'] ?? '1') !== '0')
-<section class="section-tentang-himatika" id="tentang">
-    <div class="container">
+<section class="section-tentang-himatika position-relative overflow-hidden" id="tentang">
+    <div class="container position-relative" style="z-index: 1;">
         {{-- Section Header --}}
         <div class="tentang-header-area">
-            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-2">
-                <div class="tentang-top-label mb-0">
-                    <span class="tentang-label-bar"></span>
-                    <span>{{ $siteSettings['home_tentang_badge'] ?? 'Tentang Organisasi' }}</span>
-                </div>
+            <div>
+                <span class="tentang-hero-label">{{ $siteSettings['home_tentang_badge'] ?? 'Tentang Organisasi' }}</span>
             </div>
-            <h2 class="tentang-main-title">
+            <h2 class="tentang-hero-heading">
                 {{ $siteSettings['home_tentang_title'] ?? 'Tentang HIMATIKA FMIPA UNUJA' }}
             </h2>
-            <p class="tentang-main-desc">
+            <p class="tentang-hero-desc">
                 {{ $siteSettings['home_tentang_desc'] ?? 'Mengenal wadah persatuan, pengembangan intelektual, dan ruang tumbuh bersama seluruh mahasiswa Program Studi Matematika FMIPA Universitas Nurul Jadid.' }}
             </p>
         </div>
@@ -660,6 +657,59 @@
 
 @push('styles')
 <style>
+    /* ==================== TENTANG SECTION AREA (STANDAR TENTANG) ==================== */
+    .section-tentang-himatika::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(circle, rgba(100, 29, 56, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .section-tentang-himatika::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        left: -60px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .tentang-hero-label {
+        display: inline-block;
+        background: #641D38;
+        color: #FFF7FA;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 6px 18px;
+        border-radius: 50px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+    .tentang-hero-heading {
+        font-size: 2.15rem;
+        font-weight: 800;
+        color: #32121F;
+        line-height: 1.25;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+    .tentang-hero-desc {
+        font-size: 0.98rem;
+        font-weight: 500;
+        color: #641D38;
+        max-width: 720px;
+        line-height: 1.65;
+        margin-bottom: 2rem;
+        text-align: left;
+    }
+
     /* ==================== ANIMASI SLIDER DOKUMENTASI MOMEN ==================== */
     .doc-slider-wrapper {
         position: relative;

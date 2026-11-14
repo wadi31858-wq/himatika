@@ -30,6 +30,15 @@
     }
 @endphp
 
+{{-- ==================== OPENING BANNER SAMBUTAN KAPRODI ==================== --}}
+<section class="tentang-opening-banner">
+    <div class="container position-relative" style="z-index: 1;">
+        <span class="tentang-hero-label">SAMBUTAN KAPRODI</span>
+        <h1 class="tentang-hero-heading">Sambutan Kaprodi<br>HIMATIKA FMIPA UNUJA</h1>
+        <p class="tentang-hero-desc">Pesan dan arahan Ketua Program Studi Matematika Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Nurul Jadid.</p>
+    </div>
+</section>
+
 <section class="sambutan-ref-section">
     <div class="container">
         @if(($siteSettings['sambutan_is_visible'] ?? '1') === '0')
@@ -107,5 +116,92 @@
         @endif
     </div>
 </section>
+
+@push('styles')
+<style>
+    /* ==================== OPENING BANNER MENU TENTANG ==================== */
+    .tentang-opening-banner {
+        background-color: #FFF7FA;
+        padding: 125px 0 36px;
+        margin-top: 0;
+        border-top: none;
+        border-bottom: 1px solid #E2CBD3;
+        position: relative;
+        overflow: hidden;
+        height: auto;
+        min-height: auto;
+    }
+    .tentang-opening-banner::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(circle, rgba(100, 29, 56, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .tentang-opening-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        left: -60px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .tentang-hero-label {
+        display: inline-block;
+        background: #641D38;
+        color: #FFF7FA;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 6px 18px;
+        border-radius: 50px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+    .tentang-hero-heading {
+        font-size: 2.15rem;
+        font-weight: 800;
+        color: #32121F;
+        line-height: 1.25;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+    .tentang-hero-desc {
+        font-size: 0.98rem;
+        font-weight: 500;
+        color: #641D38;
+        max-width: 720px;
+        line-height: 1.65;
+        margin-bottom: 0;
+        text-align: left;
+    }
+    .sambutan-ref-section {
+        padding: 48px 0 80px;
+        background: #F6E9EE;
+    }
+    @media (max-width: 767.98px) {
+        .tentang-opening-banner {
+            padding: 105px 0 28px;
+        }
+        .tentang-hero-heading {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+        .tentang-hero-desc {
+            font-size: 0.92rem;
+        }
+        .sambutan-ref-section {
+            padding: 32px 0 60px;
+        }
+    }
+</style>
+@endpush
 
 @endsection
