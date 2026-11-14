@@ -50,16 +50,25 @@
     .back-link {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        justify-content: center;
+        gap: 8px;
         color: var(--burgundy-main);
         text-decoration: none;
         font-weight: 600;
-        font-size: 0.85rem;
+        font-size: 0.88rem;
         transition: all 0.2s ease;
     }
     .back-link:hover {
         color: var(--burgundy-hover);
-        transform: translateX(-2px);
+        transform: translateX(-3px);
+        text-decoration: none;
+    }
+    .back-link i {
+        font-size: 0.85rem !important;
+        line-height: 1 !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .breadcrumb-row {
@@ -823,11 +832,11 @@
 </style>
 
 {{-- ==================== BREADCRUMB ==================== --}}
-<section class="breadcrumb-section">
+<section class="breadcrumb-section breadcrumb-light">
     <div class="container">
         <div class="breadcrumb-row">
-            <a href="{{ route('home') }}" class="back-link">
-                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            <a href="{{ route('home') }}" class="back-link back-link-dark">
+                <i class="fas fa-arrow-left"></i> <span>Kembali ke Beranda</span>
             </a>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">

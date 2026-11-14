@@ -4,8 +4,8 @@
 
 <div class="breadcrumb-section">
     <div class="container d-flex justify-content-between align-items-center">
-        <a href="{{ route('home') }}" class="text-decoration-none galeri-back-link">
-            <i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda
+        <a href="{{ route('home') }}" class="galeri-back-link">
+            <i class="fas fa-arrow-left"></i> <span>Kembali ke Beranda</span>
         </a>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
@@ -85,8 +85,29 @@
 
 @push('styles')
 <style>
-.galeri-back-link{color:rgba(113, 28, 53, 0.8);font-weight:500;font-size:0.9rem;transition:color 0.3s}
-.galeri-back-link:hover{color:var(--gold)}
+.galeri-back-link {
+    color: #FFF7FA;
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.galeri-back-link:hover {
+    color: #F6E9EE;
+    transform: translateX(-3px);
+    text-decoration: none;
+}
+.galeri-back-link i {
+    font-size: 0.85rem !important;
+    line-height: 1 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
 .galeri-hero{padding:80px 0 60px}
 .galeri-hero-label{color:var(--primary-green);font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(113, 28, 53, 0.25);border-radius:6px;display:inline-block;padding:0.35rem 1rem;margin-bottom:1rem}
 .galeri-hero-heading{font-size:2.6rem;font-weight:700;color:var(--dark-text);margin-bottom:1rem}

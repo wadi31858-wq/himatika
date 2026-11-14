@@ -25,6 +25,7 @@
     .detail-back-link {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
         color: var(--burgundy-main);
         text-decoration: none;
@@ -36,6 +37,13 @@
         color: var(--burgundy-hover);
         transform: translateX(-3px);
         text-decoration: none;
+    }
+    .detail-back-link i {
+        font-size: 0.85rem !important;
+        line-height: 1 !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .breadcrumb-nav {
@@ -304,7 +312,7 @@
         {{-- BREADCRUMB & BACK NAVIGATION --}}
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
             <a href="{{ route('struktur-organisasi') }}" class="detail-back-link">
-                <i class="fas fa-arrow-left"></i> &larr; Kembali ke Struktur
+                <i class="fas fa-arrow-left"></i> <span>Kembali ke Struktur</span>
             </a>
             <div class="breadcrumb-nav">
                 <a href="{{ route('home') }}">Beranda</a> / 

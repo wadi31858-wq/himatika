@@ -26,6 +26,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{{ asset('vendor/fontawesome/css/all.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
     <!-- Bootstrap 5 CSS -->
@@ -615,6 +616,39 @@
         .btn-him-outline:hover {
             background: var(--him-primary);
             color: #FFFFFF;
+        }
+
+        /* Universal Admin Button & Icon Sizing/Centering */
+        .btn,
+        .btn-sm,
+        .btn-lg,
+        .btn-him-primary,
+        .btn-him-outline {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+            vertical-align: middle !important;
+        }
+
+        .btn i,
+        .btn-sm i,
+        .btn-lg i,
+        .btn-him-primary i,
+        .btn-him-outline i {
+            line-height: 1 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            flex-shrink: 0 !important;
+        }
+
+        .btn-sm i {
+            font-size: 0.8rem !important;
+        }
+
+        .btn i {
+            font-size: 0.85rem !important;
         }
 
         .table-him {

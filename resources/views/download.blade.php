@@ -9,15 +9,17 @@
     
     .breadcrumb-section {
         background: transparent;
-        padding: 96px 0 10px;
+        padding: 96px 0 12px;
+        border-bottom: 1px solid rgba(138, 49, 81, 0.15);
     }
     .breadcrumb-section .breadcrumb { margin-bottom: 0; padding: 0; }
-    .breadcrumb-section .breadcrumb-item a { color: var(--dark-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
-    .breadcrumb-section .breadcrumb-item a:hover { color: var(--gold); }
-    .breadcrumb-section .breadcrumb-item.active { color: rgba(100, 29, 56, 0.7); font-size: 0.85rem; }
+    .breadcrumb-section .breadcrumb-item a { color: #641D38; text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
+    .breadcrumb-section .breadcrumb-item a:hover { color: #8A3151; text-decoration: underline; }
+    .breadcrumb-section .breadcrumb-item.active { color: #32121F; font-weight: 700; font-size: 0.85rem; }
     .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before { color: rgba(100, 29, 56, 0.45); }
-    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--dark-green); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
-    .back-link:hover { color: var(--gold); }
+    .back-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: #641D38; text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: all 0.2s ease; }
+    .back-link:hover { color: #8A3151; transform: translateX(-3px); text-decoration: none; }
+    .back-link i { font-size: 0.85rem !important; line-height: 1 !important; display: inline-flex; align-items: center; justify-content: center; }
 
     .doc-hero-card {
         background: linear-gradient(135deg, #FFF7FA, #F6E9EE);
@@ -291,11 +293,11 @@
 @section('content')
 
 {{-- BREADCRUMB --}}
-<section class="breadcrumb-section">
+<section class="breadcrumb-section breadcrumb-light">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <a href="{{ route('home') }}" class="back-link">
-                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            <a href="{{ route('home') }}" class="back-link back-link-dark">
+                <i class="fas fa-arrow-left"></i> <span>Kembali ke Beranda</span>
             </a>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">

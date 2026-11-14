@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - HIMATIKA FMIPA UNUJA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('vendor/fontawesome/css/all.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -15,6 +16,42 @@
         .form-control:focus { border-color: #8A3151; box-shadow: 0 0 0 0.2rem rgba(138, 49, 81, 0.25); }
         .btn-primary { background-color: #8A3151 !important; border-color: #8A3151 !important; }
         .btn-primary:hover { background-color: #641D38 !important; border-color: #641D38 !important; }
+        .input-group-text {
+            background-color: #F6E9EE;
+            border-color: #E2CBD3;
+            color: #641D38;
+            width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .input-group-text i {
+            font-size: 0.95rem;
+            line-height: 1;
+        }
+        .login-back-link {
+            color: #641D38;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .login-back-link:hover {
+            color: #8A3151;
+            transform: translateX(-3px);
+            text-decoration: none;
+        }
+        .login-back-link i {
+            font-size: 0.85rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -78,7 +115,7 @@
                             <button type="submit" class="btn btn-primary w-100 py-2 fw-bold"><i class="fas fa-sign-in-alt me-2"></i>Login</button>
                         </form>
                         <div class="text-center mt-3">
-                            <a href="{{ route('home') }}" class="text-muted text-decoration-none"><i class="fas fa-arrow-left me-1"></i>Kembali ke website</a>
+                            <a href="{{ route('home') }}" class="login-back-link"><i class="fas fa-arrow-left"></i><span>Kembali ke website</span></a>
                         </div>
                     </div>
                 </div>

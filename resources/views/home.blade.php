@@ -205,7 +205,7 @@
                             <div class="vm-col-left">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="badge" style="background: #C59B27; color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; padding: 4px 10px; border-radius: 4px;">VISI</span>
+                                        <span class="badge" style="background: #641D38; color: #FFF7FA; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; padding: 4px 10px; border-radius: 4px;">VISI</span>
                                         <span class="fw-bold text-dark" style="font-size: 0.95rem; letter-spacing: 0.2px;">Visi Utama</span>
                                     </div>
                                     <small class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-compass me-1 text-warning"></i> Pedoman</small>

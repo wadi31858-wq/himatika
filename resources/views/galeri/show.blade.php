@@ -3,8 +3,8 @@
 @section('content')
 <div class="breadcrumb-section">
     <div class="container d-flex justify-content-between align-items-center">
-        <a href="{{ route('galeri') }}" class="text-decoration-none galeri-back-link">
-            <i class="fas fa-arrow-left me-2"></i>Kembali ke Galeri
+        <a href="{{ route('galeri') }}" class="galeri-back-link">
+            <i class="fas fa-arrow-left"></i> <span>Kembali ke Galeri</span>
         </a>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0">
@@ -63,8 +63,8 @@
                 </div>
 
                 <div class="text-center">
-                    <a href="{{ route('galeri') }}" class="btn btn-outline-primary px-4 py-2 rounded-pill">
-                        <i class="fas fa-arrow-left me-1"></i> Kembali ke Semua Album
+                    <a href="{{ route('galeri') }}" class="btn btn-outline-custom px-4 py-2 rounded-pill">
+                        <i class="fas fa-arrow-left"></i> <span>Kembali ke Semua Album</span>
                     </a>
                 </div>
             </div>
@@ -85,6 +85,55 @@
         </div>
     </div>
 </div>
+@push('styles')
+<style>
+.galeri-back-link {
+    color: #FFF7FA;
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.galeri-back-link:hover {
+    color: #F6E9EE;
+    transform: translateX(-3px);
+    text-decoration: none;
+}
+.galeri-back-link i {
+    font-size: 0.85rem !important;
+    line-height: 1 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-outline-custom {
+    color: #8A3151;
+    border: 1.5px solid #8A3151;
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+.btn-outline-custom:hover {
+    background: #8A3151;
+    color: #FFF7FA;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(138, 49, 81, 0.25);
+}
+.btn-outline-custom i {
+    font-size: 0.85rem !important;
+    line-height: 1 !important;
+}
+</style>
+@endpush
 @endsection
 
 @push('scripts')

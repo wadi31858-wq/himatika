@@ -218,19 +218,68 @@ body {
 
 /* Mobile Toggler */
 .navbar-toggler {
-    border: 1px solid rgba(15, 35, 64, 0.15) !important;
+    border: 1px solid rgba(255, 247, 250, 0.3) !important;
     padding: 0.45rem 0.65rem;
     border-radius: 10px;
-    color: #32121F !important;
+    background: rgba(138, 49, 81, 0.25) !important;
+    color: #FFF7FA !important;
 }
 
+.navbar-toggler:hover,
 .navbar-toggler:focus {
+    background: rgba(138, 49, 81, 0.45) !important;
+    border-color: rgba(255, 247, 250, 0.5) !important;
     box-shadow: none;
 }
 
 .navbar-toggler i {
-    color: #32121F;
+    color: #FFF7FA !important;
     font-size: 1.25rem;
+}
+
+@media (max-width: 575.98px) {
+    .navbar-custom {
+        height: auto;
+        min-height: 68px;
+        padding: 0.6rem 0;
+    }
+    .navbar-custom .container {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+    .navbar-brand-custom {
+        gap: 8px;
+        margin-right: 0.5rem !important;
+        max-width: calc(100% - 52px);
+    }
+    .navbar-brand-custom .brand-logo {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+    .navbar-brand-custom .brand-name {
+        font-size: 0.95rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .navbar-brand-custom .brand-accent-line {
+        width: 30px;
+        height: 2px;
+        margin-top: 2px;
+    }
+    .navbar-toggler {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0 !important;
+        flex-shrink: 0;
+        margin-left: auto;
+    }
 }
 
 /* ===================== HERO SECTION MODERN (FORMAL NAVY) ===================== */
@@ -2606,10 +2655,11 @@ body {
 
 /* ===================== BREADCRUMB ===================== */
 .breadcrumb-section {
-    background: var(--dark-green);
-    padding: 2rem 0;
+    background: #250D17;
+    padding: 96px 0 1.25rem;
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid rgba(138, 49, 81, 0.25);
 }
 
 .breadcrumb-section .container {
@@ -2622,22 +2672,131 @@ body {
 }
 
 .breadcrumb-section .breadcrumb-item a {
-    color: rgba(138, 49, 81, 0.8);
+    color: rgba(255, 247, 250, 0.75);
     text-decoration: none;
     font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
 }
 
 .breadcrumb-section .breadcrumb-item a:hover {
-    color: var(--gold);
+    color: #FFF7FA;
+    text-decoration: underline;
 }
 
 .breadcrumb-section .breadcrumb-item.active {
-    color: var(--white);
+    color: #FFF7FA;
     font-weight: 600;
+    font-size: 0.85rem;
 }
 
 .breadcrumb-section .breadcrumb-item + .breadcrumb-item::before {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 247, 250, 0.45);
+}
+
+/* ===================== GLOBAL BACK LINK & ARROW BUTTON NORMALIZATION ===================== */
+.back-link,
+.detail-back-link,
+.berita-breadcrumb-back,
+.galeri-back-link,
+.btn-kembali-berita,
+.btn-back {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    color: #FFF7FA !important;
+    text-decoration: none !important;
+    line-height: 1.2 !important;
+    transition: all 0.25s ease !important;
+    vertical-align: middle !important;
+    cursor: pointer !important;
+}
+
+.back-link:hover,
+.detail-back-link:hover,
+.berita-breadcrumb-back:hover,
+.galeri-back-link:hover,
+.btn-kembali-berita:hover,
+.btn-back:hover {
+    color: #F6E9EE !important;
+    transform: translateX(-3px) !important;
+    text-decoration: none !important;
+}
+
+.back-link i,
+.detail-back-link i,
+.berita-breadcrumb-back i,
+.galeri-back-link i,
+.btn-kembali-berita i,
+.btn-back i {
+    font-size: 0.85rem !important;
+    width: 14px !important;
+    height: 14px !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+}
+
+/* Back links in light-themed contexts */
+.detail-wrapper .detail-back-link,
+.card .back-link,
+.bg-light .back-link,
+.btn-kembali-berita,
+.light-context .back-link,
+.breadcrumb-light .back-link,
+.download-page .back-link,
+.struktur-page .back-link,
+.back-link.back-link-dark,
+.back-link-dark {
+    color: #641D38 !important;
+}
+
+.detail-wrapper .detail-back-link:hover,
+.card .back-link:hover,
+.bg-light .back-link:hover,
+.btn-kembali-berita:hover,
+.light-context .back-link:hover,
+.breadcrumb-light .back-link:hover,
+.download-page .back-link:hover,
+.struktur-page .back-link:hover,
+.back-link.back-link-dark:hover,
+.back-link-dark:hover {
+    color: #8A3151 !important;
+}
+
+/* Button & Icon General Containment & Centering */
+.btn,
+.btn-sm,
+.btn-lg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    vertical-align: middle;
+}
+
+.btn i,
+.btn-sm i,
+.btn-lg i {
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+
+.btn-sm i {
+    font-size: 0.8rem !important;
+}
+
+.btn i {
+    font-size: 0.88rem !important;
 }
 
 /* ===================== ANIMATIONS ===================== */
@@ -6038,7 +6197,7 @@ body {
 .sambutan-ref-bar {
     width: 28px;
     height: 3px;
-    background: #C59B27;
+    background: #8A3151;
     border-radius: 2px;
     display: inline-block;
 }
@@ -6048,7 +6207,7 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2.2px;
-    color: #C59B27;
+    color: #8A3151;
 }
 
 .sambutan-ref-title {
@@ -6065,7 +6224,7 @@ body {
     font-family: 'Playfair Display', Georgia, serif;
     font-style: italic;
     font-weight: 600;
-    color: #C59B27;
+    color: #8A3151;
     margin-left: 6px;
 }
 
@@ -6073,10 +6232,10 @@ body {
     width: 100%;
     aspect-ratio: 4 / 5.2;
     border-radius: 22px;
-    border: 3.5px solid #1A5336;
+    border: 3.5px solid #641D38;
     overflow: hidden;
-    box-shadow: 0 14px 34px rgba(26, 83, 54, 0.16);
-    background: #0A3220;
+    box-shadow: 0 14px 34px rgba(100, 29, 56, 0.16);
+    background: #250D17;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6113,7 +6272,7 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 800;
     font-size: 1.15rem;
-    color: #1A5336;
+    color: #641D38;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-bottom: 0.25rem;
@@ -6125,7 +6284,7 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.8px;
-    color: #C59B27;
+    color: #8A3151;
 }
 
 /* Home Card Specific Styles */
@@ -6147,10 +6306,10 @@ body {
     width: 100%;
     aspect-ratio: 4 / 5.2;
     border-radius: 16px;
-    border: 3px solid #1A5336;
+    border: 3px solid #641D38;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(26, 83, 54, 0.14);
-    background: #0A3220;
+    box-shadow: 0 8px 20px rgba(100, 29, 56, 0.14);
+    background: #250D17;
 }
 
 .sambutan-italic-preview {
@@ -6201,7 +6360,7 @@ body {
 
 .vm-divider-center {
     width: 1.5px;
-    background: linear-gradient(180deg, rgba(197, 155, 39, 0.2) 0%, #C59B27 25%, #C59B27 75%, rgba(197, 155, 39, 0.2) 100%);
+    background: linear-gradient(180deg, rgba(138, 49, 81, 0.2) 0%, #8A3151 25%, #8A3151 75%, rgba(138, 49, 81, 0.2) 100%);
     margin: 0 16px;
     flex-shrink: 0;
     align-self: stretch;
@@ -6212,7 +6371,7 @@ body {
     display: none;
     height: 1.5px;
     width: 100%;
-    background: linear-gradient(90deg, rgba(197, 155, 39, 0.2) 0%, #C59B27 30%, #C59B27 70%, rgba(197, 155, 39, 0.2) 100%);
+    background: linear-gradient(90deg, rgba(138, 49, 81, 0.2) 0%, #8A3151 30%, #8A3151 70%, rgba(138, 49, 81, 0.2) 100%);
     margin: 16px 0;
     border-radius: 2px;
 }
@@ -6242,7 +6401,7 @@ body {
 .vm-visi-content-box {
     background: #FFF7FA;
     border: 1px solid #E2CBD3;
-    border-left: 3.5px solid #C59B27;
+    border-left: 3.5px solid #8A3151;
     border-radius: 12px;
     padding: 16px 18px;
     height: 100%;
@@ -6252,7 +6411,7 @@ body {
 }
 
 .vm-visi-quote-icon {
-    color: #C59B27;
+    color: #8A3151;
     font-size: 1.25rem;
     line-height: 1;
 }

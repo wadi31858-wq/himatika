@@ -33,7 +33,7 @@
     $isIllustration = str_contains(strtolower($news->slug), 'november') || str_contains(strtolower($news->title), 'november');
 @endphp
 
-<section class="berita-detail-section py-4 py-md-5">
+<section class="berita-detail-section pb-5" style="padding-top: 105px;">
     <div class="container">
 
         {{-- 1. JUDUL DAN METADATA (BAGIAN PALING ATAS) --}}
@@ -138,7 +138,7 @@
         {{-- 4. TOMBOL KEMBALI KE BERITA --}}
         <div class="mt-4 pt-2">
             <a href="{{ route('berita') }}" class="btn-kembali-berita">
-                <i class="fas fa-arrow-left me-1"></i> Kembali ke Berita
+                <i class="fas fa-arrow-left"></i> <span>Kembali ke Berita</span>
             </a>
         </div>
 
@@ -430,11 +430,20 @@
         transition: all 0.2s ease;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        justify-content: center;
+        gap: 8px;
     }
     .btn-kembali-berita:hover {
-        color: #541326;
+        color: #8A3151;
         transform: translateX(-3px);
+        text-decoration: none;
+    }
+    .btn-kembali-berita i {
+        font-size: 0.85rem !important;
+        line-height: 1 !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Mobile Responsive (767px and below) */

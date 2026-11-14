@@ -270,13 +270,13 @@
 <div class="breadcrumb-section">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <a href="{{ route('home') }}" class="text-decoration-none" style="color: rgba(255,255,255,0.65); font-size: 0.85rem; font-weight: 500;">
-                <i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda
+            <a href="{{ route('home') }}" class="back-link">
+                <i class="fas fa-arrow-left"></i> <span>Kembali ke Beranda</span>
             </a>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0" style="background: none; padding: 0; margin: 0;">
-                    <li class="breadcrumb-item" style="font-size: 0.82rem;"><a href="{{ route('home') }}" style="color: rgba(59, 130, 246, 0.8); text-decoration: none; font-weight: 500;">Beranda</a></li>
-                    <li class="breadcrumb-item active" style="color: var(--white); font-size: 0.82rem; font-weight: 600;" aria-current="page">Agenda</li>
+                    <li class="breadcrumb-item" style="font-size: 0.85rem;"><a href="{{ route('home') }}" style="color: rgba(255, 247, 250, 0.75); text-decoration: none; font-weight: 500;">Beranda</a></li>
+                    <li class="breadcrumb-item active" style="color: #FFF7FA; font-size: 0.85rem; font-weight: 600;" aria-current="page">Agenda</li>
                 </ol>
             </nav>
         </div>

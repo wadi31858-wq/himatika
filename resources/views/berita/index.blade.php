@@ -8,7 +8,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <a href="{{ route('home') }}" class="berita-breadcrumb-back">
-                <i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda
+                <i class="fas fa-arrow-left"></i> <span>Kembali ke Beranda</span>
             </a>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
@@ -340,16 +340,31 @@
     /* ===== BREADCRUMB ===== */
     .berita-breadcrumb {
         background: #250D17;
-        padding: 0.85rem 0;
+        padding: 96px 0 1rem;
+        border-bottom: 1px solid rgba(138, 49, 81, 0.25);
     }
     .berita-breadcrumb-back {
-        color: rgba(255, 255, 255, 0.9);
+        color: #FFF7FA;
         text-decoration: none;
-        font-size: 0.85rem;
-        transition: color 0.2s;
+        font-size: 0.88rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
     }
     .berita-breadcrumb-back:hover {
-        color: #fff;
+        color: #F6E9EE;
+        transform: translateX(-3px);
+        text-decoration: none;
+    }
+    .berita-breadcrumb-back i {
+        font-size: 0.85rem !important;
+        line-height: 1 !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
     .berita-breadcrumb .breadcrumb {
         background: transparent;
