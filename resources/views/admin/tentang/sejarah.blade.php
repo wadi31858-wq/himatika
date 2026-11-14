@@ -9,6 +9,30 @@
     @csrf
     @method('PUT')
 
+    <!-- Status & Visibilitas Halaman Sejarah -->
+    <div class="him-card mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" name="history_is_visible" id="historyIsVisible" value="1" {{ old('history_is_visible', $siteSettings['history_is_visible'] ?? '1') === '1' ? 'checked' : '' }} style="width: 2.8em; height: 1.4em; cursor: pointer;">
+                </div>
+                <div>
+                    <label class="form-label fw-bold text-dark mb-0 fs-6" for="historyIsVisible">
+                        Tampilkan Halaman Sejarah di Website Publik
+                    </label>
+                    <div class="form-text mt-0">
+                        Jika dinonaktifkan, tautan ke Sejarah pada navbar dan footer akan disembunyikan.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="{{ route('sejarah') }}" target="_blank" class="btn btn-sm btn-outline-primary px-3 rounded-pill">
+                    <i class="fas fa-external-link-alt me-1"></i> Buka Tampilan Publik
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="row g-4">
         <!-- Left: Form inputs -->
         <div class="col-lg-8">

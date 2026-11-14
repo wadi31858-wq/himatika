@@ -9,6 +9,30 @@
     @csrf
     @method('PUT')
 
+    <!-- Status & Visibilitas Section Berkarya / Berdampak -->
+    <div class="him-card mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" name="home_peduli_active" id="homePeduliActive" value="1" {{ old('home_peduli_active', $siteSettings['home_peduli_active'] ?? '1') === '1' ? 'checked' : '' }} style="width: 2.8em; height: 1.4em; cursor: pointer;">
+                </div>
+                <div>
+                    <label class="form-label fw-bold text-dark mb-0 fs-6" for="homePeduliActive">
+                        Tampilkan Bagian Berkarya / Berdampak di Beranda
+                    </label>
+                    <div class="form-text mt-0">
+                        Jika dinonaktifkan, blok pratinjau karya mahasiswa / prestasi akan disembunyikan dari Beranda.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="{{ route('home') }}#berkarya" target="_blank" class="btn btn-sm btn-outline-primary px-3 rounded-pill">
+                    <i class="fas fa-external-link-alt me-1"></i> Buka Bagian di Beranda
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="row g-4">
         <!-- Left: Text Settings -->
         <div class="col-lg-6">

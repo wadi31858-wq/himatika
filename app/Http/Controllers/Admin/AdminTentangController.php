@@ -46,6 +46,7 @@ class AdminTentangController extends Controller
         SiteSetting::set('history_subtitle', $validated['history_subtitle'] ?? '', 'tentang');
         SiteSetting::set('history_doc_url', $validated['history_doc_url'] ?? '/galeri', 'tentang');
         SiteSetting::set('history_doc_text', $validated['history_doc_text'] ?? 'Dokumentasi Sejarah', 'tentang');
+        SiteSetting::set('history_is_visible', $request->has('history_is_visible') ? '1' : '0', 'tentang');
 
         // Bersihkan dan sanitasi HTML konten sejarah agar aman dan terformat
         $rawContent = $validated['history_content'];
@@ -103,6 +104,7 @@ class AdminTentangController extends Controller
         SiteSetting::set('sambutan_title', $validated['sambutan_title'], 'tentang');
         SiteSetting::set('sambutan_quote', $validated['sambutan_quote'] ?? '', 'tentang');
         SiteSetting::set('sambutan_content', $validated['sambutan_content'], 'tentang');
+        SiteSetting::set('sambutan_is_visible', $request->has('sambutan_is_visible') ? '1' : '0', 'tentang');
         // Sinkronkan ke ringkasan Beranda agar admin cukup input sekali
         if (!empty($validated['sambutan_quote'])) {
             SiteSetting::set('home_sambutan_summary', $validated['sambutan_quote'], 'home_tentang');

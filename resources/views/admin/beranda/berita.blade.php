@@ -9,6 +9,30 @@
     @csrf
     @method('PUT')
 
+    <!-- Status & Visibilitas Section Berita -->
+    <div class="him-card mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" name="home_berita_active" id="homeBeritaActive" value="1" {{ old('home_berita_active', $siteSettings['home_berita_active'] ?? '1') === '1' ? 'checked' : '' }} style="width: 2.8em; height: 1.4em; cursor: pointer;">
+                </div>
+                <div>
+                    <label class="form-label fw-bold text-dark mb-0 fs-6" for="homeBeritaActive">
+                        Tampilkan Bagian Berita Terkini di Halaman Beranda
+                    </label>
+                    <div class="form-text mt-0">
+                        Jika dinonaktifkan, blok artikel & berita terbaru akan disembunyikan dari Beranda.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="{{ route('home') }}#kabar-terbaru" target="_blank" class="btn btn-sm btn-outline-primary px-3 rounded-pill">
+                    <i class="fas fa-external-link-alt me-1"></i> Buka Bagian di Beranda
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="row g-4">
         <!-- Left: Text Settings -->
         <div class="col-lg-6">

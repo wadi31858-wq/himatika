@@ -3,10 +3,19 @@
 @section('content')
 
 {{-- ==================== BAGIAN 1: SAMPUL (HERO) ==================== --}}
+@if(($siteSettings['hero_is_visible'] ?? '1') !== '0')
 <section class="hero-modern-section" id="hero">
     {{-- Background Campus Photo with Bright, Visible Architecture --}}
     <div class="hero-bg-photo-wrapper" aria-hidden="true">
-        <img src="{{ asset('images/hero-bg-unuja.jpg') }}" alt="Kampus UNUJA" class="hero-bg-photo">
+        @php
+            $bgPhoto = null;
+            if (!empty($profile->hero_image) && file_exists(public_path('storage/' . $profile->hero_image))) {
+                $bgPhoto = asset('storage/' . $profile->hero_image);
+            } else {
+                $bgPhoto = asset('images/hero-bg-unuja.jpg');
+            }
+        @endphp
+        <img src="{{ $bgPhoto }}" alt="{{ $profile->hero_image_alt ?? 'Kampus UNUJA' }}" class="hero-bg-photo">
         <div class="hero-bg-photo-overlay"></div>
     </div>
 
@@ -20,10 +29,12 @@
                         <i class="fas fa-graduation-cap me-1"></i>
                         <span>{{ $profile->hero_badge ?? 'HIMATIKA FMIPA UNUJA' }}</span>
                     </div>
+                    @if(!empty($profile->hero_tagline))
                     <div class="hero-tag-companion">
                         <span class="hero-tag-vbar"></span>
-                        <span>{{ !empty($profile->hero_tagline) ? $profile->hero_tagline : 'Grow with HIMATIKA' }}</span>
+                        <span>{{ $profile->hero_tagline }}</span>
                     </div>
+                    @endif
                 </div>
 
                 {{-- Main Title --}}
@@ -31,17 +42,24 @@
                     {!! nl2br(e($profile->hero_title ?? "Ruang Berkarya\nMahasiswa Informatika")) !!}
                 </h1>
 
+                {{-- Optional Hero Description --}}
+                @if(!empty($profile->hero_desc))
+                    <p class="hero-desc text-white-50 mt-3 mb-3" style="font-size: 0.95rem; line-height: 1.6; max-width: 520px;">
+                        {{ $profile->hero_desc }}
+                    </p>
+                @endif
+
                 {{-- Action Buttons: Horizontal Pill Buttons Matching Mockup --}}
                 <div class="hero-horizontal-buttons">
-                    @if(($profile->hero_btn_primary_active ?? 1) == 1)
+                    @if(($profile->hero_btn_primary_active ?? 1) == 1 && !empty($profile->hero_btn_primary_text))
                         <a href="{{ !empty($profile->hero_btn_primary_url) ? url($profile->hero_btn_primary_url) : route('kontak') }}" class="btn-hero-pill">
-                            <span>{{ $profile->hero_btn_primary_text ?? 'Hubungi Kami' }}</span>
+                            <span>{{ $profile->hero_btn_primary_text }}</span>
                             <i class="fas fa-caret-right"></i>
                         </a>
                     @endif
-                    @if(($profile->hero_btn_secondary_active ?? 1) == 1)
+                    @if(($profile->hero_btn_secondary_active ?? 1) == 1 && !empty($profile->hero_btn_secondary_text))
                         <a href="{{ ($profile->hero_btn_secondary_url && $profile->hero_btn_secondary_url !== '/profil') ? url($profile->hero_btn_secondary_url) : '#tentang' }}" class="btn-hero-pill">
-                            <span>{{ $profile->hero_btn_secondary_text ?? 'Pelajari Profil' }}</span>
+                            <span>{{ $profile->hero_btn_secondary_text }}</span>
                             <i class="fas fa-caret-right"></i>
                         </a>
                     @endif
@@ -77,19 +95,28 @@
                 <div class="hero-frame-wrapper">
                     <div class="hero-visual-frame">
                         @php
-                            $heroPengurusPhoto = file_exists(public_path('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png'))
-                                ? asset('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png')
-                                : asset('images/news/news-1.jpg');
+                            $heroPengurusPhoto = null;
+                            if (!empty($siteSettings['hero_pengurus_photo']) && file_exists(public_path('storage/' . $siteSettings['hero_pengurus_photo']))) {
+                                $heroPengurusPhoto = asset('storage/' . $siteSettings['hero_pengurus_photo']);
+                            } elseif (!empty($profile->image) && file_exists(public_path('storage/' . $profile->image))) {
+                                $heroPengurusPhoto = asset('storage/' . $profile->image);
+                            } elseif (file_exists(public_path('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png'))) {
+                                $heroPengurusPhoto = asset('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png');
+                            } else {
+                                $heroPengurusPhoto = asset('images/news/news-1.jpg');
+                            }
                         @endphp
-                        <img src="{{ $heroPengurusPhoto }}" alt="Pengurus HIMATIKA UNUJA" class="hero-single-img">
+                        <img src="{{ $heroPengurusPhoto }}" alt="{{ $profile->hero_image_alt ?? 'Pengurus HIMATIKA UNUJA' }}" class="hero-single-img">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+@endif
 
 {{-- ==================== BAGIAN 2: TENTANG HIMATIKA ==================== --}}
+@if(($siteSettings['home_tentang_active'] ?? '1') !== '0')
 <section class="section-tentang-himatika" id="tentang">
     <div class="container">
         {{-- Section Header --}}
@@ -235,8 +262,10 @@
         </div>
     </div>
 </section>
+@endif
 
 {{-- ==================== BAGIAN 3: BERITA & INFORMASI TERKINI ==================== --}}
+@if(($siteSettings['home_berita_active'] ?? '1') !== '0')
 <section class="section-berita-modern" id="kabar-terbaru">
     <div class="container">
         {{-- Section Header --}}
@@ -400,8 +429,10 @@
         @endif
     </div>
 </section>
+@endif
 
 {{-- ==================== BAGIAN 4: BERKARYA (KARYA WEBSITE MAHASISWA) ==================== --}}
+@if(($siteSettings['home_peduli_active'] ?? '1') !== '0')
 <section class="section-peduli" id="berkarya">
     {{-- Anchor compatibility for previous links --}}
     <span id="berdampak" class="d-none" aria-hidden="true"></span>
@@ -417,15 +448,15 @@
                 <div class="peduli-section-header mb-3">
                     <span class="peduli-label">
                         <span class="peduli-label-icon"><i class="fas fa-laptop-code"></i></span>
-                        HIMATIKA BERKARYA
+                        {{ $siteSettings['home_peduli_badge'] ?? 'HIMATIKA BERKARYA' }}
                     </span>
                 </div>
-                <h2 class="peduli-heading">Karya Website Mahasiswa</h2>
+                <h2 class="peduli-heading">{{ $siteSettings['home_peduli_title'] ?? 'Karya Website Mahasiswa' }}</h2>
                 <p class="peduli-desc">
-                    Jelajahi website karya mahasiswa Informatika Universitas Nurul Jadid dan lihat bagaimana ide mereka diwujudkan menjadi proyek digital.
+                    {{ $siteSettings['home_peduli_desc'] ?? 'Jelajahi website karya mahasiswa Informatika Universitas Nurul Jadid dan lihat bagaimana ide mereka diwujudkan menjadi proyek digital.' }}
                 </p>
-                <a href="{{ route('download') }}" class="peduli-cta">
-                    <span>Lihat Galeri Website</span>
+                <a href="{{ !empty($siteSettings['home_peduli_btn_url']) ? url($siteSettings['home_peduli_btn_url']) : route('download') }}" class="peduli-cta">
+                    <span>{{ $siteSettings['home_peduli_btn_text'] ?? 'Lihat Galeri Website' }}</span>
                     <span class="peduli-cta-arrow"><i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
@@ -518,8 +549,10 @@
         </div>
     </div>
 </section>
+@endif
 
 {{-- ==================== BAGIAN 5: DOKUMENTASI MOMEN ==================== --}}
+@if(($siteSettings['home_galeri_active'] ?? '1') !== '0')
 <section class="section-dokumentasi-momen" id="dokumentasi">
     <div class="container">
         {{-- Section Header --}}
@@ -623,6 +656,7 @@
         </div>
     </div>
 </section>
+@endif
 
 @push('styles')
 <style>

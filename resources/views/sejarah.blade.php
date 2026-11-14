@@ -6,6 +6,20 @@
 {{-- ==================== HALAMAN SEJARAH MAN 1 PROBOLINGGO ==================== --}}
 <section class="sejarah-section-wrapper">
     <div class="container">
+        @if(($siteSettings['history_is_visible'] ?? '1') === '0')
+            <div class="text-center py-5">
+                <div class="p-5 bg-white rounded-4 border shadow-sm mx-auto" style="max-width: 620px;">
+                    <div class="mb-3 text-muted">
+                        <i class="fas fa-eye-slash fa-3x" style="color: var(--burgundy-accent);"></i>
+                    </div>
+                    <h3 class="fw-bold mb-2" style="color: var(--burgundy-darkest);">Halaman Sejarah Sedang Dinonaktifkan</h3>
+                    <p class="text-muted mb-4">Informasi Sejarah saat ini sedang diperbarui oleh administrator organisasi.</p>
+                    <a href="{{ route('home') }}" class="btn px-4 py-2 text-white rounded-pill" style="background: var(--burgundy-main);">
+                        <i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda
+                    </a>
+                </div>
+            </div>
+        @else
         <div class="sejarah-card-wrapper mx-auto">
             
             {{-- 1. CARD UTAMA SEJARAH --}}
@@ -75,6 +89,7 @@
             </div>
 
         </div>
+        @endif
     </div>
 </section>
 

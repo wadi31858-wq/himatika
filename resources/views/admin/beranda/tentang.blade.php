@@ -9,6 +9,30 @@
     @csrf
     @method('PUT')
 
+    <!-- Status & Visibilitas Section Tentang -->
+    <div class="him-card mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" name="home_tentang_active" id="homeTentangActive" value="1" {{ old('home_tentang_active', $siteSettings['home_tentang_active'] ?? '1') === '1' ? 'checked' : '' }} style="width: 2.8em; height: 1.4em; cursor: pointer;">
+                </div>
+                <div>
+                    <label class="form-label fw-bold text-dark mb-0 fs-6" for="homeTentangActive">
+                        Tampilkan Bagian Tentang di Halaman Beranda
+                    </label>
+                    <div class="form-text mt-0">
+                        Jika dinonaktifkan, bagian Tentang (Sambutan Kaprodi & Visi Misi ringkas) akan disembunyikan dari Beranda.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="{{ route('home') }}#tentang" target="_blank" class="btn btn-sm btn-outline-primary px-3 rounded-pill">
+                    <i class="fas fa-external-link-alt me-1"></i> Buka Bagian di Beranda
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="row g-4">
         <!-- Section Header -->
         <div class="col-12">

@@ -9,6 +9,30 @@
     @csrf
     @method('PUT')
 
+    <!-- Status & Visibilitas Sambutan Kaprodi -->
+    <div class="him-card mb-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="form-check form-switch mb-0">
+                    <input class="form-check-input" type="checkbox" name="sambutan_is_visible" id="sambutanIsVisible" value="1" {{ old('sambutan_is_visible', $siteSettings['sambutan_is_visible'] ?? '1') === '1' ? 'checked' : '' }} style="width: 2.8em; height: 1.4em; cursor: pointer;">
+                </div>
+                <div>
+                    <label class="form-label fw-bold text-dark mb-0 fs-6" for="sambutanIsVisible">
+                        Tampilkan Halaman Sambutan di Website Publik
+                    </label>
+                    <div class="form-text mt-0">
+                        Jika dinonaktifkan, tautan ke Sambutan Kaprodi pada navbar akan disembunyikan.
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="{{ route('sambutan') }}" target="_blank" class="btn btn-sm btn-outline-primary px-3 rounded-pill">
+                    <i class="fas fa-external-link-alt me-1"></i> Buka Tampilan Publik
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="row g-4">
         <!-- Left: Form inputs -->
         <div class="col-lg-8">

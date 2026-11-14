@@ -74,13 +74,32 @@ class AdminHomeController extends Controller
             $validated['image'] = 'profile/' . $filename;
         }
 
+        if ($request->has('remove_hero_image')) {
+            if ($profile->hero_image && file_exists(storage_path('app/public/' . $profile->hero_image))) {
+                @unlink(storage_path('app/public/' . $profile->hero_image));
+            }
+            $validated['hero_image'] = null;
+        }
+
+        if ($request->has('remove_image')) {
+            if ($profile->image && file_exists(storage_path('app/public/' . $profile->image))) {
+                @unlink(storage_path('app/public/' . $profile->image));
+            }
+            $validated['image'] = null;
+            SiteSetting::set('hero_pengurus_photo', '', 'hero');
+        }
+
         $validated['hero_btn_primary_active'] = $request->has('hero_btn_primary_active');
         $validated['hero_btn_secondary_active'] = $request->has('hero_btn_secondary_active');
 
         $profile->update($validated);
 
+        SiteSetting::set('hero_is_visible', $request->has('hero_is_visible') ? '1' : '0', 'hero');
         SiteSetting::set('hero_btn_primary_active', $validated['hero_btn_primary_active'] ? '1' : '0', 'hero');
         SiteSetting::set('hero_btn_secondary_active', $validated['hero_btn_secondary_active'] ? '1' : '0', 'hero');
+        if (isset($validated['image'])) {
+            SiteSetting::set('hero_pengurus_photo', $validated['image'] ?? '', 'hero');
+        }
 
         ActivityLog::record('update', 'Memperbarui Hero Section Beranda', $profile);
 
@@ -119,6 +138,7 @@ class AdminHomeController extends Controller
         foreach ($validated as $k => $v) {
             SiteSetting::set($k, $v, 'home_tentang');
         }
+        SiteSetting::set('home_tentang_active', $request->has('home_tentang_active') ? '1' : '0', 'home_tentang');
 
         // Sinkronisasi dua arah ke model asli jika diubah dari form Beranda
         if (!empty($validated['home_visi_summary'])) {
@@ -154,6 +174,7 @@ class AdminHomeController extends Controller
         foreach ($validated as $k => $v) {
             SiteSetting::set($k, $v, 'home_berita');
         }
+        SiteSetting::set('home_berita_active', $request->has('home_berita_active') ? '1' : '0', 'home_berita');
 
         ActivityLog::record('update', 'Memperbarui Bagian Berita & Informasi Terkini di Beranda', null);
 
@@ -203,6 +224,7 @@ class AdminHomeController extends Controller
         foreach ($validated as $k => $v) {
             SiteSetting::set($k, $v, 'home_peduli');
         }
+        SiteSetting::set('home_peduli_active', $request->has('home_peduli_active') ? '1' : '0', 'home_peduli');
 
         ActivityLog::record('update', 'Memperbarui Bagian HIMATIKA Berdampak di Beranda', null);
 
@@ -229,6 +251,7 @@ class AdminHomeController extends Controller
         foreach ($validated as $k => $v) {
             SiteSetting::set($k, $v, 'home_momen');
         }
+        SiteSetting::set('home_galeri_active', $request->has('home_galeri_active') ? '1' : '0', 'home_momen');
 
         ActivityLog::record('update', 'Memperbarui Bagian Dokumentasi Momen di Beranda', null);
 

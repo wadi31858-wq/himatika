@@ -292,26 +292,34 @@
                             <i class="fas fa-chevron-down ms-1 tentang-chevron"></i>
                         </button>
                         <ul class="tentang-dropdown-menu" id="tentangDropdownMenu" aria-labelledby="tentangDropdownBtn">
+                            @if(($siteSettings['history_is_visible'] ?? '1') !== '0')
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('sejarah*') ? 'active' : '' }}" href="{{ route('sejarah') }}">
                                     Sejarah
                                 </a>
                             </li>
+                            @endif
+                            @if(($siteSettings['sambutan_is_visible'] ?? '1') !== '0')
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('sambutan*') ? 'active' : '' }}" href="{{ route('sambutan') }}">
                                     Sambutan Kaprodi
                                 </a>
                             </li>
+                            @endif
+                            @if(($siteSettings['vm_is_visible'] ?? '1') !== '0')
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('visi-misi*') ? 'active' : '' }}" href="{{ route('visi-misi') }}">
                                     Visi dan Misi
                                 </a>
                             </li>
+                            @endif
+                            @if(($siteSettings['structure_is_visible'] ?? '1') !== '0')
                             <li>
                                 <a class="tentang-dropdown-item {{ request()->routeIs('struktur-organisasi*') ? 'active' : '' }}" id="navLinkStruktur" href="{{ route('struktur-organisasi') }}">
                                     Struktur Organisasi
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </li>
                     <li class="nav-item dropdown informasi-dropdown-wrapper {{ request()->routeIs('berita*') ? 'active' : '' }}">
@@ -464,8 +472,12 @@
                     <h5 class="footer-heading">NAVIGASI</h5>
                     <ul class="list-unstyled footer-links">
                         <li><a href="{{ route('home') }}">Beranda</a></li>
+                        @if(($siteSettings['history_is_visible'] ?? '1') !== '0')
                         <li><a href="{{ route('sejarah') }}">Sejarah</a></li>
+                        @endif
+                        @if(($siteSettings['structure_is_visible'] ?? '1') !== '0')
                         <li><a href="{{ route('struktur-organisasi') }}">Struktur</a></li>
+                        @endif
                         <li><a href="{{ route('agenda') }}">Agenda</a></li>
                         <li><a href="{{ route('berita') }}">Informasi</a></li>
                     </ul>

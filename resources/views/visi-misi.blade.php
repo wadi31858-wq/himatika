@@ -1,14 +1,24 @@
 @extends('layouts.app')
-@section('title', 'Visi dan Misi - HIMATIKA FMIPA UNUJA')
+@section('title', ($siteSettings['vm_banner_title'] ?? 'Visi dan Misi') . ' - HIMATIKA FMIPA UNUJA')
 
 @section('content')
+
+@php
+    $vmBannerTitle = $siteSettings['vm_banner_title'] ?? 'Visi dan Misi';
+    $vmBannerSubtitle = $siteSettings['vm_banner_subtitle'] ?? 'Arah dan tujuan pengembangan HIMATIKA FMIPA UNUJA.';
+    $vmVisionTitle = $siteSettings['vm_vision_title'] ?? 'Visi HIMATIKA FMIPA UNUJA';
+    $vmMissionTitle = $siteSettings['vm_mission_title'] ?? 'Misi HIMATIKA FMIPA UNUJA';
+    $vmIsVisible = ($siteSettings['vm_is_visible'] ?? '1') !== '0';
+@endphp
 
 {{-- ==================== BANNER VISI & MISI ==================== --}}
 <section class="vm-banner" id="visi-misi-section">
     <div class="container position-relative">
         <div class="vm-banner-content">
-            <h1 class="vm-banner-title">Visi dan Misi</h1>
-            <p class="vm-banner-subtitle">Arah dan tujuan pengembangan HIMATIKA FMIPA UNUJA.</p>
+            <h1 class="vm-banner-title">{{ $vmBannerTitle }}</h1>
+            @if(!empty($vmBannerSubtitle))
+                <p class="vm-banner-subtitle">{{ $vmBannerSubtitle }}</p>
+            @endif
         </div>
     </div>
 </section>
@@ -16,58 +26,78 @@
 {{-- ==================== KONTEN DUA CARD ==================== --}}
 <section class="vm-content-section py-5">
     <div class="container">
-        <div class="row g-4 align-items-stretch">
-            
-            {{-- CARD KIRI: VISI --}}
-            <div class="col-lg-5 col-md-6 col-12 d-flex">
-                <div class="card-visi-navy w-100 p-4 p-md-5 rounded-4 d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="visi-quote-icon mb-3">
-                            <i class="fas fa-quote-left"></i>
-                        </div>
-                        
-                        <h3 class="visi-title mb-3">Visi HIMATIKA FMIPA UNUJA</h3>
-                        
-                        <p class="visi-text">
-                            “{{ $vm->vision ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.' }}”
-                        </p>
+        @if(!$vmIsVisible)
+            {{-- Status Saat Halaman Dinonaktifkan / Disembunyikan --}}
+            <div class="text-center py-5">
+                <div class="p-5 bg-white rounded-4 border shadow-sm mx-auto" style="max-width: 620px;">
+                    <div class="mb-3 text-muted">
+                        <i class="fas fa-eye-slash fa-3x" style="color: var(--burgundy-accent);"></i>
                     </div>
-
-                    <div class="visi-footer-badge pt-3 mt-4 border-top border-white border-opacity-25">
-                        <small class="text-white-50"><i class="fas fa-compass me-1"></i> Pedoman Strategis Organisasi</small>
-                    </div>
+                    <h3 class="fw-bold mb-2" style="color: var(--burgundy-darkest);">Halaman Visi dan Misi Sedang Dinonaktifkan</h3>
+                    <p class="text-muted mb-4">Informasi Visi dan Misi saat ini sedang diperbarui oleh administrator organisasi.</p>
+                    <a href="{{ route('home') }}" class="btn px-4 py-2 text-white rounded-pill" style="background: var(--burgundy-main);">
+                        <i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda
+                    </a>
                 </div>
             </div>
-
-            {{-- CARD KANAN: MISI --}}
-            <div class="col-lg-7 col-md-6 col-12 d-flex">
-                <div class="card-misi-white w-100 p-4 p-md-5 rounded-4 bg-white border shadow-sm d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="misi-header mb-4">
-                            <span class="misi-gold-subtitle">Misi HIMATIKA FMIPA UNUJA</span>
+        @else
+            <div class="row g-4 align-items-stretch">
+                
+                {{-- CARD KIRI: VISI --}}
+                <div class="col-lg-5 col-md-6 col-12 d-flex">
+                    <div class="card-visi-navy w-100 p-4 p-md-5 rounded-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="visi-quote-icon mb-3">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            
+                            <h3 class="visi-title mb-3">{{ $vmVisionTitle }}</h3>
+                            
+                            <p class="visi-text">
+                                “{{ $vm->vision ?? 'Menjadi organisasi mahasiswa Matematika yang aktif, inovatif, kolaboratif, dan unggul dalam pengembangan ilmu matematika serta sumber daya mahasiswa.' }}”
+                            </p>
                         </div>
 
-                        <div class="misi-list d-flex flex-column gap-3">
-                            @foreach($mission as $index => $m)
-                                <div class="misi-item d-flex align-items-start gap-3">
-                                    <div class="misi-num-badge">
-                                        {{ $index + 1 }}
-                                    </div>
-                                    <div class="misi-text-content flex-grow-1">
-                                        {{ $m }}
-                                    </div>
-                                </div>
-                            @endforeach
+                        <div class="visi-footer-badge pt-3 mt-4 border-top border-white border-opacity-25">
+                            <small class="text-white-50"><i class="fas fa-compass me-1"></i> Pedoman Strategis Organisasi</small>
                         </div>
-                    </div>
-
-                    <div class="misi-footer-note pt-3 mt-4 border-top border-light-subtle text-end">
-                        <small class="text-muted"><i class="fas fa-check-circle text-primary me-1"></i> Komitmen Implementasi Kepengurusan</small>
                     </div>
                 </div>
-            </div>
 
-        </div>
+                {{-- CARD KANAN: MISI --}}
+                <div class="col-lg-7 col-md-6 col-12 d-flex">
+                    <div class="card-misi-white w-100 p-4 p-md-5 rounded-4 bg-white border shadow-sm d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="misi-header mb-4">
+                                <span class="misi-gold-subtitle">{{ $vmMissionTitle }}</span>
+                            </div>
+
+                            <div class="misi-list d-flex flex-column gap-3">
+                                @forelse($mission as $index => $m)
+                                    <div class="misi-item d-flex align-items-start gap-3">
+                                        <div class="misi-num-badge">
+                                            {{ $index + 1 }}
+                                        </div>
+                                        <div class="misi-text-content flex-grow-1">
+                                            {{ $m }}
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="text-muted fst-italic py-3">
+                                        Belum ada butir misi yang ditambahkan.
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <div class="misi-footer-note pt-3 mt-4 border-top border-light-subtle text-end">
+                            <small class="text-muted"><i class="fas fa-check-circle text-primary me-1"></i> Komitmen Implementasi Kepengurusan</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        @endif
     </div>
 </section>
 
