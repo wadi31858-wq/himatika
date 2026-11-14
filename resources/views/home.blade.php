@@ -76,71 +76,19 @@
                 @endif
             </div>
 
-            {{-- Right Visual: 2x2 Frame Matching Mockup (~52% on desktop) --}}
+            {{-- Right Visual: Single Hero Photo Pengurus HIMATIKA --}}
             <div class="col-lg-7 hero-col-visual">
                 <div class="hero-frame-wrapper">
                     <div class="hero-visual-frame">
                         @php
-                            $logoEmblem = file_exists(public_path('storage/branding/logo_main_1794400336.jpeg'))
-                                ? asset('storage/branding/logo_main_1794400336.jpeg')
-                                : ($globalProfile && $globalProfile->logo && file_exists(public_path('storage/' . $globalProfile->logo))
-                                    ? asset('storage/' . $globalProfile->logo)
-                                    : asset('images/logo.png'));
-
-                            // 1. Top-Left: Santriwati reading in classroom
-                            $photo1 = file_exists(public_path('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png'))
+                            $heroPengurusPhoto = file_exists(public_path('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png'))
                                 ? asset('storage/news/news_1794407889_gb5rjeODz5yqGHUwbWhGZ34Odvvpuo9LrKyJBBhM.png')
                                 : asset('images/news/news-1.jpg');
-
-                            // 2. Top-Right: Official Circular HIMATIKA Logo on white card
-                            $photo2 = $logoEmblem;
-
-                            // 3. Bottom-Left: Santri putra studying in madrasah with camera badge
-                            $photo3 = file_exists(public_path('images/news/suasana-belajar-madrasah.jpg'))
-                                ? asset('images/news/suasana-belajar-madrasah.jpg')
-                                : asset('images/news/news-3.jpg');
-
-                            // 4. Bottom-Right: Members group collage with central logo
-                            $photo4 = file_exists(public_path('storage/news/news_1794125062_fmSjML66RhWE145vpg9O6EUhBhMqYTfaatATKdgk.jpg'))
-                                ? asset('storage/news/news_1794125062_fmSjML66RhWE145vpg9O6EUhBhMqYTfaatATKdgk.jpg')
-                                : asset('images/news/news-4.jpg');
                         @endphp
-
-                        {{-- Collage Grid 2x2 --}}
-                        <div class="hero-collage-grid" aria-hidden="true">
-                            <div class="hero-collage-cell">
-                                <img src="{{ $photo1 }}" alt="Aktivitas Mahasantriwati HIMATIKA">
-                            </div>
-                            <div class="hero-collage-cell cell-logo-white">
-                                <img src="{{ $photo2 }}" alt="Logo Resmi HIMATIKA UNUJA">
-                            </div>
-                            <div class="hero-collage-cell">
-                                <img src="{{ $photo3 }}" alt="Suasana Belajar Mahasantri HIMATIKA">
-                                <span class="hero-cell-camera-badge" title="Dokumentasi Kegiatan">
-                                    <i class="fas fa-camera"></i>
-                                </span>
-                            </div>
-                            <div class="hero-collage-cell">
-                                <img src="{{ $photo4 }}" alt="Kader & Pengurus HIMATIKA">
-                            </div>
-                        </div>
-
-                        {{-- Center Floating Emblem Badge --}}
-                        <div class="hero-collage-emblem">
-                            <div class="hero-collage-emblem-logo">
-                                <img src="{{ $logoEmblem }}" alt="Logo HIMATIKA">
-                            </div>
-                            <div>
-                                <div class="hero-collage-emblem-title">HIMATIKA</div>
-                                <div class="hero-collage-emblem-sub">FMIPA UNUJA</div>
-                            </div>
-                        </div>
+                        <img src="{{ $heroPengurusPhoto }}" alt="Pengurus HIMATIKA UNUJA" class="hero-single-img">
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
         </div>
     </div>
 </section>
