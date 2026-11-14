@@ -263,7 +263,6 @@
                 </span>
                 <span class="brand-text">
                     <span class="brand-name">{{ $siteSettings['site_short_title'] ?? 'HIMATIKA' }} UNUJA 2026</span>
-                    <span class="brand-tagline">{{ $globalProfile->motto ?? 'Synchronized Growth, Reaching New Heights' }}</span>
                     <span class="brand-accent-line"></span>
                 </span>
             </a>

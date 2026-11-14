@@ -31,10 +31,6 @@
                     {!! nl2br(e($profile->hero_title ?? "Ruang Berkarya\nMahasiswa Informatika")) !!}
                 </h1>
 
-                <p class="hero-new-desc">
-                    {{ $profile->hero_desc ?? 'Temukan kegiatan, layanan, dan karya HIMATIKA UNUJA.' }}
-                </p>
-
                 {{-- Action Buttons: Horizontal Pill Buttons Matching Mockup --}}
                 <div class="hero-horizontal-buttons">
                     @if(($profile->hero_btn_primary_active ?? 1) == 1)
