@@ -10,10 +10,13 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin HIMATIKA',
-            'email' => 'admin@himatika.test',
-            'password' => Hash::make('password'),
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@himatika.test'],
+            [
+                'name' => 'Admin HIMATIKA',
+                'password' => Hash::make('password'),
+                'is_admin' => true,
+            ]
+        );
     }
 }
