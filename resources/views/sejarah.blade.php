@@ -1,9 +1,18 @@
 @extends('layouts.app')
-@section('title', 'Sejarah MAN 1 Probolinggo')
+@section('title', 'Sejarah - HIMATIKA UNUJA')
 
 @section('content')
 
-{{-- ==================== HALAMAN SEJARAH MAN 1 PROBOLINGGO ==================== --}}
+{{-- ==================== OPENING BANNER SEJARAH ==================== --}}
+<section class="tentang-opening-banner">
+    <div class="container position-relative" style="z-index: 1;">
+        <span class="tentang-hero-label">SEJARAH</span>
+        <h1 class="tentang-hero-heading">Sejarah HIMATIKA UNUJA</h1>
+        <p class="tentang-hero-desc">Mengenal awal berdiri dan perjalanan Himpunan Mahasiswa Matematika Universitas Nurul Jadid.</p>
+    </div>
+</section>
+
+{{-- ==================== KONTEN UTAMA SEJARAH ==================== --}}
 <section class="sejarah-section-wrapper">
     <div class="container">
         @if(($siteSettings['history_is_visible'] ?? '1') === '0')
@@ -24,60 +33,55 @@
             
             {{-- 1. CARD UTAMA SEJARAH --}}
             <div class="card-sejarah-main">
-                
-                {{-- 2. JUDUL SECTION (KUNING KEEMASAN) --}}
-                <div class="sejarah-top-header">
-                    <h2 class="sejarah-gold-title">Sejarah MAN 1 PROBOLINGGO</h2>
-                </div>
 
-                {{-- 3. GAMBAR SEKOLAH (GEDUNG MAN 1 PROBOLINGGO) --}}
+                {{-- 2. GAMBAR UTAMA SEJARAH --}}
                 @php
                     $historyImg = asset('images/gedung-man1-probolinggo.jpg');
                     if (!empty($siteSettings['history_image']) && file_exists(public_path('storage/' . $siteSettings['history_image']))) {
                         $historyImg = asset('storage/' . $siteSettings['history_image']);
-                    } elseif (file_exists(public_path('images/gedung-man1-probolinggo.jpg'))) {
-                        $historyImg = asset('images/gedung-man1-probolinggo.jpg');
                     } elseif (!empty($profile->image) && file_exists(public_path('storage/' . $profile->image))) {
                         $historyImg = asset('storage/' . $profile->image);
+                    } elseif (file_exists(public_path('images/gedung-man1-probolinggo.jpg'))) {
+                        $historyImg = asset('images/gedung-man1-probolinggo.jpg');
                     }
                 @endphp
                 <div class="sejarah-img-container">
-                    <img src="{{ $historyImg }}" alt="Gedung MAN 1 Probolinggo" class="sejarah-building-img">
+                    <img src="{{ $historyImg }}" alt="Sejarah HIMATIKA UNUJA" class="sejarah-building-img">
                 </div>
 
-                {{-- 4. ISI SEJARAH --}}
+                {{-- 3. ISI SEJARAH --}}
                 <div class="sejarah-body-content">
-                    <h3 class="sejarah-content-heading">Sejarah MAN 1 Probolinggo</h3>
+                    @if(!empty($siteSettings['history_subtitle']))
+                        <h3 class="sejarah-content-heading">{{ $siteSettings['history_subtitle'] }}</h3>
+                    @endif
                     
-                    @if($profile && !empty($profile->history) && (str_contains($profile->history, 'MAN 1 Probolinggo') || str_contains($profile->history, 'madrasah')))
+                    @if($profile && !empty($profile->history))
                         <div class="sejarah-paragraphs">
-                            {!! $profile->history !!}
+                            @if(strip_tags($profile->history) === $profile->history)
+                                {!! nl2br(e($profile->history)) !!}
+                            @else
+                                {!! $profile->history !!}
+                            @endif
                         </div>
                     @else
                         <div class="sejarah-paragraphs">
                             <p>
-                                MAN 1 Probolinggo merupakan lembaga pendidikan Islam yang tumbuh dan berkembang dari semangat masyarakat dalam membangun pendidikan yang berlandaskan nilai-nilai keislaman. Cikal bakal berdirinya madrasah ini berawal dari peran Pondok Pesantren Nurul Jadid yang pada tahun 1969 M merintis lembaga pendidikan sebagai bagian dari upaya mencetak generasi yang berilmu, berakhlak mulia, dan memiliki pemahaman agama yang kuat.
+                                HIMATIKA UNUJA merupakan organisasi kemahasiswaan di bawah naungan Program Studi Matematika Fakultas Sains dan Teknologi Universitas Nurul Jadid yang berdedikasi mewadahi aspirasi, penalaran, dan pengembangan keilmuan mahasiswa.
                             </p>
                             <p>
-                                Pada masa awal berdirinya, lembaga pendidikan ini berada di bawah naungan Pondok Pesantren Nurul Jadid. Seiring berjalannya waktu dan berkembangnya kebutuhan pendidikan masyarakat, lembaga ini mengalami perkembangan hingga menjadi madrasah negeri. Perubahan tersebut menjadi bagian penting dalam perjalanan madrasah untuk memperluas akses pendidikan serta meningkatkan kualitas pembelajaran bagi generasi muda.
-                            </p>
-                            <p>
-                                Dalam perkembangannya, MAN 1 Probolinggo terus berupaya menyesuaikan diri dengan kemajuan zaman tanpa meninggalkan nilai-nilai keislaman yang menjadi landasan pendidikannya. Madrasah berkomitmen memadukan pendidikan agama, ilmu pengetahuan, teknologi, dan pembentukan karakter guna melahirkan peserta didik yang unggul dalam prestasi, kuat dalam iman, serta berakhlak mulia.
-                            </p>
-                            <p>
-                                Hingga kini, MAN 1 Probolinggo terus berbenah dan berinovasi dalam meningkatkan mutu pendidikan, mengembangkan potensi peserta didik, serta membangun lingkungan belajar yang religius, disiplin, dan berorientasi pada masa depan. Dengan semangat tersebut, MAN 1 Probolinggo diharapkan terus menjadi lembaga pendidikan yang mampu melahirkan generasi yang berilmu, berintegritas, dan siap memberikan kontribusi positif bagi masyarakat, bangsa, dan agama.
+                                Sejak awal pembentukannya, HIMATIKA UNUJA berkomitmen memperkuat kebersamaan, menjunjung tinggi nilai-nilai keislaman dan kepesantrenan, serta terus berinovasi dalam mengabdi dan berkarya demi kemajuan civitas akademika dan masyarakat luas.
                             </p>
                         </div>
                     @endif
                 </div>
             </div>
 
-            {{-- 5. CARD DOKUMENTASI SEJARAH (BAWAH) --}}
+            {{-- 4. CARD DOKUMENTASI SEJARAH (BAWAH) --}}
             <div class="card-dokumentasi-wrapper">
                 <div class="dokumentasi-text">
-                    <h4 class="dokumentasi-title">Dokumentasi Sejarah</h4>
+                    <h4 class="dokumentasi-title">{{ $siteSettings['history_doc_text'] ?? 'Dokumentasi Sejarah' }}</h4>
                     <p class="dokumentasi-desc">
-                        {{ $siteSettings['history_doc_desc'] ?? 'Jelajahi dokumentasi dan arsip sejarah perjalanan MAN 1 PROBOLINGGO dalam galeri kami.' }}
+                        {{ $siteSettings['history_doc_desc'] ?? 'Jelajahi dokumentasi dan arsip sejarah perjalanan HIMATIKA UNUJA dalam galeri kami.' }}
                     </p>
                 </div>
                 <div class="dokumentasi-btn-box">
@@ -97,16 +101,75 @@
 
 @push('styles')
 <style>
-    /* =========================================================
-       HALAMAN SEJARAH MAN 1 PROBOLINGGO
-       Sesuai Acuan Desain Referensi
-       ========================================================= */
+    /* ==================== OPENING BANNER MENU TENTANG ==================== */
+    .tentang-opening-banner {
+        background-color: #FFF7FA;
+        padding: 125px 0 36px;
+        margin-top: 0;
+        border-top: none;
+        border-bottom: 1px solid #E2CBD3;
+        position: relative;
+        overflow: hidden;
+        height: auto;
+        min-height: auto;
+    }
+    .tentang-opening-banner::before {
+        content: '';
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 280px;
+        height: 280px;
+        background: radial-gradient(circle, rgba(100, 29, 56, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .tentang-opening-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        left: -60px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(138, 49, 81, 0.08) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .tentang-hero-label {
+        display: inline-block;
+        background: #641D38;
+        color: #FFF7FA;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 6px 18px;
+        border-radius: 50px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+    .tentang-hero-heading {
+        font-size: 2.15rem;
+        font-weight: 800;
+        color: #32121F;
+        line-height: 1.25;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+    .tentang-hero-desc {
+        font-size: 0.98rem;
+        font-weight: 500;
+        color: #641D38;
+        max-width: 720px;
+        line-height: 1.65;
+        margin-bottom: 0;
+        text-align: left;
+    }
 
-    /* Background Halaman: Putih sedikit krem */
+    /* ==================== KONTEN SECTION SEJARAH ==================== */
     .sejarah-section-wrapper {
-        background-color: #FAF8F5;
-        min-height: calc(100vh - 120px);
-        padding: 40px 0 60px;
+        background-color: #F6E9EE;
+        min-height: calc(100vh - 280px);
+        padding: 48px 0 80px;
     }
 
     /* Container Wrapper di Tengah */
@@ -122,23 +185,10 @@
         border-radius: 20px;
         padding: 32px 34px 36px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
-        border: 1px solid rgba(0, 0, 0, 0.03);
+        border: 1px solid #E2CBD3;
     }
 
-    /* 2. JUDUL SECTION (KUNING KEEMASAN) */
-    .sejarah-top-header {
-        margin-bottom: 16px;
-    }
-    .sejarah-gold-title {
-        color: #D4AF37;
-        font-size: 1.05rem;
-        font-weight: 700;
-        letter-spacing: 0.3px;
-        margin: 0;
-        line-height: 1.3;
-    }
-
-    /* 3. GAMBAR SEKOLAH */
+    /* 2. GAMBAR UTAMA */
     .sejarah-img-container {
         width: 100%;
         border-radius: 14px;
@@ -156,12 +206,12 @@
         transition: transform 0.4s ease;
     }
 
-    /* 4. ISI SEJARAH */
+    /* 3. ISI SEJARAH */
     .sejarah-body-content {
         margin-top: 6px;
     }
     .sejarah-content-heading {
-        color: #4A4A4A;
+        color: #32121F;
         font-size: 1.35rem;
         font-weight: 700;
         margin-bottom: 16px;
@@ -169,9 +219,9 @@
     }
     .sejarah-paragraphs,
     .sejarah-paragraphs p {
-        color: #666666;
-        font-size: 0.865rem;
-        line-height: 1.75;
+        color: #4A4A4A;
+        font-size: 0.9rem;
+        line-height: 1.8;
         text-align: justify;
         text-justify: inter-word;
         margin-bottom: 16px;
@@ -180,37 +230,38 @@
         margin-bottom: 0;
     }
 
-    /* 5. CARD DOKUMENTASI SEJARAH (BAWAH) */
+    /* 4. CARD DOKUMENTASI SEJARAH (BAWAH) */
     .card-dokumentasi-wrapper {
         background: #ffffff;
         border-radius: 16px;
         padding: 22px 30px;
         margin-top: 22px;
         box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
-        border: 1px solid rgba(0, 0, 0, 0.03);
+        border: 1px solid #E2CBD3;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 20px;
     }
     .dokumentasi-title {
-        color: #2D3748;
+        color: #32121F;
         font-size: 1.05rem;
         font-weight: 700;
         margin-bottom: 4px;
     }
     .dokumentasi-desc {
-        color: #718096;
-        font-size: 0.825rem;
+        color: #641D38;
+        font-size: 0.85rem;
         margin-bottom: 0;
         line-height: 1.5;
+        opacity: 0.85;
     }
     .btn-lihat-galeri {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
-        background: #D4AF37;
+        background: #641D38;
         color: #ffffff !important;
         font-size: 0.85rem;
         font-weight: 600;
@@ -218,20 +269,30 @@
         border-radius: 9999px;
         text-decoration: none;
         white-space: nowrap;
-        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35);
+        box-shadow: 0 2px 8px rgba(100, 29, 56, 0.25);
         transition: all 0.25s ease;
     }
     .btn-lihat-galeri:hover {
-        background: #bfa030;
+        background: #8A3151;
         color: #ffffff !important;
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.45);
+        box-shadow: 0 4px 12px rgba(100, 29, 56, 0.35);
     }
 
-    /* RESPONSIVE SMARTPHONE / ANDROID */
+    /* RESPONSIVE SMARTPHONE / HP */
     @media (max-width: 767.98px) {
+        .tentang-opening-banner {
+            padding: 105px 0 28px;
+        }
+        .tentang-hero-heading {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+        }
+        .tentang-hero-desc {
+            font-size: 0.92rem;
+        }
         .sejarah-section-wrapper {
-            padding: 20px 0 40px;
+            padding: 32px 0 60px;
         }
         .sejarah-card-wrapper {
             padding: 0 10px;
@@ -239,10 +300,6 @@
         .card-sejarah-main {
             padding: 20px 16px 24px;
             border-radius: 16px;
-        }
-        .sejarah-gold-title {
-            font-size: 0.95rem;
-            margin-bottom: 12px;
         }
         .sejarah-img-container {
             border-radius: 10px;
@@ -257,8 +314,8 @@
         }
         .sejarah-paragraphs,
         .sejarah-paragraphs p {
-            font-size: 0.84rem;
-            line-height: 1.68;
+            font-size: 0.85rem;
+            line-height: 1.7;
             margin-bottom: 14px;
         }
         .card-dokumentasi-wrapper {
