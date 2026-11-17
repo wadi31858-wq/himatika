@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Nama Jabatan <span class="text-danger">*</span></label>
-                        <input type="text" name="position" class="form-control" value="{{ old('position') }}" required placeholder="Contoh: Ketua Umum Putra, Sekretaris Putri, Kepala Divisi Kominfo">
+                        <input type="text" name="position" class="form-control" value="{{ old('position', request('position')) }}" required placeholder="Contoh: Ketua Umum Putra, Sekretaris Putri, Kepala Divisi Kominfo">
                     </div>
                 </div>
 
@@ -35,14 +35,14 @@
                     <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Kelompok Kepengurusan <span class="text-danger">*</span></label>
                         <select name="kelompok" class="form-select" required>
-                            <option value="putra" {{ old('kelompok') === 'putra' ? 'selected' : '' }}>Putra</option>
-                            <option value="putri" {{ old('kelompok') === 'putri' ? 'selected' : '' }}>Putri</option>
-                            <option value="semua" {{ old('kelompok', 'semua') === 'semua' ? 'selected' : '' }}>Semua / Umum (Pembina/Biro Bersama)</option>
+                            <option value="putra" {{ old('kelompok', request('kelompok')) === 'putra' ? 'selected' : '' }}>Putra</option>
+                            <option value="putri" {{ old('kelompok', request('kelompok')) === 'putri' ? 'selected' : '' }}>Putri</option>
+                            <option value="semua" {{ old('kelompok', request('kelompok', 'semua')) === 'semua' ? 'selected' : '' }}>Semua / Umum (Pembina/Biro Bersama)</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Bidang / Divisi</label>
-                        <input type="text" name="division" class="form-control" value="{{ old('division') }}" placeholder="Contoh: BPH, Kominfo, Keilmuan, PSDM">
+                        <input type="text" name="division" class="form-control" value="{{ old('division', request('division')) }}" placeholder="Contoh: BPH, Kominfo, Keilmuan, PSDM">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Atasan Langsung (Induk Hirarki)</label>
@@ -89,39 +89,49 @@
                     </div>
                 </div>
 
-                {{-- Khusus Divisi / Bidang: Foto Bersama Anggota --}}
+                {{-- Foto Bersama Unit (Sumber Tunggal Foto Lingkaran Bagan & Kotak Foto Detail) --}}
                 <div class="p-3 mb-3 rounded-3 border" style="background: #faf8f9; border-color: #E9CDD5 !important;">
                     <div class="fw-bold text-dark mb-1 d-flex align-items-center justify-content-between">
-                        <span><i class="fas fa-users-rectangle text-primary me-1"></i> Foto Bersama (Untuk Kartu Divisi)</span>
-                        <span class="badge bg-secondary-subtle text-secondary small">Opsional</span>
+                        <span><i class="fas fa-users text-primary me-1"></i> Foto Bersama Unit</span>
+                        <span class="badge bg-secondary-subtle text-secondary small">Sumber Tunggal Foto</span>
                     </div>
-                    <p class="text-muted small mb-3">Foto satu kelompok seluruh anggota divisi bersama-sama yang tampil di sebelah kiri kartu divisi.</p>
+                    <p class="text-muted small mb-3">Foto ini tampil pada lingkaran kartu struktur dan kotak foto halaman detail.</p>
                     
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold small text-dark">Foto Bersama (Putra / Utama)</label>
-                            <input type="file" name="group_photo" id="groupPhotoInput" class="form-control form-control-sm @error('group_photo') is-invalid @enderror" accept="image/png,image/jpeg,image/webp">
-                            <div class="form-text small">Format JPG, PNG, WebP. Maks 5 MB.</div>
+                            <label class="form-label fw-semibold small text-dark">Foto Bersama Unit (Putra / Utama)</label>
+                            <div class="input-group input-group-sm">
+                                <label class="input-group-text bg-white border-end-0 fw-semibold text-primary" for="groupPhotoInput" role="button">
+                                    <i class="fas fa-folder-open me-1"></i> Pilih File
+                                </label>
+                                <input type="file" name="group_photo" id="groupPhotoInput" class="form-control @error('group_photo') is-invalid @enderror" accept="image/png,image/jpeg,image/webp">
+                            </div>
+                            <div class="form-text small">Foto ini tampil pada lingkaran kartu struktur dan kotak foto halaman detail. (JPG, JPEG, PNG, WebP maks 5 MB).</div>
                             <div id="groupPhotoError" class="text-danger small mt-1 d-none"></div>
                             @error('group_photo')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
                             @enderror
                             <div id="groupPhotoPreviewBox" class="mt-2 d-none">
-                                <img id="groupPhotoPreviewImg" src="" alt="Preview Foto Bersama" class="rounded border p-1 w-100" style="max-height: 160px; object-fit: cover;">
-                                <div class="small text-muted mt-1">Pratinjau Foto Bersama</div>
+                                <img id="groupPhotoPreviewImg" src="" alt="Pratinjau Foto Bersama Baru" class="rounded border p-1 w-100" style="max-height: 160px; object-fit: cover;">
+                                <div class="small text-success mt-1"><i class="fas fa-check-circle me-1"></i> Pratinjau foto baru yang dipilih</div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold small text-dark">Foto Bersama (Kelompok Putri - Opsional)</label>
-                            <input type="file" name="group_photo_putri" id="groupPhotoPutriInput" class="form-control form-control-sm @error('group_photo_putri') is-invalid @enderror" accept="image/png,image/jpeg,image/webp">
-                            <div class="form-text small">Khusus tab Putri jika ada foto terpisah. Maks 5 MB.</div>
+                            <label class="form-label fw-semibold small text-dark">Foto Bersama Unit (Khusus Putri - Opsional)</label>
+                            <div class="input-group input-group-sm">
+                                <label class="input-group-text bg-white border-end-0 fw-semibold text-danger" for="groupPhotoPutriInput" role="button">
+                                    <i class="fas fa-folder-open me-1"></i> Pilih File
+                                </label>
+                                <input type="file" name="group_photo_putri" id="groupPhotoPutriInput" class="form-control @error('group_photo_putri') is-invalid @enderror" accept="image/png,image/jpeg,image/webp">
+                            </div>
+                            <div class="form-text small">Foto ini tampil pada lingkaran kartu struktur dan kotak foto halaman detail (khusus kelompok Putri). (Maks 5 MB).</div>
                             <div id="groupPhotoPutriError" class="text-danger small mt-1 d-none"></div>
                             @error('group_photo_putri')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
                             @enderror
                             <div id="groupPhotoPutriPreviewBox" class="mt-2 d-none">
-                                <img id="groupPhotoPutriPreviewImg" src="" alt="Preview Foto Bersama Putri" class="rounded border p-1 w-100" style="max-height: 160px; object-fit: cover;">
-                                <div class="small text-muted mt-1">Pratinjau Foto Bersama Putri</div>
+                                <img id="groupPhotoPutriPreviewImg" src="" alt="Pratinjau Foto Bersama Putri Baru" class="rounded border p-1 w-100" style="max-height: 160px; object-fit: cover;">
+                                <div class="small text-success mt-1"><i class="fas fa-check-circle me-1"></i> Pratinjau foto putri baru yang dipilih</div>
                             </div>
                         </div>
                     </div>

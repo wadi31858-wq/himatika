@@ -949,8 +949,8 @@
                 {{-- Vertical Connector to BPI Putra --}}
                 <div class="tree-connector dashed h-24"></div>
 
-                {{-- LEVEL 2: BPI PUTRA --}}
-                <div class="level-label">BPI PUTRA</div>
+                {{-- LEVEL 2: KETUA UMUM PUTRA --}}
+                <div class="level-label">KETUA UMUM PUTRA</div>
                 <div class="chart-card-center mb-0">
                     <div class="chart-card">
                         <div class="d-flex align-items-start gap-3 mb-2">
@@ -960,8 +960,8 @@
                                 <div class="chart-officer-placeholder"><i class="fas fa-user-tie"></i></div>
                             @endif
                             <div class="flex-grow-1">
-                                <span class="chart-badge">Badan Pengurus Inti</span>
-                                <h4 class="chart-title">{{ $ketuaPutra?->position ?? 'BPI Putra (Ketua Umum)' }}</h4>
+                                <span class="chart-badge">Badan Pengurus Harian</span>
+                                <h4 class="chart-title">{{ $ketuaPutra?->position ?? 'Ketua Umum Putra' }}</h4>
                                 <div class="chart-officer">{{ $ketuaPutra?->name ?? 'Ahmad adi wijaya' }}</div>
                             </div>
                         </div>
@@ -974,225 +974,61 @@
                     </div>
                 </div>
 
-                {{-- Branch Split Bar to Divisi Kominfo & Divisi Keilmuan --}}
-                <div class="tree-connector h-20 d-none d-md-block"></div>
-                <div class="branch-split-bar d-none d-md-block"></div>
-                <div class="tree-connector h-16 d-none d-md-block"></div>
-                <div class="tree-connector h-20 d-md-none"></div>
+                {{-- Connector to Wakil --}}
+                <div class="tree-connector h-24"></div>
 
-                {{-- LEVEL 3 & 4: DUA KOLOM (KOMINFO -> KADERISASI) & (KEILMUAN -> LITBANG) --}}
-                <div class="row g-4 mt-0">
-                    {{-- KOLOM KIRI: KOMINFO & KADERISASI --}}
-                    <div class="col-md-6">
-                        {{-- LEVEL 3 KIRI: DIVISI KOMINFO --}}
-                        <div class="level-label text-center">DIVISI KOMINFO</div>
-                        @php $divKominfo = $divisiPutra['kominfo'] ?? null; @endphp
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if(!empty($divKominfo['leader_photo']))
-                                    <img src="{{ $divKominfo['leader_photo'] }}" alt="{{ $divKominfo['leader_name'] }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-bullhorn"></i></div>
-                                @endif
-                                <div class="flex-grow-1 min-w-0">
-                                    <span class="chart-badge"><i class="fas fa-bullhorn me-1"></i> DIVISI KOMINFO</span>
-                                    <h4 class="chart-title">Divisi Kominfo</h4>
-                                    <div class="chart-officer">{{ $divKominfo['leader_name'] ?? 'Andi Pratama' }}</div>
-                                </div>
-                            </div>
-                            <p class="chart-desc">{{ $divKominfo['description'] ?? 'Mengelola ekosistem media komunikasi digital, produksi konten multimedia kreatif, pengelolaan website resmi dan media sosial, serta pusat informasi terkini HIMATIKA UNUJA.' }}</p>
-                            <div class="chart-card-footer justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('kominfo', this, 'putra')" style="font-size: 0.78rem;">
-                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKominfo['member_count'] ?? 0 }})
-                                </button>
-                                <a href="{{ route('struktur-organisasi.show', 8) }}" class="link-detail">
-                                    Detail &rarr;
-                                </a>
-                            </div>
-                        </div>
-
-                        {{-- Connector ke Divisi Kaderisasi --}}
-                        <div class="tree-connector h-24 my-2"></div>
-
-                        {{-- LEVEL 4 KIRI: DIVISI KADERISASI --}}
-                        <div class="level-label text-center">DIVISI KADERISASI</div>
-                        @php $divKaderisasi = $divisiPutra['kaderisasi'] ?? null; @endphp
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if(!empty($divKaderisasi['leader_photo']))
-                                    <img src="{{ $divKaderisasi['leader_photo'] }}" alt="{{ $divKaderisasi['leader_name'] }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-users-cog"></i></div>
-                                @endif
-                                <div class="flex-grow-1 min-w-0">
-                                    <span class="chart-badge"><i class="fas fa-users-cog me-1"></i> DIVISI KADERISASI</span>
-                                    <h4 class="chart-title">Divisi Kaderisasi</h4>
-                                    <div class="chart-officer">{{ $divKaderisasi['leader_name'] ?? 'Fajar Nugroho' }}</div>
-                                </div>
-                            </div>
-                            <p class="chart-desc">{{ $divKaderisasi['description'] ?? 'Mengawal pembinaan karakter kepemimpinan, proses kaderisasi dan orientasi mahasiswa baru, upgrading kapasitas pengurus, serta penanaman integritas dan loyalitas organisasi.' }}</p>
-                            <div class="chart-card-footer justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('kaderisasi', this, 'putra')" style="font-size: 0.78rem;">
-                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKaderisasi['member_count'] ?? 0 }})
-                                </button>
-                                <a href="{{ route('struktur-organisasi.show', 6) }}" class="link-detail">
-                                    Detail &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- KOLOM KANAN: KEILMUAN & LITBANG --}}
-                    <div class="col-md-6">
-                        {{-- LEVEL 3 KANAN: DIVISI KEILMUAN --}}
-                        <div class="level-label text-center">DIVISI KEILMUAN</div>
-                        @php $divKeilmuan = $divisiPutra['keilmuan'] ?? null; @endphp
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if(!empty($divKeilmuan['leader_photo']))
-                                    <img src="{{ $divKeilmuan['leader_photo'] }}" alt="{{ $divKeilmuan['leader_name'] }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-graduation-cap"></i></div>
-                                @endif
-                                <div class="flex-grow-1 min-w-0">
-                                    <span class="chart-badge"><i class="fas fa-graduation-cap me-1"></i> DIVISI KEILMUAN</span>
-                                    <h4 class="chart-title">Divisi Keilmuan</h4>
-                                    <div class="chart-officer">{{ $divKeilmuan['leader_name'] ?? 'Eko Prasetyo' }}</div>
-                                </div>
-                            </div>
-                            <p class="chart-desc">{{ $divKeilmuan['description'] ?? 'Mengembangkan kapasitas akademik mahasiswa melalui kajian sains matematika murni dan terapan, tutorial sebaya, workshop matematika, serta pembinaan kompetisi olimpiade sains.' }}</p>
-                            <div class="chart-card-footer justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('keilmuan', this, 'putra')" style="font-size: 0.78rem;">
-                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKeilmuan['member_count'] ?? 0 }})
-                                </button>
-                                <a href="{{ route('struktur-organisasi.show', 5) }}" class="link-detail">
-                                    Detail &rarr;
-                                </a>
-                            </div>
-                        </div>
-
-                        {{-- Connector ke Divisi Litbang --}}
-                        <div class="tree-connector h-24 my-2"></div>
-
-                        {{-- LEVEL 4 KANAN: DIVISI LITBANG --}}
-                        <div class="level-label text-center">DIVISI LITBANG</div>
-                        @php $divLitbang = $divisiPutra['litbang'] ?? null; @endphp
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if(!empty($divLitbang['leader_photo']))
-                                    <img src="{{ $divLitbang['leader_photo'] }}" alt="{{ $divLitbang['leader_name'] }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-flask"></i></div>
-                                @endif
-                                <div class="flex-grow-1 min-w-0">
-                                    <span class="chart-badge"><i class="fas fa-flask me-1"></i> DIVISI LITBANG</span>
-                                    <h4 class="chart-title">Divisi Litbang</h4>
-                                    <div class="chart-officer">{{ $divLitbang['leader_name'] ?? 'Bayu Wicaksono' }}</div>
-                                </div>
-                            </div>
-                            <p class="chart-desc">{{ $divLitbang['description'] ?? 'Melaksanakan riset organisasi, survei aspirasi mahasiswa, pemantauan dan evaluasi mutu program kerja berkala, serta merumuskan inovasi strategis pengembangan HIMATIKA.' }}</p>
-                            <div class="chart-card-footer justify-content-between align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('litbang', this, 'putra')" style="font-size: 0.78rem;">
-                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divLitbang['member_count'] ?? 0 }})
-                                </button>
-                                <a href="{{ route('struktur-organisasi.show', 9) }}" class="link-detail">
-                                    Detail &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Connector Converge menuju Divisi Publik --}}
-                <div class="branch-converge-wrapper d-none d-md-block">
-                    <div class="branch-converge-bar"></div>
-                    <div class="branch-converge-drop"></div>
-                </div>
-                <div class="tree-connector h-20 d-md-none"></div>
-
-                {{-- LEVEL 5: DIVISI PUBLIK (PUBLIK RELASI) --}}
-                <div class="level-label text-center">DIVISI PUBLIK</div>
-                @php $divPublik = $divisiPutra['publik_relasi'] ?? null; @endphp
+                {{-- LEVEL 3: WAKIL KETUA UMUM PUTRA --}}
+                <div class="level-label">WAKIL KETUA UMUM PUTRA</div>
                 <div class="chart-card-center mb-0">
                     <div class="chart-card">
                         <div class="d-flex align-items-start gap-3 mb-2">
-                            @if(!empty($divPublik['leader_photo']))
-                                <img src="{{ $divPublik['leader_photo'] }}" alt="{{ $divPublik['leader_name'] }}" class="chart-officer-photo">
+                            @if($wakilPutra?->photo)
+                                <img src="{{ asset('storage/' . $wakilPutra->photo) }}" alt="{{ $wakilPutra->name }}" class="chart-officer-photo">
                             @else
-                                <div class="chart-officer-placeholder"><i class="fas fa-handshake"></i></div>
+                                <div class="chart-officer-placeholder"><i class="fas fa-user"></i></div>
                             @endif
-                            <div class="flex-grow-1 min-w-0">
-                                <span class="chart-badge"><i class="fas fa-handshake me-1"></i> DIVISI PUBLIK</span>
-                                <h4 class="chart-title">Divisi Publik (Publik Relasi)</h4>
-                                <div class="chart-officer">{{ $divPublik['leader_name'] ?? 'Farel Pratama' }}</div>
+                            <div class="flex-grow-1">
+                                <span class="chart-badge">Badan Pengurus Harian</span>
+                                <h4 class="chart-title">{{ $wakilPutra?->position ?? 'Wakil Ketua Umum Putra' }}</h4>
+                                <div class="chart-officer">{{ $wakilPutra?->name ?? 'M. Rizky' }}</div>
                             </div>
                         </div>
-                        <p class="chart-desc">{{ $divPublik['description'] ?? 'Membangun jejaring kolaborasi dan kemitraan eksternal kampus, menjalin hubungan erat dengan alumni, menyelenggarakan program bakti sosial, serta menjaga reputasi publik himpunan.' }}</p>
-                        <div class="chart-card-footer justify-content-between align-items-center">
-                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('publik_relasi', this, 'putra')" style="font-size: 0.78rem;">
-                                <i class="fas fa-users me-1"></i> Anggota ({{ $divPublik['member_count'] ?? 0 }})
-                            </button>
-                            <a href="{{ route('struktur-organisasi.show', 7) }}" class="link-detail">
-                                Detail &rarr;
+                        <p class="chart-desc">{{ $wakilPutra?->description ?? 'Mendampingi Ketua Umum Putra dalam memimpin roda kepengurusan serta koordinasi lintas bidang kepengurusan putra.' }}</p>
+                        <div class="chart-card-footer">
+                            <a href="{{ route('struktur-organisasi.show', $wakilPutra?->id ?? 13) }}" class="link-detail">
+                                Lihat Detail &rarr;
                             </a>
                         </div>
                     </div>
                 </div>
 
-                {{-- PENGURUS HARIAN PENDUKUNG (BPH PUTRA) --}}
-                <div class="tree-connector dashed h-24 mt-5"></div>
-                <div class="text-center mb-3">
-                    <span class="hero-label">BADAN PENGURUS HARIAN PENDUKUNG</span>
-                    <h3 class="fw-bold mt-2" style="font-size: 1.35rem; color: var(--text-dark);">BPH Pendukung (Putra)</h3>
-                    <p class="text-secondary small mb-0">Unsur pimpinan harian pendukung operasional, kesekretariatan, dan kebendaharaan organisasi putra.</p>
-                </div>
+                {{-- Connector down to split Sekretaris & Bendahara --}}
+                <div class="tree-connector h-20 d-none d-md-block"></div>
+                <div class="branch-split-bar d-none d-md-block"></div>
+                <div class="tree-connector h-16 d-none d-md-block"></div>
+                <div class="tree-connector h-20 d-md-none"></div>
 
-                <div class="row g-4 mt-1 justify-content-center">
-                    {{-- Wakil Ketua Putra --}}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="chart-card h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex align-items-start gap-3 mb-2">
-                                    @if($wakilPutra?->photo)
-                                        <img src="{{ asset('storage/' . $wakilPutra->photo) }}" alt="{{ $wakilPutra->name }}" class="chart-officer-photo">
-                                    @else
-                                        <div class="chart-officer-placeholder"><i class="fas fa-user-tie"></i></div>
-                                    @endif
-                                    <div class="flex-grow-1">
-                                        <span class="chart-badge">Badan Pengurus Harian</span>
-                                        <h4 class="chart-title">{{ $wakilPutra?->position ?? 'Wakil Ketua Umum Putra' }}</h4>
-                                        <div class="chart-officer">{{ $wakilPutra?->name ?? 'M. Ilham Wahyudi' }}</div>
-                                    </div>
-                                </div>
-                                <p class="chart-desc">{{ $wakilPutra?->description ?? 'Membantu Ketua Umum Putra dalam mengoordinasikan program kerja, memimpin koordinasi internal divisi kepengurusan, serta mewakili Ketua Umum jika berhalangan.' }}</p>
-                            </div>
-                            <div class="chart-card-footer">
-                                <a href="{{ route('struktur-organisasi.show', $wakilPutra?->id ?? 13) }}" class="link-detail">
-                                    Lihat Detail &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Sekretaris Putra --}}
-                    <div class="col-lg-4 col-md-6">
+                {{-- LEVEL 3 SUB: SEKRETARIS & BENDAHARA PUTRA (SEJAJAR DUA KOLOM) --}}
+                <div class="row g-3 justify-content-center">
+                    {{-- Sekretaris Putra (Kiri) --}}
+                    <div class="col-md-6 col-12">
                         <div class="chart-card h-100 d-flex flex-column justify-content-between">
                             <div>
                                 <div class="d-flex align-items-start gap-3 mb-2">
                                     @if($sekretarisPutra?->photo)
                                         <img src="{{ asset('storage/' . $sekretarisPutra->photo) }}" alt="{{ $sekretarisPutra->name }}" class="chart-officer-photo">
                                     @else
-                                        <div class="chart-officer-placeholder"><i class="fas fa-user"></i></div>
+                                        <div class="chart-officer-placeholder"><i class="fas fa-user-edit"></i></div>
                                     @endif
                                     <div class="flex-grow-1">
                                         <span class="chart-badge">Badan Pengurus Harian</span>
                                         <h4 class="chart-title">{{ $sekretarisPutra?->position ?? 'Sekretaris Putra' }}</h4>
-                                        <div class="chart-officer">{{ $sekretarisPutra?->name ?? 'Nur Hasan' }}</div>
+                                        <div class="chart-officer">{{ $sekretarisPutra?->name ?? 'Deni Saputra' }}</div>
                                     </div>
                                 </div>
                                 <p class="chart-desc">{{ $sekretarisPutra?->description ?? 'Mengoordinasikan tata kelola kesekretariatan, administrasi persuratan, notulensi rapat, dan tertib arsip digital kepengurusan HIMATIKA UNUJA Putra.' }}</p>
                             </div>
-                            <div class="chart-card-footer">
+                            <div class="chart-card-footer mt-auto">
                                 <a href="{{ route('struktur-organisasi.show', $sekretarisPutra?->id ?? 3) }}" class="link-detail">
                                     Lihat Detail &rarr;
                                 </a>
@@ -1200,8 +1036,8 @@
                         </div>
                     </div>
 
-                    {{-- Bendahara Putra --}}
-                    <div class="col-lg-4 col-md-6">
+                    {{-- Bendahara Putra (Kanan) --}}
+                    <div class="col-md-6 col-12">
                         <div class="chart-card h-100 d-flex flex-column justify-content-between">
                             <div>
                                 <div class="d-flex align-items-start gap-3 mb-2">
@@ -1218,11 +1054,201 @@
                                 </div>
                                 <p class="chart-desc">{{ $bendaharaPutra?->description ?? 'Mengoordinasikan kebendaharaan, pencatatan transaksi kas masuk dan keluar, serta penyusunan anggaran dan laporan keuangan HIMATIKA UNUJA Putra.' }}</p>
                             </div>
-                            <div class="chart-card-footer">
+                            <div class="chart-card-footer mt-auto">
                                 <a href="{{ route('struktur-organisasi.show', $bendaharaPutra?->id ?? 11) }}" class="link-detail">
                                     Lihat Detail &rarr;
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Connector down to 5 Divisi --}}
+                <div class="tree-connector h-30 mt-4 d-none d-md-block"></div>
+                <div class="tree-connector h-20 mt-3 d-md-none"></div>
+
+                <div class="text-center my-3">
+                    <span class="chart-badge" style="font-size: 0.8rem; padding: 6px 16px;"><i class="fas fa-sitemap me-1"></i> DIVISI HIMATIKA PUTRA</span>
+                    <h3 class="fw-bold mt-2 mb-1" style="font-size: 1.45rem; color: var(--text-dark);">Lima Divisi Penggerak HIMATIKA (Putra)</h3>
+                    <p class="text-secondary small mb-0">unit kerja strategis penggerak keilmuan, kaderisasi, relasi, riset organisasi, dan publikasi informasi kepengurusan Putra</p>
+                </div>
+
+                {{-- Branch Split Bar to Divisi Kominfo & Divisi Keilmuan --}}
+                <div class="tree-connector h-20 d-none d-md-block"></div>
+                <div class="branch-split-bar d-none d-md-block"></div>
+                <div class="tree-connector h-16 d-none d-md-block"></div>
+                <div class="tree-connector h-20 d-md-none"></div>
+
+                {{-- LEVEL 3 & 4: DUA CABANG (KIRI: KOMINFO -> KADERISASI, KANAN: KEILMUAN -> LITBANG) --}}
+                <div class="row g-4 mt-0">
+                    {{-- KOLOM KIRI: KOMINFO & KADERISASI --}}
+                    <div class="col-md-6">
+                        {{-- LEVEL 3 KIRI: DIVISI KOMINFO --}}
+                        <div class="level-label text-center">DIVISI KOMINFO</div>
+                        @php
+                            $divKominfo = $divisiPutra['kominfo'] ?? null;
+                            $kominfoPhoto = !empty($divKominfo['group_photo']) ? $divKominfo['group_photo'] : (!empty($divKominfo['leader_photo']) ? $divKominfo['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($kominfoPhoto)
+                                    <img src="{{ $kominfoPhoto }}" alt="{{ $divKominfo['leader_name'] ?? 'Kominfo' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-bullhorn"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-bullhorn me-1"></i> DIVISI KOMINFO</span>
+                                    <h4 class="chart-title">Divisi Kominfo</h4>
+                                    <div class="chart-officer">{{ $divKominfo['leader_name'] ?? 'Andi Pratama' }}</div>
+                                </div>
+                            </div>
+                            <p class="chart-desc">{{ $divKominfo['description'] ?? 'Mengelola ekosistem media komunikasi digital, produksi konten multimedia kreatif, pengelolaan website resmi dan media sosial, serta pusat informasi terkini HIMATIKA UNUJA.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('kominfo', this, 'putra')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKominfo['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 8) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Connector ke Divisi Kaderisasi --}}
+                        <div class="tree-connector h-24 my-2"></div>
+
+                        {{-- LEVEL 4 KIRI: DIVISI KADERISASI --}}
+                        <div class="level-label text-center">DIVISI KADERISASI</div>
+                        @php
+                            $divKaderisasi = $divisiPutra['kaderisasi'] ?? null;
+                            $kaderisasiPhoto = !empty($divKaderisasi['group_photo']) ? $divKaderisasi['group_photo'] : (!empty($divKaderisasi['leader_photo']) ? $divKaderisasi['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($kaderisasiPhoto)
+                                    <img src="{{ $kaderisasiPhoto }}" alt="{{ $divKaderisasi['leader_name'] ?? 'Kaderisasi' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-users-cog"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-users-cog me-1"></i> DIVISI KADERISASI</span>
+                                    <h4 class="chart-title">Divisi Kaderisasi</h4>
+                                    <div class="chart-officer">{{ $divKaderisasi['leader_name'] ?? 'Fajar Nugroho' }}</div>
+                                </div>
+                            </div>
+                            <p class="chart-desc">{{ $divKaderisasi['description'] ?? 'Mengawal pembinaan karakter kepemimpinan, proses kaderisasi dan orientasi mahasiswa baru, upgrading kapasitas pengurus, serta penanaman integritas dan loyalitas organisasi.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('kaderisasi', this, 'putra')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKaderisasi['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 6) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- KOLOM KANAN: KEILMUAN & LITBANG --}}
+                    <div class="col-md-6">
+                        {{-- LEVEL 3 KANAN: DIVISI KEILMUAN --}}
+                        <div class="level-label text-center">DIVISI KEILMUAN</div>
+                        @php
+                            $divKeilmuan = $divisiPutra['keilmuan'] ?? null;
+                            $keilmuanPhoto = !empty($divKeilmuan['group_photo']) ? $divKeilmuan['group_photo'] : (!empty($divKeilmuan['leader_photo']) ? $divKeilmuan['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($keilmuanPhoto)
+                                    <img src="{{ $keilmuanPhoto }}" alt="{{ $divKeilmuan['leader_name'] ?? 'Keilmuan' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-graduation-cap"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-graduation-cap me-1"></i> DIVISI KEILMUAN</span>
+                                    <h4 class="chart-title">Divisi Keilmuan</h4>
+                                    <div class="chart-officer">{{ $divKeilmuan['leader_name'] ?? 'Eko Prasetyo' }}</div>
+                                </div>
+                            </div>
+                            <p class="chart-desc">{{ $divKeilmuan['description'] ?? 'Mengembangkan kapasitas akademik mahasiswa melalui kajian sains matematika murni dan terapan, tutorial sebaya, workshop matematika, serta pembinaan kompetisi olimpiade sains.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('keilmuan', this, 'putra')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKeilmuan['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 5) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Connector ke Divisi Litbang --}}
+                        <div class="tree-connector h-24 my-2"></div>
+
+                        {{-- LEVEL 4 KANAN: DIVISI LITBANG --}}
+                        <div class="level-label text-center">DIVISI LITBANG</div>
+                        @php
+                            $divLitbang = $divisiPutra['litbang'] ?? null;
+                            $litbangPhoto = !empty($divLitbang['group_photo']) ? $divLitbang['group_photo'] : (!empty($divLitbang['leader_photo']) ? $divLitbang['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($litbangPhoto)
+                                    <img src="{{ $litbangPhoto }}" alt="{{ $divLitbang['leader_name'] ?? 'Litbang' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-flask"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-flask me-1"></i> DIVISI LITBANG</span>
+                                    <h4 class="chart-title">Divisi Litbang</h4>
+                                    <div class="chart-officer">{{ $divLitbang['leader_name'] ?? 'Bayu Wicaksono' }}</div>
+                                </div>
+                            </div>
+                            <p class="chart-desc">{{ $divLitbang['description'] ?? 'Melaksanakan riset organisasi, survei aspirasi mahasiswa, pemantauan dan evaluasi mutu program kerja berkala, serta merumuskan inovasi strategis pengembangan HIMATIKA.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('litbang', this, 'putra')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divLitbang['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 9) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Connector Converge menuju Divisi Publik Relasi (Pertemukan kedua cabang garis) --}}
+                <div class="branch-converge-wrapper d-none d-md-block">
+                    <div class="branch-converge-bar"></div>
+                    <div class="branch-converge-drop"></div>
+                </div>
+                <div class="tree-connector h-20 d-md-none"></div>
+
+                {{-- LEVEL 5: SATU KARTU PUBLIK RELASI DI TENGAH PALING BAWAH --}}
+                <div class="level-label text-center">DIVISI PUBLIK RELASI</div>
+                @php
+                    $divPublik = $divisiPutra['publik_relasi'] ?? null;
+                    $publikPhoto = !empty($divPublik['group_photo']) ? $divPublik['group_photo'] : (!empty($divPublik['leader_photo']) ? $divPublik['leader_photo'] : null);
+                @endphp
+                <div class="chart-card-center mb-0">
+                    <div class="chart-card">
+                        <div class="d-flex align-items-start gap-3 mb-2">
+                            @if($publikPhoto)
+                                <img src="{{ $publikPhoto }}" alt="{{ $divPublik['leader_name'] ?? 'Publik Relasi' }}" class="chart-officer-photo">
+                            @else
+                                <div class="chart-officer-placeholder"><i class="fas fa-handshake"></i></div>
+                            @endif
+                            <div class="flex-grow-1 min-w-0">
+                                <span class="chart-badge"><i class="fas fa-handshake me-1"></i> DIVISI PUBLIK RELASI</span>
+                                <h4 class="chart-title">Divisi Publik Relasi</h4>
+                                <div class="chart-officer">{{ $divPublik['leader_name'] ?? 'Farel Pratama' }}</div>
+                            </div>
+                        </div>
+                        <p class="chart-desc">{{ $divPublik['description'] ?? 'Membangun jejaring kolaborasi dan kemitraan eksternal kampus, menjalin hubungan erat dengan alumni, menyelenggarakan program bakti sosial, serta menjaga reputasi publik himpunan.' }}</p>
+                        <div class="chart-card-footer justify-content-between align-items-center">
+                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('publik_relasi', this, 'putra')" style="font-size: 0.78rem;">
+                                <i class="fas fa-users me-1"></i> Anggota ({{ $divPublik['member_count'] ?? 0 }})
+                            </button>
+                            <a href="{{ route('struktur-organisasi.show', 7) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1232,8 +1258,8 @@
             {{-- ==================== PANEL STRUKTUR PUTRI ==================== --}}
             <div id="panelStrukturPutri" class="panel-fade" style="display: none;" role="tabpanel" aria-labelledby="tabBtnPutri">
 
-                {{-- LEVEL 1: BADAN PENGAWAS / KAPRODI (PUTRI) --}}
-                <div class="level-label">BADAN PENGAWAS / KETUA PROGRAM STUDI</div>
+                {{-- LEVEL 1: BADAN PENGAWAS / KETUA PROGRAM STUDI --}}
+                <div class="level-label">KETUA PROGRAM STUDI</div>
                 <div class="chart-card-center mb-0">
                     <div class="chart-card gold-top">
                         <div class="d-flex align-items-start gap-3 mb-2">
@@ -1244,11 +1270,11 @@
                             @endif
                             <div class="flex-grow-1">
                                 <span class="chart-badge">Pembina / Kaprodi</span>
-                                <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi Matematika' }}</h3>
+                                <h3 class="chart-title">{{ $kaprodi?->position ?? 'Ketua Program Studi' }}</h3>
                                 <div class="chart-officer">{{ $kaprodi?->name ?? 'Mudakkir, S.Pd., MM.' }}</div>
                             </div>
                         </div>
-                        <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi Matematika UNUJA.' }}</p>
+                        <p class="chart-desc">{{ $kaprodi?->description ?? 'Memberikan bimbingan, arahan, dan pembinaan dalam pelaksanaan kegiatan akademik serta pengembangan organisasi kemahasiswaan Program Studi HIMATIKA UNUJA.' }}</p>
                         <div class="chart-card-footer">
                             <a href="{{ route('struktur-organisasi.show', $kaprodi?->id ?? 12) }}" class="link-detail">
                                 Lihat Detail &rarr;
@@ -1257,7 +1283,7 @@
                     </div>
                 </div>
 
-                {{-- Vertical Connector to Ketua Umum Putri --}}
+                {{-- Vertical Connector to BPI Putri --}}
                 <div class="tree-connector dashed h-24"></div>
 
                 {{-- LEVEL 2: KETUA UMUM PUTRI --}}
@@ -1276,7 +1302,7 @@
                                 <div class="chart-officer">{{ $ketuaPutri?->name ?? 'Nadiratul Laili' }}</div>
                             </div>
                         </div>
-                        <p class="chart-desc">{{ $ketuaPutri?->description ?? 'Memimpin dan mengoordinasikan seluruh jajaran kepengurusan HIMATIKA UNUJA Putri, memperkuat sinergi dan keharmonisan kepengurusan putri, serta mewakili himpunan.' }}</p>
+                        <p class="chart-desc">{{ $ketuaPutri?->description ?? 'Memimpin dan mengoordinasikan seluruh jajaran kepengurusan HIMATIKA UNUJA Putri serta bertanggung jawab penuh atas arah gerak organisasi kemahasiswaan putri.' }}</p>
                         <div class="chart-card-footer">
                             <a href="{{ route('struktur-organisasi.show', $ketuaPutri?->id ?? 2) }}" class="link-detail">
                                 Lihat Detail &rarr;
@@ -1285,8 +1311,10 @@
                     </div>
                 </div>
 
-                {{-- WAKIL KETUA UMUM PUTRI --}}
-                <div class="tree-connector h-20"></div>
+                {{-- Connector to Wakil --}}
+                <div class="tree-connector h-24"></div>
+
+                {{-- LEVEL 3: WAKIL KETUA UMUM PUTRI --}}
                 <div class="level-label">WAKIL KETUA UMUM PUTRI</div>
                 <div class="chart-card-center mb-0">
                     <div class="chart-card">
@@ -1302,7 +1330,7 @@
                                 <div class="chart-officer">{{ $wakilPutri?->name ?? 'Siti Nurhaliza' }}</div>
                             </div>
                         </div>
-                        <p class="chart-desc">{{ $wakilPutri?->description ?? 'Membantu Ketua Umum Putri dalam memimpin roda kepengurusan putri, mengoordinasikan seluruh bidang kerja keputrian, serta mewakili Ketua Umum jika berhalangan.' }}</p>
+                        <p class="chart-desc">{{ $wakilPutri?->description ?? 'Mendampingi Ketua Umum Putri dalam memimpin roda kepengurusan serta koordinasi lintas bidang kepengurusan putri.' }}</p>
                         <div class="chart-card-footer">
                             <a href="{{ route('struktur-organisasi.show', $wakilPutri?->id ?? 14) }}" class="link-detail">
                                 Lihat Detail &rarr;
@@ -1311,30 +1339,33 @@
                     </div>
                 </div>
 
-                {{-- Branch Split Bar to Sekretaris & Bendahara Putri --}}
+                {{-- Connector down to split Sekretaris & Bendahara --}}
                 <div class="tree-connector h-20 d-none d-md-block"></div>
                 <div class="branch-split-bar d-none d-md-block"></div>
                 <div class="tree-connector h-16 d-none d-md-block"></div>
+                <div class="tree-connector h-20 d-md-none"></div>
 
-                {{-- LEVEL 3: SEKRETARIS & BENDAHARA PUTRI --}}
-                <div class="row g-4 mt-0">
-                    {{-- Sekretaris Putri --}}
-                    <div class="col-md-6">
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if($sekretarisPutri?->photo)
-                                    <img src="{{ asset('storage/' . $sekretarisPutri->photo) }}" alt="{{ $sekretarisPutri->name }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-user"></i></div>
-                                @endif
-                                <div class="flex-grow-1">
-                                    <span class="chart-badge">Badan Pengurus Harian</span>
-                                    <h4 class="chart-title">{{ $sekretarisPutri?->position ?? 'Sekretaris Putri' }}</h4>
-                                    <div class="chart-officer">{{ $sekretarisPutri?->name ?? 'Nurul Aini' }}</div>
+                {{-- LEVEL 3 SUB: SEKRETARIS & BENDAHARA PUTRI (SEJAJAR DUA KOLOM) --}}
+                <div class="row g-3 justify-content-center">
+                    {{-- Sekretaris Putri (Kiri) --}}
+                    <div class="col-md-6 col-12">
+                        <div class="chart-card h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex align-items-start gap-3 mb-2">
+                                    @if($sekretarisPutri?->photo)
+                                        <img src="{{ asset('storage/' . $sekretarisPutri->photo) }}" alt="{{ $sekretarisPutri->name }}" class="chart-officer-photo">
+                                    @else
+                                        <div class="chart-officer-placeholder"><i class="fas fa-user-edit"></i></div>
+                                    @endif
+                                    <div class="flex-grow-1">
+                                        <span class="chart-badge">Badan Pengurus Harian</span>
+                                        <h4 class="chart-title">{{ $sekretarisPutri?->position ?? 'Sekretaris Putri' }}</h4>
+                                        <div class="chart-officer">{{ $sekretarisPutri?->name ?? 'Fafi Rahmatullah' }}</div>
+                                    </div>
                                 </div>
+                                <p class="chart-desc">{{ $sekretarisPutri?->description ?? 'Mengoordinasikan tata kelola kesekretariatan, administrasi persuratan, notulensi rapat, dan tertib arsip digital kepengurusan HIMATIKA UNUJA Putri.' }}</p>
                             </div>
-                            <p class="chart-desc">{{ $sekretarisPutri?->description ?? 'Mengoordinasikan administrasi, pengarsipan berkas kegiatan, dan dokumentasi musyawarah kepengurusan HIMATIKA UNUJA Putri secara rapi dan akurat.' }}</p>
-                            <div class="chart-card-footer">
+                            <div class="chart-card-footer mt-auto">
                                 <a href="{{ route('struktur-organisasi.show', $sekretarisPutri?->id ?? 10) }}" class="link-detail">
                                     Lihat Detail &rarr;
                                 </a>
@@ -1342,23 +1373,25 @@
                         </div>
                     </div>
 
-                    {{-- Bendahara Putri --}}
-                    <div class="col-md-6">
-                        <div class="chart-card">
-                            <div class="d-flex align-items-start gap-3 mb-2">
-                                @if($bendaharaPutri?->photo)
-                                    <img src="{{ asset('storage/' . $bendaharaPutri->photo) }}" alt="{{ $bendaharaPutri->name }}" class="chart-officer-photo">
-                                @else
-                                    <div class="chart-officer-placeholder"><i class="fas fa-user"></i></div>
-                                @endif
-                                <div class="flex-grow-1">
-                                    <span class="chart-badge">Badan Pengurus Harian</span>
-                                    <h4 class="chart-title">{{ $bendaharaPutri?->position ?? 'Bendahara Putri' }}</h4>
-                                    <div class="chart-officer">{{ $bendaharaPutri?->name ?? 'Dewi Lestari' }}</div>
+                    {{-- Bendahara Putri (Kanan) --}}
+                    <div class="col-md-6 col-12">
+                        <div class="chart-card h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex align-items-start gap-3 mb-2">
+                                    @if($bendaharaPutri?->photo)
+                                        <img src="{{ asset('storage/' . $bendaharaPutri->photo) }}" alt="{{ $bendaharaPutri->name }}" class="chart-officer-photo">
+                                    @else
+                                        <div class="chart-officer-placeholder"><i class="fas fa-user-circle"></i></div>
+                                    @endif
+                                    <div class="flex-grow-1">
+                                        <span class="chart-badge">Badan Pengurus Harian</span>
+                                        <h4 class="chart-title">{{ $bendaharaPutri?->position ?? 'Bendahara Putri' }}</h4>
+                                        <div class="chart-officer">{{ $bendaharaPutri?->name ?? 'Novela Putri Fadilah' }}</div>
+                                    </div>
                                 </div>
+                                <p class="chart-desc">{{ $bendaharaPutri?->description ?? 'Mengoordinasikan kebendaharaan, pencatatan transaksi kas masuk dan keluar, serta penyusunan anggaran dan laporan keuangan HIMATIKA UNUJA Putri.' }}</p>
                             </div>
-                            <p class="chart-desc">{{ $bendaharaPutri?->description ?? 'Mengoordinasikan pengelolaan kas dan kebendaharaan putri, memvalidasi anggaran program kerja, serta menyajikan laporan keuangan secara transparan.' }}</p>
-                            <div class="chart-card-footer">
+                            <div class="chart-card-footer mt-auto">
                                 <a href="{{ route('struktur-organisasi.show', $bendaharaPutri?->id ?? 4) }}" class="link-detail">
                                     Lihat Detail &rarr;
                                 </a>
@@ -1367,54 +1400,193 @@
                     </div>
                 </div>
 
-                {{-- Connector to Divisi Putri --}}
-                <div class="tree-connector h-30 mt-3"></div>
+                {{-- Connector down to 5 Divisi --}}
+                <div class="tree-connector h-30 mt-4 d-none d-md-block"></div>
+                <div class="tree-connector h-20 mt-3 d-md-none"></div>
 
-                {{-- LEVEL 4: 5 DIVISI PENGGERAK HIMATIKA PUTRI --}}
-                <div class="divisi-section-wrap mt-0">
-                    <div class="text-center mb-2">
-                        <span class="hero-label">DIVISI HIMATIKA PUTRI</span>
-                        <h2 class="fw-bold mt-2" style="font-size: 1.55rem; color: var(--text-dark);">Lima Divisi Penggerak HIMATIKA (Putri)</h2>
-                        <p class="text-secondary small mb-0">Unit kerja strategis penggerak keilmuan, kaderisasi, relasi, riset organisasi, dan publikasi informasi kepengurusan Putri.</p>
-                    </div>
+                <div class="text-center my-3">
+                    <span class="chart-badge" style="font-size: 0.8rem; padding: 6px 16px;"><i class="fas fa-sitemap me-1"></i> DIVISI HIMATIKA PUTRI</span>
+                    <h3 class="fw-bold mt-2 mb-1" style="font-size: 1.45rem; color: var(--text-dark);">Lima Divisi Penggerak HIMATIKA (Putri)</h3>
+                    <p class="text-secondary small mb-0">unit kerja strategis penggerak keilmuan, kaderisasi, relasi, riset organisasi, dan publikasi informasi kepengurusan Putri</p>
+                </div>
 
-                    <div class="divisi-grid">
-                        @foreach($divisiPutri as $divKey => $div)
-                            <div class="divisi-card" onclick="openDivisiModal('{{ $divKey }}', this, 'putri')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openDivisiModal('{{ $divKey }}', this, 'putri');}">
-                                <div class="divisi-photo-box">
-                                    @if(!empty($div['group_photo']))
-                                        <img src="{{ $div['group_photo'] }}" alt="{{ $div['clean_name'] }}" class="divisi-group-photo" loading="lazy">
-                                    @else
-                                        <div class="divisi-photo-placeholder">
-                                            <div class="divisi-placeholder-icon">
-                                                <i class="{{ $div['icon'] }}"></i>
-                                            </div>
-                                            <span class="divisi-placeholder-tag">Foto Bersama</span>
-                                        </div>
-                                    @endif
-                                </div>
+                {{-- Branch Split Bar to Divisi Kominfo & Divisi Keilmuan --}}
+                <div class="tree-connector h-20 d-none d-md-block"></div>
+                <div class="branch-split-bar d-none d-md-block"></div>
+                <div class="tree-connector h-16 d-none d-md-block"></div>
+                <div class="tree-connector h-20 d-md-none"></div>
 
-                                <div class="divisi-info-box">
-                                    <div>
-                                        <div class="divisi-top-meta">
-                                            <span class="divisi-badge-tag"><i class="{{ $div['icon'] }}"></i> DIVISI</span>
-                                        </div>
-                                        <h3 class="divisi-card-title">{{ $div['name'] }}</h3>
-                                        <p class="divisi-card-desc">{{ $div['description'] }}</p>
-                                    </div>
-
-                                    <div class="divisi-card-bottom">
-                                        <div class="divisi-members-count">
-                                            <i class="fas fa-users"></i>
-                                            <span><strong>{{ $div['member_count'] }}</strong> Anggota</span>
-                                        </div>
-                                        <div class="divisi-arrow-btn" title="Buka Detail {{ $div['clean_name'] }}">
-                                            <i class="fas fa-arrow-right"></i>
-                                        </div>
-                                    </div>
+                {{-- LEVEL 3 & 4: DUA CABANG (KIRI: KOMINFO -> KADERISASI, KANAN: KEILMUAN -> LITBANG) --}}
+                <div class="row g-4 mt-0">
+                    {{-- KOLOM KIRI: KOMINFO & KADERISASI --}}
+                    <div class="col-md-6">
+                        {{-- LEVEL 3 KIRI: DIVISI KOMINFO --}}
+                        <div class="level-label text-center">DIVISI KOMINFO</div>
+                        @php
+                            $divKominfoPutri = $divisiPutri['kominfo'] ?? null;
+                            $kominfoPutriPhoto = !empty($divKominfoPutri['group_photo']) ? $divKominfoPutri['group_photo'] : (!empty($divKominfoPutri['leader_photo']) ? $divKominfoPutri['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($kominfoPutriPhoto)
+                                    <img src="{{ $kominfoPutriPhoto }}" alt="{{ $divKominfoPutri['leader_name'] ?? 'Kominfo' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-bullhorn"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-bullhorn me-1"></i> DIVISI KOMINFO</span>
+                                    <h4 class="chart-title">Divisi Kominfo</h4>
+                                    <div class="chart-officer">{{ $divKominfoPutri['leader_name'] ?? 'Belum Ditentukan' }}</div>
                                 </div>
                             </div>
-                        @endforeach
+                            <p class="chart-desc">{{ $divKominfoPutri['description'] ?? 'Mengelola ekosistem media komunikasi digital, produksi konten multimedia kreatif, pengelolaan website resmi dan media sosial, serta pusat informasi terkini HIMATIKA UNUJA.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('kominfo', this, 'putri')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKominfoPutri['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 8) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Connector ke Divisi Kaderisasi --}}
+                        <div class="tree-connector h-24 my-2"></div>
+
+                        {{-- LEVEL 4 KIRI: DIVISI KADERISASI --}}
+                        <div class="level-label text-center">DIVISI KADERISASI</div>
+                        @php
+                            $divKaderisasiPutri = $divisiPutri['kaderisasi'] ?? null;
+                            $kaderisasiPutriPhoto = !empty($divKaderisasiPutri['group_photo']) ? $divKaderisasiPutri['group_photo'] : (!empty($divKaderisasiPutri['leader_photo']) ? $divKaderisasiPutri['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($kaderisasiPutriPhoto)
+                                    <img src="{{ $kaderisasiPutriPhoto }}" alt="{{ $divKaderisasiPutri['leader_name'] ?? 'Kaderisasi' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-users-cog"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-users-cog me-1"></i> DIVISI KADERISASI</span>
+                                    <h4 class="chart-title">Divisi Kaderisasi</h4>
+                                    <div class="chart-officer">{{ $divKaderisasiPutri['leader_name'] ?? 'najwa karimah' }}</div>
+                                </div>
+                            </div>
+                            <p class="chart-desc">{{ $divKaderisasiPutri['description'] ?? 'Mengawal pembinaan karakter kepemimpinan, proses kaderisasi dan orientasi mahasiswa baru, upgrading kapasitas pengurus, serta penanaman integritas dan loyalitas organisasi.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('kaderisasi', this, 'putri')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKaderisasiPutri['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 6) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- KOLOM KANAN: KEILMUAN & LITBANG --}}
+                    <div class="col-md-6">
+                        {{-- LEVEL 3 KANAN: DIVISI KEILMUAN --}}
+                        <div class="level-label text-center">DIVISI KEILMUAN</div>
+                        @php
+                            $divKeilmuanPutri = $divisiPutri['keilmuan'] ?? null;
+                            $keilmuanPutriPhoto = !empty($divKeilmuanPutri['group_photo']) ? $divKeilmuanPutri['group_photo'] : (!empty($divKeilmuanPutri['leader_photo']) ? $divKeilmuanPutri['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($keilmuanPutriPhoto)
+                                    <img src="{{ $keilmuanPutriPhoto }}" alt="{{ $divKeilmuanPutri['leader_name'] ?? 'Keilmuan' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-graduation-cap"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-graduation-cap me-1"></i> DIVISI KEILMUAN</span>
+                                    <h4 class="chart-title">Divisi Keilmuan</h4>
+                                    <div class="chart-officer">{{ $divKeilmuanPutri['leader_name'] ?? 'Rina Sari' }}</div>
+                                </div>
+                            </div>
+                            <p class="chart-desc">{{ $divKeilmuanPutri['description'] ?? 'Mengembangkan kapasitas akademik mahasiswa melalui kajian sains matematika murni dan terapan, tutorial sebaya, workshop matematika, serta pembinaan kompetisi olimpiade sains.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('keilmuan', this, 'putri')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divKeilmuanPutri['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 5) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+
+                        {{-- Connector ke Divisi Litbang --}}
+                        <div class="tree-connector h-24 my-2"></div>
+
+                        {{-- LEVEL 4 KANAN: DIVISI LITBANG --}}
+                        <div class="level-label text-center">DIVISI LITBANG</div>
+                        @php
+                            $divLitbangPutri = $divisiPutri['litbang'] ?? null;
+                            $litbangPutriPhoto = !empty($divLitbangPutri['group_photo']) ? $divLitbangPutri['group_photo'] : (!empty($divLitbangPutri['leader_photo']) ? $divLitbangPutri['leader_photo'] : null);
+                        @endphp
+                        <div class="chart-card">
+                            <div class="d-flex align-items-start gap-3 mb-2">
+                                @if($litbangPutriPhoto)
+                                    <img src="{{ $litbangPutriPhoto }}" alt="{{ $divLitbangPutri['leader_name'] ?? 'Litbang' }}" class="chart-officer-photo">
+                                @else
+                                    <div class="chart-officer-placeholder"><i class="fas fa-flask"></i></div>
+                                @endif
+                                <div class="flex-grow-1 min-w-0">
+                                    <span class="chart-badge"><i class="fas fa-flask me-1"></i> DIVISI LITBANG</span>
+                                    <h4 class="chart-title">Divisi Litbang</h4>
+                                    <div class="chart-officer">{{ $divLitbangPutri['leader_name'] ?? 'Lestari Wulan' }}</div>
+                                </div>
+                            </div>
+                            <p class="chart-desc">{{ $divLitbangPutri['description'] ?? 'Melaksanakan riset organisasi, survei aspirasi mahasiswa, pemantauan dan evaluasi mutu program kerja berkala, serta merumuskan inovasi strategis pengembangan HIMATIKA.' }}</p>
+                            <div class="chart-card-footer justify-content-between align-items-center">
+                                <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('litbang', this, 'putri')" style="font-size: 0.78rem;">
+                                    <i class="fas fa-users me-1"></i> Anggota ({{ $divLitbangPutri['member_count'] ?? 0 }})
+                                </button>
+                                <a href="{{ route('struktur-organisasi.show', 9) }}" class="link-detail">
+                                    Lihat Detail &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Connector Converge menuju Divisi Publik Relasi (Pertemukan kedua cabang garis) --}}
+                <div class="branch-converge-wrapper d-none d-md-block">
+                    <div class="branch-converge-bar"></div>
+                    <div class="branch-converge-drop"></div>
+                </div>
+                <div class="tree-connector h-20 d-md-none"></div>
+
+                {{-- LEVEL 5: SATU KARTU PUBLIK RELASI DI TENGAH PALING BAWAH --}}
+                <div class="level-label text-center">DIVISI PUBLIK RELASI</div>
+                @php
+                    $divPublikPutri = $divisiPutri['publik_relasi'] ?? null;
+                    $publikPutriPhoto = !empty($divPublikPutri['group_photo']) ? $divPublikPutri['group_photo'] : (!empty($divPublikPutri['leader_photo']) ? $divPublikPutri['leader_photo'] : null);
+                @endphp
+                <div class="chart-card-center mb-0">
+                    <div class="chart-card">
+                        <div class="d-flex align-items-start gap-3 mb-2">
+                            @if($publikPutriPhoto)
+                                <img src="{{ $publikPutriPhoto }}" alt="{{ $divPublikPutri['leader_name'] ?? 'Publik Relasi' }}" class="chart-officer-photo">
+                            @else
+                                <div class="chart-officer-placeholder"><i class="fas fa-handshake"></i></div>
+                            @endif
+                            <div class="flex-grow-1 min-w-0">
+                                <span class="chart-badge"><i class="fas fa-handshake me-1"></i> DIVISI PUBLIK RELASI</span>
+                                <h4 class="chart-title">Divisi Publik Relasi</h4>
+                                <div class="chart-officer">{{ $divPublikPutri['leader_name'] ?? 'Ummi Alfi' }}</div>
+                            </div>
+                        </div>
+                        <p class="chart-desc">{{ $divPublikPutri['description'] ?? 'Membangun jejaring kolaborasi dan kemitraan eksternal kampus, menjalin hubungan erat dengan alumni, menyelenggarakan program bakti sosial, serta menjaga reputasi publik himpunan.' }}</p>
+                        <div class="chart-card-footer justify-content-between align-items-center">
+                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="openDivisiModal('publik_relasi', this, 'putri')" style="font-size: 0.78rem;">
+                                <i class="fas fa-users me-1"></i> Anggota ({{ $divPublikPutri['member_count'] ?? 0 }})
+                            </button>
+                            <a href="{{ route('struktur-organisasi.show', 7) }}" class="link-detail">
+                                Lihat Detail &rarr;
+                            </a>
+                        </div>
                     </div>
                 </div>
 

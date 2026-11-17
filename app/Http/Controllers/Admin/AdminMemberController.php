@@ -13,41 +13,12 @@ class AdminMemberController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Member::query();
-
-        if ($request->filled('search')) {
-            $s = $request->search;
-            $query->where(function ($q) use ($s) {
-                $q->where('name', 'like', "%{$s}%")
-                  ->orWhere('nim', 'like', "%{$s}%")
-                  ->orWhere('position', 'like', "%{$s}%")
-                  ->orWhere('division', 'like', "%{$s}%");
-            });
-        }
-
-        if ($request->filled('division')) {
-            $query->where('division', $request->division);
-        }
-
-        if ($request->filled('kelompok')) {
-            $query->where('kelompok', $request->kelompok);
-        }
-
-        if ($request->filled('status')) {
-            $query->where('is_active', $request->status === 'active');
-        }
-
-        $members = $query->orderBy('order_num')->latest()->paginate(12)->withQueryString();
-        
-        $divisions = Member::select('division')->whereNotNull('division')->where('division', '!=', '')->distinct()->pluck('division');
-
-        return view('admin.pengurus.index', compact('members', 'divisions'));
+        return redirect()->route('admin.struktur-organisasi.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $structures = OrganizationalStructure::where('is_active', true)->get();
-        return view('admin.pengurus.create', compact('structures'));
+        return redirect()->route('admin.struktur-organisasi.create');
     }
 
     public function store(Request $request)
@@ -88,13 +59,21 @@ class AdminMemberController extends Controller
             $member
         );
 
+        if ($request->filled('return_unit')) {
+            return redirect()->route('admin.struktur-organisasi.index', [
+                'unit' => $request->return_unit,
+                'kelompok' => $validated['kelompok']
+            ])->with('success', "Pengurus \"{$member->name}\" ({$member->position}) berhasil ditambahkan ke unit.");
+        }
+
         return redirect()->route('admin.pengurus.index')->with('success', 'Pengurus berhasil ditambahkan.');
     }
 
-    public function edit(Member $penguru)
+    public function edit(Request $request, Member $penguru)
     {
         $structures = OrganizationalStructure::where('is_active', true)->get();
-        return view('admin.pengurus.edit', ['member' => $penguru, 'structures' => $structures]);
+        $returnUnit = $request->query('unit', $request->query('return_unit'));
+        return view('admin.pengurus.edit', ['member' => $penguru, 'structures' => $structures, 'returnUnit' => $returnUnit]);
     }
 
     public function update(Request $request, Member $penguru)
@@ -134,12 +113,21 @@ class AdminMemberController extends Controller
             $penguru
         );
 
+        if ($request->filled('return_unit')) {
+            return redirect()->route('admin.struktur-organisasi.index', [
+                'unit' => $request->return_unit,
+                'kelompok' => $validated['kelompok']
+            ])->with('success', "Data pengurus \"{$penguru->name}\" berhasil diperbarui.");
+        }
+
         return redirect()->route('admin.pengurus.index')->with('success', 'Data pengurus berhasil diperbarui.');
     }
 
-    public function destroy(Member $penguru)
+    public function destroy(Request $request, Member $penguru)
     {
         $name = $penguru->name;
+        $kelompok = $penguru->kelompok;
+        $returnUnit = $request->input('return_unit', $request->query('return_unit'));
 
         if ($penguru->photo && file_exists(storage_path('app/public/' . $penguru->photo))) {
             @unlink(storage_path('app/public/' . $penguru->photo));
@@ -152,6 +140,13 @@ class AdminMemberController extends Controller
             "Menghapus pengurus: \"{$name}\"",
             null
         );
+
+        if ($returnUnit) {
+            return redirect()->route('admin.struktur-organisasi.index', [
+                'unit' => $returnUnit,
+                'kelompok' => $kelompok
+            ])->with('success', "Pengurus \"{$name}\" berhasil dihapus.");
+        }
 
         return redirect()->route('admin.pengurus.index')->with('success', 'Pengurus berhasil dihapus.');
     }

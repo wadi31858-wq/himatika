@@ -288,6 +288,170 @@
         object-position: top center;
     }
 
+    /* Detail Org Chart Styles */
+    .detail-org-chart {
+        max-width: 960px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .detail-card-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .detail-member-card {
+        background: #ffffff;
+        border: 1px solid var(--border-rose);
+        border-radius: 16px;
+        padding: 24px 20px 20px;
+        text-align: center;
+        box-shadow: 0 4px 18px rgba(100, 29, 56, 0.05);
+        width: 100%;
+        max-width: 260px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        position: relative;
+    }
+    .detail-member-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(100, 29, 56, 0.12);
+        border-color: var(--burgundy-main);
+    }
+    .detail-member-avatar-wrap {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 14px;
+        position: relative;
+    }
+    .detail-member-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: top center;
+        border: 3px solid var(--border-rose);
+        box-shadow: 0 4px 12px rgba(100, 29, 56, 0.1);
+    }
+    .detail-member-placeholder {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: var(--rose-soft);
+        color: var(--burgundy-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 46px;
+        border: 3px solid var(--border-rose);
+    }
+    .detail-member-name {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .detail-member-badge {
+        display: inline-block;
+        background: var(--rose-soft);
+        color: var(--burgundy-main);
+        font-size: 0.78rem;
+        font-weight: 700;
+        padding: 4px 12px;
+        border-radius: 50px;
+        border: 1px solid var(--border-rose);
+        letter-spacing: 0.3px;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .detail-tree-line {
+        width: 2px;
+        height: 26px;
+        background: var(--burgundy-main);
+        margin: 0 auto;
+    }
+    .detail-split-bar {
+        position: relative;
+        width: 60%;
+        margin: 0 auto;
+        height: 2px;
+        background: var(--burgundy-main);
+    }
+    .detail-split-bar::before,
+    .detail-split-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 2px;
+        height: 18px;
+        background: var(--burgundy-main);
+    }
+    .detail-split-bar::before { left: 0; }
+    .detail-split-bar::after { right: 0; }
+    .detail-tree-line-sub {
+        height: 18px;
+    }
+
+    /* Dua Bagan Kelompok Divisi (Putra & Putri) */
+    .divisi-kelompok-wrapper {
+        background: #FFFFFF;
+        border: 1px solid var(--border-rose);
+        border-radius: 20px;
+        padding: 30px 22px 34px;
+        box-shadow: 0 4px 20px rgba(100, 29, 56, 0.04);
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .divisi-kelompok-wrapper:hover {
+        border-color: var(--burgundy-main);
+        box-shadow: 0 8px 28px rgba(100, 29, 56, 0.08);
+    }
+    .divisi-kelompok-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--rose-soft);
+        color: var(--burgundy-main);
+        font-weight: 800;
+        font-size: 0.96rem;
+        letter-spacing: 0.5px;
+        padding: 8px 24px;
+        border-radius: 50px;
+        border: 1.5px solid var(--border-rose);
+        box-shadow: 0 2px 8px rgba(100, 29, 56, 0.06);
+    }
+
+    @media (max-width: 767.98px) {
+        .divisi-kelompok-wrapper {
+            padding: 22px 14px 26px;
+            border-radius: 16px;
+        }
+        .divisi-kelompok-badge {
+            font-size: 0.88rem;
+            padding: 6px 18px;
+        }
+        .detail-member-card {
+            max-width: 240px;
+            padding: 20px 14px 16px;
+        }
+        .detail-member-avatar-wrap {
+            width: 82px;
+            height: 82px;
+            margin: 0 auto 10px;
+        }
+        .detail-member-name {
+            font-size: 0.98rem;
+        }
+        .detail-member-badge {
+            font-size: 0.74rem;
+        }
+    }
+
     @media (max-width: 991.98px) {
         .hero-burgundy-card {
             flex-direction: column;
@@ -337,7 +501,17 @@
                     {{ $jabatan->description ?? 'Menjalankan tugas dan fungsi strategis dalam struktur kepengurusan HIMATIKA UNUJA periode 2026.' }}
                 </p>
 
-                <div class="d-flex gap-3 mb-4 flex-wrap">
+                @php
+                    $isKaprodiPage = ($unitType ?? '') === 'kaprodi' 
+                        || (isset($jabatan) && (
+                            (int)$jabatan->id === 12 
+                            || str_contains(strtolower($jabatan->position ?? ''), 'kaprodi') 
+                            || str_contains(strtolower($jabatan->position ?? ''), 'program studi')
+                            || str_contains(strtolower($jabatan->position ?? ''), 'pembina')
+                        ));
+                @endphp
+
+                <div class="d-flex gap-3 flex-wrap {{ $isKaprodiPage ? 'mb-0' : 'mb-4' }}">
                     <div class="hero-stat-box">
                         <div class="hero-stat-num">{{ sprintf('%02d', $anggota->count() ?: 1) }}</div>
                         <span class="hero-stat-label">Anggota Aktif</span>
@@ -352,7 +526,7 @@
                     </div>
                 </div>
 
-                @if(isset($terkait) && $terkait->count() > 0)
+                @if(!$isKaprodiPage && isset($terkait) && $terkait->count() > 0)
                 <div class="mt-4 pt-2">
                     <div style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--rose-soft); margin-bottom: 8px; font-weight: 700;">
                         Jabatan Koordinasi Terkait:
@@ -372,11 +546,11 @@
             {{-- OFFICIAL PHOTO COLUMN --}}
             <div class="hero-photo-col">
                 <div class="hero-photo-wrap">
-                    @if($jabatan->photo)
-                        <img src="{{ asset('storage/' . $jabatan->photo) }}" alt="{{ $jabatan->name }}" class="hero-photo-img">
+                    @if($heroUnitPhoto)
+                        <img src="{{ $heroUnitPhoto }}" alt="{{ $jabatan->position }}" class="hero-photo-img">
                     @else
                         <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center text-white" style="min-height: 380px;">
-                            <i class="fas fa-user-circle" style="font-size: 90px; opacity: 0.5; margin-bottom: 12px;"></i>
+                            <i class="fas fa-users" style="font-size: 80px; opacity: 0.5; margin-bottom: 12px;"></i>
                             <span style="font-size: 0.9rem; font-weight: 600; opacity: 0.85;">Foto Resmi Kepengurusan</span>
                         </div>
                     @endif
@@ -471,60 +645,386 @@
             </div>
         </div>
 
-        {{-- SECTION: ANGGOTA DALAM JABATAN INI --}}
+        {{-- SECTION: STRUKTUR KEPENGURUSAN (BAGAN FOTO RESMI) --}}
         <div class="anggota-box">
-            <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-2">
-                <div>
-                    <span class="hero-badge-pill">ANGGOTA UNIT</span>
-                    <h3 style="color: var(--text-dark); font-size: 1.75rem; font-weight: 800; margin-bottom: 4px;">
-                        Anggota dalam jabatan ini
-                    </h3>
-                    <p style="color: rgba(40,21,29,0.7); font-size: 0.92rem; margin: 0;">
-                        Orang-orang yang bergerak bersama menjalankan amanah pada unit ini.
-                    </p>
-                </div>
-                <div style="background: var(--rose-soft); color: var(--burgundy-main); font-weight: 700; font-size: 0.82rem; padding: 6px 16px; border-radius: 50px;">
-                    {{ $anggota->count() }} Anggota Aktif
-                </div>
+            <div class="text-center mb-5">
+                <span class="hero-badge-pill">BAGAN KEPENGURUSAN</span>
+                <h3 style="color: var(--text-dark); font-size: 1.85rem; font-weight: 800; margin-bottom: 6px;">
+                    Struktur Kepengurusan
+                </h3>
+                <p style="color: rgba(40,21,29,0.7); font-size: 0.92rem; margin: 0;">
+                    Susunan hierarki resmi kepengurusan {{ $jabatan->position }} HIMATIKA UNUJA.
+                </p>
             </div>
 
-            <div class="row g-4">
-                @forelse($anggota as $agt)
-                <div class="col-lg-4 col-md-6">
-                    <div class="anggota-profile-card">
-                        <div class="anggota-photo-area">
-                            @if(isset($agt->photo) && $agt->photo)
-                                <img src="{{ asset('storage/' . $agt->photo) }}" alt="{{ $agt->name }}" class="anggota-img">
-                            @else
-                                <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center text-secondary">
-                                    <i class="fas fa-user-circle" style="font-size: 70px; opacity: 0.45; margin-bottom: 8px;"></i>
-                                    <span style="font-size: 0.8rem; font-weight: 600;">HIMATIKA UNUJA</span>
-                                </div>
-                            @endif
-                        </div>
-                        <div style="padding: 20px 22px;">
-                            <h4 style="color: var(--text-dark); font-size: 1.15rem; font-weight: 700; margin-bottom: 4px;">
-                                {{ $agt->name ?? 'Nama Pengurus' }}
-                            </h4>
-                            <span style="color: var(--burgundy-main); font-size: 0.82rem; font-weight: 700; display: inline-block; margin-bottom: 8px;">
-                                {{ $agt->position ?? $jabatan->position }}
+            @if($unitType === 'bpi_putra' || $unitType === 'bpi_putri')
+                {{-- ================= BPI PHOTO CHART HIERARCHY ================= --}}
+                <div class="detail-org-chart">
+                    {{-- ROW 1: KETUA UMUM --}}
+                    <div class="detail-card-row justify-content-center">
+                        <div class="detail-member-card">
+                            <div class="detail-member-avatar-wrap">
+                                @if($bpiKetua?->photo)
+                                    <img src="{{ asset('storage/' . $bpiKetua->photo) }}" alt="{{ $bpiKetua->name }}" class="detail-member-img">
+                                @else
+                                    <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                @endif
+                            </div>
+                            <div class="detail-member-name" title="{{ $bpiKetua?->name ?? 'Belum terisi' }}">
+                                {{ $bpiKetua?->name ?? 'Belum terisi' }}
+                            </div>
+                            <span class="detail-member-badge">
+                                {{ $unitType === 'bpi_putri' ? 'Ketua Umum Putri' : 'Ketua Umum Putra' }}
                             </span>
-                            @if(isset($agt->bio) && $agt->bio)
-                            <p style="color: rgba(40,21,29,0.65); font-size: 0.82rem; line-height: 1.5; margin: 0;">
-                                {{ $agt->bio }}
-                            </p>
-                            @endif
+                        </div>
+                    </div>
+
+                    {{-- CONNECTOR KETUA -> WAKIL --}}
+                    <div class="detail-tree-line"></div>
+
+                    {{-- ROW 2: WAKIL KETUA --}}
+                    <div class="detail-card-row justify-content-center">
+                        <div class="detail-member-card">
+                            <div class="detail-member-avatar-wrap">
+                                @if($bpiWakil?->photo)
+                                    <img src="{{ asset('storage/' . $bpiWakil->photo) }}" alt="{{ $bpiWakil->name }}" class="detail-member-img">
+                                @else
+                                    <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                @endif
+                            </div>
+                            <div class="detail-member-name" title="{{ $bpiWakil?->name ?? 'Belum terisi' }}">
+                                {{ $bpiWakil?->name ?? 'Belum terisi' }}
+                            </div>
+                            <span class="detail-member-badge">
+                                {{ $unitType === 'bpi_putri' ? 'Wakil Ketua Umum Putri' : 'Wakil Ketua Umum Putra' }}
+                            </span>
+                        </div>
+                    </div>
+
+                    {{-- CONNECTOR WAKIL -> BENDAHARA & SEKRETARIS (BRANCH SPLIT) --}}
+                    <div class="detail-tree-line"></div>
+                    <div class="detail-split-bar d-none d-md-block"></div>
+                    <div class="detail-tree-line-sub d-none d-md-block"></div>
+
+                    {{-- ROW 3: BENDAHARA DI KIRI & SEKRETARIS DI KANAN --}}
+                    <div class="row g-4 justify-content-center mt-1">
+                        {{-- BENDAHARA DI KIRI --}}
+                        <div class="col-md-5 col-lg-4 d-flex justify-content-center">
+                            <div class="detail-member-card w-100">
+                                <div class="detail-member-avatar-wrap">
+                                    @if($bpiBendahara?->photo)
+                                        <img src="{{ asset('storage/' . $bpiBendahara->photo) }}" alt="{{ $bpiBendahara->name }}" class="detail-member-img">
+                                    @else
+                                        <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                    @endif
+                                </div>
+                                <div class="detail-member-name" title="{{ $bpiBendahara?->name ?? 'Belum terisi' }}">
+                                    {{ $bpiBendahara?->name ?? 'Belum terisi' }}
+                                </div>
+                                <span class="detail-member-badge">
+                                    {{ $unitType === 'bpi_putri' ? 'Bendahara Putri' : 'Bendahara Putra' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        {{-- SEKRETARIS DI KANAN --}}
+                        <div class="col-md-5 col-lg-4 d-flex justify-content-center">
+                            <div class="detail-member-card w-100">
+                                <div class="detail-member-avatar-wrap">
+                                    @if($bpiSekretaris?->photo)
+                                        <img src="{{ asset('storage/' . $bpiSekretaris->photo) }}" alt="{{ $bpiSekretaris->name }}" class="detail-member-img">
+                                    @else
+                                        <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                    @endif
+                                </div>
+                                <div class="detail-member-name" title="{{ $bpiSekretaris?->name ?? 'Belum terisi' }}">
+                                    {{ $bpiSekretaris?->name ?? 'Belum terisi' }}
+                                </div>
+                                <span class="detail-member-badge">
+                                    {{ $unitType === 'bpi_putri' ? 'Sekretaris Putri' : 'Sekretaris Putra' }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                @empty
-                <div class="col-12">
-                    <div class="text-center py-4 text-muted">
-                        <p class="mb-0">Data anggota tambahan dalam jabatan ini sedang dilengkapi.</p>
+
+            @elseif($unitType === 'divisi')
+                {{-- ================= DIVISI PHOTO CHART HIERARCHY (DUA KELOMPOK: PUTRA & PUTRI) ================= --}}
+                @php
+                    $hasPutra = !empty($divisiPutraData) && ($divisiPutraData['total'] ?? 0) > 0;
+                    $hasPutri = !empty($divisiPutriData) && ($divisiPutriData['total'] ?? 0) > 0;
+                @endphp
+
+                @if($hasPutra && $hasPutri)
+                    {{-- KEDUA KELOMPOK TERSEDIA: DESKTOP 2 KOLOM (KIRI PUTRA, KANAN PUTRI), HP STACKED (ATAS PUTRA, BAWAH PUTRI) --}}
+                    <div class="row g-4 g-xl-5 justify-content-center">
+                        {{-- 1. BAGAN KEPENGURUSAN PUTRA (KOLOM KIRI) --}}
+                        <div class="col-12 col-lg-6">
+                            <div class="divisi-kelompok-wrapper">
+                                <div class="text-center mb-4">
+                                    <span class="divisi-kelompok-badge">
+                                        <i class="fas fa-mars me-1"></i> Kepengurusan Putra
+                                    </span>
+                                </div>
+                                <div class="detail-org-chart">
+                                    {{-- Koordinator / Co Putra di tengah atas --}}
+                                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                                        @foreach($divisiPutraData['leaders'] as $ldr)
+                                            <div class="detail-member-card">
+                                                <div class="detail-member-avatar-wrap">
+                                                    @if(!empty($ldr->photo))
+                                                        <img src="{{ asset('storage/' . $ldr->photo) }}" alt="{{ $ldr->name }}" class="detail-member-img">
+                                                    @else
+                                                        <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                    @endif
+                                                </div>
+                                                <div class="detail-member-name" title="{{ $ldr->name ?? 'Belum terisi' }}">
+                                                    {{ $ldr->name ?? 'Belum terisi' }}
+                                                </div>
+                                                <span class="detail-member-badge">
+                                                    {{ $ldr->position ?? 'Koordinator Divisi' }}
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                    {{-- Garis penghubung ke Anggota/Staf Putra di bawahnya --}}
+                                    @if(isset($divisiPutraData['staff']) && $divisiPutraData['staff']->count() > 0)
+                                        <div class="detail-tree-line"></div>
+                                        <div class="d-flex justify-content-center flex-wrap gap-3 mt-1">
+                                            @foreach($divisiPutraData['staff'] as $stf)
+                                                <div class="detail-member-card">
+                                                    <div class="detail-member-avatar-wrap">
+                                                        @if(!empty($stf->photo))
+                                                            <img src="{{ asset('storage/' . $stf->photo) }}" alt="{{ $stf->name }}" class="detail-member-img">
+                                                        @else
+                                                            <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="detail-member-name" title="{{ $stf->name ?? 'Belum terisi' }}">
+                                                        {{ $stf->name ?? 'Belum terisi' }}
+                                                    </div>
+                                                    <span class="detail-member-badge">
+                                                        {{ $stf->position ?? 'Anggota Divisi' }}
+                                                    </span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- 2. BAGAN KEPENGURUSAN PUTRI (KOLOM KANAN) --}}
+                        <div class="col-12 col-lg-6">
+                            <div class="divisi-kelompok-wrapper">
+                                <div class="text-center mb-4">
+                                    <span class="divisi-kelompok-badge">
+                                        <i class="fas fa-venus me-1"></i> Kepengurusan Putri
+                                    </span>
+                                </div>
+                                <div class="detail-org-chart">
+                                    {{-- Koordinator / Co Putri di tengah atas --}}
+                                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                                        @foreach($divisiPutriData['leaders'] as $ldr)
+                                            <div class="detail-member-card">
+                                                <div class="detail-member-avatar-wrap">
+                                                    @if(!empty($ldr->photo))
+                                                        <img src="{{ asset('storage/' . $ldr->photo) }}" alt="{{ $ldr->name }}" class="detail-member-img">
+                                                    @else
+                                                        <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                    @endif
+                                                </div>
+                                                <div class="detail-member-name" title="{{ $ldr->name ?? 'Belum terisi' }}">
+                                                    {{ $ldr->name ?? 'Belum terisi' }}
+                                                </div>
+                                                <span class="detail-member-badge">
+                                                    {{ $ldr->position ?? 'Koordinator Divisi' }}
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                    {{-- Garis penghubung ke Anggota/Staf Putri di bawahnya --}}
+                                    @if(isset($divisiPutriData['staff']) && $divisiPutriData['staff']->count() > 0)
+                                        <div class="detail-tree-line"></div>
+                                        <div class="d-flex justify-content-center flex-wrap gap-3 mt-1">
+                                            @foreach($divisiPutriData['staff'] as $stf)
+                                                <div class="detail-member-card">
+                                                    <div class="detail-member-avatar-wrap">
+                                                        @if(!empty($stf->photo))
+                                                            <img src="{{ asset('storage/' . $stf->photo) }}" alt="{{ $stf->name }}" class="detail-member-img">
+                                                        @else
+                                                            <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="detail-member-name" title="{{ $stf->name ?? 'Belum terisi' }}">
+                                                        {{ $stf->name ?? 'Belum terisi' }}
+                                                    </div>
+                                                    <span class="detail-member-badge">
+                                                        {{ $stf->position ?? 'Anggota Divisi' }}
+                                                    </span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                @elseif($hasPutra)
+                    {{-- HANYA KELOMPOK PUTRA TERSEDIA: DIPUSATKAN TANPA MENYISAKAN KOLOM KOSONG --}}
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+                            <div class="divisi-kelompok-wrapper">
+                                <div class="text-center mb-4">
+                                    <span class="divisi-kelompok-badge">
+                                        <i class="fas fa-mars me-1"></i> Kepengurusan Putra
+                                    </span>
+                                </div>
+                                <div class="detail-org-chart">
+                                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                                        @foreach($divisiPutraData['leaders'] as $ldr)
+                                            <div class="detail-member-card">
+                                                <div class="detail-member-avatar-wrap">
+                                                    @if(!empty($ldr->photo))
+                                                        <img src="{{ asset('storage/' . $ldr->photo) }}" alt="{{ $ldr->name }}" class="detail-member-img">
+                                                    @else
+                                                        <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                    @endif
+                                                </div>
+                                                <div class="detail-member-name" title="{{ $ldr->name ?? 'Belum terisi' }}">
+                                                    {{ $ldr->name ?? 'Belum terisi' }}
+                                                </div>
+                                                <span class="detail-member-badge">
+                                                    {{ $ldr->position ?? 'Koordinator Divisi' }}
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    @if(isset($divisiPutraData['staff']) && $divisiPutraData['staff']->count() > 0)
+                                        <div class="detail-tree-line"></div>
+                                        <div class="d-flex justify-content-center flex-wrap gap-3 mt-1">
+                                            @foreach($divisiPutraData['staff'] as $stf)
+                                                <div class="detail-member-card">
+                                                    <div class="detail-member-avatar-wrap">
+                                                        @if(!empty($stf->photo))
+                                                            <img src="{{ asset('storage/' . $stf->photo) }}" alt="{{ $stf->name }}" class="detail-member-img">
+                                                        @else
+                                                            <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="detail-member-name" title="{{ $stf->name ?? 'Belum terisi' }}">
+                                                        {{ $stf->name ?? 'Belum terisi' }}
+                                                    </div>
+                                                    <span class="detail-member-badge">
+                                                        {{ $stf->position ?? 'Anggota Divisi' }}
+                                                    </span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                @elseif($hasPutri)
+                    {{-- HANYA KELOMPOK PUTRI TERSEDIA: DIPUSATKAN TANPA MENYISAKAN KOLOM KOSONG --}}
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+                            <div class="divisi-kelompok-wrapper">
+                                <div class="text-center mb-4">
+                                    <span class="divisi-kelompok-badge">
+                                        <i class="fas fa-venus me-1"></i> Kepengurusan Putri
+                                    </span>
+                                </div>
+                                <div class="detail-org-chart">
+                                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                                        @foreach($divisiPutriData['leaders'] as $ldr)
+                                            <div class="detail-member-card">
+                                                <div class="detail-member-avatar-wrap">
+                                                    @if(!empty($ldr->photo))
+                                                        <img src="{{ asset('storage/' . $ldr->photo) }}" alt="{{ $ldr->name }}" class="detail-member-img">
+                                                    @else
+                                                        <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                    @endif
+                                                </div>
+                                                <div class="detail-member-name" title="{{ $ldr->name ?? 'Belum terisi' }}">
+                                                    {{ $ldr->name ?? 'Belum terisi' }}
+                                                </div>
+                                                <span class="detail-member-badge">
+                                                    {{ $ldr->position ?? 'Koordinator Divisi' }}
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    @if(isset($divisiPutriData['staff']) && $divisiPutriData['staff']->count() > 0)
+                                        <div class="detail-tree-line"></div>
+                                        <div class="d-flex justify-content-center flex-wrap gap-3 mt-1">
+                                            @foreach($divisiPutriData['staff'] as $stf)
+                                                <div class="detail-member-card">
+                                                    <div class="detail-member-avatar-wrap">
+                                                        @if(!empty($stf->photo))
+                                                            <img src="{{ asset('storage/' . $stf->photo) }}" alt="{{ $stf->name }}" class="detail-member-img">
+                                                        @else
+                                                            <div class="detail-member-placeholder"><i class="fas fa-user-circle"></i></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="detail-member-name" title="{{ $stf->name ?? 'Belum terisi' }}">
+                                                        {{ $stf->name ?? 'Belum terisi' }}
+                                                    </div>
+                                                    <span class="detail-member-badge">
+                                                        {{ $stf->position ?? 'Anggota Divisi' }}
+                                                    </span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                {{-- CATATAN ADMIN JIKA ADA PENGURUS YANG BELUM DITENTUKAN KELOMPOKNYA --}}
+                @if(isset($divisiUnassigned) && $divisiUnassigned->count() > 0)
+                    <div class="alert alert-warning d-flex align-items-center gap-3 mt-4 mx-auto shadow-sm" style="max-width: 680px; border-radius: 14px; border-left: 4px solid #F59E0B;">
+                        <i class="fas fa-exclamation-triangle text-warning fs-4"></i>
+                        <div>
+                            <div class="fw-bold">Perhatian Pengelola:</div>
+                            <div class="small">
+                                Terdapat {{ $divisiUnassigned->count() }} pengurus yang belum memiliki penanda kelompok (Putra / Putri): 
+                                <em>{{ $divisiUnassigned->pluck('name')->implode(', ') }}</em>. 
+                                Silakan tentukan kelompok pengurus melalui panel admin.
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+            @else
+                {{-- ================= KAPRODI / UMUM PHOTO CHART ================= --}}
+                <div class="detail-org-chart">
+                    <div class="detail-card-row justify-content-center">
+                        <div class="detail-member-card">
+                            <div class="detail-member-avatar-wrap">
+                                @if($jabatan->photo)
+                                    <img src="{{ asset('storage/' . $jabatan->photo) }}" alt="{{ $jabatan->name }}" class="detail-member-img">
+                                @else
+                                    <div class="detail-member-placeholder"><i class="fas fa-user-graduate"></i></div>
+                                @endif
+                            </div>
+                            <div class="detail-member-name" title="{{ $jabatan->name ?? 'Belum terisi' }}">
+                                {{ $jabatan->name ?? 'Mudakkir, S.Pd., MM.' }}
+                            </div>
+                            <span class="detail-member-badge">
+                                {{ $jabatan->position ?? 'Ketua Program Studi' }}
+                            </span>
+                        </div>
                     </div>
                 </div>
-                @endforelse
-            </div>
+            @endif
         </div>
 
     </div>

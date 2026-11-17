@@ -293,6 +293,23 @@
             box-shadow: 0 2px 8px rgba(113, 28, 53, 0.4);
         }
 
+        .sidebar-nested-toggle {
+            cursor: pointer;
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+        .sidebar-nested-toggle:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .sidebar-nested-toggle[aria-expanded="true"] .chevron-icon {
+            transform: rotate(180deg);
+        }
+        .sidebar-nested-toggle.parent-active {
+            color: #FFFFFF !important;
+            font-weight: 700;
+        }
+
         .nav-badge-pill {
             margin-left: auto;
             font-size: 0.7rem;
@@ -507,6 +524,12 @@
 
             .sidebar-backdrop.show {
                 display: block;
+            }
+
+            .sidebar-sub-item {
+                padding: 0.60rem 0.85rem;
+                font-size: 0.85rem;
+                min-height: 40px;
             }
         }
 
@@ -774,10 +797,28 @@
             </div>
 
             <!-- 3. TENTANG DROPDOWN -->
+            @php
+                $isStrukturRoute = request()->routeIs('admin.struktur-*') || request()->routeIs('admin.struktur-organisasi.*');
+                $currentStrukturParam = request()->route('struktur');
+                $currentStrukturId = $currentStrukturParam instanceof \App\Models\OrganizationalStructure 
+                    ? $currentStrukturParam->id 
+                    : ($currentStrukturParam ?? request('id'));
+                $currentUnitParam = strtolower(request('unit', ''));
+
+                $isKeilmuanActive = $isStrukturRoute && ($currentStrukturId == 5 || $currentUnitParam === 'keilmuan');
+                $isKominfoActive = $isStrukturRoute && ($currentStrukturId == 8 || $currentUnitParam === 'kominfo');
+                $isKaderisasiActive = $isStrukturRoute && ($currentStrukturId == 6 || $currentUnitParam === 'kaderisasi');
+                $isPublikActive = $isStrukturRoute && ($currentStrukturId == 7 || in_array($currentUnitParam, ['publik_relasi', 'publik', 'pr']));
+                $isLitbangActive = $isStrukturRoute && ($currentStrukturId == 9 || $currentUnitParam === 'litbang');
+                $isBpiActive = $isStrukturRoute && (
+                    $currentUnitParam === 'bpi' || 
+                    in_array($currentStrukturId, [1, 2, 3, 4, 10, 11, 13, 14]) || 
+                    (!$isKeilmuanActive && !$isKominfoActive && !$isKaderisasiActive && !$isPublikActive && !$isLitbangActive)
+                );
+
+                $isTentangActive = request()->routeIs('admin.tentang.*') || request()->routeIs('admin.visi-misi.*') || request()->routeIs('admin.profil.*') || $isStrukturRoute;
+            @endphp
             <div class="sidebar-dropdown-group">
-                @php
-                    $isTentangActive = request()->routeIs('admin.tentang.*') || request()->routeIs('admin.visi-misi.*') || request()->routeIs('admin.struktur-*') || request()->routeIs('admin.pengurus.*') || request()->routeIs('admin.profil.*');
-                @endphp
                 <button type="button" class="sidebar-dropdown-toggle {{ $isTentangActive ? 'parent-active' : '' }}" data-bs-toggle="collapse" data-bs-target="#dropdownTentang" aria-expanded="{{ $isTentangActive ? 'true' : 'false' }}">
                     <div class="toggle-left">
                         <i class="fas fa-university"></i>
@@ -802,15 +843,56 @@
                                 <i class="fas fa-bullseye small"></i> Visi dan Misi
                             </a>
                         </li>
+                        {{-- SUBMENU STRUKTUR ORGANISASI (ACCORDION DI BAWAH TENTANG) --}}
                         <li>
-                            <a href="{{ route('admin.struktur-organisasi.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.struktur-*') ? 'active' : '' }}">
-                                <i class="fas fa-sitemap small"></i> Struktur Organisasi
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.pengurus.index') }}" class="sidebar-sub-item {{ request()->routeIs('admin.pengurus.*') ? 'active' : '' }}">
-                                <i class="fas fa-user-friends small"></i> Anggota Pengurus
-                            </a>
+                            <button type="button" class="sidebar-sub-item sidebar-nested-toggle w-100 justify-content-between border-0 bg-transparent text-start {{ $isStrukturRoute ? 'parent-active' : '' }}" 
+                                    data-bs-toggle="collapse" data-bs-target="#dropdownSubStruktur" 
+                                    aria-expanded="{{ $isStrukturRoute ? 'true' : 'false' }}">
+                                <span class="d-inline-flex align-items-center gap-2">
+                                    <i class="fas fa-sitemap small"></i> Struktur Organisasi
+                                </span>
+                                <i class="fas fa-chevron-down chevron-icon ms-auto small"></i>
+                            </button>
+                            <div class="collapse {{ $isStrukturRoute ? 'show' : '' }}" id="dropdownSubStruktur">
+                                <ul class="sidebar-sub-menu" style="margin-left: 0.85rem; padding-left: 0.65rem; border-left: 1px dashed rgba(255,255,255,0.25);">
+                                    <li>
+                                        <a href="{{ route('admin.struktur-organisasi.index', ['unit' => 'bpi']) }}" 
+                                           class="sidebar-sub-item {{ $isBpiActive ? 'active' : '' }}">
+                                            <i class="fas fa-users-cog small"></i> BPI
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin.struktur-organisasi.index', ['unit' => 'keilmuan']) }}" 
+                                           class="sidebar-sub-item {{ $isKeilmuanActive ? 'active' : '' }}">
+                                            <i class="fas fa-book-reader small"></i> Divisi Keilmuan
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin.struktur-organisasi.index', ['unit' => 'kominfo']) }}" 
+                                           class="sidebar-sub-item {{ $isKominfoActive ? 'active' : '' }}">
+                                            <i class="fas fa-bullhorn small"></i> Divisi Kominfo
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin.struktur-organisasi.index', ['unit' => 'kaderisasi']) }}" 
+                                           class="sidebar-sub-item {{ $isKaderisasiActive ? 'active' : '' }}">
+                                            <i class="fas fa-user-graduate small"></i> Divisi Kaderisasi
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin.struktur-organisasi.index', ['unit' => 'publik_relasi']) }}" 
+                                           class="sidebar-sub-item {{ $isPublikActive ? 'active' : '' }}">
+                                            <i class="fas fa-handshake small"></i> Divisi Publik Relasi
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin.struktur-organisasi.index', ['unit' => 'litbang']) }}" 
+                                           class="sidebar-sub-item {{ $isLitbangActive ? 'active' : '' }}">
+                                            <i class="fas fa-flask small"></i> Divisi Litbang
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>

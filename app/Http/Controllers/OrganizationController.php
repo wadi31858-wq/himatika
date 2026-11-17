@@ -115,9 +115,7 @@ class OrganizationController extends Controller
 
             // Group photo per division (Putra & Putri)
             $groupPhotoPutra = $struct?->group_photo ? asset('storage/' . $struct->group_photo) : null;
-            $groupPhotoPutri = $struct?->group_photo_putri
-                ? asset('storage/' . $struct->group_photo_putri)
-                : ($struct?->group_photo ? asset('storage/' . $struct->group_photo) : null);
+            $groupPhotoPutri = !empty($struct?->group_photo_putri) ? asset('storage/' . $struct->group_photo_putri) : null;
 
             // Member PUTRA
             $membersPutra = Member::where('division', 'like', "%{$def['search']}%")
@@ -182,6 +180,9 @@ class OrganizationController extends Controller
                 return str_contains(strtolower($m->position), 'kepala') || str_contains(strtolower($m->position), 'co ');
             }) ?? $membersPutri->first();
 
+            $fallbackLeaderName = ($struct && $struct->kelompok === 'putri' && !empty($struct->name)) ? $struct->name : 'Belum Ditentukan';
+            $fallbackLeaderPhoto = ($struct && $struct->kelompok === 'putri' && !empty($struct->photo)) ? asset('storage/' . $struct->photo) : null;
+
             $divisiPutri[$key] = array_merge($def, [
                 'name' => $divisionName,
                 'description' => $divisionDesc,
@@ -189,9 +190,9 @@ class OrganizationController extends Controller
                 'group_photo' => $groupPhotoPutri,
                 'members' => $membersPutri,
                 'member_count' => $membersPutri->count(),
-                'leader_name' => $leaderPutri?->name ?? ($struct?->name ?? 'Pengurus Putri'),
+                'leader_name' => $leaderPutri?->name ?? $fallbackLeaderName,
                 'leader_position' => $leaderPutri?->position ?? 'Koordinator Divisi',
-                'leader_photo' => $leaderPutri?->photo ? asset('storage/' . $leaderPutri->photo) : null,
+                'leader_photo' => $leaderPutri?->photo ? asset('storage/' . $leaderPutri->photo) : $fallbackLeaderPhoto,
             ]);
 
             $modalMembersPutri = $membersPutri->map(function ($m) use ($def) {
@@ -203,7 +204,7 @@ class OrganizationController extends Controller
                 ];
             })->values();
 
-            if ($modalMembersPutri->isEmpty() && $struct && ($struct->kelompok === 'putri' || $struct->kelompok === 'semua') && $struct->name) {
+            if ($modalMembersPutri->isEmpty() && $struct && $struct->kelompok === 'putri' && $struct->name) {
                 $modalMembersPutri->push([
                     'name' => $struct->name,
                     'position' => $struct->position,
@@ -218,7 +219,7 @@ class OrganizationController extends Controller
                 'key' => $key,
                 'description' => $divisionDesc,
                 'detail_url' => route('struktur-organisasi.show', $def['id']),
-                'leader_name' => $leaderPutri?->name ?? ($struct?->name ?? 'Pengurus Putri'),
+                'leader_name' => $leaderPutri?->name ?? $fallbackLeaderName,
                 'leader_position' => $leaderPutri?->position ?? 'Koordinator Divisi',
                 'members' => $modalMembersPutri
             ];
@@ -265,27 +266,202 @@ class OrganizationController extends Controller
         // Siapkan data Tugas Utama, Program, dan Tugas Teknis yang spesifik per jabatan
         $roleData = $this->getRoleDetails($jabatan);
 
+        // Identifikasi jenis unit: BPI Putra, BPI Putri, Kaprodi, atau Divisi
+        $posLower = strtolower($jabatan->position ?? '');
+        $isBpiPutra = in_array((int)$id, [1, 13, 3, 11]) || (str_contains($posLower, 'putra') && !str_contains($posLower, 'divisi'));
+        $isBpiPutri = in_array((int)$id, [2, 14, 10, 4]) || (str_contains($posLower, 'putri') && !str_contains($posLower, 'divisi'));
+        $isKaprodi = (int)$id === 12 || str_contains($posLower, 'kaprodi') || str_contains($posLower, 'program studi');
+
+        if ($isBpiPutra) {
+            $unitType = 'bpi_putra';
+            $bpiKetua = OrganizationalStructure::find(1);
+            $bpiWakil = OrganizationalStructure::find(13);
+            $bpiBendahara = OrganizationalStructure::find(11);
+            $bpiSekretaris = OrganizationalStructure::find(3);
+        } elseif ($isBpiPutri) {
+            $unitType = 'bpi_putri';
+            $bpiKetua = OrganizationalStructure::find(2);
+            $bpiWakil = OrganizationalStructure::find(14);
+            $bpiBendahara = OrganizationalStructure::find(4);
+            $bpiSekretaris = OrganizationalStructure::find(10);
+        } elseif ($isKaprodi) {
+            $unitType = 'kaprodi';
+            $bpiKetua = null;
+            $bpiWakil = null;
+            $bpiBendahara = null;
+            $bpiSekretaris = null;
+        } else {
+            $unitType = 'divisi';
+            $bpiKetua = null;
+            $bpiWakil = null;
+            $bpiBendahara = null;
+            $bpiSekretaris = null;
+        }
+
         // Anggota dalam jabatan / divisi ini
         $searchKey = $jabatan->division ?: $jabatan->position;
-        $anggotaQuery = Member::where(function($q) use ($searchKey, $jabatan) {
-            $q->where('division', 'like', '%' . $searchKey . '%')
+        $cleanSearch = trim(str_replace(['Divisi', 'divisi', 'Kepala', '1.', '2.', '3.', '4.', '5.'], '', $searchKey));
+
+        $anggotaQuery = Member::where(function($q) use ($cleanSearch, $searchKey, $jabatan) {
+            $q->where('division', 'like', '%' . $cleanSearch . '%')
+              ->orWhere('division', 'like', '%' . $searchKey . '%')
               ->orWhere('position', 'like', '%' . $jabatan->position . '%');
         });
+
         if ($jabatan->kelompok && in_array($jabatan->kelompok, ['putra', 'putri'])) {
             $anggotaQuery->where('kelompok', $jabatan->kelompok);
         }
-        $anggota = $anggotaQuery->get();
+
+        $anggota = $anggotaQuery->where('is_active', true)->orderBy('order_num')->orderBy('id')->get();
 
         if ($anggota->isEmpty() && $jabatan->name) {
             $anggota = collect([(object)[
+                'id' => $jabatan->id,
                 'name' => $jabatan->name,
                 'position' => $jabatan->position,
                 'photo' => $jabatan->photo,
+                'kelompok' => $jabatan->kelompok,
+                'order_num' => 1,
                 'bio' => $jabatan->description ?: 'Pengurus resmi HIMATIKA UNUJA.'
             ]]);
         }
 
-        return view('struktur-detail', compact('jabatan', 'terkait', 'roleData', 'anggota'));
+        // Pengelompokan bagan divisi sesuai spesifikasi:
+        // Baris 1: Ketua/Koordinator (berdampingan jika 2)
+        // Baris 2: Wakil Koordinator (jika ada)
+        // Baris 3: Bendahara (kiri) & Sekretaris (kanan) (jika ada)
+        // Baris 4+: Seluruh staf/anggota
+        $divLeaders = collect();
+        $divWakils = collect();
+        $divBendahara = null;
+        $divSekretaris = null;
+        $divStaff = collect();
+
+        if ($unitType === 'divisi') {
+            $divLeaders = $anggota->filter(function($m) {
+                $pos = strtolower($m->position ?? '');
+                return str_contains($pos, 'kepala') || str_contains($pos, 'koordinator') || str_contains($pos, 'co ') || (int)($m->order_num ?? 0) === 1;
+            })->values();
+
+            if ($divLeaders->isEmpty() && $jabatan->name) {
+                $divLeaders = collect([(object)[
+                    'id' => $jabatan->id,
+                    'name' => $jabatan->name,
+                    'position' => $jabatan->position,
+                    'photo' => $jabatan->photo,
+                    'kelompok' => $jabatan->kelompok,
+                    'order_num' => 1,
+                    'bio' => $jabatan->description ?: 'Pengurus resmi HIMATIKA UNUJA.'
+                ]]);
+            }
+
+            $divWakils = $anggota->filter(function($m) {
+                $pos = strtolower($m->position ?? '');
+                return str_contains($pos, 'wakil');
+            })->values();
+
+            $divBendahara = $anggota->first(function($m) {
+                $pos = strtolower($m->position ?? '');
+                return str_contains($pos, 'bendahara');
+            });
+
+            $divSekretaris = $anggota->first(function($m) {
+                $pos = strtolower($m->position ?? '');
+                return str_contains($pos, 'sekretaris');
+            });
+
+            $excludedIds = $divLeaders->pluck('id')->filter()->toArray();
+            $excludedIds = array_merge($excludedIds, $divWakils->pluck('id')->filter()->toArray());
+            if ($divBendahara && isset($divBendahara->id)) $excludedIds[] = $divBendahara->id;
+            if ($divSekretaris && isset($divSekretaris->id)) $excludedIds[] = $divSekretaris->id;
+
+            $divStaff = $anggota->reject(function($m) use ($excludedIds) {
+                return in_array($m->id, $excludedIds);
+            })->sortBy('order_num')->values();
+
+            // Pengelompokan dua bagan: Kepengurusan Putra & Kepengurusan Putri
+            $anggotaPutra = $anggota->filter(function($m) {
+                return strtolower($m->kelompok ?? '') === 'putra';
+            })->sortBy('order_num')->values();
+
+            $anggotaPutri = $anggota->filter(function($m) {
+                return strtolower($m->kelompok ?? '') === 'putri';
+            })->sortBy('order_num')->values();
+
+            $divisiUnassigned = $anggota->reject(function($m) {
+                return in_array(strtolower($m->kelompok ?? ''), ['putra', 'putri']);
+            })->values();
+
+            $divisiPutraData = $this->formatDivisionGroup($anggotaPutra);
+            $divisiPutriData = $this->formatDivisionGroup($anggotaPutri);
+        } else {
+            $divisiPutraData = null;
+            $divisiPutriData = null;
+            $divisiUnassigned = collect();
+        }
+
+        // Foto bersama unit untuk panel foto hero
+        $heroUnitPhoto = null;
+        if ($unitType === 'bpi_putra') {
+            $heroUnitPhoto = $bpiKetua?->group_photo ? asset('storage/' . $bpiKetua->group_photo) : ($jabatan->group_photo ? asset('storage/' . $jabatan->group_photo) : ($jabatan->photo ? asset('storage/' . $jabatan->photo) : null));
+        } elseif ($unitType === 'bpi_putri') {
+            $heroUnitPhoto = $bpiKetua?->group_photo_putri ? asset('storage/' . $bpiKetua->group_photo_putri) : ($bpiKetua?->group_photo ? asset('storage/' . $bpiKetua->group_photo) : ($jabatan->group_photo_putri ? asset('storage/' . $jabatan->group_photo_putri) : ($jabatan->group_photo ? asset('storage/' . $jabatan->group_photo) : ($jabatan->photo ? asset('storage/' . $jabatan->photo) : null))));
+        } else {
+            $heroUnitPhoto = $jabatan->group_photo ? asset('storage/' . $jabatan->group_photo) : ($jabatan->photo ? asset('storage/' . $jabatan->photo) : null);
+        }
+
+        return view('struktur-detail', compact(
+            'jabatan',
+            'terkait',
+            'roleData',
+            'anggota',
+            'unitType',
+            'bpiKetua',
+            'bpiWakil',
+            'bpiBendahara',
+            'bpiSekretaris',
+            'divLeaders',
+            'divWakils',
+            'divBendahara',
+            'divSekretaris',
+            'divStaff',
+            'divisiPutraData',
+            'divisiPutriData',
+            'divisiUnassigned',
+            'heroUnitPhoto'
+        ));
+    }
+
+    private function formatDivisionGroup($members)
+    {
+        if ($members->isEmpty()) {
+            return null;
+        }
+
+        // Leader(s): Koordinator atau Co di tengah atas
+        $minOrder = $members->min('order_num') ?? 1;
+        $leaders = $members->filter(function($m) use ($minOrder) {
+            $pos = strtolower($m->position ?? '');
+            return ($m->order_num == $minOrder && (str_contains($pos, 'kepala') || str_contains($pos, 'koordinator') || str_contains($pos, 'co '))) 
+                || $m->order_num == $minOrder;
+        })->values();
+
+        if ($leaders->isEmpty()) {
+            $leaders = collect([$members->first()]);
+        }
+
+        $leaderIds = $leaders->pluck('id')->filter()->toArray();
+
+        // Anggota dan staf kelompok tersebut di bawahnya
+        $staff = $members->reject(function($m) use ($leaderIds) {
+            return in_array($m->id, $leaderIds);
+        })->sortBy('order_num')->values();
+
+        return [
+            'total' => $members->count(),
+            'leaders' => $leaders,
+            'staff' => $staff,
+        ];
     }
 
     private function getRoleDetails($jabatan)

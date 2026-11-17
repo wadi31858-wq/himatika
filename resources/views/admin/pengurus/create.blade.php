@@ -12,13 +12,21 @@
                 <h2 class="him-card-title">
                     <i class="fas fa-user-plus"></i> Formulir Data Pengurus
                 </h2>
-                <a href="{{ route('admin.pengurus.index') }}" class="btn btn-sm btn-outline-secondary">
+                @php
+                    $cancelUrl = !empty($returnUnit) 
+                        ? route('admin.struktur-organisasi.index', ['unit' => $returnUnit, 'kelompok' => $defaultKelompok ?? 'putra']) 
+                        : route('admin.pengurus.index');
+                @endphp
+                <a href="{{ $cancelUrl }}" class="btn btn-sm btn-outline-secondary">
                     <i class="fas fa-arrow-left me-1"></i> Kembali
                 </a>
             </div>
 
             <form action="{{ route('admin.pengurus.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @if(!empty($returnUnit))
+                    <input type="hidden" name="return_unit" value="{{ $returnUnit }}">
+                @endif
 
                 <div class="row g-3 mb-3">
                     <div class="col-md-5">
@@ -32,8 +40,8 @@
                     <div class="col-md-4">
                         <label class="form-label fw-semibold text-dark">Kelompok <span class="text-danger">*</span></label>
                         <select name="kelompok" class="form-select" required>
-                            <option value="putra" {{ old('kelompok') === 'putra' ? 'selected' : '' }}>Putra</option>
-                            <option value="putri" {{ old('kelompok') === 'putri' ? 'selected' : '' }}>Putri</option>
+                            <option value="putra" {{ old('kelompok', $defaultKelompok ?? 'putra') === 'putra' ? 'selected' : '' }}>Putra</option>
+                            <option value="putri" {{ old('kelompok', $defaultKelompok ?? 'putra') === 'putri' ? 'selected' : '' }}>Putri</option>
                         </select>
                     </div>
                 </div>
@@ -41,11 +49,11 @@
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Jabatan <span class="text-danger">*</span></label>
-                        <input type="text" name="position" class="form-control" value="{{ old('position') }}" required placeholder="Contoh: Anggota Divisi Keilmuan, Sekretaris 1">
+                        <input type="text" name="position" class="form-control" value="{{ old('position', $defaultPosition ?? '') }}" required placeholder="Contoh: Anggota Divisi Keilmuan, Koordinator Divisi (Co)">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold text-dark">Bidang / Divisi</label>
-                        <input type="text" name="division" class="form-control" value="{{ old('division') }}" placeholder="Contoh: BPH, Kominfo, Keilmuan, PSDM">
+                        <input type="text" name="division" class="form-control" value="{{ old('division', $defaultDivision ?? '') }}" placeholder="Contoh: Divisi Keilmuan, Divisi Kominfo">
                     </div>
                 </div>
 
@@ -79,7 +87,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-3 border-top">
-                    <a href="{{ route('admin.pengurus.index') }}" class="btn btn-light px-4">Batal</a>
+                    <a href="{{ $cancelUrl }}" class="btn btn-light px-4">Batal</a>
                     <button type="submit" class="btn btn-him-primary px-4">
                         <i class="fas fa-save me-1"></i> Simpan Pengurus
                     </button>

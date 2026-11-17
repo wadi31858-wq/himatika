@@ -12,7 +12,13 @@
                 <h2 class="him-card-title">
                     <i class="fas fa-edit"></i> Edit: {{ $member->name }}
                 </h2>
-                <a href="{{ route('admin.pengurus.index') }}" class="btn btn-sm btn-outline-secondary">
+                @php
+                    $retUnit = request('return_unit', $returnUnit ?? '');
+                    $cancelUrl = !empty($retUnit)
+                        ? route('admin.struktur-organisasi.index', ['unit' => $retUnit, 'kelompok' => $member->kelompok ?? 'putra'])
+                        : route('admin.pengurus.index');
+                @endphp
+                <a href="{{ $cancelUrl }}" class="btn btn-sm btn-outline-secondary">
                     <i class="fas fa-arrow-left me-1"></i> Kembali
                 </a>
             </div>
@@ -20,6 +26,9 @@
             <form action="{{ route('admin.pengurus.update', $member) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+                @if(!empty($retUnit))
+                    <input type="hidden" name="return_unit" value="{{ $retUnit }}">
+                @endif
 
                 <div class="row g-3 mb-3">
                     <div class="col-md-5">
@@ -84,7 +93,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2 pt-3 border-top">
-                    <a href="{{ route('admin.pengurus.index') }}" class="btn btn-light px-4">Batal</a>
+                    <a href="{{ $cancelUrl }}" class="btn btn-light px-4">Batal</a>
                     <button type="submit" class="btn btn-him-primary px-4">
                         <i class="fas fa-save me-1"></i> Perbarui Data
                     </button>

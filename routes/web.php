@@ -85,6 +85,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::put('/profil', [\App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profil.update');
     Route::get('/visi-misi', [\App\Http\Controllers\Admin\AdminVisionMissionController::class, 'edit'])->name('visi-misi.edit');
     Route::put('/visi-misi', [\App\Http\Controllers\Admin\AdminVisionMissionController::class, 'update'])->name('visi-misi.update');
+    Route::post('/struktur-organisasi/reorder/{member}', [\App\Http\Controllers\Admin\AdminOrganizationController::class, 'reorderMember'])->name('struktur-organisasi.reorder');
+    Route::post('/struktur-organisasi/upload-group-photo', [\App\Http\Controllers\Admin\AdminOrganizationController::class, 'uploadGroupPhoto'])->name('struktur-organisasi.upload-group-photo');
     Route::resource('struktur-organisasi', \App\Http\Controllers\Admin\AdminOrganizationController::class)->except(['show'])->parameters(['struktur-organisasi' => 'struktur']);
     Route::resource('pengurus', \App\Http\Controllers\Admin\AdminMemberController::class)->except(['show'])->parameters(['pengurus' => 'penguru']);
 
